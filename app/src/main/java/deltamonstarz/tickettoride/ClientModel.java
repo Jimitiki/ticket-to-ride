@@ -2,7 +2,7 @@ package deltamonstarz.tickettoride;
 
 import java.util.List;
 
-import delta.monstarz.Command;
+import delta.monstarz.BaseCommand;
 import delta.monstarz.Player;
 
 public class ClientModel {
@@ -10,7 +10,7 @@ public class ClientModel {
 	private Player player;
 	private String gameID;
 	private int curCommand;
-	private List<Command> gameHistory;
+	private List<BaseCommand> gameHistory;
 
 	private ClientModel() {}
 
@@ -42,11 +42,11 @@ public class ClientModel {
 		this.curCommand = curCommand;
 	}
 
-	public List<Command> getGameHistory() {
+	public List<BaseCommand> getGameHistory() {
 		return gameHistory;
 	}
 
-	public void setGameHistory(List<Command> gameHistory) {
+	public void setGameHistory(List<BaseCommand> gameHistory) {
 		this.gameHistory = gameHistory;
 	}
 

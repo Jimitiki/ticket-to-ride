@@ -5,11 +5,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import delta.monstarz.Command;
+import delta.monstarz.IServer;
 
 public class Presenter implements Observer{
 	ClientModel model;
 	ViewInterface curView;
-	ServerProxy proxy;
+	IServer proxy;
 
 	@Override
 	public void update(Observable o, Object arg) {

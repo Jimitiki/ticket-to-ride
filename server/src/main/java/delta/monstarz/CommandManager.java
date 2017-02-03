@@ -10,7 +10,7 @@ public class CommandManager {
 	 * @param command the Command object that will be validated
 	 * @throws Exception if validation fails
 	 */
-	public static void validate(Command command) throws Exception{
+	public static void validate(BaseCommand command) throws Exception{
 
 	}
 
@@ -19,7 +19,7 @@ public class CommandManager {
 	 * @param command Command object to be executed
 	 * @throws Exception if execution fails, i.e. action is invalid
 	 */
-	public static void execute(Command command) throws Exception{
+	public static void execute(BaseCommand command) throws Exception{
 
 	}
 
@@ -30,7 +30,7 @@ public class CommandManager {
 	 * @param commandIndex index of the last command executed by the client
 	 * @return list of commands
 	 */
-	public static List<Command> getCommands(String gameID, String username, int commandIndex) {
+	public static List<BaseCommand> getCommands(String gameID, String username, int commandIndex) {
 		return null;
 	}
 }
