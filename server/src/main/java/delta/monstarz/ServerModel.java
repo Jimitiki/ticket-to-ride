@@ -90,8 +90,7 @@ public class ServerModel {
 	 * @param username
 	 * @return A list of games that the player is in
 	 */
-	public List<Game> getGamesIn(String username){
-		//ToDo: (Trevor) Should we make some kind of a "GameInfo" stub? rather than return full games? something that would be light weight to send back to the client?
+	public List<GameInfo> getGamesIn(String username){
 		return null;
 	}
 
@@ -99,8 +98,7 @@ public class ServerModel {
 	 *
 	 * @return A list of all of the games that have not yet started
 	 */
-	public List<Game> getOpenGames(){
-		//ToDo: (Trevor) Should we make some kind of a "GameInfo" stub? rather than return full games? something that would be light weight to send back to the client?
+	public List<GameInfo> getOpenGames(){
 		return null;
 	}
 

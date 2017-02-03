@@ -1,5 +1,8 @@
 package delta.monstarz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Trevor on 2/2/2017.
  */
@@ -12,9 +15,7 @@ public class Game {
 	private String name;
 	private int startTime;
 
-	//ToDo: Make the command class
-	// We need to make the command class before we can use this next line
-	//private List<Command>() history = new ArrayList<Command>();
+	private List<BaseCommand> history = new ArrayList<BaseCommand>();
 
 	public Game(){
 		this.gameID = nextNewGameID;

@@ -1,14 +1,16 @@
 package delta.monstarz;
 
+import java.util.List;
+
 /**
  * Created by alex on 2/2/17.
  */
 
 public interface IServer {
-    public Err executeCommand(BaseCommand command);
+    public void executeCommand(BaseCommand command) throws Exception;
 
     public String register(String username, String password);
     public String login(String username, String password);
 
-    public Result listGames(String auth);
+    public List<GameInfo> listGames(String auth);
 }
