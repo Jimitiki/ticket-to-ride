@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import delta.monstarz.Command;
+import delta.monstarz.BaseCommand;
 import delta.monstarz.IServer;
 
 public class Presenter implements Observer{
 	ClientModel model;
-	ViewInterface curView;
+	IView curView;
 	IServer proxy;
 
 	@Override
@@ -68,7 +68,7 @@ public class Presenter implements Observer{
 	/**
 	 * Removes user from the selected game
 	 * Switches to GameSelectView
-	 * @param gameID
+	 * @param gameID id of the game to leave
 	 */
 	public void quitGame(String gameID) {
 
