@@ -12,7 +12,7 @@ public class ServerModel {
 
 	private static ServerModel instance;
 
-	private HashMap<String, Player> players = new HashMap<>();
+	private HashMap<String, Person> people = new HashMap<>(); //Key is username
 	private HashMap<Integer, Game> games = new HashMap<>();
 
 	private ServerModel(){
@@ -99,15 +99,6 @@ public class ServerModel {
 	 * @return A list of all of the games that have not yet started
 	 */
 	public List<GameInfo> getOpenGames(){
-		return null;
-	}
-
-	/**
-	 * Given a game ID, return a list of all the players in the game
-	 * @param gameID
-	 * @return A list of players in the specific game
-	 */
-	public List<Player> getPlayersIn(int gameID){
 		return null;
 	}
 
