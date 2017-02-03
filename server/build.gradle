@@ -1,6 +1,8 @@
 apply plugin: 'java'
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':shared')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(path: ':shared')
 }
