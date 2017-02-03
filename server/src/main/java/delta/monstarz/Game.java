@@ -3,6 +3,8 @@ package delta.monstarz;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.monstarz.commands.BaseCommand;
+
 /**
  * Created by Trevor on 2/2/2017.
  */

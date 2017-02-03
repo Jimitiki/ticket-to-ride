@@ -2,6 +2,8 @@ package delta.monstarz;
 
 import java.util.List;
 
+import delta.monstarz.commands.BaseCommand;
+
 public class CommandManager {
 
 

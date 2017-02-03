@@ -1,15 +1,14 @@
 package deltamonstarz.tickettoride;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import delta.monstarz.BaseCommand;
 import delta.monstarz.IServer;
+import deltamonstarz.tickettoride.views.BaseView;
 
 public class Presenter implements Observer{
 	ClientModel model;
-	IView curView;
+	BaseView curView;
 	IServer proxy;
 
 	@Override

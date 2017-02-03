@@ -2,12 +2,12 @@ package deltamonstarz.tickettoride;
 
 import java.util.List;
 
-import delta.monstarz.BaseCommand;
-import delta.monstarz.Player;
+import delta.monstarz.commands.BaseCommand;
 
 public class ClientModel {
 	private static ClientModel clientModel = new ClientModel();
-	private Player player;
+	private String username;
+	private String authToken;
 	private String gameID;
 	private int curCommand;
 	private List<BaseCommand> gameHistory;
@@ -18,12 +18,20 @@ public class ClientModel {
 		return clientModel;
 	}
 
-	public Player getPlayer() {
-		return player;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
 	}
 
 	public String getGameID() {
