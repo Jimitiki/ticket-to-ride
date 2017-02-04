@@ -15,9 +15,9 @@ import delta.monstarz.shared.Result;
 
 public class ServerProxy implements IServer {
 
-    private final String _url = "127.0.0.1";
-    private final String _port = "8080";
-    private String _path;
+    private final String _url;
+    private final String _port;
+    private String _pathRegister = "/register";
 
     private static ServerProxy _instance = null;
 
@@ -29,8 +29,8 @@ public class ServerProxy implements IServer {
     }
 
     ServerProxy(String url, String port) {
-        _url = url;
-        _port = port;
+        _url = url; //"127.0.0.1"
+        _port = port; //"8080"
     }
 
     public void executeCommand(BaseCommand command) throws Exception {
@@ -40,17 +40,18 @@ public class ServerProxy implements IServer {
     @Override
     public String register(Person peep) {
         String ser = SerDes.serialize(peep);
-        Result res = ClientCommunicator.connectAndSend(_url, _port, _path, ser);
+        String response = ClientCommunicator.connectAndSend(_url, _port, _pathRegister, ser);
 
-        if (res.status() == 1) {
-            System.out.println(res.getResultStr());
-        } else if (res.status() == 2) {
-            System.out.println(res.getResultInt());
-        } else if (res.status() == 3) {
-            res.throwResultErr();
-        }
-        return res;
-        return null;
+//        peep.addAuthToken(response);
+//        if (res.status() == 1) {
+//            System.out.println(res.getResultStr());
+//        } else if (res.status() == 2) {
+//            System.out.println(res.getResultInt());
+//        } else if (res.status() == 3) {
+//            res.throwResultErr();
+//        }
+//        return res;
+        return response;
     }
 
     @Override

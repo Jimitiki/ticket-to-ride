@@ -1,4 +1,4 @@
-package delta.monstarz.server;
+package delta.monstarz.server.web;
 import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
@@ -53,7 +53,7 @@ public class ServerCommunicator implements HttpHandler {
         }
     }
 
-    private String readString(InputStream is) throws IOException {
+    protected String readString(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         InputStreamReader sr = new InputStreamReader(is);
         char[] buf = new char[1024];
@@ -64,7 +64,7 @@ public class ServerCommunicator implements HttpHandler {
         return sb.toString();
     }
 
-    private void writeString(String str, OutputStream os) throws IOException {
+    protected void writeString(String str, OutputStream os) throws IOException {
         OutputStreamWriter sw = new OutputStreamWriter(os);
         sw.write(str);
         sw.flush();

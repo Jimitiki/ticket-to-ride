@@ -11,7 +11,7 @@ import delta.monstarz.shared.SerDes;
 
 public class ClientCommunicator {
 
-    public static Result connectAndSend(String serverHost, String serverPort, String path, String reqData) {
+    public static String connectAndSend(String serverHost, String serverPort, String path, String reqData) {
         // System.out.println("http://" + serverHost + ":" + serverPort + path);
         try {
             URL url = new URL("http://" + serverHost + ":" + serverPort + path);
@@ -34,8 +34,8 @@ public class ClientCommunicator {
             if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream respBody = http.getInputStream();
                 String respData = readString(respBody);
-                Result res = SerDes.deserializeResult(respData);
-                return res;
+//                Result res = SerDes.deserializeResult(respData);
+                return respData;
                 // System.out.println(respData);
             }
             else {
@@ -45,7 +45,7 @@ public class ClientCommunicator {
         catch (IOException e) {
             e.printStackTrace();
         }
-        return new Result();
+        return null; //new Result();
     }
 
     private static String readString(InputStream is) throws IOException {
