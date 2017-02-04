@@ -3,6 +3,8 @@ import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
+import delta.monstarz.web.ServerCommunicator;
+
 public class Server {
 
 	private static final int MAX_WAITING_CONNECTIONS = 12;
@@ -26,6 +28,7 @@ public class Server {
 		System.out.println("Creating contexts");
 		// server.createContext("/games/list", new ListGamesHandler());
 		server.createContext("/command", new ServerCommunicator());
+		server.createContext("/register", new ServerCommunicator());
 
 		System.out.println("Starting server");
 		server.start();

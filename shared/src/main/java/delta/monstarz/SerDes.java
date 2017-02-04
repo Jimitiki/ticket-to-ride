@@ -37,41 +37,45 @@ public class SerDes {
         return basecmd;
     }
 
-    public static Result deserializeResult(String json)
-    {
+//    public static Result deserializeResult(String json)
+//    {
+//        Gson gson = new Gson();
+//        JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
+//
+//        String classname = "Result";
+//
+//        Result basecmd = null;
+//        try {
+//            Class c = null;
+//            try {
+//                c = Class.forName(classname);
+//            } catch (ClassNotFoundException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//
+//            basecmd = (Result)gson.fromJson(json, c);
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return basecmd;
+//    }
+
+    public static Result deserializeResult(String json) {
         Gson gson = new Gson();
-        JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
-
-        String classname = "Result";
-
-        Result basecmd = null;
-        try {
-            Class c = null;
-            try {
-                c = Class.forName(classname);
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            basecmd = (Result)gson.fromJson(json, c);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return basecmd;
+        return gson.fromJson(json, Result.class);
     }
 
-    public static String serialize(Object c)
-    {
+    public static String serialize(Object c) {
         Gson gson = new Gson();
         return gson.toJson(c);
     }
 
-    public static Result deserializeResults(String json)
+    public static Person deserializePerson(String json)
     {
         Gson gson = new Gson();
-        return gson.fromJson(json, Result.class);
+        return gson.fromJson(json, Person.class);
     }
 
     public static Result deserializeArguments(String json)

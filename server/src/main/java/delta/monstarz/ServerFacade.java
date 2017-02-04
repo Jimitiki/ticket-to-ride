@@ -24,8 +24,10 @@ public class ServerFacade implements IServer {
 //    }
 
     @Override
-    public String register(String username, String password) {
-        return null;
+    public String register(Person peep) {
+        String auth_token = "thisistheauthtoken12345";
+//        peep.addAuthToken(auth_token);
+        return auth_token;
     }
 
     @Override
