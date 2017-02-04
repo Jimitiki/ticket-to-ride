@@ -1,5 +1,7 @@
 package delta.monstarz.shared;
 
+import java.util.Date;
+
 /**
  * The GameInfo class exists for the purpose of sending information to the client
  * An instance of GameInfo contains basic information related to an instance of a game
@@ -9,13 +11,15 @@ package delta.monstarz.shared;
 public class GameInfo {
 
 	private String name;
+	private String ownerName;
 	private int gameID;
-	private int startTime;
+	private Date startTime;
 	private int playerCount;
 	private boolean gameStarted;
 
-	public GameInfo(String name, int gameID, int startTime, int playerCount, boolean gameStarted){
+	public GameInfo(String name, String ownerName, int gameID, Date startTime, int playerCount, boolean gameStarted){
 		this.name = name;
+		this.ownerName = ownerName;
 		this.gameID = gameID;
 		this.startTime = startTime;
 		this.playerCount = playerCount;
@@ -30,6 +34,14 @@ public class GameInfo {
 		this.name = name;
 	}
 
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
 	public int getGameID() {
 		return gameID;
 	}
@@ -38,11 +50,11 @@ public class GameInfo {
 		this.gameID = gameID;
 	}
 
-	public int getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(int startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 

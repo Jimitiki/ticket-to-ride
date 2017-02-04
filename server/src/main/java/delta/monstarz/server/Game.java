@@ -1,6 +1,7 @@
 package delta.monstarz.server;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
@@ -16,16 +17,20 @@ import delta.monstarz.shared.commands.BaseCommand;
 public class Game {
 
 	private static int nextNewGameID = 0;
+	private static final int MAX_PLAYERS = 6;
 
 	private int gameID;
 	private String name;
-	private int startTime;
+	private String ownerName;
+	private Date startTime;
 	private boolean gameStarted = false;
 	private List<Player> players = new ArrayList<>();
 
 	private List<BaseCommand> history = new ArrayList<BaseCommand>();
 
-	public Game(){
+	public Game(String gameName, String ownerName){
+		this.name = gameName;
+		this.ownerName = ownerName;
 		this.gameID = nextNewGameID;
 		nextNewGameID++;
 	}
@@ -42,7 +47,7 @@ public class Game {
 		this.name = name;
 	}
 
-	public int getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
@@ -50,11 +55,29 @@ public class Game {
 		return gameStarted;
 	}
 
+
+
 	/**
 	 * The game starts
 	 * New players can no longer join the game
 	 */
 	public void start(){
+		if (players.size() > 1){
+			gameStarted = true;
+			startTime = new Date(); // All new dates start with the current time
+		}
+
+	}
+
+	/**
+	 * Add a player to the game as long as the game is not full
+	 * @param username
+	 */
+	public void addPlayer(String username){
+		if (players.size() < MAX_PLAYERS && !gameStarted){
+			Player player = new Player(username);
+			players.add(player);
+		}
 
 	}
 
@@ -64,6 +87,7 @@ public class Game {
 	 * @return A boolean value representing if the player is in the game
 	 */
 	public boolean hasPlayer(String username){
+
 		for (Player player: players){
 			if (player.getUsername().equals(username)){
 				return true;
@@ -80,6 +104,7 @@ public class Game {
 	public GameInfo getGameInfo(){
 		GameInfo gameInfo = new GameInfo(
 				name,
+				ownerName,
 				gameID,
 				startTime,
 				players.size(),

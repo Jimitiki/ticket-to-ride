@@ -49,7 +49,19 @@ public class Person {
 		authTokens.put(token, new Date());
 	}
 
+	public void removeAuthToken(String token){
+		authTokens.remove(token);
+	}
+
 	public boolean hasAuthToken(String token){
 		return authTokens.containsKey(token);
+	}
+
+	public void removeExpiredTokens(Date oldestAllowedTime){
+		for (HashMap.Entry<String,Date> entry: authTokens.entrySet()){
+			if ( oldestAllowedTime.getTime() > entry.getValue().getTime()){
+				authTokens.remove(entry.getKey());
+			}
+		}
 	}
 }

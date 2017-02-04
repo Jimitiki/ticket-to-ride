@@ -1,12 +1,13 @@
 package delta.monstarz.server;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import delta.monstarz.exceptions.InvalidCredentialsException;
-import delta.monstarz.exceptions.LoginException;
-import delta.monstarz.exceptions.UsernameInUseException;
+import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
+import delta.monstarz.exceptions.loginExceptions.LoginException;
+import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
 
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.GameInfo;
@@ -15,20 +16,21 @@ import delta.monstarz.shared.GameInfo;
  * Created by Trevor on 2/2/2017.
  */
 
-public class ServerModel {
+public class ServerModelManager {
 
-	private static ServerModel instance;
+	private static ServerModelManager instance;
+	private static final long authTokenLifeTime = 60 * ( 60 * 1000); // Only change the left number(minutes) Format: minutes * (seconds * milliseconds)
 
 	private HashMap<String, Person> people = new HashMap<>(); //Key is username
-	private HashMap<Integer, Game> games = new HashMap<>();
+	private HashMap<Integer, Game> games = new HashMap<>(); // Key is gameID
 
-	private ServerModel(){
+	private ServerModelManager(){
 
 	}
 
-	public ServerModel getInstance(){
+	public ServerModelManager getInstance(){
 		if (instance == null){
-			instance = new ServerModel();
+			instance = new ServerModelManager();
 		}
 		return instance;
 	}
@@ -36,22 +38,25 @@ public class ServerModel {
 	/**
 	 * A new game is created with an empty beginning state.
 	 * Players can join the new game until the owner of the game starts the game
-	 * @param playerName
-	 * @param gameName
+	 * @param ownerName Username of the person who made the game
+	 * @param gameName Name chosen by the creator of the game
 	 * @return The id of the new game
 	 */
-	public int createGame(String playerName, String gameName){
-		return -1;
+	public int createGame(String gameName, String ownerName){
+		Game game = new Game(gameName, ownerName);
+		games.put(game.getGameID(), game);
+		return game.getGameID();
 	}
 
 	/**
 	 * Players can join a game that has not yet started and has less than the max number of players
-	 * Players can also join games that they are part of, even if the game has already started
-	 * @param playerName
-	 * @param gameName
+	 * A player only joins a game once
+	 * @param playerName Username of player
+	 * @param gameID ID of a game that exists
 	 */
-	public void joinGame(String playerName, String gameName){
-
+	public void joinGame(String playerName, int gameID){
+		//Todo: Do we need to make a distinction between joining a game for the first time and re-entering a game?
+		games.get(gameID).addPlayer(playerName);
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class ServerModel {
 	 * @param playerName
 	 * @param gameID
 	 */
-	public void quit(String playerName, int gameID){
+	public void quitGame(String playerName, int gameID){
 
 	}
 
@@ -80,8 +85,11 @@ public class ServerModel {
 		}
 		else{
 			Person person = new Person(username, password);
+
 			String newAuthToken = UUID.randomUUID().toString();
 			person.addAuthToken(newAuthToken);
+
+			people.put(person.getUsername(), person);
 			return newAuthToken;
 		}
 	}
@@ -118,8 +126,10 @@ public class ServerModel {
 	 * A player is logged out and their authToken can no longer be used.
 	 * @param authToken
 	 */
-	public void logout(String authToken){
-
+	public void logout(String username, String authToken){
+		if ( people.containsKey(username) ){
+			people.get(username).removeAuthToken(authToken);
+		}
 	}
 
 	/**
@@ -154,7 +164,17 @@ public class ServerModel {
 	 * @param gameID
 	 */
 	public void startGame(int gameID){
+		games.get(gameID).start();
+	}
 
+	/**
+	 * Calculates the oldest allowed authToken time and has each person delete
+	 * tokens that are older than the time
+	 */
+	private void clearExpiredTokens(){
+		//Todo: Call this function periodically, probably once per minute
+		Date oldestAllowedTime = new Date();
+		oldestAllowedTime.setTime(oldestAllowedTime.getTime() - authTokenLifeTime);
 	}
 
 	public Game getGameByID(int gameID) {
