@@ -2,6 +2,7 @@ package delta.monstarz.shared;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class Person {
 	private String username;
 	private String password;
 	private Date lastLogin;
-	private List<String> authTokens = new ArrayList<>();
+	private HashMap<String, Date> authTokens = new HashMap<>();
 
 	public Person(String name, String pass) {
 		username = name;
@@ -45,10 +46,10 @@ public class Person {
 	}
 
 	public void addAuthToken(String token){
-		authTokens.add(token);
+		authTokens.put(token, new Date());
 	}
 
 	public boolean hasAuthToken(String token){
-		return authTokens.contains(token);
+		return authTokens.containsKey(token);
 	}
 }
