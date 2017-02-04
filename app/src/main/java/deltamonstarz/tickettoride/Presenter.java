@@ -4,12 +4,17 @@ import java.util.Observable;
 import java.util.Observer;
 
 import delta.monstarz.shared.IServer;
+import delta.monstarz.shared.Person;
 import deltamonstarz.tickettoride.views.BaseView;
 
 public class Presenter implements Observer{
 	ClientModel model;
 	BaseView curView;
 	IServer proxy;
+
+	public Presenter() {
+		model = ClientModel.getInstance();
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -23,8 +28,9 @@ public class Presenter implements Observer{
 	 * @param password the corresponding password
 	 * @return true if the user could be created, false if not
 	 */
-	public boolean register(String username, String password) {
-		return false;
+	public void register(String ipAddress, String portNum, String username, String password) {
+		proxy = ServerProxy.getInstance(ipAddress, portNum);
+		model.setAuthToken(proxy.register(new Person(username, password)));
 	}
 
 	/**
@@ -34,8 +40,9 @@ public class Presenter implements Observer{
 	 * @param password the corresponding password
 	 * @return true if the credentials were verified, false if not
 	 */
-	public boolean login(String username, String password) {
-		return false;
+	public void login(String ipAddress, String portNum, String username, String password) {
+		proxy = ServerProxy.getInstance(ipAddress, portNum);
+		//model.setAuthToken(proxy.login(new Person(username, password)));
 	}
 
 	/**
@@ -43,7 +50,7 @@ public class Presenter implements Observer{
 	 * Updates the client model and switched to LoginView
 	 */
 	public void logout() {
-
+		model.setAuthToken(null);
 	}
 
 	/**
@@ -60,17 +67,17 @@ public class Presenter implements Observer{
 	 * Switches to GameView
 	 * @param gameID gameID of the game chosen by the user
 	 */
-	public void joinGame(String gameID) {
+	public void joinGame(int gameID) {
 
 	}
 
 	/**
-	 * Removes user from the selected game
+	 * Removes user from the current game stored in the client model
 	 * Switches to GameSelectView
-	 * @param gameID id of the game to leave
 	 */
-	public void quitGame(String gameID) {
-
+	public void quitGame() {
+		int gameID = model.getGameID();
+		//ServerProxy.qu();
 	}
 
 	/**

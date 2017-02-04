@@ -3,7 +3,8 @@ package delta.monstarz.shared.commands;
 public abstract class BaseCommand {
     protected String name;
     protected String username;
-    protected String gameID;
+    protected int gameID;
+	protected boolean isGlobal;
 
     public abstract void execute();
 
@@ -23,11 +24,19 @@ public abstract class BaseCommand {
 		this.username = username;
 	}
 
-	public String getGameID() {
+	public int getGameID() {
 		return gameID;
 	}
 
-	public void setGameID(String gameID) {
+	public void setGameID(int gameID) {
 		this.gameID = gameID;
+	}
+
+	public boolean isGlobal() {
+		return isGlobal;
+	}
+
+	public void setGlobal(boolean global) {
+		isGlobal = global;
 	}
 }

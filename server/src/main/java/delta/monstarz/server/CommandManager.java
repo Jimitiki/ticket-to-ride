@@ -22,7 +22,7 @@ public class CommandManager {
 	 * @throws Exception if execution fails, i.e. action is invalid
 	 */
 	public static void execute(BaseCommand command) throws Exception{
-
+		command.execute();
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class CommandManager {
 	 * @param commandIndex index of the last command executed by the client
 	 * @return list of commands
 	 */
-	public static List<BaseCommand> getCommands(String gameID, String username, int commandIndex) {
+	public static List<BaseCommand> getCommands(int gameID, String username, int commandIndex) {
 		return null;
 	}
 }

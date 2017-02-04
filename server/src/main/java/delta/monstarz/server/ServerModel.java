@@ -157,4 +157,8 @@ public class ServerModel {
 
 	}
 
+	public Game getGameByID(int gameID) {
+		return games.get(gameID);
+	}
+
 }

@@ -8,7 +8,7 @@ public class ClientModel {
 	private static ClientModel clientModel = new ClientModel();
 	private String username;
 	private String authToken;
-	private String gameID;
+	private int gameID;
 	private int curCommand;
 	private List<BaseCommand> gameHistory;
 
@@ -34,11 +34,11 @@ public class ClientModel {
 		this.authToken = authToken;
 	}
 
-	public String getGameID() {
+	public int getGameID() {
 		return gameID;
 	}
 
-	public void setGameID(String gameID) {
+	public void setGameID(int gameID) {
 		this.gameID = gameID;
 	}
 
