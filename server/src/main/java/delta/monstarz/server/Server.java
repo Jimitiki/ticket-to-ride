@@ -3,7 +3,7 @@ import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.server.web.ServerCommunicator;
+import delta.monstarz.server.web.Handler;
 
 public class Server {
 
@@ -27,8 +27,8 @@ public class Server {
 
 		System.out.println("Creating contexts");
 		// server.createContext("/games/list", new ListGamesHandler());
-		server.createContext("/command", new ServerCommunicator());
-		server.createContext("/register", new ServerCommunicator());
+		server.createContext("/command", new Handler());
+		server.createContext("/register", new Handler());
 
 		System.out.println("Starting server");
 		server.start();

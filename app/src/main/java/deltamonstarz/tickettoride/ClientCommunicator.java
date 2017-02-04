@@ -34,8 +34,8 @@ public class ClientCommunicator {
             if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream respBody = http.getInputStream();
                 String respData = readString(respBody);
-//                Result res = SerDes.deserializeResult(respData);
-                return respData;
+                Result res = SerDes.deserializeResult(respData);
+                return res;
                 // System.out.println(respData);
             }
             else {
