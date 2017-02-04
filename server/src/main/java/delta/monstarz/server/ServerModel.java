@@ -2,6 +2,11 @@ package delta.monstarz.server;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
+import delta.monstarz.exceptions.InvalidCredentialsException;
+import delta.monstarz.exceptions.LoginException;
+import delta.monstarz.exceptions.UsernameInUseException;
 
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.GameInfo;
@@ -65,8 +70,20 @@ public class ServerModel {
 	 * @param password
 	 * @return An authToken which will identify the current session for the user
 	 */
-	public String register(String username, String password){
-		return "An authToken";
+	public String register(String username, String password) throws LoginException{
+
+		if ( username.equals("") || password.equals("") ){
+			throw new InvalidCredentialsException();
+		}
+		else if (people.containsKey(username)){
+			throw new UsernameInUseException();
+		}
+		else{
+			Person person = new Person(username, password);
+			String newAuthToken = UUID.randomUUID().toString();
+			person.addAuthToken(newAuthToken);
+			return newAuthToken;
+		}
 	}
 
 	/**
@@ -75,9 +92,27 @@ public class ServerModel {
 	 * @param password
 	 * @return
 	 */
-	public String login(String username, String password){
-		return "An authToken";
+	public String login(String username, String password) throws LoginException{
+
+		if ( username.equals("") || password.equals("") ){ // Basic check
+			throw new InvalidCredentialsException();
+		}
+		else if (people.containsKey(username)){
+			Person person = people.get(username);
+			if ( person.getPassword().equals(password)){ // Password is good
+				String newAuthToken = UUID.randomUUID().toString();
+				person.addAuthToken(newAuthToken);
+				return newAuthToken;
+			}
+			else{ // Password does not match
+				throw new InvalidCredentialsException();
+			}
+		}
+		else{ // Username not found
+			throw new InvalidCredentialsException();
+		}
 	}
+
 
 	/**
 	 * A player is logged out and their authToken can no longer be used.
