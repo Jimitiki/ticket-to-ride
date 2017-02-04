@@ -2,6 +2,7 @@ package delta.monstarz.server;
 
 import java.util.List;
 
+import delta.monstarz.shared.Person;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.IServer;

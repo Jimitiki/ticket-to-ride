@@ -3,7 +3,7 @@ import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.web.ServerCommunicator;
+import delta.monstarz.server.web.ServerCommunicator;
 
 public class Server {
 
