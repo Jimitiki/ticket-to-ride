@@ -1,4 +1,4 @@
-package delta.monstarz;
+package delta.monstarz.shared;
 
 /**
  * Created by Trevor on 2/2/2017.

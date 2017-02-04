@@ -1,8 +1,8 @@
-package delta.monstarz;
+package delta.monstarz.server;
 
 import java.util.List;
 
-import delta.monstarz.commands.BaseCommand;
+import delta.monstarz.shared.commands.BaseCommand;
 
 public class CommandManager {
 

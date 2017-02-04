@@ -1,4 +1,4 @@
-package delta.monstarz;
+package delta.monstarz.shared;
 
 /**
  * Created by oliphaun on 2/3/17.
@@ -7,7 +7,7 @@ package delta.monstarz;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import delta.monstarz.commands.BaseCommand;
+import delta.monstarz.shared.commands.BaseCommand;
 
 public class SerDes {
     public static BaseCommand deserializeCommand(String json, String packagePrefix)

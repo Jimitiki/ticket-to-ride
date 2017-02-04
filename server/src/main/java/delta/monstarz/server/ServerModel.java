@@ -1,8 +1,10 @@
-package delta.monstarz;
+package delta.monstarz.server;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import delta.monstarz.shared.Person;
+import delta.monstarz.shared.GameInfo;
 
 /**
  * Created by Trevor on 2/2/2017.

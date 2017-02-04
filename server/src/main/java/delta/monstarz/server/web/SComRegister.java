@@ -1,6 +1,5 @@
-package delta.monstarz.web;
+package delta.monstarz.server.web;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -8,11 +7,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
-import delta.monstarz.IServer;
-import delta.monstarz.Person;
-import delta.monstarz.Result;
-import delta.monstarz.SerDes;
-import delta.monstarz.ServerFacade;
+import delta.monstarz.server.ServerFacade;
+import delta.monstarz.shared.IServer;
+import delta.monstarz.shared.Person;
+import delta.monstarz.shared.SerDes;
 
 /**
  * Created by oliphaun on 2/4/17.
