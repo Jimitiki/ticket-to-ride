@@ -2,8 +2,8 @@ package deltamonstarz.tickettoride;
 import java.io.*;
 import java.net.*;
 
-import delta.monstarz.Result;
-import delta.monstarz.SerDes;
+import delta.monstarz.shared.Result;
+import delta.monstarz.shared.SerDes;
 
 /**
  * Created by oliphaun on 2/3/17.

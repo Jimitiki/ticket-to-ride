@@ -2,11 +2,12 @@ package deltamonstarz.tickettoride;
 
 import java.util.List;
 
-import delta.monstarz.GameInfo;
-import delta.monstarz.IServer;
-import delta.monstarz.Person;
-import delta.monstarz.SerDes;
-import delta.monstarz.commands.BaseCommand;
+import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.IServer;
+import delta.monstarz.shared.Person;
+import delta.monstarz.shared.SerDes;
+import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.Result;
 
 /**
  * Created by oliphaun on 2/3/17.

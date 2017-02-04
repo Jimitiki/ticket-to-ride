@@ -1,6 +1,6 @@
 package deltamonstarz.tickettoride.commands;
 
-import delta.monstarz.commands.JoinGameCommand;
+import delta.monstarz.shared.commands.JoinGameCommand;
 
 public class ClientJoinGameCommand extends JoinGameCommand {
 }

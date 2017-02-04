@@ -1,4 +1,4 @@
-package delta.monstarz;
+package delta.monstarz.server;
 import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;

@@ -2,7 +2,7 @@ package deltamonstarz.tickettoride;
 
 import java.util.List;
 
-import delta.monstarz.commands.BaseCommand;
+import delta.monstarz.shared.commands.BaseCommand;
 
 public class ClientModel {
 	private static ClientModel clientModel = new ClientModel();

@@ -1,4 +1,4 @@
-package delta.monstarz;
+package delta.monstarz.shared;
 
 import java.util.ArrayList;
 import java.util.Date;

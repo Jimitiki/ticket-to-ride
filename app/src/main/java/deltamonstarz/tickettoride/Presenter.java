@@ -3,7 +3,7 @@ package deltamonstarz.tickettoride;
 import java.util.Observable;
 import java.util.Observer;
 
-import delta.monstarz.IServer;
+import delta.monstarz.shared.IServer;
 import deltamonstarz.tickettoride.views.BaseView;
 
 public class Presenter implements Observer{

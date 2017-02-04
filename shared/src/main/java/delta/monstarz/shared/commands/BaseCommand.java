@@ -1,4 +1,4 @@
-package delta.monstarz.commands;
+package delta.monstarz.shared.commands;
 
 public abstract class BaseCommand {
     protected String name;

@@ -1,9 +1,11 @@
-package delta.monstarz;
+package delta.monstarz.server;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.monstarz.commands.BaseCommand;
+import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.Player;
+import delta.monstarz.shared.commands.BaseCommand;
 
 /**
  * The Game class holds all the data related to a ticket to ride game
