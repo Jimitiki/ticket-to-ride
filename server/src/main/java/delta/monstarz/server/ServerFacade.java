@@ -13,13 +13,15 @@ import delta.monstarz.shared.Result;
 
 public class ServerFacade implements IServer {
     @Override
-    public Result register(Person peep) {
-        return null;
+    public String register(Person peep) {
+        String auth_token = "thisistheauthtoken12345";
+        return auth_token;
     }
 
     @Override
-    public String login(String username, String password) {
-        return null;
+    public String login(Person peep) {
+        String auth_token = "thisistheauthtoken12345";
+        return auth_token;
     }
 
     @Override
