@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import deltamonstarz.tickettoride.R;
 
-public class Login extends BaseView {
+public class LoginActivity extends BaseView {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
