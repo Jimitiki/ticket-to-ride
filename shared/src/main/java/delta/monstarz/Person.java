@@ -12,6 +12,11 @@ public class Person {
 	private String password;
 	private Date lastLogin;
 
+	public Person(String name, String pass) {
+		username = name;
+		password = pass;
+	}
+
 	public String getUsername() {
 		return username;
 	}
