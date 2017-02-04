@@ -1,4 +1,4 @@
-package delta.monstarz;
+package delta.monstarz.shared;
 
 /**
  * The GameInfo class exists for the purpose of sending information to the client

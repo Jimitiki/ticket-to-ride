@@ -1,16 +1,14 @@
-package delta.monstarz;
-
-import java.util.Date;
+package delta.monstarz.shared;
 
 /**
- * Created by Trevor on 2/3/2017.
+ * Created by Trevor on 2/2/2017.
  */
 
-public class Person {
+public class Player {
 
 	private String username;
 	private String password;
-	private Date lastLogin;
+	private String authToken;
 
 	public String getUsername() {
 		return username;
@@ -28,11 +26,11 @@ public class Person {
 		this.password = password;
 	}
 
-	public Date getLastLogin() {
-		return lastLogin;
+	public String getAuthToken() {
+		return authToken;
 	}
 
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
 	}
 }

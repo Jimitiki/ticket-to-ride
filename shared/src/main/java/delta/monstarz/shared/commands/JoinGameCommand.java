@@ -1,4 +1,4 @@
-package delta.monstarz.commands;
+package delta.monstarz.shared.commands;
 
 public class JoinGameCommand extends BaseCommand {
 	public JoinGameCommand()
