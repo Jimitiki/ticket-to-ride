@@ -1,6 +1,8 @@
 package delta.monstarz;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Trevor on 2/3/2017.
@@ -11,6 +13,7 @@ public class Person {
 	private String username;
 	private String password;
 	private Date lastLogin;
+	private List<String> authTokens = new ArrayList<>();
 
 	public Person(String name, String pass) {
 		username = name;
@@ -39,5 +42,13 @@ public class Person {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public void addAuthToken(String token){
+		authTokens.add(token);
+	}
+
+	public boolean hasAuthToken(String token){
+		return authTokens.contains(token);
 	}
 }
