@@ -35,7 +35,7 @@ public class Server {
 		System.out.println("I'm a server. Currently I just echo");
 		String portNumber;
 		if(args.length == 0) {
-			portNumber = "8888";
+			portNumber = "8080";
 		} else {
 			portNumber = args[0];
 		}

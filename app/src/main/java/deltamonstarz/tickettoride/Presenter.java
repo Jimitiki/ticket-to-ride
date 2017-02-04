@@ -17,7 +17,7 @@ public class Presenter implements Observer{
 	}
 
 	/**
-	 * Tells the ServerProxy to create a user with the given username and password
+	 * Tells the deltamonstarz.tickettoride.ServerProxy to create a user with the given username and password
 	 * If successful, updates the client model and switches to GameSelectView
 	 * @param username the new username
 	 * @param password the corresponding password
@@ -28,7 +28,7 @@ public class Presenter implements Observer{
 	}
 
 	/**
-	 * Tells the ServerProxy to authenticate the given user information
+	 * Tells the deltamonstarz.tickettoride.ServerProxy to authenticate the given user information
 	 * If successful, updates the client model and switches to GameSelectView
 	 * @param username the username to be validated
 	 * @param password the corresponding password
@@ -39,7 +39,7 @@ public class Presenter implements Observer{
 	}
 
 	/**
-	 * Tells the ServerProxy to logout the user
+	 * Tells the deltamonstarz.tickettoride.ServerProxy to logout the user
 	 * Updates the client model and switched to LoginView
 	 */
 	public void logout() {
