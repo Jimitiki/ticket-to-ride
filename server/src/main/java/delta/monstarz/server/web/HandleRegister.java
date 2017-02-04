@@ -7,16 +7,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
-import delta.monstarz.server.ServerFacade;
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
+import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
 
 /**
  * Created by oliphaun on 2/4/17.
  */
 
-public class SComRegister extends ServerCommunicator {
+public class HandleRegister extends Handler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
 
@@ -28,13 +28,13 @@ public class SComRegister extends ServerCommunicator {
                 String reqData = readString(reqBody);
                 Person peep = SerDes.deserializePerson(reqData);
 
-                IServer serv = ServerFacade.getInstance();
-                String auth = serv.register(peep);
+                IServer serv = ServerCommunicator.getInstance();
+                Result res = serv.register(peep);
 
-//                String ser = SerDes.serialize(peep);
+                String ser = SerDes.serialize(peep);
 
                 OutputStream respBody = exchange.getResponseBody();
-                writeString(auth, respBody);
+                writeString(ser, respBody);
                 respBody.close();
                 success = true;
             }
