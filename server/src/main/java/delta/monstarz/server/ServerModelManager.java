@@ -28,7 +28,7 @@ public class ServerModelManager {
 
 	}
 
-	public ServerModelManager getInstance(){
+	public static ServerModelManager getInstance(){
 		if (instance == null){
 			instance = new ServerModelManager();
 		}
@@ -39,7 +39,7 @@ public class ServerModelManager {
 	 * A new game is created with an empty beginning state.
 	 * Players can join the new game until the owner of the game starts the game
 	 * @param ownerName Username of the person who made the game
-	 * @param gameName Name chosen by the creator of the game
+	 * @param gameName Name chosen by the creator of the gameloginExceptions
 	 * @return The id of the new game
 	 */
 	public int createGame(String gameName, String ownerName){

@@ -2,6 +2,7 @@ package delta.monstarz.server.web;
 
 import java.util.List;
 
+import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.server.ServerFacade;
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
@@ -23,11 +24,12 @@ public class ServerCommunicator {
     public static Result register(Person peep) {
         Result res = new Result();
         IServer serv = ServerFacade.getInstance();
-        //try
+        try {
             String auth_token = serv.register(peep);
             res.setResultStr(auth_token);
-        //catch
+        } catch (LoginException e) {
             res.setResultErr(null); //e
+        }
 //        peep.addAuthToken(auth_token);
         return res;
     }

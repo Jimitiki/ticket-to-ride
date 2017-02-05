@@ -9,7 +9,7 @@ import java.util.List;
 public interface IServer {
 //    public void executeCommand(BaseCommand command) throws Exception;
 
-    public String register(Person peep);
+    public String register(Person peep) throws LoginException;
     public String login(Person peep);
 
     public List<GameInfo> listGames(String auth);
