@@ -56,6 +56,9 @@ public class Game {
 	}
 
 
+	public List<BaseCommand> getHistory() {
+		return history;
+	}
 
 	/**
 	 * The game starts

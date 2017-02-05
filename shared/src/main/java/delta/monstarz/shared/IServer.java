@@ -2,6 +2,8 @@ package delta.monstarz.shared;
 
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 /**
  * Created by alex on 2/2/17.
  */

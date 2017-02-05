@@ -3,14 +3,17 @@ package deltamonstarz.tickettoride;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.security.auth.login.LoginException;
+
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
+import delta.monstarz.shared.commands.JoinGameCommand;
 import deltamonstarz.tickettoride.views.BaseView;
 
 public class Presenter implements Observer{
-	ClientModel model;
-	BaseView curView;
-	IServer proxy;
+	private ClientModel model;
+	private BaseView curView;
+	private IServer proxy;
 
 	public Presenter() {
 		model = ClientModel.getInstance();
@@ -30,7 +33,11 @@ public class Presenter implements Observer{
 	 */
 	public void register(String ipAddress, String portNum, String username, String password) {
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		model.setAuthToken(proxy.register(new Person(username, password)));
+		try {
+			model.setAuthToken(proxy.register(new Person(username, password)));
+		} catch (LoginException e) {
+
+		}
 	}
 
 	/**
@@ -42,7 +49,7 @@ public class Presenter implements Observer{
 	 */
 	public void login(String ipAddress, String portNum, String username, String password) {
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		//model.setAuthToken(proxy.login(new Person(username, password)));
+		model.setAuthToken(proxy.login(new Person(username, password)));
 	}
 
 	/**
@@ -68,7 +75,7 @@ public class Presenter implements Observer{
 	 * @param gameID gameID of the game chosen by the user
 	 */
 	public void joinGame(int gameID) {
-
+		JoinGameCommand command = new JoinGameCommand(model.getUsername(), model.getGameID());
 	}
 
 	/**
@@ -93,5 +100,11 @@ public class Presenter implements Observer{
 	public void pollGameHistory() {
 	}
 
+	public BaseView getCurView() {
+		return curView;
+	}
 
+	public void setCurView(BaseView view) {
+		curView = view;
+	}
 }

@@ -1,5 +1,6 @@
 package delta.monstarz.server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.commands.BaseCommand;
@@ -33,6 +34,15 @@ public class CommandManager {
 	 * @return list of commands
 	 */
 	public static List<BaseCommand> getCommands(int gameID, String username, int commandIndex) {
-		return null;
+		Game game = ServerModelManager.getInstance().getGameByID(gameID);
+		List<BaseCommand> allCommands = game.getHistory();
+		List<BaseCommand> visibleCommands = new ArrayList<>();
+		for (int i = commandIndex + 1; i < allCommands.size();i++ ) {
+			BaseCommand command = allCommands.get(i);
+			if (command.isGlobal() || command.getUsername() == username) {
+				visibleCommands.add(command);
+			}
+		}
+		return visibleCommands;
 	}
 }

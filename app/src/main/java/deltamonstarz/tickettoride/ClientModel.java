@@ -11,8 +11,12 @@ public class ClientModel {
 	private int gameID;
 	private int curCommand;
 	private List<BaseCommand> gameHistory;
+	private List<String> players;
 
-	private ClientModel() {}
+	private ClientModel() {
+		gameID = -1;
+		curCommand = -1;
+	}
 
 	public static ClientModel getInstance() {
 		return clientModel;
@@ -58,10 +62,28 @@ public class ClientModel {
 		this.gameHistory = gameHistory;
 	}
 
+	public List<String> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<String> players) {
+		this.players = players;
+	}
+
+	public void addPlayer(String username) {
+		players.add(username);
+	}
+
+	public void removePlayer(String username) {
+		players.remove(username);
+	}
+
 	/**
 	 * Gets game commands given after curCommand and executes them
 	 */
-	public void updateGame() {
-
+	public void updateGame(List<BaseCommand> commands) {
+		for (BaseCommand command : commands) {
+			command.execute();
+		}
 	}
 }

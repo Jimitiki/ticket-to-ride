@@ -6,7 +6,12 @@ public abstract class BaseCommand {
     protected int gameID;
 	protected boolean isGlobal;
 
-    public abstract void execute();
+	public BaseCommand(String username, int gameID) {
+		this.username = username;
+		this.gameID = gameID;
+	}
+
+	public abstract void execute();
 
 	public String getName() {
 		return name;
