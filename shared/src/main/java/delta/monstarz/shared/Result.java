@@ -23,6 +23,9 @@ public class Result {
     public int status() {
         return _status;
     }
+    public boolean isError() {
+        return (_status == 3);
+    }
 
     public void setResultStr(String str) {
         _str = str;

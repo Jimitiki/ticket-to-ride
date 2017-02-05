@@ -7,7 +7,7 @@ import com.sun.net.httpserver.*;
  * Created by oliphaun on 2/2/17.
  */
 
-public class Handler implements HttpHandler {
+public class ServerHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {

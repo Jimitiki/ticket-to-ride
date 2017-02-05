@@ -18,6 +18,7 @@ public class ServerProxy implements IServer {
     private final String _url;
     private final String _port;
     private String _pathRegister = "/register";
+    private String _pathLogin = "/login";
 
     private static ServerProxy _instance = null;
 
@@ -28,7 +29,7 @@ public class ServerProxy implements IServer {
         return _instance;
     }
 
-    ServerProxy(String url, String port) {
+    private ServerProxy(String url, String port) {
         _url = url; //"127.0.0.1"
         _port = port; //"8080"
     }
@@ -40,23 +41,23 @@ public class ServerProxy implements IServer {
     @Override
     public String register(Person peep) {
         String ser = SerDes.serialize(peep);
-        String response = ClientCommunicator.connectAndSend(_url, _port, _pathRegister, ser);
-
-//        peep.addAuthToken(response);
-//        if (res.status() == 1) {
-//            System.out.println(res.getResultStr());
-//        } else if (res.status() == 2) {
-//            System.out.println(res.getResultInt());
-//        } else if (res.status() == 3) {
-//            res.throwResultErr();
-//        }
-//        return res;
-        return response;
+        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathRegister, ser);
+        if (res.isError()) {
+            res.throwResultErr();
+        }
+        String auth = res.getResultStr();
+        return auth;
     }
 
     @Override
-    public String login(String username, String password) {
-        return null;
+    public String login(Person peep) {
+        String ser = SerDes.serialize(peep);
+        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, ser);
+        if (res.isError()) {
+            res.throwResultErr();
+        }
+        String auth = res.getResultStr();
+        return auth;
     }
 
     @Override

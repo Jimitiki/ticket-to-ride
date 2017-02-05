@@ -2,6 +2,8 @@ package delta.monstarz.server.web;
 
 import java.util.List;
 
+import delta.monstarz.server.ServerFacade;
+import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.GameInfo;
@@ -11,24 +13,18 @@ import delta.monstarz.shared.GameInfo;
  */
 
 public class ServerCommunicator {
-    private static ServerCommunicator _instance = null;
 
-    public static ServerCommunicator getInstance() {
-        if (_instance == null) {
-            _instance = new ServerCommunicator();
-        }
-        return _instance;
-    }
 
 //    public Result executeCommand(BaseCommand command) {
 //        Result res = command.execute();
 //        return res;
 //    }
 
-    public Result register(Person peep) {
+    public static Result register(Person peep) {
         Result res = new Result();
+        IServer serv = ServerFacade.getInstance();
         //try
-            String auth_token = "thisistheauthtoken12345";
+            String auth_token = serv.register(peep);
             res.setResultStr(auth_token);
         //catch
             res.setResultErr(null); //e
@@ -36,11 +32,18 @@ public class ServerCommunicator {
         return res;
     }
 
-    public String login(String username, String password) {
-        return null;
+    public static Result login(Person peep) {
+        Result res = new Result();
+        IServer serv = ServerFacade.getInstance();
+        //try
+            String auth_token = serv.login(peep);
+            res.setResultStr(auth_token);
+        //catch
+            res.setResultErr(null); //e
+        return res;
     }
 
-    public List<GameInfo> listGames(String auth) {
+    public static List<GameInfo> listGames(String auth) {
         return null;
     }
 }

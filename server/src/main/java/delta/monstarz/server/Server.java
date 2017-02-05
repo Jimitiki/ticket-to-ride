@@ -3,7 +3,9 @@ import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.server.web.Handler;
+import delta.monstarz.server.web.HandleLogin;
+import delta.monstarz.server.web.HandleRegister;
+import delta.monstarz.server.web.ServerHandler;
 
 public class Server {
 
@@ -27,8 +29,9 @@ public class Server {
 
 		System.out.println("Creating contexts");
 		// server.createContext("/games/list", new ListGamesHandler());
-		server.createContext("/command", new Handler());
-		server.createContext("/register", new Handler());
+		server.createContext("/command", new ServerHandler());
+		server.createContext("/register", new HandleRegister());
+		server.createContext("/login", new HandleLogin());
 
 		System.out.println("Starting server");
 		server.start();

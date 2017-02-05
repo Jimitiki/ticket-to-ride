@@ -11,7 +11,7 @@ import delta.monstarz.shared.SerDes;
 
 public class ClientCommunicator {
 
-    public static String connectAndSend(String serverHost, String serverPort, String path, String reqData) {
+    public static Result connectAndSend(String serverHost, String serverPort, String path, String reqData) {
         // System.out.println("http://" + serverHost + ":" + serverPort + path);
         try {
             URL url = new URL("http://" + serverHost + ":" + serverPort + path);

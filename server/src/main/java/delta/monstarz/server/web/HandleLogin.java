@@ -15,7 +15,7 @@ import delta.monstarz.shared.SerDes;
  * Created by oliphaun on 2/4/17.
  */
 
-public class HandleRegister extends ServerHandler {
+public class HandleLogin extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
 
@@ -27,7 +27,7 @@ public class HandleRegister extends ServerHandler {
                 String reqData = readString(reqBody);
                 Person peep = SerDes.deserializePerson(reqData);
 
-                Result res = ServerCommunicator.register(peep);
+                Result res = ServerCommunicator.login(peep);
                 String ser = SerDes.serialize(peep);
 
                 OutputStream respBody = exchange.getResponseBody();
