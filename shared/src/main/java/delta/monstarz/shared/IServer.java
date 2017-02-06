@@ -11,8 +11,8 @@ import javax.security.auth.login.LoginException;
 public interface IServer {
 //    public void executeCommand(BaseCommand command) throws Exception;
 
-    public String register(Person peep); //throws LoginException;
-    public String login(Person peep);
+    public String register(String username, String password); //throws LoginException;
+    public String login(String username, String password);
 
     public List<GameInfo> listGames(String auth);
 }
