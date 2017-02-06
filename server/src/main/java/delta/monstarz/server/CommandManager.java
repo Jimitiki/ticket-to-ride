@@ -24,6 +24,8 @@ public class CommandManager {
 	 */
 	public static void execute(BaseCommand command) throws Exception{
 		command.execute();
+		Game game = ServerModelManager.getInstance().getGameByID(command.getGameID());
+		game.addCommand(command);
 	}
 
 	/**
@@ -39,7 +41,7 @@ public class CommandManager {
 		List<BaseCommand> visibleCommands = new ArrayList<>();
 		for (int i = commandIndex + 1; i < allCommands.size();i++ ) {
 			BaseCommand command = allCommands.get(i);
-			if (command.isGlobal() || command.getUsername() == username) {
+			if (command.isGlobal() || command.getUsername().equals(username)) {
 				visibleCommands.add(command);
 			}
 		}

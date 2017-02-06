@@ -84,6 +84,10 @@ public class Game {
 
 	}
 
+	public void removePlayer(String username) {
+		//TODO Should players be a map of usernames to player objects?
+	}
+
 	/**
 	 * Find out is a player is in the game by using a username as identification
 	 * @param username A username of a player that may or may not be in the game
@@ -115,5 +119,9 @@ public class Game {
 		);
 
 		return gameInfo;
+	}
+
+	public void addCommand(BaseCommand command) {
+		history.add(command);
 	}
 }
