@@ -34,7 +34,7 @@ public class Presenter implements Observer{
 	 */
 	public boolean register(String ipAddress, String portNum, String username, String password) throws ConnectionException{
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		String authToken = proxy.register(new Person(username, password));
+		String authToken = proxy.register(username, password);
 		if (authToken.length() == 0) {
 			return false;
 		}
@@ -51,7 +51,7 @@ public class Presenter implements Observer{
 	 */
 	public boolean login(String ipAddress, String portNum, String username, String password) throws ConnectionException{
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		String authToken = proxy.login(new Person(username, password));
+		String authToken = proxy.login(username, password);
 		if (authToken.length() == 0) {
 			return false;
 		}
