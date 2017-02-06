@@ -12,12 +12,17 @@ import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.views.BaseView;
 
 public class Presenter implements Observer{
+	private static Presenter presenter = new Presenter();;
 	private ClientModel model;
 	private BaseView curView;
 	private IServer proxy;
 
-	public Presenter() {
+	private Presenter() {
 		model = ClientModel.getInstance();
+	}
+
+	public static Presenter getInstance() {
+		return presenter;
 	}
 
 	@Override
