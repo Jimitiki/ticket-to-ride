@@ -28,11 +28,11 @@ public class ServerFacade implements IServer {
      * @return An authToken which will identify the current session for the user
      */
     @Override
-    public String register(Person peep) throws LoginException {
+    public String register(Person peep) { //throws LoginException
         String username = peep.getUsername();
         String password = peep.getPassword();
         ServerModelManager model = ServerModelManager.getInstance();
-        String auth = model.register(username, password);
+        String auth = ""; //model.register(username, password);
         return auth;
     }
 

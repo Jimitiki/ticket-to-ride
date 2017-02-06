@@ -33,11 +33,11 @@ public class Presenter implements Observer{
 	 */
 	public void register(String ipAddress, String portNum, String username, String password) {
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		try {
+//		try {
 			model.setAuthToken(proxy.register(new Person(username, password)));
-		} catch (LoginException e) {
-
-		}
+//		} catch (LoginException e) {
+//
+//		}
 	}
 
 	/**

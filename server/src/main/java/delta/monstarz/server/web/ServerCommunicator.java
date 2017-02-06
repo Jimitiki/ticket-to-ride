@@ -24,12 +24,12 @@ public class ServerCommunicator {
     public static Result register(Person peep) {
         Result res = new Result();
         IServer serv = ServerFacade.getInstance();
-        try {
+//        try {
             String auth_token = serv.register(peep);
             res.setResultStr(auth_token);
-        } catch (LoginException e) {
-            res.setResultErr(null); //e
-        }
+//        } catch (LoginException e) {
+//            res.setResultErr(null); //e
+//        }
 //        peep.addAuthToken(auth_token);
         return res;
     }
