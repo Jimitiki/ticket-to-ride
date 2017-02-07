@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.Presenter;
+import deltamonstarz.tickettoride.exceptions.ConnectionException;
 
 public class LoginActivity extends BaseView {
 
@@ -33,7 +35,7 @@ public class LoginActivity extends BaseView {
 		mRegisterButton = (Button) findViewById(R.id.register_button);
 		mLoginButton = (Button) findViewById(R.id.login_button);
 
-		mPresenter = new Presenter();
+		mPresenter = Presenter.getInstance();
 
 		mRegisterButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -43,7 +45,20 @@ public class LoginActivity extends BaseView {
 				String port = mPortText.getText().toString();
 				String username = mUsernameText.getText().toString();
 				String password = mPasswordText.getText().toString();
-				mPresenter.register(host, port, username, password);
+				try
+				{
+					boolean success = mPresenter.register(host, port, username, password);
+					if(success){
+						Toast.makeText(getApplicationContext(), "Profile Created!", Toast.LENGTH_SHORT).show();
+					}
+					else{
+						Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+					}
+				}
+				catch(ConnectionException pE)
+				{
+					Toast.makeText(getApplicationContext(), "Error: Couldn't connect to server.", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
@@ -55,7 +70,21 @@ public class LoginActivity extends BaseView {
 				String port = mPortText.getText().toString();
 				String username = mUsernameText.getText().toString();
 				String password = mPasswordText.getText().toString();
-				mPresenter.login(host, port, username, password);
+				try
+				{
+					boolean success = mPresenter.login(host, port, username, password);
+					if(success){
+						Intent i = GameSelectorActivity.newIntent(LoginActivity.this);
+						startActivityForResult(i, 0);
+					}
+					else{
+						Toast.makeText(getApplicationContext(), "Credentials were invalid", Toast.LENGTH_SHORT).show();
+					}
+				}
+				catch(ConnectionException pE)
+				{
+					Toast.makeText(getApplicationContext(), "Error: Couldn't connect to server.", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
@@ -66,5 +95,5 @@ public class LoginActivity extends BaseView {
 	}
 }
 
-//Toast.makeText(getApplicationContext(), "That port is not a number.", Toast.LENGTH_SHORT).show();
+//
 
