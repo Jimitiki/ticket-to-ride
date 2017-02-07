@@ -49,13 +49,9 @@ public class ServerProxy implements IServer {
     @Override
     public String login(String username, String password) {
 	    Person peep = new Person(username, password);
-        String ser = SerDes.serialize(peep);
-        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, ser);
-        if (res.isError()) {
-            res.throwResultErr();
-        }
-        String auth = res.getResultStr();
-        return auth;
+	    String ser = SerDes.serialize(peep);
+	    Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, ser);
+	    return res.getResultStr();
     }
 
     @Override

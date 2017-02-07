@@ -47,8 +47,13 @@ public class ServerFacade implements IServer {
      */
     @Override
     public String login(String username, String password) {
-        String auth_token = "thisistheauthtoken12345";
-        return auth_token;
+        ServerModelManager model = ServerModelManager.getInstance();
+        try {
+            return model.login(username, password);
+        }
+        catch (LoginException e){
+            return "";
+        }
     }
 
     @Override

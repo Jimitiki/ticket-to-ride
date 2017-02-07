@@ -78,9 +78,11 @@ public class ServerModelManager {
 	public String register(String username, String password) throws LoginException{
 
 		if ( username.equals("") || password.equals("") ){
+			System.out.println("Register: Malformed username or password" + username + ", " + password);
 			throw new InvalidCredentialsException();
 		}
 		else if (people.containsKey(username)){
+			System.out.println("Register:" + username + ", Already in use");
 			throw new UsernameInUseException();
 		}
 		else{
@@ -90,6 +92,7 @@ public class ServerModelManager {
 			person.addAuthToken(newAuthToken);
 
 			people.put(person.getUsername(), person);
+			System.out.println("Registered:" + username + ", " + password);
 			return newAuthToken;
 		}
 	}
@@ -102,7 +105,9 @@ public class ServerModelManager {
 	 */
 	public String login(String username, String password) throws LoginException{
 
+
 		if ( username.equals("") || password.equals("") ){ // Basic check
+			System.out.println("Login Malformed username or password: " + username + ", " + password);
 			throw new InvalidCredentialsException();
 		}
 		else if (people.containsKey(username)){
@@ -110,13 +115,16 @@ public class ServerModelManager {
 			if ( person.getPassword().equals(password)){ // Password is good
 				String newAuthToken = UUID.randomUUID().toString();
 				person.addAuthToken(newAuthToken);
+				System.out.println("Login Successful: " + username + ", " + password);
 				return newAuthToken;
 			}
 			else{ // Password does not match
+				System.out.println("Login Failed Password Wrong: " + username);
 				throw new InvalidCredentialsException();
 			}
 		}
 		else{ // Username not found
+			System.out.println("Login Failed Username Not Found: " + username);
 			throw new InvalidCredentialsException();
 		}
 	}

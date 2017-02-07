@@ -29,10 +29,10 @@ public class HandleRegister extends ServerHandler {
 
                 if (res.getResultStr().equals("")){
 	                // No authToken, there is an error
-	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0);
+	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0); //409
                 }
 	            else{
-	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
                 }
 
                 String ser = SerDes.serialize(res);
