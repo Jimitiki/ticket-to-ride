@@ -3,6 +3,7 @@ package delta.monstarz.server;
 import java.util.List;
 
 import delta.monstarz.exceptions.loginExceptions.LoginException;
+import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
@@ -24,16 +25,19 @@ public class ServerFacade implements IServer {
     /**
      * A new user account is made
      * Each username must be unique
-     * @param peep
+     * @param username
+     * @param password
      * @return An authToken which will identify the current session for the user
      */
     @Override
-    public String register(Person peep) { //throws LoginException
-        String username = peep.getUsername();
-        String password = peep.getPassword();
+    public String register(String username, String password) {
         ServerModelManager model = ServerModelManager.getInstance();
-        String auth = ""; //model.register(username, password);
-        return auth;
+        try {
+            return model.register(username, password);
+        }
+        catch (LoginException e){
+            return "";
+        }
     }
 
     /**
@@ -42,9 +46,14 @@ public class ServerFacade implements IServer {
      * @return A new auth token for the user.
      */
     @Override
-    public String login(Person peep) {
-        String auth_token = "thisistheauthtoken12345";
-        return auth_token;
+    public String login(String username, String password) {
+        ServerModelManager model = ServerModelManager.getInstance();
+        try {
+            return model.login(username, password);
+        }
+        catch (LoginException e){
+            return "";
+        }
     }
 
     @Override

@@ -37,7 +37,16 @@ public class ClientCommunicator {
                 Result res = SerDes.deserializeResult(respData);
                 return res;
                 // System.out.println(respData);
+            } else if (http.getResponseCode() == HttpURLConnection.HTTP_CONFLICT) {
+                Result res = new Result();
+                res.setResultStr("");
+	            return res;
             }
+	        else if (http.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+			    Result res = new Result();
+			    res.setResultStr("");
+			    return res;
+		    }
             else {
                 System.out.println("ERROR: " + http.getResponseMessage());
             }

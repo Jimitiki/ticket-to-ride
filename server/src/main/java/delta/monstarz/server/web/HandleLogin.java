@@ -19,8 +19,6 @@ public class HandleLogin extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
 
-        boolean success = false;
-
         try {
             if (exchange.getRequestMethod().toLowerCase().equals("post")) {
                 InputStream reqBody = exchange.getRequestBody();
@@ -28,16 +26,21 @@ public class HandleLogin extends ServerHandler {
                 Person peep = SerDes.deserializePerson(reqData);
 
                 Result res = ServerCommunicator.login(peep);
-                String ser = SerDes.serialize(peep);
+
+	            if (res.getResultStr().equals("")){
+		            // No authToken, there is an error
+		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0); //403
+	            }
+	            else{
+		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
+	            }
+
+
+                String ser = SerDes.serialize(res);
 
                 OutputStream respBody = exchange.getResponseBody();
                 writeString(ser, respBody);
                 respBody.close();
-                success = true;
-            }
-
-            if (!success) {
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             }
         }
         catch (IOException e) {

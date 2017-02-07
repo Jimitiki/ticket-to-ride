@@ -24,24 +24,18 @@ public class ServerCommunicator {
     public static Result register(Person peep) {
         Result res = new Result();
         IServer serv = ServerFacade.getInstance();
-//        try {
-            String auth_token = serv.register(peep);
-            res.setResultStr(auth_token);
-//        } catch (LoginException e) {
-//            res.setResultErr(null); //e
-//        }
-//        peep.addAuthToken(auth_token);
+        String auth_token = serv.register(peep.getUsername(), peep.getPassword());
+        res.setResultStr(auth_token);
         return res;
     }
 
     public static Result login(Person peep) {
         Result res = new Result();
         IServer serv = ServerFacade.getInstance();
-        //try
-            String auth_token = serv.login(peep);
-            res.setResultStr(auth_token);
-        //catch
-            res.setResultErr(null); //e
+
+        String auth_token = serv.login(peep.getUsername(), peep.getPassword());
+        res.setResultStr(auth_token);
+
         return res;
     }
 

@@ -8,15 +8,21 @@ import javax.security.auth.login.LoginException;
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.commands.JoinGameCommand;
+import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.views.BaseView;
 
 public class Presenter implements Observer{
+	private static Presenter presenter = new Presenter();;
 	private ClientModel model;
 	private BaseView curView;
 	private IServer proxy;
 
-	public Presenter() {
+	private Presenter() {
 		model = ClientModel.getInstance();
+	}
+
+	public static Presenter getInstance() {
+		return presenter;
 	}
 
 	@Override
@@ -31,13 +37,14 @@ public class Presenter implements Observer{
 	 * @param password the corresponding password
 	 * @return true if the user could be created, false if not
 	 */
-	public void register(String ipAddress, String portNum, String username, String password) {
+	public boolean register(String ipAddress, String portNum, String username, String password) throws ConnectionException{
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-//		try {
-			model.setAuthToken(proxy.register(new Person(username, password)));
-//		} catch (LoginException e) {
-//
-//		}
+		String authToken = proxy.register(username, password);
+		if (authToken.length() == 0) {
+			return false;
+		}
+		model.setAuthToken(authToken);
+		return true;
 	}
 
 	/**
@@ -47,9 +54,14 @@ public class Presenter implements Observer{
 	 * @param password the corresponding password
 	 * @return true if the credentials were verified, false if not
 	 */
-	public void login(String ipAddress, String portNum, String username, String password) {
+	public boolean login(String ipAddress, String portNum, String username, String password) throws ConnectionException{
 		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		model.setAuthToken(proxy.login(new Person(username, password)));
+		String authToken = proxy.login(username, password);
+		if (authToken.length() == 0) {
+			return false;
+		}
+		model.setAuthToken(authToken);
+		return true;
 	}
 
 	/**
