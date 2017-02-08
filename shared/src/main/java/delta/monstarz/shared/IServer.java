@@ -13,6 +13,6 @@ public interface IServer {
 
     public String register(String username, String password); //throws LoginException;
     public String login(String username, String password);
-
+    public int createGame(String username, String game_name, String auth);
     public List<GameInfo> listGames(String auth);
 }

@@ -42,7 +42,8 @@ public class ServerFacade implements IServer {
 
     /**
      * Users can login using a username and password stored in peep.
-     * @param peep
+     * @param username
+     * @param password
      * @return A new auth token for the user.
      */
     @Override
@@ -54,6 +55,11 @@ public class ServerFacade implements IServer {
         catch (LoginException e){
             return "";
         }
+    }
+
+    @Override
+    public int createGame(String username, String game_name, String auth) {
+        return 0;
     }
 
     @Override

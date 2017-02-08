@@ -72,10 +72,10 @@ public class SerDes {
         return gson.toJson(c);
     }
 
-    public static Person deserializePerson(String json)
+    public static Args deserializeArgs(String json)
     {
         Gson gson = new Gson();
-        return gson.fromJson(json, Person.class);
+        return gson.fromJson(json, Args.class);
     }
 
     public static Result deserializeArguments(String json)

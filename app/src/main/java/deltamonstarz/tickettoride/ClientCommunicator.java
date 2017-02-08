@@ -11,7 +11,7 @@ import delta.monstarz.shared.SerDes;
 
 public class ClientCommunicator {
 
-    public static String connectAndSend(String serverHost, String serverPort, String path, String reqData) {
+    public static Result connectAndSend(String serverHost, String serverPort, String path, String auth, String reqData) {
         // System.out.println("http://" + serverHost + ":" + serverPort + path);
         try {
             URL url = new URL("http://" + serverHost + ":" + serverPort + path);
@@ -21,7 +21,7 @@ public class ClientCommunicator {
             http.setRequestMethod("POST");
             http.setDoOutput(true); // There is a request body
 
-            http.addRequestProperty("Authorization", "afj232hj2332");
+            http.addRequestProperty("Authorization", auth);
             http.addRequestProperty("Content-Type", "application/json");
             http.addRequestProperty("Accept", "application/json");
 
@@ -33,15 +33,19 @@ public class ClientCommunicator {
 
             if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream respBody = http.getInputStream();
-                return readString(respBody);
+                String respData = readString(respBody);
+                Result res = SerDes.deserializeResult(respData);
+                return res;
                 // System.out.println(respData);
             } else if (http.getResponseCode() == HttpURLConnection.HTTP_CONFLICT) {
                 Result res = new Result();
-                return "";
+                res.setResultStr("");
+	            return res;
             }
 	        else if (http.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
 			    Result res = new Result();
-                return "";
+			    res.setResultStr("");
+			    return res;
 		    }
             else {
                 System.out.println("ERROR: " + http.getResponseMessage());
