@@ -25,9 +25,13 @@ public class Presenter implements Observer{
 		return presenter;
 	}
 
+	public void updateView() {
+
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
-
+		curView.update();
 	}
 
 	/**
