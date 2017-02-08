@@ -3,6 +3,7 @@ package deltamonstarz.tickettoride;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.ICallbackHandler;
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.SerDes;
@@ -42,16 +43,30 @@ public class ServerProxy implements IServer {
     public String register(String username, String password) {
         Person peep = new Person(username, password);
         String ser = SerDes.serialize(peep);
-        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathRegister, ser);
-        return res.getResultStr();
+        POSTAsyncTask task = new POSTAsyncTask();
+        task.setCallbackHandler(new ICallbackHandler() {
+            @Override
+            public void execute(Result result) {
+                Presenter.getInstance().updateView();
+            }
+        });
+        task.execute(_url, _port, _pathRegister, ser);
+        return "";
     }
 
     @Override
     public String login(String username, String password) {
 	    Person peep = new Person(username, password);
 	    String ser = SerDes.serialize(peep);
-	    Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, ser);
-	    return res.getResultStr();
+        POSTAsyncTask task = new POSTAsyncTask();
+        task.setCallbackHandler(new ICallbackHandler() {
+            @Override
+            public void execute(Result result) {
+                Presenter.getInstance().updateView();
+            }
+        });
+        task.execute(_url, _port, _pathRegister, ser);
+	    return "";
     }
 
     @Override
