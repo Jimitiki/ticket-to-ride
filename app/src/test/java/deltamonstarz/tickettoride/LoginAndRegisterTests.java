@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class LoginAndRegisterTests {
 
 	@Test
-	public void AthenticationTest(){
+	public void AuthenticationTest(){
 		// Be sure to start the server up fresh without any user accounts when running these tests
 		try {
 			assertTrue(Presenter.getInstance().register("localhost", "8080", "joe", "passwords"));

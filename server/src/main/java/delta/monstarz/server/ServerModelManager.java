@@ -3,6 +3,7 @@ package delta.monstarz.server;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
@@ -42,7 +43,7 @@ public class ServerModelManager {
 	 * @param gameName Name chosen by the creator of the gameloginExceptions
 	 * @return The id of the new game
 	 */
-	public int createGame(String gameName, String ownerName){
+	public int createGame(String ownerName, String gameName){
 		Game game = new Game(gameName, ownerName);
 		games.put(game.getGameID(), game);
 		return game.getGameID();
@@ -56,7 +57,11 @@ public class ServerModelManager {
 	 */
 	public void joinGame(String playerName, int gameID){
 		//Todo: Do we need to make a distinction between joining a game for the first time and re-entering a game?
-		games.get(gameID).addPlayer(playerName);
+		Game game = games.get(gameID);
+		if ( !game.hasPlayer(playerName) ){
+			games.get(gameID).addPlayer(playerName);
+		}
+
 	}
 
 	/**
@@ -129,7 +134,6 @@ public class ServerModelManager {
 		}
 	}
 
-
 	/**
 	 * A player is logged out and their authToken can no longer be used.
 	 * @param authToken
@@ -173,6 +177,23 @@ public class ServerModelManager {
 	 */
 	public void startGame(int gameID){
 		games.get(gameID).start();
+	}
+
+	/**
+	 *
+	 * @param authToken An authToken from an http header as part of a request from a client
+	 * @return Is the authToken valid
+	 */
+	public boolean authTokenIsValid(String authToken){
+
+
+
+		for (Map.Entry<String,Person> entry: people.entrySet()){
+			if (entry.getValue().hasAuthToken(authToken)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
