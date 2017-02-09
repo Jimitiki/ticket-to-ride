@@ -1,21 +1,11 @@
 package deltamonstarz.tickettoride;
 
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.security.auth.login.LoginException;
-
 import delta.monstarz.shared.IServer;
-import delta.monstarz.shared.Person;
 import delta.monstarz.shared.commands.JoinGameCommand;
-import deltamonstarz.tickettoride.exceptions.ConnectionException;
-import deltamonstarz.tickettoride.views.BaseView;
 
-public class Presenter implements Observer{
+public class Presenter{
 	private static Presenter presenter = new Presenter();;
 	private ClientModel model;
-	private BaseView curView;
-	private IServer proxy;
 
 	private Presenter() {
 		model = ClientModel.getInstance();
@@ -27,45 +17,6 @@ public class Presenter implements Observer{
 
 	public void updateView() {
 
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		curView.update();
-	}
-
-	/**
-	 * Tells the deltamonstarz.tickettoride.ServerProxy to create a user with the given username and password
-	 * If successful, updates the client model and switches to GameSelectView
-	 * @param username the new username
-	 * @param password the corresponding password
-	 * @return true if the user could be created, false if not
-	 */
-	public boolean register(String ipAddress, String portNum, String username, String password) throws ConnectionException{
-		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		String authToken = proxy.register(username, password);
-		if (authToken.length() == 0) {
-			return false;
-		}
-		model.setAuthToken(authToken);
-		return true;
-	}
-
-	/**
-	 * Tells the deltamonstarz.tickettoride.ServerProxy to authenticate the given user information
-	 * If successful, updates the client model and switches to GameSelectView
-	 * @param username the username to be validated
-	 * @param password the corresponding password
-	 * @return true if the credentials were verified, false if not
-	 */
-	public boolean login(String ipAddress, String portNum, String username, String password) throws ConnectionException{
-		proxy = ServerProxy.getInstance(ipAddress, portNum);
-		String authToken = proxy.login(username, password);
-		if (authToken.length() == 0) {
-			return false;
-		}
-		model.setAuthToken(authToken);
-		return true;
 	}
 
 	/**
@@ -100,7 +51,6 @@ public class Presenter implements Observer{
 	 */
 	public void quitGame() {
 		int gameID = model.getGameID();
-		//ServerProxy.qu();
 	}
 
 	/**
@@ -114,13 +64,5 @@ public class Presenter implements Observer{
 	 * Begins polling the server proxy for commands
 	 */
 	public void pollGameHistory() {
-	}
-
-	public BaseView getCurView() {
-		return curView;
-	}
-
-	public void setCurView(BaseView view) {
-		curView = view;
 	}
 }
