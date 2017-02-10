@@ -9,7 +9,6 @@ import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
 import deltamonstarz.tickettoride.R;
-import deltamonstarz.tickettoride.Presenter;
 import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
@@ -23,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 	private Button mRegisterButton;
 	private Button mLoginButton;
 
-	private Presenter mPresenter;
+	private LoginPresenter mPresenter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 		mRegisterButton = (Button) findViewById(R.id.register_button);
 		mLoginButton = (Button) findViewById(R.id.login_button);
 
-		mPresenter = Presenter.getInstance();
+		mPresenter = LoginPresenter.getInstance();
+		mPresenter.setActivity(this);
 
 		mRegisterButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -49,13 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 				String password = mPasswordText.getText().toString();
 				try
 				{
-					boolean success = mPresenter.register(host, port, username, password);
-					if(success){
-						Toast.makeText(getApplicationContext(), "Profile Created!", Toast.LENGTH_SHORT).show();
-					}
-					else{
-						Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
-					}
+					mPresenter.register(host, port, username, password);
 				}
 				catch(ConnectionException pE)
 				{
@@ -74,14 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 				String password = mPasswordText.getText().toString();
 				try
 				{
-					boolean success = mPresenter.login(host, port, username, password);
-					if(success){
-						Intent i = GameSelectorActivity.newIntent(LoginActivity.this);
-						startActivityForResult(i, 0);
-					}
-					else{
-						Toast.makeText(getApplicationContext(), "Credentials were invalid", Toast.LENGTH_SHORT).show();
-					}
+					mPresenter.login(host, port, username, password);
 				}
 				catch(ConnectionException pE)
 				{
@@ -91,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
 		});
 	}
 
-	public void onLogin() {
+	public void onLogin()
+	{
 
 	}
 }
