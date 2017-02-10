@@ -1,10 +1,12 @@
 package deltamonstarz.tickettoride;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import delta.monstarz.shared.commands.BaseCommand;
 
-public class ClientModel {
+public class ClientModel extends Observable{
 	private static ClientModel clientModel = new ClientModel();
 	private String username;
 	private String authToken;

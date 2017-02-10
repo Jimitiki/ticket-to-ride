@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.Presenter;
 import deltamonstarz.tickettoride.exceptions.ConnectionException;
+import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
-public class LoginActivity extends BaseView {
+public class LoginActivity extends AppCompatActivity {
 
 	//Widgets
 	private EditText mHostText;
@@ -89,11 +91,7 @@ public class LoginActivity extends BaseView {
 		});
 	}
 
-	@Override
-	public void update() {
+	public void onLogin() {
 
 	}
 }
-
-//
-

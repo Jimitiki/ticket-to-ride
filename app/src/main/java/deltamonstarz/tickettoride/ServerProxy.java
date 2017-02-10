@@ -2,7 +2,9 @@ package deltamonstarz.tickettoride;
 
 import java.util.List;
 
+import delta.monstarz.shared.Args;
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.ICallbackHandler;
 import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.SerDes;
@@ -40,18 +42,40 @@ public class ServerProxy implements IServer {
 
     @Override
     public String register(String username, String password) {
-        Person peep = new Person(username, password);
-        String ser = SerDes.serialize(peep);
-        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathRegister, ser);
-        return res.getResultStr();
+        Args args = new Args(username, password);
+        String ser = SerDes.serialize(args);
+        POSTAsyncTask task = new POSTAsyncTask();
+        task.setCallbackHandler(new ICallbackHandler() {
+            @Override
+            public void execute(Result result) {
+                Presenter.getInstance().updateView();
+            }
+        });
+        task.execute(_url, _port, _pathRegister, "", ser);
+        return "";
     }
 
     @Override
     public String login(String username, String password) {
-	    Person peep = new Person(username, password);
-	    String ser = SerDes.serialize(peep);
-	    Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, ser);
-	    return res.getResultStr();
+	    Args args = new Args(username, password);
+	    String ser = SerDes.serialize(args);
+        POSTAsyncTask task = new POSTAsyncTask();
+        task.setCallbackHandler(new ICallbackHandler() {
+            @Override
+            public void execute(Result result) {
+                Presenter.getInstance().updateView();
+            }
+        });
+        task.execute(_url, _port, _pathRegister, "", ser);
+	    return "";
+    }
+
+    @Override
+    public int createGame(String username, String game_name, String auth) {
+        Args args = new Args(username, game_name);
+        String ser = SerDes.serialize(args);
+        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, auth, ser);
+        return res.getResultInt();
     }
 
     @Override

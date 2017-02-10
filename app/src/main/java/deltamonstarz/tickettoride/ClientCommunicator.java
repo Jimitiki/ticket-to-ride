@@ -11,7 +11,7 @@ import delta.monstarz.shared.SerDes;
 
 public class ClientCommunicator {
 
-    public static Result connectAndSend(String serverHost, String serverPort, String path, String reqData) {
+    public static Result connectAndSend(String serverHost, String serverPort, String path, String auth, String reqData) {
         // System.out.println("http://" + serverHost + ":" + serverPort + path);
         try {
             URL url = new URL("http://" + serverHost + ":" + serverPort + path);
@@ -21,7 +21,7 @@ public class ClientCommunicator {
             http.setRequestMethod("POST");
             http.setDoOutput(true); // There is a request body
 
-            http.addRequestProperty("Authorization", "afj232hj2332");
+            http.addRequestProperty("Authorization", auth);
             http.addRequestProperty("Content-Type", "application/json");
             http.addRequestProperty("Accept", "application/json");
 
