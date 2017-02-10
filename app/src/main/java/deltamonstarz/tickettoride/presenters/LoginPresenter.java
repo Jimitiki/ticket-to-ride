@@ -9,7 +9,7 @@ import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.views.LoginActivity;
 
 public class LoginPresenter implements Observer {
-	private static LoginPresenter presenter;
+	private static LoginPresenter presenter = new LoginPresenter();
 	private LoginActivity activity;
 	private ServerProxy proxy;
 
@@ -17,7 +17,7 @@ public class LoginPresenter implements Observer {
 
 	public static LoginPresenter getInstance() {
 		return presenter;
-	};
+	}
 
 	public void setActivity(LoginActivity activity) {
 		this.activity = activity;

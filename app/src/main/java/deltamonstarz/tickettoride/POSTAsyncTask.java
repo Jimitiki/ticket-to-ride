@@ -4,21 +4,17 @@ import android.os.AsyncTask;
 
 import delta.monstarz.shared.ICallbackHandler;
 import delta.monstarz.shared.Result;
+import delta.monstarz.shared.commands.BaseCommand;
 
-public class POSTAsyncTask extends AsyncTask<String, Integer, Result> {
-	private ICallbackHandler callbackHandler;
-
-	public void setCallbackHandler(ICallbackHandler callbackHandler) {
-		this.callbackHandler = callbackHandler;
-	}
+public class POSTAsyncTask extends AsyncTask<String, Integer, BaseCommand> {
 
 	@Override
-	protected Result doInBackground(String... params) {
+	protected BaseCommand doInBackground(String... params) {
 		return null;
 	}
 
 	@Override
-	protected void onPostExecute(Result result) {
-		callbackHandler.execute(result);
+	protected void onPostExecute(BaseCommand command) {
+		command.execute();
 	}
 }

@@ -6,10 +6,6 @@ import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.Result;
 
-/**
- * Created by oliphaun on 2/3/17.
- */
-
 public class ServerProxy implements IServerProxy {
 
     private final String _url;
@@ -54,14 +50,14 @@ public class ServerProxy implements IServerProxy {
     public void login(String username, String password) {
 	    Args args = new Args(username, password);
 	    String ser = SerDes.serialize(args);
-        POSTAsyncTask task = new POSTAsyncTask();
-        task.setCallbackHandler(new ICallbackHandler() {
-            @Override
-            public void execute(Result result) {
-                Presenter.getInstance().updateView();
-            }
-        });
-        task.execute(_url, _port, _pathRegister, "", ser);
+//        POSTAsyncTask task = new POSTAsyncTask();
+//        task.setCallbackHandler(new ICallbackHandler() {
+//            @Override
+//            public void execute(Result result) {
+//                Presenter.getInstance().updateView();
+//            }
+//        });
+//        task.execute(_url, _port, _pathRegister, "", ser);
     }
 
     @Override

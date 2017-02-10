@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
 
 public class ClientModel extends Observable{
@@ -14,6 +15,7 @@ public class ClientModel extends Observable{
 	private int curCommand;
 	private List<BaseCommand> gameHistory;
 	private List<String> players;
+	private List<GameInfo> availableGames;
 
 	private ClientModel() {
 		gameID = -1;
@@ -70,6 +72,14 @@ public class ClientModel extends Observable{
 
 	public void setPlayers(List<String> players) {
 		this.players = players;
+	}
+
+	public List<GameInfo> getAvailableGames() {
+		return availableGames;
+	}
+
+	public void setAvailableGames(List<GameInfo> availableGames) {
+		this.availableGames = availableGames;
 	}
 
 	public void addPlayer(String username) {
