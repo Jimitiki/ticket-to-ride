@@ -1,6 +1,5 @@
 package deltamonstarz.tickettoride;
 
-import delta.monstarz.shared.IServer;
 import delta.monstarz.shared.commands.JoinGameCommand;
 
 public class Presenter{

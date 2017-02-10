@@ -2,11 +2,8 @@ package delta.monstarz.server.web;
 
 import java.util.List;
 
-import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.server.ServerFacade;
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.IServer;
-import delta.monstarz.shared.Person;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.GameInfo;
 
@@ -24,7 +21,7 @@ public class ServerCommunicator {
 
     public static Result register(Args args) {
         Result res = new Result();
-        IServer serv = ServerFacade.getInstance();
+        ServerFacade serv = ServerFacade.getInstance();
         String auth_token = serv.register(args.getStr1(), args.getStr2());
         res.setResultStr(auth_token);
         return res;
@@ -32,7 +29,7 @@ public class ServerCommunicator {
 
     public static Result login(Args args) {
         Result res = new Result();
-        IServer serv = ServerFacade.getInstance();
+        ServerFacade serv = ServerFacade.getInstance();
 
         String auth_token = serv.login(args.getStr1(), args.getStr2());
         res.setResultStr(auth_token);
@@ -42,7 +39,7 @@ public class ServerCommunicator {
 
     public static Result createGame(Args args, String auth) {
         Result res = new Result();
-        IServer serv = ServerFacade.getInstance();
+        ServerFacade serv = ServerFacade.getInstance();
         String username = args.getStr1();
         String game_name = args.getStr2();
 

@@ -11,6 +11,7 @@ public class ServerProxy implements IServerProxy {
     private final String _port;
     private String _pathRegister = "/register";
     private String _pathLogin = "/login";
+    private String _pathCreateGame = "/create";
 
     private static ServerProxy _instance = null;
 
@@ -49,6 +50,7 @@ public class ServerProxy implements IServerProxy {
     public void login(String username, String password) {
 	    Args args = new Args(username, password);
 	    String ser = SerDes.serialize(args);
+        ClientCommunicator.connectAndSend(_url, _port, _pathLogin, "", ser);
 //        POSTAsyncTask task = new POSTAsyncTask();
 //        task.setCallbackHandler(new ICallbackHandler() {
 //            @Override
@@ -63,7 +65,7 @@ public class ServerProxy implements IServerProxy {
     public void createGame(String username, String game_name, String auth) {
         Args args = new Args(username, game_name);
         String ser = SerDes.serialize(args);
-        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, auth, ser);
+        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathCreateGame, auth, ser);
 //        return res.getResultInt();
     }
 
