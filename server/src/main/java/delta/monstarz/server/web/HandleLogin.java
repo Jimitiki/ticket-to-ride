@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
+import delta.monstarz.shared.Args;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
@@ -23,9 +24,9 @@ public class HandleLogin extends ServerHandler {
             if (exchange.getRequestMethod().toLowerCase().equals("post")) {
                 InputStream reqBody = exchange.getRequestBody();
                 String reqData = readString(reqBody);
-                Person peep = SerDes.deserializePerson(reqData);
+                Args args = SerDes.deserializeArgs(reqData);
 
-                Result res = ServerCommunicator.login(peep);
+                Result res = ServerCommunicator.login(args);
 
 	            if (res.getResultStr().equals("")){
 		            // No authToken, there is an error

@@ -1,12 +1,7 @@
 package deltamonstarz.tickettoride;
 
-import java.util.List;
-
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.ICallbackHandler;
-import delta.monstarz.shared.IServer;
-import delta.monstarz.shared.Person;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.Result;
@@ -15,7 +10,7 @@ import delta.monstarz.shared.Result;
  * Created by oliphaun on 2/3/17.
  */
 
-public class ServerProxy implements IServer {
+public class ServerProxy implements IServerProxy {
 
     private final String _url;
     private final String _port;
@@ -41,22 +36,22 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public String register(String username, String password) {
+    public void register(String username, String password) {
         Args args = new Args(username, password);
         String ser = SerDes.serialize(args);
-        POSTAsyncTask task = new POSTAsyncTask();
-        task.setCallbackHandler(new ICallbackHandler() {
-            @Override
-            public void execute(Result result) {
-                Presenter.getInstance().updateView();
-            }
-        });
-        task.execute(_url, _port, _pathRegister, "", ser);
-        return "";
+        ClientCommunicator.connectAndSend(_url, _port, _pathRegister, "", ser);
+//        POSTAsyncTask task = new POSTAsyncTask();
+//        task.setCallbackHandler(new ICallbackHandler() {
+//            @Override
+//            public void execute(Result result) {
+//                Presenter.getInstance().updateView();
+//            }
+//        });
+//        task.execute(_url, _port, _pathRegister, "", ser);
     }
 
     @Override
-    public String login(String username, String password) {
+    public void login(String username, String password) {
 	    Args args = new Args(username, password);
 	    String ser = SerDes.serialize(args);
         POSTAsyncTask task = new POSTAsyncTask();
@@ -67,19 +62,18 @@ public class ServerProxy implements IServer {
             }
         });
         task.execute(_url, _port, _pathRegister, "", ser);
-	    return "";
     }
 
     @Override
-    public int createGame(String username, String game_name, String auth) {
+    public void createGame(String username, String game_name, String auth) {
         Args args = new Args(username, game_name);
         String ser = SerDes.serialize(args);
         Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, auth, ser);
-        return res.getResultInt();
+//        return res.getResultInt();
     }
 
     @Override
-    public List<GameInfo> listGames(String auth) {
-        return null;
+    public void listGames(String auth) {
+
     }
 }
