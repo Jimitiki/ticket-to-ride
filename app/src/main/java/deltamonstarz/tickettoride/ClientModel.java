@@ -90,6 +90,19 @@ public class ClientModel extends Observable{
 		players.remove(username);
 	}
 
+	public void addLoginInformation(String username, String authToken) {
+		this.username = username;
+		this.authToken = authToken;
+		setChanged();
+		notifyObservers();
+	}
+
+	public void updateAvailableGames(List<GameInfo> games) {
+		availableGames = games;
+		setChanged();
+		notifyObservers();
+	}
+
 	/**
 	 * Gets game commands given after curCommand and executes them
 	 */

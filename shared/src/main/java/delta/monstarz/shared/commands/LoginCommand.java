@@ -6,6 +6,7 @@ public class LoginCommand extends BaseCommand {
 
 	public LoginCommand(String username, int gameID) {
 		super(username, gameID);
+		name = "LoginCommand";
 	}
 
 	public String getAuthToken() {

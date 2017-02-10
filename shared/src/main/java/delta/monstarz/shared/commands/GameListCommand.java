@@ -9,6 +9,7 @@ public class GameListCommand extends BaseCommand {
 
 	public GameListCommand(String username, int gameID) {
 		super(username, gameID);
+		name = "GameListCommand";
 	}
 
 	@Override

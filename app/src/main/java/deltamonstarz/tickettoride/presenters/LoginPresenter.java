@@ -19,6 +19,14 @@ public class LoginPresenter implements Observer {
 		return presenter;
 	}
 
+	public void observe() {
+		ClientModel.getInstance().addObserver(this);
+	}
+
+	public void stopObserve() {
+		ClientModel.getInstance().deleteObserver(this);
+	}
+
 	public void setActivity(LoginActivity activity) {
 		this.activity = activity;
 	}
@@ -28,6 +36,8 @@ public class LoginPresenter implements Observer {
 		ClientModel model = (ClientModel) o;
 		if (model.getAuthToken() != null) {
 			activity.onLogin();
+		} else {
+
 		}
 	}
 

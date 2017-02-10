@@ -1,7 +1,6 @@
 package deltamonstarz.tickettoride;
 
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.ICallbackHandler;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.Result;

@@ -10,6 +10,6 @@ public class ClientGameListCommand extends GameListCommand {
 
 	@Override
 	public void execute() {
-		ClientModel.getInstance().setAvailableGames(games);
+		ClientModel.getInstance().updateAvailableGames(games);
 	}
 }
