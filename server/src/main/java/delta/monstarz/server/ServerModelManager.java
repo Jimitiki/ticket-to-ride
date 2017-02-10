@@ -21,6 +21,8 @@ public class ServerModelManager {
 
 	private static ServerModelManager instance;
 	private static final long authTokenLifeTime = 60 * ( 60 * 1000); // Only change the left number(minutes) Format: minutes * (seconds * milliseconds)
+	private static final long removalFrequency = 60 * 1000; // One Minute
+	private Date nextTokenCleaning = new Date();
 
 	private HashMap<String, Person> people = new HashMap<>(); //Key is username
 	private HashMap<Integer, Game> games = new HashMap<>(); // Key is gameID
@@ -186,10 +188,17 @@ public class ServerModelManager {
 	 */
 	public boolean authTokenIsValid(String authToken){
 
-
+		// Clean out old tokens if necessary
+		if ( nextTokenCleaning.getTime() < new Date().getTime()){
+			clearExpiredTokens();
+			Date next = new Date();
+			next.setTime(next.getTime() + removalFrequency);
+			nextTokenCleaning = next;
+		}
 
 		for (Map.Entry<String,Person> entry: people.entrySet()){
 			if (entry.getValue().hasAuthToken(authToken)){
+				entry.getValue().refreshToken(authToken); // Date object updated to the current time
 				return true;
 			}
 		}
