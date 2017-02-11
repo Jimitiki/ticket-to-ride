@@ -1,5 +1,6 @@
 package delta.monstarz.server;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +21,8 @@ import delta.monstarz.shared.GameInfo;
 public class ServerModelManager {
 
 	private static ServerModelManager instance;
-	private static final long authTokenLifeTime = 60 * ( 60 * 1000); // Only change the left number(minutes) Format: minutes * (seconds * milliseconds)
-	private static final long removalFrequency = 60 * 1000; // One Minute
+	private static long authTokenLifeTime = 60 * ( 60 * 1000); // Only change the left number(minutes) Format: minutes * (seconds * milliseconds)
+	private static long removalFrequency = 60 * 1000; // One Minute
 	private Date nextTokenCleaning = new Date();
 
 	private HashMap<String, Person> people = new HashMap<>(); //Key is username
@@ -36,6 +37,26 @@ public class ServerModelManager {
 			instance = new ServerModelManager();
 		}
 		return instance;
+	}
+
+	public static void clearModel(){
+		instance = new ServerModelManager();
+	}
+
+	public static long getAuthTokenLifeTime() {
+		return authTokenLifeTime;
+	}
+
+	public static void setAuthTokenLifeTime(long authTokenLifeTime) {
+		ServerModelManager.authTokenLifeTime = authTokenLifeTime;
+	}
+
+	public static long getRemovalFrequency() {
+		return removalFrequency;
+	}
+
+	public static void setRemovalFrequency(long removalFrequency) {
+		ServerModelManager.removalFrequency = removalFrequency;
 	}
 
 	/**
@@ -152,7 +173,16 @@ public class ServerModelManager {
 	 * @return A list of games that the player is in
 	 */
 	public List<GameInfo> getGamesIn(String username){
-		return null;
+
+		ArrayList<GameInfo> list = new ArrayList<>();
+
+		for (Map.Entry<Integer, Game> entry: games.entrySet()){
+			if ( entry.getValue().hasPlayer(username) ){
+				list.add(entry.getValue().getGameInfo());
+			}
+		}
+
+		return list;
 	}
 
 	/**
@@ -160,7 +190,16 @@ public class ServerModelManager {
 	 * @return A list of all of the games that have not yet started
 	 */
 	public List<GameInfo> getOpenGames(){
-		return null;
+
+		ArrayList<GameInfo> list = new ArrayList<>();
+
+		for (Map.Entry<Integer, Game> entry: games.entrySet()){
+			if ( !entry.getValue().isGameStarted() ){
+				list.add(entry.getValue().getGameInfo());
+			}
+		}
+
+		return list;
 	}
 
 	/**
@@ -213,6 +252,10 @@ public class ServerModelManager {
 		//Todo: Call this function periodically, probably once per minute
 		Date oldestAllowedTime = new Date();
 		oldestAllowedTime.setTime(oldestAllowedTime.getTime() - authTokenLifeTime);
+
+		for (Map.Entry<String,Person> entry: people.entrySet()){
+			entry.getValue().removeExpiredTokens(oldestAllowedTime);
+		}
 	}
 
 	public Game getGameByID(int gameID) {
