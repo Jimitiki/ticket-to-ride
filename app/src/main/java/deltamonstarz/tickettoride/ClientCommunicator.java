@@ -1,7 +1,7 @@
 package deltamonstarz.tickettoride;
 
-import deltamonstarz.tickettoride.Tasks.GETAsyncTask;
-import deltamonstarz.tickettoride.Tasks.POSTAsyncTask;
+import deltamonstarz.tickettoride.tasks.GETAsyncTask;
+import deltamonstarz.tickettoride.tasks.POSTAsyncTask;
 
 /**
  * Created by oliphaun on 2/3/17.
