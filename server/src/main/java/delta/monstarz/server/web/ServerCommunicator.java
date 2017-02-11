@@ -31,14 +31,13 @@ public class ServerCommunicator {
 	    return command;
     }
 
-    public static Result login(Args args) {
-        Result res = new Result();
+    public static LoginCommand login(Args args) {
         ServerFacade serv = ServerFacade.getInstance();
-
         String auth_token = serv.login(args.getStr1(), args.getStr2());
-        res.setResultStr(auth_token);
-
-        return res;
+        LoginCommand command = new LoginCommand(args.getStr1());
+        command.setLoginSuccessful(true);
+        command.setAuthToken(auth_token);
+        return command;
     }
 
     public static Result createGame(Args args, String auth) {

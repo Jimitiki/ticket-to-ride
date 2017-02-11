@@ -11,6 +11,7 @@ import delta.monstarz.shared.Args;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
+import delta.monstarz.shared.commands.LoginCommand;
 
 /**
  * Created by oliphaun on 2/4/17.
@@ -26,18 +27,11 @@ public class HandleLogin extends ServerHandler {
                 String reqData = readString(reqBody);
                 Args args = SerDes.deserializeArgs(reqData);
 
-                Result res = ServerCommunicator.login(args);
-
-	            if (res.getResultStr().equals("")){
-		            // No authToken, there is an error
-		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0); //403
-	            }
-	            else{
-		            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
-	            }
+	            LoginCommand command = ServerCommunicator.login(args);
+	            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
 
 
-                String ser = SerDes.serialize(res);
+                String ser = SerDes.serialize(command);
 
                 OutputStream respBody = exchange.getResponseBody();
                 writeString(ser, respBody);
@@ -45,7 +39,7 @@ public class HandleLogin extends ServerHandler {
             }
         }
         catch (IOException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             e.printStackTrace();
         }
     }

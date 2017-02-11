@@ -8,7 +8,7 @@ import java.net.URL;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 
-public class GETAsyncTask extends POSTAsyncTask {
+public class GETAsyncTask extends HTTPAsyncTask {
 
 	@Override
 	protected BaseCommand doInBackground(String... params) {
