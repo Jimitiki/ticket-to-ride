@@ -34,7 +34,7 @@ public class Server {
 		server.createContext("/register", new HandleRegister());
 		server.createContext("/login", new HandleLogin());
 		server.createContext("/create", new HandleCreateGame());
-		server.createContext("/games/list", new ListGamesHandler());
+		server.createContext("/game", new ListGamesHandler());
 
 		System.out.println("Starting server");
 		server.start();

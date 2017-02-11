@@ -12,6 +12,10 @@ public class GameListCommand extends BaseCommand {
 		name = "GameListCommand";
 	}
 
+	public void setGames(List<GameInfo> games) {
+		this.games = games;
+	}
+
 	@Override
 	public void execute() {}
 }
