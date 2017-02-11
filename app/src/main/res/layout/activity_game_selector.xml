@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:padding="15dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"/>
 
+    <!--
     <Button
         android:id="@+id/createGameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="200dip"
+        android:layout_height="60dip"
+        android:text="Create Game"
+        android:layout_alignParentBottom="true"/>
+        -->
 
-</FrameLayout>
+</LinearLayout>
