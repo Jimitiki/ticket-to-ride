@@ -5,8 +5,8 @@ import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 public class ClientLoginCommand extends LoginCommand {
-	public ClientLoginCommand(String username, int gameID) {
-		super(username, gameID);
+	public ClientLoginCommand(String username) {
+		super(username);
 	}
 
 	@Override

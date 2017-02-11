@@ -6,6 +6,9 @@ import delta.monstarz.server.ServerFacade;
 import delta.monstarz.shared.Args;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.LoginCommand;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by oliphaun on 2/3/17.
@@ -19,12 +22,13 @@ public class ServerCommunicator {
 //        return res;
 //    }
 
-    public static Result register(Args args) {
-        Result res = new Result();
+    public static LoginCommand register(Args args) {
         ServerFacade serv = ServerFacade.getInstance();
         String auth_token = serv.register(args.getStr1(), args.getStr2());
-        res.setResultStr(auth_token);
-        return res;
+	    LoginCommand command = new LoginCommand(args.getStr1());
+	    command.setLoginSuccessful(true);
+	    command.setAuthToken(auth_token);
+	    return command;
     }
 
     public static Result login(Args args) {

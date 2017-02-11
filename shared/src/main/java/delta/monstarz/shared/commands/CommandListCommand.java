@@ -5,8 +5,8 @@ import java.util.List;
 public class CommandListCommand extends BaseCommand {
 	private List<BaseCommand> commands;
 
-	public CommandListCommand(String username, int gameID) {
-		super(username, gameID);
+	public CommandListCommand(String username) {
+		super(username);
 		name = "CommandListCommand";
 	}
 

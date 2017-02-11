@@ -4,9 +4,8 @@ public class LoginCommand extends BaseCommand {
 	protected String authToken;
 	protected boolean loginSuccessful;
 
-	public LoginCommand(String username, int gameID) {
-		super(username, gameID);
-		name = "LoginCommand";
+	public LoginCommand(String username) {
+		super(username);
 	}
 
 	public String getAuthToken() {
@@ -15,6 +14,14 @@ public class LoginCommand extends BaseCommand {
 
 	public void setAuthToken(String authToken) {
 		this.authToken = authToken;
+	}
+
+	public boolean isLoginSuccessful() {
+		return loginSuccessful;
+	}
+
+	public void setLoginSuccessful(boolean loginSuccessful) {
+		this.loginSuccessful = loginSuccessful;
 	}
 
 	@Override

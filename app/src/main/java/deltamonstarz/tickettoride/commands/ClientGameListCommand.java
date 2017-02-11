@@ -4,8 +4,8 @@ import delta.monstarz.shared.commands.GameListCommand;
 import deltamonstarz.tickettoride.ClientModel;
 
 public class ClientGameListCommand extends GameListCommand {
-	public ClientGameListCommand(String username, int gameID) {
-		super(username, gameID);
+	public ClientGameListCommand(String username) {
+		super(username);
 	}
 
 	@Override

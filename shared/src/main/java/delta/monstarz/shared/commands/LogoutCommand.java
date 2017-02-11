@@ -2,8 +2,8 @@ package delta.monstarz.shared.commands;
 
 public class LogoutCommand extends BaseCommand {
 
-	public LogoutCommand(String username, int gameID) {
-		super(username, gameID);
+	public LogoutCommand(String username) {
+		super(username);
 		name = "LogoutCommand";
 	}
 

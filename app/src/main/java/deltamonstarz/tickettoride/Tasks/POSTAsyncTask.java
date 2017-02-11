@@ -35,6 +35,7 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 
 			InputStream respBody = http.getInputStream();
 			String respData = readString(respBody);
+			System.out.print("respData");
 			return SerDes.deserializeCommand(respData, COMMAND_PREFIX);
 
 //			if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
