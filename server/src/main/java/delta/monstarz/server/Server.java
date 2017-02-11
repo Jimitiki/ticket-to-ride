@@ -6,7 +6,7 @@ import com.sun.net.httpserver.*;
 import delta.monstarz.server.web.HandleCreateGame;
 import delta.monstarz.server.web.HandleLogin;
 import delta.monstarz.server.web.HandleRegister;
-import delta.monstarz.server.web.ListGamesHandler;
+import delta.monstarz.server.web.HandleListGames;
 import delta.monstarz.server.web.ServerHandler;
 
 public class Server {
@@ -34,14 +34,14 @@ public class Server {
 		server.createContext("/register", new HandleRegister());
 		server.createContext("/login", new HandleLogin());
 		server.createContext("/create", new HandleCreateGame());
-		server.createContext("/game", new ListGamesHandler());
+		server.createContext("/games", new HandleListGames());
 
 		System.out.println("Starting server");
 		server.start();
 	}
 
 	public static void main(String[] args) {
-		System.out.println("I'm a server. Currently I just echo");
+		System.out.println("I'm a server. Currently I just authenticate and list games");
 		String portNumber;
 		if(args.length == 0) {
 			portNumber = "8080";

@@ -52,7 +52,7 @@ public class ServerFacade {
     }
 
     public int createGame(String username, String game_name, String auth) {
-        return 0;
+        return 4; //working up to this point...
     }
 
     public List<GameInfo> listGames(String auth, String username) {

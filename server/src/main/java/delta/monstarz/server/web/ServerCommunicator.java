@@ -9,6 +9,8 @@ import delta.monstarz.shared.Result;
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.GameListCommand;
+import delta.monstarz.shared.commands.CreateGameCommand;
+import delta.monstarz.shared.commands.GameListCommand;
 import delta.monstarz.shared.commands.LoginCommand;
 import sun.rmi.runtime.Log;
 
@@ -40,15 +42,13 @@ public class ServerCommunicator {
         return command;
     }
 
-    public static Result createGame(Args args, String auth) {
-        Result res = new Result();
+    public static CreateGameCommand createGame(Args args, String auth) {
+        ServerFacade serv = ServerFacade.getInstance();
         String username = args.getStr1();
         String game_name = args.getStr2();
-
-        int gameID = serverFacade.createGame(username, game_name, auth);
-        res.setResultInt(gameID);
-
-        return res;
+        int gameID = serv.createGame(username, game_name, auth);
+        CreateGameCommand command = new CreateGameCommand(username, gameID);
+        return command;
     }
 
     public static GameListCommand listGames(String auth, String username) {

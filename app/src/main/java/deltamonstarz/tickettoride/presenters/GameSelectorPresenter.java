@@ -38,7 +38,7 @@ public class GameSelectorPresenter extends Presenter{
 	 * @param gameName name of the game to be created
 	 */
 	public void createGame(String gameName) {
-
+		proxy.createGame(model.getUsername(), gameName, model.getAuthToken());
 	}
 
 	/**

@@ -18,7 +18,7 @@ import delta.monstarz.shared.commands.GameListCommand;
  * Created by oliphaun on 2/10/17.
  */
 
-public class ListGamesHandler extends ServerHandler {
+public class HandleListGames extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try {

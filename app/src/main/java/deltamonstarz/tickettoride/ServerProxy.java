@@ -14,7 +14,8 @@ public class ServerProxy implements IServerProxy {
     private final String _pathLogin = "/login";
     private final String _pathCreateGame = "/create";
     private final String _pathCommand = "/command";
-	private final String _pathGame = "/game";
+	private final String _pathListGames = "/games";
+    private final String _pathGameInfo = "/game";
 
     private static ServerProxy _instance = null;
 
@@ -76,7 +77,7 @@ public class ServerProxy implements IServerProxy {
     public void listGames(String auth, String username) {
         HashMap<String, String> query = new HashMap<>();
         query.put("username", username);
-		ClientCommunicator.GET(_url, _port, _pathGame, auth, query);
+		ClientCommunicator.GET(_url, _port, _pathListGames, auth, query);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class ServerProxy implements IServerProxy {
         query.put("username", username);
         query.put("gameID", gameID);
         query.put("curCommand", Integer.toString(curCommand));
-        ClientCommunicator.GET(_url, _port, _pathGame, auth, query);
+        ClientCommunicator.GET(_url, _port, _pathGameInfo, auth, query);
 
     }
 }

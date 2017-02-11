@@ -36,6 +36,9 @@ public class LoginActivity extends AppCompatActivity {
 		mRegisterButton = (Button) findViewById(R.id.register_button);
 		mLoginButton = (Button) findViewById(R.id.login_button);
 
+		mHostText.setText("10.0.2.2");
+		mPortText.setText("8080");
+
 		mPresenter = LoginPresenter.getInstance();
 		mPresenter.setActivity(this);
 

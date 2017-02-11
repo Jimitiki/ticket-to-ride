@@ -30,7 +30,6 @@ public class HandleLogin extends ServerHandler {
 	            LoginCommand command = ServerCommunicator.login(args);
 	            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
 
-
                 String ser = SerDes.serialize(command);
 
                 OutputStream respBody = exchange.getResponseBody();

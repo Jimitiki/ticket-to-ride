@@ -57,12 +57,18 @@ public class LoginPresenter extends Presenter {
 	 */
 	public void login(String ipAddress, String portNum, String username, String password) throws ConnectionException {
 		proxy = ServerProxy.getInstance();
-		initializeServerAddress(ipAddress, portNum);
-		proxy.login(username, password);
+		createGame();
+//		initializeServerAddress(ipAddress, portNum);
+//		proxy.login(username, password);
 	}
 
 	private void initializeServerAddress(String ipAddress, String portNum) {
 		proxy.setUrl(ipAddress);
 		proxy.setPort(portNum);
+	}
+
+	private void createGame() {
+
+		proxy.createGame("alex", "alextest", model.getAuthToken());
 	}
 }

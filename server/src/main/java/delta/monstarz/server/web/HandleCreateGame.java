@@ -12,6 +12,9 @@ import delta.monstarz.shared.Args;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
+import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.CreateGameCommand;
+import delta.monstarz.shared.commands.LoginCommand;
 
 /**
  * Created by oliphaun on 2/8/17.
@@ -22,7 +25,6 @@ public class HandleCreateGame extends ServerHandler {
     public void handle(HttpExchange exchange) throws IOException {
         try {
             if (exchange.getRequestMethod().toLowerCase().equals("post")) {
-
                 Headers reqHeaders = exchange.getRequestHeaders();
                 if (reqHeaders.containsKey("Authorization")) {
                     String auth = reqHeaders.getFirst("Authorization");
@@ -30,36 +32,18 @@ public class HandleCreateGame extends ServerHandler {
                     InputStream reqBody = exchange.getRequestBody();
                     String reqData = readString(reqBody);
                     Args args = SerDes.deserializeArgs(reqData);
-                    Result res = ServerCommunicator.createGame(args, auth);
+                    CreateGameCommand command = ServerCommunicator.createGame(args, auth);
+                    String ser = SerDes.serialize(command);
 
-//                        BaseCommand command = SerDes.deserializeCommand(reqData, "");
-//                        System.out.println(command.getName());
-//                        // System.out.println(reqData);
-//
-//                        IProcessor proc = StringProcessor.getInstance();
-//                        Result res = proc.executeCommand(command);
-//                        String ser = SerDes.serialize(res);
-//
-//                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-
-                    if (res.getResultStr().equals("")){
-                        // No authToken, there is an error
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0); //409
-                    }
-                    else{
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
-                    }
-
-                    String ser = SerDes.serialize(res);
-
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
                     OutputStream respBody = exchange.getResponseBody();
-                    writeString(ser, respBody); //ser
+                    writeString(ser, respBody);
                     respBody.close();
                 }
             }
         }
         catch (IOException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             e.printStackTrace();
         }
     }
