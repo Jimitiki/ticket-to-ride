@@ -11,6 +11,7 @@ import delta.monstarz.shared.GameInfo;
 
 public class ServerFacade {
     private static ServerFacade _instance = null;
+    private static ServerModelManager modelManager = ServerModelManager.getInstance();
 
     public static ServerFacade getInstance() {
         if (_instance == null) {
@@ -27,9 +28,8 @@ public class ServerFacade {
      * @return An authToken which will identify the current session for the user
      */
     public String register(String username, String password) {
-        ServerModelManager model = ServerModelManager.getInstance();
         try {
-            return model.register(username, password);
+            return modelManager.register(username, password);
         }
         catch (LoginException e){
             return "";
@@ -43,9 +43,8 @@ public class ServerFacade {
      * @return A new auth token for the user.
      */
     public String login(String username, String password) {
-        ServerModelManager model = ServerModelManager.getInstance();
         try {
-            return model.login(username, password);
+            return modelManager.login(username, password);
         }
         catch (LoginException e){
             return "";
@@ -56,7 +55,9 @@ public class ServerFacade {
         return 0;
     }
 
-    public List<GameInfo> listGames(String auth) {
-        return null;
+    public List<GameInfo> listGames(String auth, String username) {
+        List<GameInfo> games = modelManager.getGamesIn(username);
+        games.addAll(modelManager.getOpenGames());
+        return games;
     }
 }

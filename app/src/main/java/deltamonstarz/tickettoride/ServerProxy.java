@@ -1,5 +1,7 @@
 package deltamonstarz.tickettoride;
 
+import java.util.HashMap;
+
 import delta.monstarz.shared.Args;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
@@ -71,8 +73,10 @@ public class ServerProxy implements IServerProxy {
     }
 
     @Override
-    public void listGames(String auth) {
-		ClientCommunicator.GET(_url, _port, _pathGame, auth);
+    public void listGames(String auth, String username) {
+        HashMap<String, String> query = new HashMap<>();
+        query.put("username", username);
+		ClientCommunicator.GET(_url, _port, _pathGame, auth, query);
     }
 
     @Override
@@ -82,6 +86,11 @@ public class ServerProxy implements IServerProxy {
 
     @Override
     public void listCommands(String auth, String gameID, String username, int curCommand) {
+        HashMap<String, String> query = new HashMap<>();
+        query.put("username", username);
+        query.put("gameID", gameID);
+        query.put("curCommand", Integer.toString(curCommand));
+        ClientCommunicator.GET(_url, _port, _pathGame, auth, query);
 
     }
 }

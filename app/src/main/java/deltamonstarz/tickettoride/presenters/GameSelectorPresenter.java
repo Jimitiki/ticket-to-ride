@@ -69,7 +69,7 @@ public class GameSelectorPresenter extends Presenter{
 	private class GamePoller implements Runnable {
 		@Override
 		public void run() {
-			proxy.listGames(model.getAuthToken());
+			proxy.listGames(model.getAuthToken(), model.getUsername());
 		}
 	}
 }
