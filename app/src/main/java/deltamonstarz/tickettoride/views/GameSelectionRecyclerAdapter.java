@@ -36,7 +36,6 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 			gameId = (TextView) v.findViewById(R.id.gameIdText);
 			gameStartTime = (TextView) v.findViewById(R.id.startTimeText);
 			playerCount = (TextView) v.findViewById(R.id.playerCountText);
-
 		}
 	}
 
@@ -61,19 +60,20 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 		// - replace the contents of the view with that element
 		//final String name = mDataset.get(position);
 
+
 		GameInfo info = mGameList.get(position);
 		holder.gameName.setText(info.getName());
-		holder.gameId.setText(info.getGameID());
+		holder.gameId.setText(String.valueOf(info.getGameID()));
 		holder.gameOwner.setText(info.getOwnerName());
 		holder.gameStartTime.setText(info.getStartTime().toString());
-		holder.playerCount.setText(info.getPlayerCount());
+		holder.playerCount.setText(String.valueOf(info.getPlayerCount()));
 
-		final String id = info.getName();
+		final String name = info.getName();
 
 		holder.gameName.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.print("Game " + id + " touched.");
+				System.out.print("Game " + name + " touched.");
 			}
 		});
 	}
