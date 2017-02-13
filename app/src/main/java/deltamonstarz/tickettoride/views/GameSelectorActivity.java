@@ -11,9 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 
 
 public class GameSelectorActivity extends AppCompatActivity
@@ -22,6 +24,9 @@ public class GameSelectorActivity extends AppCompatActivity
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
 	private RecyclerView.Adapter mAdapter;
+
+	//Data Members
+	private GameSelectorPresenter mPresenter;
 
 
 	public static Intent newIntent(Context packageContext)
@@ -36,6 +41,10 @@ public class GameSelectorActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_selector);
 
+		mPresenter = GameSelectorPresenter.getInstance();
+		mPresenter.setActivity(this);
+		mPresenter.observe();
+
 		mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 		// use this setting to improve performance if you know that changes
@@ -47,7 +56,12 @@ public class GameSelectorActivity extends AppCompatActivity
 		mRecyclerView.setLayoutManager(mLayoutManager);
 
 		// specify an adapter (see also next example)
-		GameInfo[] array = new GameInfo[]
+		mPresenter.pollGameList();
+
+	}
+
+	public void onGameListUpdate(List<GameInfo> infos) {
+		/*GameInfo[] array = new GameInfo[]
 		{
 			new GameInfo("Name", "Owner", 0, new Date(), 2, false),
 			new GameInfo("Team Cap", "Steve", 1, new Date(), 3, false),
@@ -55,14 +69,16 @@ public class GameSelectorActivity extends AppCompatActivity
 			new GameInfo("Team Iron", "Owner", 3, new Date(), 4, false),
 			new GameInfo("Ooo", "Owner", 4, new Date(), 5, true),
 		};
-		ArrayList<GameInfo> myDataset = new ArrayList<>(Arrays.asList(array));;
-		mAdapter = new GameSelectionRecyclerAdapter(myDataset);
+		ArrayList<GameInfo> myDataset = new ArrayList<>(Arrays.asList(array));*/
+		mAdapter = new GameSelectionRecyclerAdapter(infos);
 		mRecyclerView.setAdapter(mAdapter);
 	}
 
-	public void onGameListUpdate() {}
+	public void onLogout() {
 
-	public void onLogout() {}
+	}
 
-	public void onJoinGame() {}
+	public void onJoinGame() {
+
+	}
 }
