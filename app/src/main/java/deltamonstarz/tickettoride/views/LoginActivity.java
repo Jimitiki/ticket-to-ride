@@ -84,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
 
 	public void onLogin()
 	{
-
+		Intent i = GameSelectorActivity.newIntent(LoginActivity.this);
+		startActivity(i);
 	}
 
 	public void onLoginFailed() {}
