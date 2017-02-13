@@ -3,7 +3,7 @@ package delta.monstarz.shared.commands;
 import java.util.List;
 
 public class CommandListCommand extends BaseCommand {
-	private List<BaseCommand> commands;
+	protected List<BaseCommand> commands;
 
 	public CommandListCommand(String username) {
 		super(username);

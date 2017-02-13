@@ -37,10 +37,11 @@ public class HandleListGames extends ServerHandler {
                     OutputStream respBody = exchange.getResponseBody();
                     writeString(ser, respBody);
                     respBody.close();
+                    System.out.println("returned game list");
                 }
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             e.printStackTrace();
         }

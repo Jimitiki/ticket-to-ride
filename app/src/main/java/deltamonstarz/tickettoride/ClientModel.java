@@ -97,6 +97,13 @@ public class ClientModel extends Observable{
 		notifyObservers();
 	}
 
+	public void removeLoginInformation() {
+		username = null;
+		authToken = null;
+		setChanged();
+		notifyObservers();
+	}
+
 	public void updateAvailableGames(List<GameInfo> games) {
 		availableGames = games;
 		setChanged();

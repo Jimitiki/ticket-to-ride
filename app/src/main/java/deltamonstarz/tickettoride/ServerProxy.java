@@ -8,28 +8,16 @@ import delta.monstarz.shared.commands.BaseCommand;
 
 public class ServerProxy implements IServerProxy {
 
-    private /*final*/ String _url;
-    private /*final*/ String _port;
+    private String _url;
+    private String _port;
     private final String _pathRegister = "/register";
     private final String _pathLogin = "/login";
     private final String _pathCreateGame = "/create";
     private final String _pathCommand = "/command";
-	private final String _pathListGames = "/games";
-    private final String _pathGameInfo = "/game";
+	private final String _pathListGames = "/game";
+	private final String _pathLogout = "/logout";
 
     private static ServerProxy _instance = null;
-
-//    public static ServerProxy getInstance(String url, String port) {
-//        if (_instance == null) {
-//            _instance = new ServerProxy(url, port);
-//        }
-//        return _instance;
-//    }
-
-//    private ServerProxy(String url, String port) {
-//        _url = url; //"127.0.0.1"
-//        _port = port; //"8080"
-//    }
 
     private ServerProxy() {}
 
@@ -66,7 +54,13 @@ public class ServerProxy implements IServerProxy {
         ClientCommunicator.POST(_url, _port, _pathLogin, "", ser);
     }
 
-    @Override
+	@Override
+	public void logout(String auth, String username) {
+		String ser = SerDes.serialize(username);
+		ClientCommunicator.POST(_url, _port, _pathLogout, auth, ser);
+	}
+
+	@Override
     public void createGame(String username, String game_name, String auth) {
         Args args = new Args(username, game_name);
         String ser = SerDes.serialize(args);
@@ -82,7 +76,8 @@ public class ServerProxy implements IServerProxy {
 
     @Override
     public void sendCommand(String auth, BaseCommand command) {
-
+		String ser = SerDes.serialize(command);
+	    ClientCommunicator.POST(_url, _port, _pathCommand, auth, ser);
     }
 
     @Override
@@ -91,7 +86,7 @@ public class ServerProxy implements IServerProxy {
         query.put("username", username);
         query.put("gameID", gameID);
         query.put("curCommand", Integer.toString(curCommand));
-        ClientCommunicator.GET(_url, _port, _pathGameInfo, auth, query);
+        ClientCommunicator.GET(_url, _port, _pathCommand, auth, query);
 
     }
 }

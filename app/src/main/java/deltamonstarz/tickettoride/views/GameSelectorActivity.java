@@ -25,4 +25,8 @@ public class GameSelectorActivity extends AppCompatActivity
 	}
 
 	public void onGameListUpdate() {}
+
+	public void onLogout() {}
+
+	public void onJoinGame() {}
 }

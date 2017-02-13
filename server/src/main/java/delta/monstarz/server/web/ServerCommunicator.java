@@ -12,6 +12,7 @@ import delta.monstarz.shared.commands.GameListCommand;
 import delta.monstarz.shared.commands.CreateGameCommand;
 import delta.monstarz.shared.commands.GameListCommand;
 import delta.monstarz.shared.commands.LoginCommand;
+import delta.monstarz.shared.commands.LogoutCommand;
 import sun.rmi.runtime.Log;
 
 /**
@@ -58,4 +59,7 @@ public class ServerCommunicator {
 	    return command;
     }
 
+	public static LogoutCommand logout(String auth, String username) {
+		return new LogoutCommand(username);
+	}
 }

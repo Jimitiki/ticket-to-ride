@@ -12,6 +12,8 @@ public interface IServerProxy {
 
     void login(String username, String password);
 
+	void logout(String username, String auth);
+
     void createGame(String username, String game_name, String auth);
 
     void listGames(String auth, String username);

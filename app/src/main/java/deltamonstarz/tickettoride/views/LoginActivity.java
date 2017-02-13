@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
 		mPresenter = LoginPresenter.getInstance();
 		mPresenter.setActivity(this);
+		mPresenter.observe();
 
 		mRegisterButton.setOnClickListener(new View.OnClickListener() {
 			@Override

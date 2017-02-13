@@ -29,7 +29,13 @@ public class GameSelectorPresenter extends Presenter{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		activity.onGameListUpdate();
+		if (model.getAuthToken() == null) {
+			activity.onLogout();
+		} else if (model.getGameID() >= 0) {
+			activity.onJoinGame();
+		} else {
+			activity.onGameListUpdate();
+		}
 	}
 
 	/**
@@ -48,6 +54,7 @@ public class GameSelectorPresenter extends Presenter{
 	 */
 	public void joinGame(int gameID) {
 		JoinGameCommand command = new JoinGameCommand(model.getUsername(), model.getGameID());
+		proxy.sendCommand(model.getAuthToken(), command);
 	}
 
 	/**
@@ -55,7 +62,7 @@ public class GameSelectorPresenter extends Presenter{
 	 * Updates the client model and switched to LoginView
 	 */
 	public void logout() {
-		model.setAuthToken(null);
+		proxy.logout(model.getUsername(), model.getAuthToken());
 	}
 
 	/**

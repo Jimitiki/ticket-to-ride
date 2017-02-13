@@ -2,6 +2,7 @@ package deltamonstarz.tickettoride.presenters;
 
 import java.util.Observable;
 
+import delta.monstarz.shared.commands.QuitGameCommand;
 import deltamonstarz.tickettoride.views.GameActivity;
 
 public class GamePresenter extends Presenter{
@@ -35,7 +36,8 @@ public class GamePresenter extends Presenter{
 	 * Switches to GameSelectView
 	 */
 	public void quitGame() {
-		int gameID = model.getGameID();
+		QuitGameCommand command = new QuitGameCommand(model.getUsername(), model.getGameID());
+		proxy.sendCommand(model.getAuthToken(), command);
 	}
 
 	/**

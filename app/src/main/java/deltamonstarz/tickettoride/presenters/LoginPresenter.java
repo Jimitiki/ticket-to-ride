@@ -35,6 +35,7 @@ public class LoginPresenter extends Presenter {
 		} else {
 			activity.onLoginFailed();
 		}
+		proxy.listGames(model.getAuthToken(), model.getUsername());
 	}
 
 	/**
@@ -47,6 +48,7 @@ public class LoginPresenter extends Presenter {
 		proxy = ServerProxy.getInstance();
 		initializeServerAddress(ipAddress, portNum);
 		proxy.register(username, password);
+		//GameSelectorPresenter.getInstance().pollGameList();
 	}
 
 	/**
