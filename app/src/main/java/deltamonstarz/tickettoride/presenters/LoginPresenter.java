@@ -29,13 +29,11 @@ public class LoginPresenter extends Presenter {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		ClientModel model = (ClientModel) o;
 		if (model.getAuthToken() != null) {
 			activity.onLogin();
 		} else {
 			activity.onLoginFailed();
 		}
-		proxy.listGames(model.getAuthToken(), model.getUsername());
 	}
 
 	/**
