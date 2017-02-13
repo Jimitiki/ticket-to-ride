@@ -73,4 +73,39 @@ public class GameInfo {
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
 	}
+
+	/**
+	 * Does not check if the creation date is the same
+	 * @param obj
+	 * @return
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof GameInfo == false){
+			return false;
+		}
+		GameInfo b = (GameInfo) obj;
+
+		if ( !this.name.equals(b.getName()) ){
+			return false;
+		}
+
+		if ( !this.ownerName.equals(b.getOwnerName()) ){
+			return false;
+		}
+
+		if ( this.gameID != b.getGameID() ){
+			return false;
+		}
+
+		if ( this.playerCount != b.getPlayerCount() ){
+			return false;
+		}
+
+		if ( this.gameStarted != b.isGameStarted() ){
+			return false;
+		}
+
+		return true;
+	}
 }

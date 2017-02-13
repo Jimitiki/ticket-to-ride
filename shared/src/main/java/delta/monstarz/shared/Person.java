@@ -49,6 +49,10 @@ public class Person {
 		authTokens.put(token, new Date());
 	}
 
+	public void refreshToken(String token){
+		authTokens.put(token, new Date());
+	}
+
 	public void removeAuthToken(String token){
 		authTokens.remove(token);
 	}

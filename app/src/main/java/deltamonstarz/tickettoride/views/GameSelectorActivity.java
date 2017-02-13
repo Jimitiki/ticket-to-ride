@@ -59,4 +59,10 @@ public class GameSelectorActivity extends AppCompatActivity
 		mAdapter = new GameSelectionRecyclerAdapter(myDataset);
 		mRecyclerView.setAdapter(mAdapter);
 	}
+
+	public void onGameListUpdate() {}
+
+	public void onLogout() {}
+
+	public void onJoinGame() {}
 }

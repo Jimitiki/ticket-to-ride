@@ -1,39 +1,39 @@
 package deltamonstarz.tickettoride;
 
-import java.util.List;
+import java.util.HashMap;
 
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.GameInfo;
-import delta.monstarz.shared.ICallbackHandler;
-import delta.monstarz.shared.IServer;
-import delta.monstarz.shared.Person;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
-import delta.monstarz.shared.Result;
 
-/**
- * Created by oliphaun on 2/3/17.
- */
+public class ServerProxy implements IServerProxy {
 
-public class ServerProxy implements IServer {
-
-    private final String _url;
-    private final String _port;
-    private String _pathRegister = "/register";
-    private String _pathLogin = "/login";
+    private String _url;
+    private String _port;
+    private final String _pathRegister = "/register";
+    private final String _pathLogin = "/login";
+    private final String _pathCreateGame = "/create";
+    private final String _pathCommand = "/command";
+	private final String _pathListGames = "/game";
+	private final String _pathLogout = "/logout";
 
     private static ServerProxy _instance = null;
 
-    public static ServerProxy getInstance(String url, String port) {
+    private ServerProxy() {}
+
+    public static ServerProxy getInstance() {
         if (_instance == null) {
-            _instance = new ServerProxy(url, port);
+            _instance = new ServerProxy();
         }
         return _instance;
     }
 
-    private ServerProxy(String url, String port) {
-        _url = url; //"127.0.0.1"
-        _port = port; //"8080"
+    public void setUrl(String _url) {
+        this._url = _url;
+    }
+
+    public void setPort(String _port) {
+        this._port = _port;
     }
 
     public void executeCommand(BaseCommand command) throws Exception {
@@ -41,45 +41,52 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public String register(String username, String password) {
+    public void register(String username, String password) {
         Args args = new Args(username, password);
         String ser = SerDes.serialize(args);
-        POSTAsyncTask task = new POSTAsyncTask();
-        task.setCallbackHandler(new ICallbackHandler() {
-            @Override
-            public void execute(Result result) {
-                Presenter.getInstance().updateView();
-            }
-        });
-        task.execute(_url, _port, _pathRegister, "", ser);
-        return "";
+        ClientCommunicator.POST(_url, _port, _pathRegister, "", ser);
     }
 
     @Override
-    public String login(String username, String password) {
+    public void login(String username, String password) {
 	    Args args = new Args(username, password);
 	    String ser = SerDes.serialize(args);
-        POSTAsyncTask task = new POSTAsyncTask();
-        task.setCallbackHandler(new ICallbackHandler() {
-            @Override
-            public void execute(Result result) {
-                Presenter.getInstance().updateView();
-            }
-        });
-        task.execute(_url, _port, _pathRegister, "", ser);
-	    return "";
+        ClientCommunicator.POST(_url, _port, _pathLogin, "", ser);
     }
 
-    @Override
-    public int createGame(String username, String game_name, String auth) {
+	@Override
+	public void logout(String auth, String username) {
+		String ser = SerDes.serialize(username);
+		ClientCommunicator.POST(_url, _port, _pathLogout, auth, ser);
+	}
+
+	@Override
+    public void createGame(String username, String game_name, String auth) {
         Args args = new Args(username, game_name);
         String ser = SerDes.serialize(args);
-        Result res = ClientCommunicator.connectAndSend(_url, _port, _pathLogin, auth, ser);
-        return res.getResultInt();
+        ClientCommunicator.POST(_url, _port, _pathCreateGame, auth, ser);
     }
 
     @Override
-    public List<GameInfo> listGames(String auth) {
-        return null;
+    public void listGames(String auth, String username) {
+        HashMap<String, String> query = new HashMap<>();
+        query.put("username", username);
+		ClientCommunicator.GET(_url, _port, _pathListGames, auth, query);
+    }
+
+    @Override
+    public void sendCommand(String auth, BaseCommand command) {
+		String ser = SerDes.serialize(command);
+	    ClientCommunicator.POST(_url, _port, _pathCommand, auth, ser);
+    }
+
+    @Override
+    public void listCommands(String auth, String gameID, String username, int curCommand) {
+        HashMap<String, String> query = new HashMap<>();
+        query.put("username", username);
+        query.put("gameID", gameID);
+        query.put("curCommand", Integer.toString(curCommand));
+        ClientCommunicator.GET(_url, _port, _pathCommand, auth, query);
+
     }
 }
