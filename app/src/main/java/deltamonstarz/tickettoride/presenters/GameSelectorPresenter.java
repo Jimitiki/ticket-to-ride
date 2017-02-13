@@ -34,7 +34,7 @@ public class GameSelectorPresenter extends Presenter{
 		} else if (model.getGameID() >= 0) {
 			activity.onJoinGame();
 		} else {
-			activity.onGameListUpdate();
+			activity.onGameListUpdate(model.getAvailableGames());
 		}
 	}
 
