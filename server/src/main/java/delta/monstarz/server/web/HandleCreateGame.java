@@ -9,12 +9,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.Person;
-import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
-import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.CreateGameCommand;
-import delta.monstarz.shared.commands.LoginCommand;
 
 /**
  * Created by oliphaun on 2/8/17.

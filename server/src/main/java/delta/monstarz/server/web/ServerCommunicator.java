@@ -8,7 +8,6 @@ import java.util.List;
 import delta.monstarz.server.Server;
 import delta.monstarz.server.ServerFacade;
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.Result;
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.GameListCommand;
@@ -24,11 +23,6 @@ import sun.rmi.runtime.Log;
 
 public class ServerCommunicator {
     private static ServerFacade serverFacade = ServerFacade.getInstance();
-
-//    public Result executeCommand(BaseCommand command) {
-//        Result res = command.execute();
-//        return res;
-//    }
 
     public static LoginCommand register(Args args) {
         String auth_token = serverFacade.register(args.getStr1(), args.getStr2());

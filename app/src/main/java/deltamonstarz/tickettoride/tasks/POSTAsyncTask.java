@@ -20,7 +20,7 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 			HttpURLConnection http = (HttpURLConnection)url.openConnection();
 
 			http.setRequestMethod("POST");
-			http.setDoOutput(true); // There is a request body
+			http.setDoOutput(true);
 
 
 			http.addRequestProperty("Authorization", params[1]);
@@ -37,26 +37,6 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 			String respData = readString(respBody);
 			System.out.print(respData);
 			return SerDes.deserializeCommand(respData, COMMAND_PREFIX);
-
-//			if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
-//				InputStream respBody = http.getInputStream();
-//				String respData = readString(respBody);
-//				BaseCommand command = SerDes.deserializeCommand(respData, COMMAND_PREFIX);
-//				return command;
-//				// System.out.println(respData);
-//			} else if (http.getResponseCode() == HttpURLConnection.HTTP_CONFLICT) {
-//
-//				BaseCommand command = SerDes.deserializeCommand(respData, COMMAND_PREFIX);
-//				return command;
-//			}
-//			else if (http.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-//				Result res = new Result();
-//				res.setResultStr("");
-//				return command;
-//			}
-//			else {
-//				System.out.println("ERROR: " + http.getResponseMessage());
-//			}
 		}
 		catch (IOException e) {
 			e.printStackTrace();

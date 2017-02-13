@@ -21,6 +21,7 @@ public class ServerProxy implements IServerProxy {
 
     private ServerProxy() {}
 
+
     public static ServerProxy getInstance() {
         if (_instance == null) {
             _instance = new ServerProxy();

@@ -11,7 +11,6 @@ import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
 import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
 
-import delta.monstarz.shared.Person;
 import delta.monstarz.shared.GameInfo;
 
 /**

@@ -25,15 +25,6 @@ public class ServerHandler implements HttpHandler {
 
                         InputStream reqBody = exchange.getRequestBody();
                         String reqData = readString(reqBody);
-//                        BaseCommand command = SerDes.deserializeCommand(reqData, "");
-//                        System.out.println(command.getName());
-//                        // System.out.println(reqData);
-//
-//                        IProcessor proc = StringProcessor.getInstance();
-//                        Result res = proc.executeCommand(command);
-//                        String ser = SerDes.serialize(res);
-//
-//                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 
                         OutputStream respBody = exchange.getResponseBody();
                         writeString(reqData, respBody); //ser

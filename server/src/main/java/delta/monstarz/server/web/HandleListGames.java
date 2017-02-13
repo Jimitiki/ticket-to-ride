@@ -4,13 +4,11 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.GameListCommand;
 

@@ -8,8 +8,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
 import delta.monstarz.shared.Args;
-import delta.monstarz.shared.Person;
-import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.LoginCommand;
 
