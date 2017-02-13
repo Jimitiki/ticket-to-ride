@@ -1,5 +1,8 @@
 package delta.monstarz.server.web;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import delta.monstarz.server.Server;
@@ -55,7 +58,19 @@ public class ServerCommunicator {
     public static GameListCommand listGames(String auth, String username) {
         List<GameInfo> gameList = serverFacade.listGames(auth, username);
         GameListCommand command = new GameListCommand(username);
-	    command.setGames(gameList);
+
+	    GameInfo[] array = new GameInfo[]
+	    {
+		    new GameInfo("Name", "Owner", 0, new Date(), 2, false),
+		    new GameInfo("Team Cap", "Steve", 1, new Date(), 3, false),
+		    new GameInfo("Bikini Bottom", "Owner", 2, new Date(), 4, true),
+		    new GameInfo("Team Iron", "Owner", 3, new Date(), 4, false),
+		    new GameInfo("Ooo", "Owner", 4, new Date(), 5, true),
+	    };
+	    ArrayList<GameInfo> mockArray = new ArrayList<>(Arrays.asList(array));
+	    command.setGames(mockArray);
+
+	    //command.setGames(gameList);
 	    return command;
     }
 
