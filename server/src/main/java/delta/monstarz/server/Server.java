@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
+import delta.monstarz.server.web.HandleCommand;
 import delta.monstarz.server.web.HandleCreateGame;
 import delta.monstarz.server.web.HandleLogin;
 import delta.monstarz.server.web.HandleLogout;
@@ -31,7 +32,7 @@ public class Server {
 		server.setExecutor(null); // use the default executor
 
 		System.out.println("Creating contexts");
-		server.createContext("/command", new ServerHandler());
+		server.createContext("/command", new HandleCommand());
 		server.createContext("/register", new HandleRegister());
 		server.createContext("/login", new HandleLogin());
 		server.createContext("/create", new HandleCreateGame());

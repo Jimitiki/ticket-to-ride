@@ -20,7 +20,7 @@ import sun.rmi.runtime.Log;
  */
 
 public class ServerCommunicator {
-    static ServerFacade serverFacade = ServerFacade.getInstance();
+    private static ServerFacade serverFacade = ServerFacade.getInstance();
 
 //    public Result executeCommand(BaseCommand command) {
 //        Result res = command.execute();
