@@ -18,35 +18,21 @@ import delta.monstarz.shared.commands.LoginCommand;
 public class HandleRegister extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            InputStream reqBody = exchange.getRequestBody();
+            String reqData = readString(reqBody);
+            Args args = SerDes.deserializeArgs(reqData);
+            LoginCommand command = ServerCommunicator.register(args);
+//            if (command.isLoginSuccessful()){
+//                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
+//            }
+//            else{
+//                exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0); //409
+//            }
+            response = SerDes.serialize(command);
+            System.out.println(response);
 
-        try {
-            if (exchange.getRequestMethod().toLowerCase().equals("post")) {
-                InputStream reqBody = exchange.getRequestBody();
-                String reqData = readString(reqBody);
-                Args args = SerDes.deserializeArgs(reqData);
-
-                LoginCommand command = ServerCommunicator.register(args);
-
-                if (command.isLoginSuccessful()){
-	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
-                }
-	            else{
-	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0); //409
-                }
-
-                String ser = SerDes.serialize(command);
-                System.out.println(ser);
-
-                OutputStream respBody = exchange.getResponseBody();
-                writeString(ser, respBody);
-                respBody.close();
-            }
-
-
-        }
-        catch (IOException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-            e.printStackTrace();
+            sendResponse(exchange);
         }
     }
 }

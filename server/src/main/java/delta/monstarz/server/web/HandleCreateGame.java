@@ -19,28 +19,18 @@ import delta.monstarz.shared.commands.CreateGameCommand;
 public class HandleCreateGame extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        try {
-            if (exchange.getRequestMethod().toLowerCase().equals("post")) {
-                Headers reqHeaders = exchange.getRequestHeaders();
-                if (reqHeaders.containsKey("Authorization")) {
-                    String auth = reqHeaders.getFirst("Authorization");
-
-                    InputStream reqBody = exchange.getRequestBody();
-                    String reqData = readString(reqBody);
-                    Args args = SerDes.deserializeArgs(reqData);
-                    CreateGameCommand command = ServerCommunicator.createGame(args, auth);
-                    String ser = SerDes.serialize(command);
-
-                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
-                    OutputStream respBody = exchange.getResponseBody();
-                    writeString(ser, respBody);
-                    respBody.close();
-                }
+        if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            if (!checkAuth_sendHeader(exchange)) {
+                return;
             }
-        }
-        catch (IOException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
-            e.printStackTrace();
+
+            InputStream reqBody = exchange.getRequestBody();
+            String reqData = readString(reqBody);
+            Args args = SerDes.deserializeArgs(reqData);
+            CreateGameCommand command = ServerCommunicator.createGame(args);
+            response = SerDes.serialize(command);
+
+            sendResponse(exchange);
         }
     }
 }

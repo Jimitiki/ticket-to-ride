@@ -51,11 +51,11 @@ public class ServerFacade {
         }
     }
 
-    public int createGame(String username, String game_name, String auth) {
+    public int createGame(String username, String game_name) {
         return 4; //working up to this point...
     }
 
-    public List<GameInfo> listGames(String auth, String username) {
+    public List<GameInfo> listGames(String username) {
         List<GameInfo> games = modelManager.getGamesIn(username);
         games.addAll(modelManager.getOpenGames());
         return games;

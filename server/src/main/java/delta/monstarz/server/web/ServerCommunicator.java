@@ -40,17 +40,17 @@ public class ServerCommunicator {
         return command;
     }
 
-    public static CreateGameCommand createGame(Args args, String auth) {
+    public static CreateGameCommand createGame(Args args) {
         ServerFacade serv = ServerFacade.getInstance();
         String username = args.getStr1();
         String game_name = args.getStr2();
-        int gameID = serv.createGame(username, game_name, auth);
+        int gameID = serv.createGame(username, game_name);
         CreateGameCommand command = new CreateGameCommand(username, gameID);
         return command;
     }
 
-    public static GameListCommand listGames(String auth, String username) {
-        List<GameInfo> gameList = serverFacade.listGames(auth, username);
+    public static GameListCommand listGames(String username) {
+        List<GameInfo> gameList = serverFacade.listGames(username);
         GameListCommand command = new GameListCommand(username);
 
 	    GameInfo[] array = new GameInfo[]
@@ -68,7 +68,7 @@ public class ServerCommunicator {
 	    return command;
     }
 
-	public static LogoutCommand logout(String auth, String username) {
+	public static LogoutCommand logout(String username) {
 		return new LogoutCommand(username);
 	}
 }

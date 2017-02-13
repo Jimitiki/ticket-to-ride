@@ -18,26 +18,14 @@ import delta.monstarz.shared.commands.LoginCommand;
 public class HandleLogin extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            InputStream reqBody = exchange.getRequestBody();
+            String reqData = readString(reqBody);
+            Args args = SerDes.deserializeArgs(reqData);
+            LoginCommand command = ServerCommunicator.login(args);
+            response = SerDes.serialize(command);
 
-        try {
-            if (exchange.getRequestMethod().toLowerCase().equals("post")) {
-                InputStream reqBody = exchange.getRequestBody();
-                String reqData = readString(reqBody);
-                Args args = SerDes.deserializeArgs(reqData);
-
-	            LoginCommand command = ServerCommunicator.login(args);
-	            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
-
-                String ser = SerDes.serialize(command);
-
-                OutputStream respBody = exchange.getResponseBody();
-                writeString(ser, respBody);
-                respBody.close();
-            }
-        }
-        catch (IOException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
-            e.printStackTrace();
+            sendResponse(exchange);
         }
     }
 }
