@@ -61,7 +61,8 @@ public class ServerModelManager {
 
 	/**
 	 * A new game is created with an empty beginning state.
-	 * Players can join the new game until the owner of the game starts the game
+	 * The owner is added to the game.
+	 * Other players can join the new game until the owner of the game starts the game
 	 * @param ownerName Username of the person who made the game
 	 * @param gameName Name chosen by the creator of the gameloginExceptions
 	 * @return The id of the new game
@@ -69,6 +70,9 @@ public class ServerModelManager {
 	public int createGame(String ownerName, String gameName){
 		Game game = new Game(gameName, ownerName);
 		games.put(game.getGameID(), game);
+
+		game.addPlayer(ownerName);
+
 		return game.getGameID();
 	}
 
