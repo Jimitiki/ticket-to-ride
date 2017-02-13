@@ -1,6 +1,7 @@
 package deltamonstarz.tickettoride.views;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,12 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		// create a new view
 		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_selector_recycler_view, parent, false);
+		v.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(this.getClass().getName(), "Game info view touched.");
+			}
+		});
 		// set the view's size, margins, paddings and layout parameters
 		ViewHolder vh = new ViewHolder(v);
 		return vh;
@@ -56,10 +63,6 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 	// Replace the contents of a view (invoked by the layout manager)
 	@Override
 	public void onBindViewHolder(final ViewHolder holder, int position) {
-		// - get element from your dataset at this position
-		// - replace the contents of the view with that element
-		//final String name = mDataset.get(position);
-
 
 		GameInfo info = mGameList.get(position);
 		holder.gameName.setText(info.getName());
@@ -67,15 +70,6 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 		holder.gameOwner.setText(info.getOwnerName());
 		holder.gameStartTime.setText(info.getStartTime().toString());
 		holder.playerCount.setText(String.valueOf(info.getPlayerCount()));
-
-		final String name = info.getName();
-
-		holder.gameName.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				System.out.print("Game " + name + " touched.");
-			}
-		});
 	}
 
 	// Return the size of your dataset (invoked by the layout manager)
