@@ -11,6 +11,8 @@ import delta.monstarz.shared.Args;
 import delta.monstarz.shared.Person;
 import delta.monstarz.shared.Result;
 import delta.monstarz.shared.SerDes;
+import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.LoginCommand;
 
 /**
  * Created by oliphaun on 2/4/17.
@@ -26,17 +28,17 @@ public class HandleRegister extends ServerHandler {
                 String reqData = readString(reqBody);
                 Args args = SerDes.deserializeArgs(reqData);
 
-                Result res = ServerCommunicator.register(args);
+                LoginCommand command = ServerCommunicator.register(args);
 
-                if (res.getResultStr().equals("")){
-	                // No authToken, there is an error
-	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0); //409
-                }
-	            else{
+                if (command.isLoginSuccessful()){
 	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0); //200
                 }
+	            else{
+	                exchange.sendResponseHeaders(HttpURLConnection.HTTP_CONFLICT, 0); //409
+                }
 
-                String ser = SerDes.serialize(res);
+                String ser = SerDes.serialize(command);
+                System.out.println(ser);
 
                 OutputStream respBody = exchange.getResponseBody();
                 writeString(ser, respBody);

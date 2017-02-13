@@ -1,5 +1,6 @@
 package delta.monstarz.server;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,9 @@ import delta.monstarz.shared.GameInfo;
 public class ServerModelManager {
 
 	private static ServerModelManager instance;
-	private static final long authTokenLifeTime = 60 * ( 60 * 1000); // Only change the left number(minutes) Format: minutes * (seconds * milliseconds)
+	private static long authTokenLifeTime = 60 * ( 60 * 1000); // Only change the left number(minutes) Format: minutes * (seconds * milliseconds)
+	private static long removalFrequency = 60 * 1000; // One Minute
+	private Date nextTokenCleaning = new Date();
 
 	private HashMap<String, Person> people = new HashMap<>(); //Key is username
 	private HashMap<Integer, Game> games = new HashMap<>(); // Key is gameID
@@ -36,9 +39,30 @@ public class ServerModelManager {
 		return instance;
 	}
 
+	public static void clearModel(){
+		instance = new ServerModelManager();
+	}
+
+	public static long getAuthTokenLifeTime() {
+		return authTokenLifeTime;
+	}
+
+	public static void setAuthTokenLifeTime(long authTokenLifeTime) {
+		ServerModelManager.authTokenLifeTime = authTokenLifeTime;
+	}
+
+	public static long getRemovalFrequency() {
+		return removalFrequency;
+	}
+
+	public static void setRemovalFrequency(long removalFrequency) {
+		ServerModelManager.removalFrequency = removalFrequency;
+	}
+
 	/**
 	 * A new game is created with an empty beginning state.
-	 * Players can join the new game until the owner of the game starts the game
+	 * The owner is added to the game.
+	 * Other players can join the new game until the owner of the game starts the game
 	 * @param ownerName Username of the person who made the game
 	 * @param gameName Name chosen by the creator of the gameloginExceptions
 	 * @return The id of the new game
@@ -46,6 +70,9 @@ public class ServerModelManager {
 	public int createGame(String ownerName, String gameName){
 		Game game = new Game(gameName, ownerName);
 		games.put(game.getGameID(), game);
+
+		game.addPlayer(ownerName);
+
 		return game.getGameID();
 	}
 
@@ -150,7 +177,16 @@ public class ServerModelManager {
 	 * @return A list of games that the player is in
 	 */
 	public List<GameInfo> getGamesIn(String username){
-		return null;
+
+		ArrayList<GameInfo> list = new ArrayList<>();
+
+		for (Map.Entry<Integer, Game> entry: games.entrySet()){
+			if ( entry.getValue().hasPlayer(username) ){
+				list.add(entry.getValue().getGameInfo());
+			}
+		}
+
+		return list;
 	}
 
 	/**
@@ -158,7 +194,16 @@ public class ServerModelManager {
 	 * @return A list of all of the games that have not yet started
 	 */
 	public List<GameInfo> getOpenGames(){
-		return null;
+
+		ArrayList<GameInfo> list = new ArrayList<>();
+
+		for (Map.Entry<Integer, Game> entry: games.entrySet()){
+			if ( !entry.getValue().isGameStarted() ){
+				list.add(entry.getValue().getGameInfo());
+			}
+		}
+
+		return list;
 	}
 
 	/**
@@ -186,10 +231,17 @@ public class ServerModelManager {
 	 */
 	public boolean authTokenIsValid(String authToken){
 
-
+		// Clean out old tokens if necessary
+		if ( nextTokenCleaning.getTime() < new Date().getTime()){
+			clearExpiredTokens();
+			Date next = new Date();
+			next.setTime(next.getTime() + removalFrequency);
+			nextTokenCleaning = next;
+		}
 
 		for (Map.Entry<String,Person> entry: people.entrySet()){
 			if (entry.getValue().hasAuthToken(authToken)){
+				entry.getValue().refreshToken(authToken); // Date object updated to the current time
 				return true;
 			}
 		}
@@ -204,6 +256,10 @@ public class ServerModelManager {
 		//Todo: Call this function periodically, probably once per minute
 		Date oldestAllowedTime = new Date();
 		oldestAllowedTime.setTime(oldestAllowedTime.getTime() - authTokenLifeTime);
+
+		for (Map.Entry<String,Person> entry: people.entrySet()){
+			entry.getValue().removeExpiredTokens(oldestAllowedTime);
+		}
 	}
 
 	public Game getGameByID(int gameID) {

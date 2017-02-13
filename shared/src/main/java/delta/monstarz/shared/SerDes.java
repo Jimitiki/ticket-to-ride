@@ -14,8 +14,7 @@ public class SerDes {
     {
         Gson gson = new Gson();
         JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
-        String commandname = jsonObj.get("_name").getAsString();
-        commandname.replaceAll("Client", "Server");
+        String commandname = jsonObj.get("name").getAsString();
 
         String classname = packagePrefix + commandname;
 
