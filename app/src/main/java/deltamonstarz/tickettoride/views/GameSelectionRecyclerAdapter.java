@@ -11,6 +11,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
 import deltamonstarz.tickettoride.R;
@@ -21,7 +22,7 @@ import deltamonstarz.tickettoride.R;
  */
 public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelectionRecyclerAdapter.ViewHolder>
 {
-	private ArrayList<GameInfo> mGameList;
+	private List<GameInfo> mGameList;
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
 		public TextView gameName;
@@ -40,7 +41,7 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 		}
 	}
 
-	public GameSelectionRecyclerAdapter(ArrayList<GameInfo> myGameList) {
+	public GameSelectionRecyclerAdapter(List<GameInfo> myGameList) {
 		mGameList = myGameList;
 	}
 
