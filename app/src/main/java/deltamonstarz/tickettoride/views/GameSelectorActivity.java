@@ -47,7 +47,6 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 
 		mPresenter = GameSelectorPresenter.getInstance();
 		mPresenter.setActivity(this);
-		mPresenter.observe();
 
 		mCreateGameButton = (Button) findViewById(R.id.createGameButton);
 		mCreateGameButton.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +65,6 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		// use a linear layout manager
 		mLayoutManager = new LinearLayoutManager(this);
 		mRecyclerView.setLayoutManager(mLayoutManager);
-
-		// specify an adapter (see also next example)
-		mPresenter.pollGameList();
-
 	}
 
 	@Override
@@ -78,19 +73,23 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mPresenter.onResume();
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mPresenter.onPause();
+	}
+
 	public void onGameListUpdate(List<GameInfo> infos) {
 		mAdapter = new GameSelectionRecyclerAdapter(infos);
 		mRecyclerView.setAdapter(mAdapter);
 	}
 
 	public void onLogout() {
-		mPresenter.endObserve();
 		Intent i = LoginActivity.newIntent(GameSelectorActivity.this);
 		startActivity(i);
 	}
 
 	public void onJoinGame() {
-		mPresenter.endObserve();
 		Intent i = GameActivity.newIntent(GameSelectorActivity.this);
 		startActivity(i);
 	}

@@ -77,6 +77,12 @@ public class GameSelectorPresenter extends BasePresenter {
 		pollGameList();
 	}
 
+	@Override
+	public void onPause() {
+		super.onPause();
+		endPoll();
+	}
+
 	/**
 	 * Begins polling for a list of all current, joinable games
 	 */

@@ -53,12 +53,19 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void onResume() {
 		super.onResume();
+		pollGameHistory();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		endPoll();
 	}
 
 	/**
 	 * Begins polling the server proxy for commands
 	 */
-	public void PollGameHistory() {
+	public void pollGameHistory() {
 		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, 10, TimeUnit.SECONDS);
 	}

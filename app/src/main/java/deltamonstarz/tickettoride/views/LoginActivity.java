@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
 
 		mPresenter = LoginPresenter.getInstance();
 		mPresenter.setActivity(this);
-		mPresenter.observe();
 
 		mRegisterButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -80,6 +79,12 @@ public class LoginActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		mPresenter.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mPresenter.onPause();
 	}
 
 	public static Intent newIntent(Context packageContext)

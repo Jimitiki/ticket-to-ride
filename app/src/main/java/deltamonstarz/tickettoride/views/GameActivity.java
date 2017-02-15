@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import java.util.List;
 import delta.monstarz.shared.Player;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
-import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 
 
 public class GameActivity extends AppCompatActivity
@@ -32,7 +30,6 @@ public class GameActivity extends AppCompatActivity
 
 		presenter = GamePresenter.getInstance();
 		presenter.setActivity(this);
-		presenter.PollGameHistory();
 
 		mPlayersText = (TextView) findViewById(R.id.playersText);
 	}
@@ -42,7 +39,17 @@ public class GameActivity extends AppCompatActivity
 		return new Intent(packageContext, GameActivity.class);
 	}
 
-	public void onLeaveGame() {}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		presenter.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		presenter.onPause();
+	}
 
 	public void onGameUpdate(List<String> players1) {
 
