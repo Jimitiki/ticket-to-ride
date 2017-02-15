@@ -1,13 +1,18 @@
 package deltamonstarz.tickettoride.presenters;
 
 import java.util.Observable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import delta.monstarz.shared.commands.QuitGameCommand;
+import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameActivity;
 
 public class GamePresenter extends Presenter{
 	private GameActivity activity;
 	private static GamePresenter presenter;
+	private static ScheduledExecutorService scheduler;
 
 	private GamePresenter() {
 		super();
@@ -28,7 +33,6 @@ public class GamePresenter extends Presenter{
 
 	@Override
 	public void update(Observable o, Object arg) {
-
 	}
 
 	/**
@@ -43,7 +47,23 @@ public class GamePresenter extends Presenter{
 	/**
 	 * Begins polling the server proxy for commands
 	 */
-	public void pollGameHistory() {
+	public void PollGameHistory() {
+		scheduler = Executors.newScheduledThreadPool(1);
+		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, 10, TimeUnit.SECONDS);
+	}
+
+	public void endPoll() {
+		scheduler.shutdown();
+	}
+
+	private class CommandPoller implements Runnable {
+		@Override
+		public void run() {
+			if (proxy == null) {
+				proxy = ServerProxy.getInstance();
+			}
+			proxy.listCommands(model.getAuthToken(), model.getGameID(), model.getUsername(), model.getCurCommand());
+		}
 	}
 
 }

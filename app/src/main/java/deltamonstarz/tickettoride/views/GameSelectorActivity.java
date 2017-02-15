@@ -60,15 +60,6 @@ public class GameSelectorActivity extends AppCompatActivity
 	}
 
 	public void onGameListUpdate(List<GameInfo> infos) {
-		/*GameInfo[] array = new GameInfo[]
-		{
-			new GameInfo("Name", "Owner", 0, new Date(), 2, false),
-			new GameInfo("Team Cap", "Steve", 1, new Date(), 3, false),
-			new GameInfo("Bikini Bottom", "Owner", 2, new Date(), 4, true),
-			new GameInfo("Team Iron", "Owner", 3, new Date(), 4, false),
-			new GameInfo("Ooo", "Owner", 4, new Date(), 5, true),
-		};
-		ArrayList<GameInfo> myDataset = new ArrayList<>(Arrays.asList(array));*/
 		mAdapter = new GameSelectionRecyclerAdapter(infos);
 		mRecyclerView.setAdapter(mAdapter);
 	}

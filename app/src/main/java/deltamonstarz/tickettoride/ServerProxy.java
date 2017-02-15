@@ -83,10 +83,10 @@ public class ServerProxy implements IServerProxy {
     }
 
     @Override
-    public void listCommands(String auth, String gameID, String username, int curCommand) {
+    public void listCommands(String auth, int gameID, String username, int curCommand) {
         HashMap<String, String> query = new HashMap<>();
         query.put("username", username);
-        query.put("gameID", gameID);
+        query.put("gameID", Integer.toString(gameID));
         query.put("curCommand", Integer.toString(curCommand));
         ClientCommunicator.GET(_url, _port, _pathCommand, auth, query);
     }
