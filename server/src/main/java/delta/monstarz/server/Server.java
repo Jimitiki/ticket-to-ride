@@ -7,10 +7,8 @@ import delta.monstarz.server.web.HandleCommand;
 import delta.monstarz.server.web.HandleCreateGame;
 import delta.monstarz.server.web.HandleJoin;
 import delta.monstarz.server.web.HandleLogin;
-import delta.monstarz.server.web.HandleLogout;
 import delta.monstarz.server.web.HandleRegister;
 import delta.monstarz.server.web.HandleListGames;
-import delta.monstarz.server.web.ServerHandler;
 
 public class Server {
 
@@ -39,7 +37,6 @@ public class Server {
 		server.createContext("/create", new HandleCreateGame());
 		server.createContext("/join", new HandleJoin());
 		server.createContext("/game", new HandleListGames());
-		server.createContext("/logout", new HandleLogout());
 
 		System.out.println("Starting server");
 		server.start();

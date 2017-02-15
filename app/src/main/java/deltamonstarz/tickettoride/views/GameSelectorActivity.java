@@ -26,6 +26,7 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 {
 	//Widgets
 	private Button mCreateGameButton;
+	private Button mLogoutButton;
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
 	private RecyclerView.Adapter mAdapter;
@@ -53,6 +54,14 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 			@Override
 			public void onClick(View v) {
 				makeGameClick();
+			}
+		});
+
+		mLogoutButton = (Button) findViewById(R.id.logoutButton);
+		mLogoutButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onLogout();
 			}
 		});
 
@@ -85,8 +94,12 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 	}
 
 	public void onLogout() {
-		Intent i = LoginActivity.newIntent(GameSelectorActivity.this);
-		startActivity(i);
+		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+		finish();
+//		Intent i = LoginActivity.newIntent(GameSelectorActivity.this);
+//		startActivity(i);
 	}
 
 	public void onJoinGame() {

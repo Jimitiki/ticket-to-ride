@@ -17,7 +17,7 @@ import delta.monstarz.shared.commands.BaseCommand;
 public class Game {
 
 	private static int nextNewGameID = 0;
-	private static final int MAX_PLAYERS = 6;
+	public static final int MAX_PLAYERS = 5;
 
 	private int gameID;
 	private String name;
@@ -41,6 +41,10 @@ public class Game {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getNumPlayers() {
+		return players.size();
 	}
 
 	public void setName(String name) {

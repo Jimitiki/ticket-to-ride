@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
 	public static Intent newIntent(Context packageContext)
 	{
-		return new Intent(packageContext, GameSelectorActivity.class);
+		return new Intent(packageContext, LoginActivity.class);
 	}
 
 	public void onLogin()

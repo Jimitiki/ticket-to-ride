@@ -200,7 +200,7 @@ public class ServerModelManager {
 
 		for (Map.Entry<Integer, Game> entry: games.entrySet()){
 			Game game = entry.getValue();
-			if ( !game.isGameStarted() && !game.hasPlayer(username) ){
+			if ( !game.isGameStarted() && !game.hasPlayer(username) && game.getNumPlayers() < Game.MAX_PLAYERS){
 				list.add(entry.getValue().getGameInfo());
 			}
 		}
