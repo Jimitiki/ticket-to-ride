@@ -76,6 +76,12 @@ public class LoginActivity extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mPresenter.onResume();
+	}
+
 	public static Intent newIntent(Context packageContext)
 	{
 		return new Intent(packageContext, GameSelectorActivity.class);
