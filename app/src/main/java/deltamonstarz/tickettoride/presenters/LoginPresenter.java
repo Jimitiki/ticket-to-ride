@@ -13,9 +13,6 @@ public class LoginPresenter extends BasePresenter {
 
 	private LoginPresenter() {
 		super();
-//		proxy = ServerProxy.getInstance();
-//		initializeServerAddress("10.0.2.2", "8080");
-//		proxy.login("alex", "alex");
 	}
 
 	public static LoginPresenter getInstance() {
@@ -73,15 +70,18 @@ public class LoginPresenter extends BasePresenter {
 		activity.onRegisterFailed();
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		model.clearUser();
+	}
+
 	private void initializeServerAddress(String ipAddress, String portNum) {
 		proxy.setUrl(ipAddress);
 		proxy.setPort(portNum);
 	}
 
-
-
 	private void createGame() {
-
 		proxy.createGame("alex", "alextest", model.getAuthToken());
 	}
 }

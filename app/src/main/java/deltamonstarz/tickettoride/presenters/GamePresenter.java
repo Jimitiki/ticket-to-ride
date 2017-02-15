@@ -44,6 +44,16 @@ public class GamePresenter extends BasePresenter {
 		proxy.sendCommand(model.getAuthToken(), command);
 	}
 
+	@Override
+	public void onConnectionError() {
+		activity.onConnectionError();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
 	/**
 	 * Begins polling the server proxy for commands
 	 */
@@ -64,10 +74,5 @@ public class GamePresenter extends BasePresenter {
 			}
 			proxy.listCommands(model.getAuthToken(), model.getGameID(), model.getUsername(), model.getCurCommand());
 		}
-	}
-
-	@Override
-	public void onConnectionError() {
-		activity.onConnectionError();
 	}
 }
