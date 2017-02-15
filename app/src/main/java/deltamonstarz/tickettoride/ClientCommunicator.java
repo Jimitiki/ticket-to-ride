@@ -3,6 +3,7 @@ package deltamonstarz.tickettoride;
 import java.util.Map;
 
 import deltamonstarz.tickettoride.tasks.GETAsyncTask;
+import deltamonstarz.tickettoride.tasks.GameAsyncTask;
 import deltamonstarz.tickettoride.tasks.POSTAsyncTask;
 
 /**
@@ -31,6 +32,12 @@ public class ClientCommunicator {
 	    GETAsyncTask task = new GETAsyncTask();
 	    task.execute(address.toString(), auth);
     }
+
+	public static void POSTCommand(String serverHost, String serverPort, String path, String auth, String reqData) {
+		String address = "http://" + serverHost + ":" + serverPort + path;
+		GameAsyncTask task = new GameAsyncTask();
+		task.execute(address, auth, reqData);
+	}
 
 
 }

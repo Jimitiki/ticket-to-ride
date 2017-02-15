@@ -57,12 +57,6 @@ public class ServerProxy implements IServerProxy {
     }
 
 	@Override
-	public void logout(String auth, String username) {
-		String ser = SerDes.serialize(username);
-		ClientCommunicator.POST(_url, _port, _pathLogout, auth, ser);
-	}
-
-	@Override
     public void createGame(String username, String game_name, String auth) {
         Args args = new Args(username, game_name);
         String ser = SerDes.serialize(args);
@@ -78,8 +72,8 @@ public class ServerProxy implements IServerProxy {
 
     @Override
     public void sendCommand(String auth, BaseCommand command) {
-		String ser = SerDes.serialize(command);
-	    ClientCommunicator.POST(_url, _port, _pathCommand, auth, ser);
+        String ser = SerDes.serialize(command);
+        ClientCommunicator.POSTCommand(_url, _port, _pathCommand, auth, ser);
     }
 
     @Override
