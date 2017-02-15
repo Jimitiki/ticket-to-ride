@@ -9,6 +9,7 @@ import java.net.URL;
 
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
+import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 public class POSTAsyncTask extends HTTPAsyncTask {
 

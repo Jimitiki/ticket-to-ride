@@ -54,8 +54,7 @@ public class GameSelectorPresenter extends Presenter{
 	 * @param gameID gameID of the game chosen by the user
 	 */
 	public void joinGame(int gameID) {
-		JoinGameCommand command = new JoinGameCommand(model.getUsername(), model.getGameID());
-		proxy.sendCommand(model.getAuthToken(), command);
+		proxy.joinGame(model.getAuthToken(), Integer.toString(model.getGameID()), model.getUsername());
 	}
 
 	/**

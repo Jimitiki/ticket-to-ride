@@ -93,21 +93,18 @@ public class ClientModel extends Observable{
 	public void addLoginInformation(String username, String authToken) {
 		this.username = username;
 		this.authToken = authToken;
-		setChanged();
-		notifyObservers();
+		notifyPresenter();
 	}
 
 	public void removeLoginInformation() {
 		username = null;
 		authToken = null;
-		setChanged();
-		notifyObservers();
+		notifyPresenter();
 	}
 
 	public void updateAvailableGames(List<GameInfo> games) {
 		availableGames = games;
-		setChanged();
-		notifyObservers();
+		notifyPresenter();
 	}
 
 	/**
@@ -116,6 +113,18 @@ public class ClientModel extends Observable{
 	public void updateGame(List<BaseCommand> commands) {
 		for (BaseCommand command : commands) {
 			command.execute();
+		}
+	}
+
+	public void joinGame(int gameID) {
+		this.gameID = gameID;
+		notifyPresenter();
+	}
+
+	private void notifyPresenter() {
+		setChanged();
+		synchronized (this) {
+			notifyObservers();
 		}
 	}
 }

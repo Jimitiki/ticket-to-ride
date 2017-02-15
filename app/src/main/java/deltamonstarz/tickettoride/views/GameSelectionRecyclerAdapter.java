@@ -71,7 +71,9 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 		holder.gameName.setText(info.getName());
 		holder.gameId.setText(String.valueOf(info.getGameID()));
 		holder.gameOwner.setText(info.getOwnerName());
-		holder.gameStartTime.setText(info.getStartTime().toString());
+		if (info.getStartTime() != null) {
+			holder.gameStartTime.setText(info.getStartTime().toString());
+		}
 		holder.playerCount.setText(String.valueOf(info.getPlayerCount()));
 	}
 

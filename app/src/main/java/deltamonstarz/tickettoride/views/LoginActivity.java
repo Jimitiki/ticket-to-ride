@@ -95,5 +95,12 @@ public class LoginActivity extends AppCompatActivity {
 		startActivity(i);
 	}
 
-	public void onLoginFailed() {}
+	public void onLoginFailed() {
+		Toast toast = Toast.makeText(this, "User validation failed", Toast.LENGTH_LONG);
+	}
+
+	public void onConnectionError() {
+		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
+		toast.show();
+	}
 }

@@ -39,6 +39,10 @@ public class LoginPresenter extends Presenter {
 		}
 	}
 
+	public void onConnectionError() {
+		activity.onConnectionError();
+	}
+
 	/**
 	 * Tells the deltamonstarz.tickettoride.ServerProxy to create a user with the given username and password
 	 * If successful, updates the client model and switches to GameSelectView

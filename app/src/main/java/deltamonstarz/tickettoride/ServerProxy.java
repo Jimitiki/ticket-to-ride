@@ -16,6 +16,7 @@ public class ServerProxy implements IServerProxy {
     private final String _pathCommand = "/command";
 	private final String _pathListGames = "/game";
 	private final String _pathLogout = "/logout";
+    private final String _pathJoin = "/join";
 
     private static ServerProxy _instance = null;
 
@@ -88,6 +89,11 @@ public class ServerProxy implements IServerProxy {
         query.put("gameID", gameID);
         query.put("curCommand", Integer.toString(curCommand));
         ClientCommunicator.GET(_url, _port, _pathCommand, auth, query);
+    }
 
+    @Override
+    public void joinGame(String auth, String gameID, String username) {
+        String ser = SerDes.serialize(new Args(username, gameID));
+        ClientCommunicator.POST(_url, _port, _pathJoin, auth, ser);
     }
 }

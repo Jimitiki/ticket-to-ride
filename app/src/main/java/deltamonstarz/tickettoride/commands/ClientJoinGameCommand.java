@@ -15,7 +15,7 @@ public class ClientJoinGameCommand extends JoinGameCommand {
 		if (model.getGameID() == gameID) {
 			model.addPlayer(username);
 		} else {
-			model.setGameID(gameID);
+			model.joinGame(gameID);
 		}
 	}
 }

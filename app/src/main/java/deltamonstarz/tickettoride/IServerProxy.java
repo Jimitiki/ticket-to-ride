@@ -21,4 +21,6 @@ public interface IServerProxy {
     void sendCommand(String auth, BaseCommand command);
 
 	void listCommands(String auth, String gameID, String username, int curCommand);
+
+	void joinGame(String auth, String gameID, String username);
 }

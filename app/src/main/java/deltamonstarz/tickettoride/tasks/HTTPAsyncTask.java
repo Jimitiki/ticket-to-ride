@@ -7,14 +7,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import delta.monstarz.shared.commands.BaseCommand;
+import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 abstract class HTTPAsyncTask extends AsyncTask<String, Integer, BaseCommand> {
 	final static String COMMAND_PREFIX = "deltamonstarz.tickettoride.commands.Client";
 
 	@Override
 	protected void onPostExecute(BaseCommand command) {
-		command.execute();
-		System.out.println("Command executed");
+		if (command == null) {
+			LoginPresenter.getInstance().onConnectionError();
+		} else {
+			command.execute();
+			System.out.println("Command executed");
+		}
 	}
 
 	static String readString(InputStream is) throws IOException {
