@@ -15,6 +15,7 @@ import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 
 
 /**
@@ -53,7 +54,8 @@ public class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameSelec
 		v.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.i(this.getClass().getName(), "Game info view touched.");
+				int id = Integer.parseInt(((TextView) v.findViewById(R.id.gameIdText)).getText().toString());
+				GameSelectorPresenter.getInstance().joinGame(id);
 			}
 		});
 		// set the view's size, margins, paddings and layout parameters
