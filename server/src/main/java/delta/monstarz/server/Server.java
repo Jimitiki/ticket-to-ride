@@ -51,6 +51,14 @@ public class Server {
 		} else {
 			portNumber = args[0];
 		}
+
+		ServerModelManager model = ServerModelManager.getInstance();
+		model.createGame("a", "gamename1");
+		model.createGame("a", "gamename2");
+		model.createGame("a", "gamename3");
+		model.createGame("a", "gamename4");
+		model.createGame("a", "gamename5");
+
 		new Server().run(portNumber);
 	}
 }
