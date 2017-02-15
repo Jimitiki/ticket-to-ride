@@ -7,8 +7,8 @@ import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 public class ClientLoginCommand extends LoginCommand {
-	public ClientLoginCommand(String username) {
-		super(username);
+	public ClientLoginCommand(String username, boolean isRegister) {
+		super(username, isRegister);
 	}
 
 	@Override
@@ -18,7 +18,11 @@ public class ClientLoginCommand extends LoginCommand {
 			ClientModel model = ClientModel.getInstance();
 		} else {
 			synchronized (LoginPresenter.getInstance()) {
-				LoginPresenter.getInstance().notify();
+				if (isRegister) {
+					LoginPresenter.getInstance().onRegisterFailed();
+				} else {
+					LoginPresenter.getInstance().onLoginFailed();
+				}
 			}
 		}
 	}

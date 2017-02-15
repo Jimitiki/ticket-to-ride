@@ -28,7 +28,7 @@ public class HandleCreateGame extends ServerHandler {
             Args args = SerDes.deserializeArgs(reqData);
             JoinGameCommand command = ServerCommunicator.createGame(args);
 	        try {
-		        CommandManager.execute((ServerJoinGameCommand) command);
+		        CommandManager.execute(new ServerJoinGameCommand(command));
 		        response = SerDes.serialize(command);
 
 	        } catch (Exception e) {

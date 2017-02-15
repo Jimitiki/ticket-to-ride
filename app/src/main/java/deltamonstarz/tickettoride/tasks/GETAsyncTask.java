@@ -7,6 +7,7 @@ import java.net.URL;
 
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
+import deltamonstarz.tickettoride.commands.ConnectionErrorCommand;
 
 public class GETAsyncTask extends HTTPAsyncTask {
 
@@ -30,7 +31,7 @@ public class GETAsyncTask extends HTTPAsyncTask {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+			return new ConnectionErrorCommand("");
 		}
-		return null;
 	}
 }

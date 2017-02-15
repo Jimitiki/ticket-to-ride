@@ -38,7 +38,6 @@ public class GameSelectorPresenter extends BasePresenter {
 			endPoll();
 		} else {
 			activity.onGameListUpdate(model.getAvailableGames());
-			if (model.getAvailableGames().size() == 5) createGame("Morrowind");
 		}
 	}
 
@@ -79,6 +78,11 @@ public class GameSelectorPresenter extends BasePresenter {
 	public void pollGameList() {
 		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 10, TimeUnit.SECONDS);
+	}
+
+	@Override
+	public void onConnectionError() {
+		activity.onConnectionError();
 	}
 
 	private void endPoll() {

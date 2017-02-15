@@ -89,7 +89,12 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	public void onLoginFailed() {
-		Toast toast = Toast.makeText(this, "User validation failed", Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG);
+		toast.show();
+	}
+
+	public void onRegisterFailed() {
+		Toast toast = Toast.makeText(this, "Username already in use", Toast.LENGTH_LONG);
 		toast.show();
 	}
 

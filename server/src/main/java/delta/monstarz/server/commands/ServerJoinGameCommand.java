@@ -11,6 +11,10 @@ public class ServerJoinGameCommand extends JoinGameCommand {
 		super(username, gameID);
 	}
 
+	public ServerJoinGameCommand(JoinGameCommand command) {
+		super(command.getUsername(), command.getGameID());
+	}
+
 	@Override
 	public void execute() {
 		ServerFacade.getInstance().joinGame(username, gameID);

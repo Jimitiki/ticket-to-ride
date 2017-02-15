@@ -14,11 +14,8 @@ abstract class HTTPAsyncTask extends AsyncTask<String, Integer, BaseCommand> {
 
 	@Override
 	protected void onPostExecute(BaseCommand command) {
-		if (command == null) {
-			LoginPresenter.getInstance().onConnectionError();
-		} else {
+		if (command != null) {
 			command.execute();
-			System.out.println("Command executed");
 		}
 	}
 

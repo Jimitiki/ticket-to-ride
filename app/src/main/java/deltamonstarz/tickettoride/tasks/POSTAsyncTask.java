@@ -9,6 +9,7 @@ import java.net.URL;
 
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
+import deltamonstarz.tickettoride.commands.ConnectionErrorCommand;
 import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 public class POSTAsyncTask extends HTTPAsyncTask {
@@ -41,8 +42,8 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+			return new ConnectionErrorCommand("");
 		}
-		return null;
 	}
 
 	private static void writeString(String str, OutputStream os) throws IOException {
