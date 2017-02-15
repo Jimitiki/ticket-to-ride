@@ -20,21 +20,23 @@ import delta.monstarz.shared.commands.JoinGameCommand;
 public class HandleJoin extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        if (!checkAuth_sendHeader(exchange)) {
-            return;
+        if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            if (!checkAuth_sendHeader(exchange)) {
+                return;
+            }
+
+            InputStream reqBody = exchange.getRequestBody();
+            String reqData = readString(reqBody);
+            BaseCommand command = SerDes.deserializeCommand(reqData, COMMAND_PREFIX);
+            try {
+                CommandManager.execute(command);
+            } catch (Exception e) {
+            }
+            BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
+
+            response = SerDes.serialize(clientcommand);
+
+            sendResponse(exchange);
         }
-
-        InputStream reqBody = exchange.getRequestBody();
-        String reqData = readString(reqBody);
-        BaseCommand command = SerDes.deserializeCommand(reqData, COMMAND_PREFIX);
-        try {
-            CommandManager.execute(command);
-        } catch (Exception e) {
-        }
-        BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
-
-        response = SerDes.serialize(clientcommand);
-
-        sendResponse(exchange);
     }
 }

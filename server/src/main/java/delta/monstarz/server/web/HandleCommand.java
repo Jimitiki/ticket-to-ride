@@ -33,7 +33,7 @@ public class HandleCommand extends ServerHandler {
 				CommandManager.execute(command);
 			} catch (Exception e) {
 			}
-			BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
+//			BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
 
 			response = null;
 		}
