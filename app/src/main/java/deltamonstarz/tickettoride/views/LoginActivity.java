@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -82,8 +83,14 @@ public class LoginActivity extends AppCompatActivity {
 		});
 	}
 
+	public static Intent newIntent(Context packageContext)
+	{
+		return new Intent(packageContext, GameSelectorActivity.class);
+	}
+
 	public void onLogin()
 	{
+		mPresenter.endObserve();
 		Intent i = GameSelectorActivity.newIntent(LoginActivity.this);
 		startActivity(i);
 	}

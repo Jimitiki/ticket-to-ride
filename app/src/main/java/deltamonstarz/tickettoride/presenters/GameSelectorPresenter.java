@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import delta.monstarz.shared.commands.JoinGameCommand;
+import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameSelectorActivity;
 
 public class GameSelectorPresenter extends Presenter{
@@ -70,15 +71,16 @@ public class GameSelectorPresenter extends Presenter{
 	 */
 	public void pollGameList() {
 		final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 2, TimeUnit.SECONDS);
+		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 10, TimeUnit.SECONDS);
 	}
 
 	private class GamePoller implements Runnable {
 		@Override
 		public void run() {
-			System.out.println("hohoho");
+			if (proxy == null) {
+				proxy = ServerProxy.getInstance();
+			}
 			proxy.listGames(model.getAuthToken(), model.getUsername());
-			System.out.println("yuuuuuhhhhh");
 		}
 	}
 }
