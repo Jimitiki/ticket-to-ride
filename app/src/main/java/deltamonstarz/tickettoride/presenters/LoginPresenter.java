@@ -48,11 +48,10 @@ public class LoginPresenter extends BasePresenter {
 	 * @param username the new username
 	 * @param password the corresponding password
 	 */
-	public void register(String ipAddress, String portNum, String username, String password) throws ConnectionException{
+	public void register(String ipAddress, String portNum, String username, String password) {
 		proxy = ServerProxy.getInstance();
 		initializeServerAddress(ipAddress, portNum);
 		proxy.register(username, password);
-		//GameSelectorPresenter.getInstance().pollGameList();
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class LoginPresenter extends BasePresenter {
 	 * @param username the username to be validated
 	 * @param password the corresponding password
 	 */
-	public void login(String ipAddress, String portNum, String username, String password) throws ConnectionException {
+	public void login(String ipAddress, String portNum, String username, String password) {
 		proxy = ServerProxy.getInstance();
 		initializeServerAddress(ipAddress, portNum);
 		proxy.login(username, password);
