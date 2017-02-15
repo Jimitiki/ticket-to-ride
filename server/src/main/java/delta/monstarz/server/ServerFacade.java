@@ -78,4 +78,8 @@ public class ServerFacade {
 		}
 		return false;
 	}
+
+	public void startGame(int gameID) {
+		modelManager.startGame(gameID);
+	}
 }

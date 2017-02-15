@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Observable;
 
 import deltamonstarz.tickettoride.ServerProxy;
-import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.views.LoginActivity;
 
 public class LoginPresenter extends BasePresenter {

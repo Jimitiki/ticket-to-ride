@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ public class GameActivity extends AppCompatActivity
 {
 
 	private TextView mPlayersText;
+	private Button mStartGameButton;
 
 	private GamePresenter presenter;
 
@@ -32,6 +35,8 @@ public class GameActivity extends AppCompatActivity
 		presenter.setActivity(this);
 
 		mPlayersText = (TextView) findViewById(R.id.playersText);
+		mStartGameButton = (Button) findViewById(R.id.startGame);
+		mStartGameButton.setEnabled(false);
 	}
 
 	public static Intent newIntent(Context packageContext)
@@ -60,7 +65,20 @@ public class GameActivity extends AppCompatActivity
 		}
 		sb.append(".");
 		mPlayersText.setText(sb.toString());
+		if (players.size() > 1) {
+			mStartGameButton.setEnabled(true);
+			mStartGameButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					presenter.startGame();
+				}
+			});
+		}
+	}
 
+	public void onGameStart() {
+		Toast toast = Toast.makeText(this, "Game Started", Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 	public void logout() {

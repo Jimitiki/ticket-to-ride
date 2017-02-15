@@ -8,6 +8,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import delta.monstarz.shared.commands.QuitGameCommand;
+import delta.monstarz.shared.commands.StartGameCommand;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameActivity;
 
@@ -47,6 +48,11 @@ public class GamePresenter extends BasePresenter {
 		proxy.sendCommand(model.getAuthToken(), command);
 	}
 
+	public void startGame() {
+		StartGameCommand command = new StartGameCommand(model.getUsername(), model.getGameID());
+		proxy.sendCommand(model.getAuthToken(), command);
+	}
+
 	@Override
 	public void onConnectionError() {
 		activity.onConnectionError();
@@ -74,15 +80,19 @@ public class GamePresenter extends BasePresenter {
 		return activity;
 	}
 
+	public void onGameStart() {
+		activity.onGameStart();
+	}
+
 	/**
 	 * Begins polling the server proxy for commands
 	 */
-	public void pollGameHistory() {
+	private void pollGameHistory() {
 		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, 10, TimeUnit.SECONDS);
 	}
 
-	public void endPoll() {
+	private void endPoll() {
 		scheduler.shutdown();
 	}
 

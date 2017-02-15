@@ -10,7 +10,6 @@ import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
 import deltamonstarz.tickettoride.R;
-import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity {

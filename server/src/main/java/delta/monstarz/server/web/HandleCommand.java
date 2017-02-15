@@ -37,7 +37,7 @@ public class HandleCommand extends ServerHandler {
 				e.printStackTrace();
 			}
 
-			response = null;
+			response = "{success: ok}";
 		}
 		sendResponse(exchange);
 	}
