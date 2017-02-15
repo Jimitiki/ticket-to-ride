@@ -2,12 +2,11 @@ package deltamonstarz.tickettoride.presenters;
 
 import java.util.Observable;
 
-import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.exceptions.ConnectionException;
 import deltamonstarz.tickettoride.views.LoginActivity;
 
-public class LoginPresenter extends Presenter {
+public class LoginPresenter extends BasePresenter {
 	private static LoginPresenter presenter;
 	private LoginActivity activity;
 	private ServerProxy proxy;

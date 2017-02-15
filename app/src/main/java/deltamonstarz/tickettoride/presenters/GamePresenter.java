@@ -9,7 +9,7 @@ import delta.monstarz.shared.commands.QuitGameCommand;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameActivity;
 
-public class GamePresenter extends Presenter{
+public class GamePresenter extends BasePresenter {
 	private GameActivity activity;
 	private static GamePresenter presenter;
 	private static ScheduledExecutorService scheduler;

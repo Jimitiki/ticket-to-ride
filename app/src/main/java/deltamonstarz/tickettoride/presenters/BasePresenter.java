@@ -6,11 +6,11 @@ import java.util.Observer;
 import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.IServerProxy;
 
-public abstract class Presenter implements Observer {
+public abstract class BasePresenter implements Observer {
 	static IServerProxy proxy;
 	static ClientModel model;
 
-	Presenter() {
+	BasePresenter() {
 		model = ClientModel.getInstance();
 	}
 

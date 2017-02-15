@@ -19,19 +19,19 @@ public class LoginAndRegisterTests {
 		try {
 			LoginPresenter.getInstance().register("localhost", "8080", "joe", "passwords");
 
-//			assertFalse(Presenter.getInstance().register("localhost", "8080", "joe", "passwords"));
-//			assertTrue(Presenter.getInstance().login("localhost", "8080", "joe", "passwords"));
-//			assertFalse(Presenter.getInstance().register("localhost", "8080", "joe", "notSame"));
+//			assertFalse(BasePresenter.getInstance().register("localhost", "8080", "joe", "passwords"));
+//			assertTrue(BasePresenter.getInstance().login("localhost", "8080", "joe", "passwords"));
+//			assertFalse(BasePresenter.getInstance().register("localhost", "8080", "joe", "notSame"));
 //
-//			assertFalse(Presenter.getInstance().login("localhost", "8080", "bob", "pass"));
+//			assertFalse(BasePresenter.getInstance().login("localhost", "8080", "bob", "pass"));
 //
-//			assertTrue(Presenter.getInstance().login("localhost", "8080", "joe", "passwords"));
+//			assertTrue(BasePresenter.getInstance().login("localhost", "8080", "joe", "passwords"));
 //
 //			// Malformed Input Tests
-//			assertFalse(Presenter.getInstance().register("localhost", "8080", "", "passwords"));
-//			assertFalse(Presenter.getInstance().register("localhost", "8080", "jeff", ""));
-//			assertFalse(Presenter.getInstance().login("localhost", "8080", "", "passwords"));
-//			assertFalse(Presenter.getInstance().login("localhost", "8080", "jeff", ""));
+//			assertFalse(BasePresenter.getInstance().register("localhost", "8080", "", "passwords"));
+//			assertFalse(BasePresenter.getInstance().register("localhost", "8080", "jeff", ""));
+//			assertFalse(BasePresenter.getInstance().login("localhost", "8080", "", "passwords"));
+//			assertFalse(BasePresenter.getInstance().login("localhost", "8080", "jeff", ""));
 		}
 		catch (Exception e){
 			assertTrue(false);

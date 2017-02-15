@@ -13,14 +13,12 @@ public class ClientModel extends Observable{
 	private String username;
 	private String authToken;
 	private int gameID;
-	private int curCommand;
 	private List<BaseCommand> gameHistory;
 	private List<String> players;
 	private List<GameInfo> availableGames;
 
 	private ClientModel() {
 		gameID = -1;
-		curCommand = -1;
 	}
 
 	public static ClientModel getInstance() {
@@ -52,11 +50,7 @@ public class ClientModel extends Observable{
 	}
 
 	public int getCurCommand() {
-		return curCommand;
-	}
-
-	public void setCurCommand(int curCommand) {
-		this.curCommand = curCommand;
+		return gameHistory.size();
 	}
 
 	public List<BaseCommand> getGameHistory() {

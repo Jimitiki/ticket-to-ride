@@ -66,13 +66,14 @@ public class ServerModelManager {
 	 * @param gameName Name chosen by the creator of the gameloginExceptions
 	 * @return The id of the new game
 	 */
-	public int createGame(String ownerName, String gameName){
-		Game game = new Game(gameName, ownerName);
-		games.put(game.getGameID(), game);
-
-		game.addPlayer(ownerName);
-
-		return game.getGameID();
+	public int createGame(String ownerName, String gameName) {
+		if (people.containsKey(ownerName)) {
+			Game game = new Game(gameName, ownerName);
+			games.put(game.getGameID(), game);
+			game.addPlayer(ownerName);
+			return game.getGameID();
+		}
+		return -1;
 	}
 
 	/**
@@ -263,6 +264,10 @@ public class ServerModelManager {
 
 	public Game getGameByID(int gameID) {
 		return games.get(gameID);
+	}
+
+	public Person getPersonByUsername(String username) {
+		return people.get(username);
 	}
 
 }

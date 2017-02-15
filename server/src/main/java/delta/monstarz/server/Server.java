@@ -55,6 +55,9 @@ public class Server {
 		}
 
 		ServerModelManager model = ServerModelManager.getInstance();
+		try {
+			model.register("a", "a");
+		} catch (Exception e) {}
 		model.createGame("a", "gamename1");
 		model.createGame("a", "gamename2");
 		model.createGame("a", "gamename3");

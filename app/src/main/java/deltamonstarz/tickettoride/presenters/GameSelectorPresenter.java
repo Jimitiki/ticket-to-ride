@@ -5,11 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import delta.monstarz.shared.commands.JoinGameCommand;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameSelectorActivity;
 
-public class GameSelectorPresenter extends Presenter{
+public class GameSelectorPresenter extends BasePresenter {
 	private static GameSelectorPresenter presenter;
 	private GameSelectorActivity activity;
 	private ScheduledExecutorService scheduler;
@@ -39,6 +38,7 @@ public class GameSelectorPresenter extends Presenter{
 			endPoll();
 		} else {
 			activity.onGameListUpdate(model.getAvailableGames());
+			if (model.getAvailableGames().size() == 5) createGame("Morrowind");
 		}
 	}
 

@@ -26,7 +26,7 @@ public class Game {
 	private boolean gameStarted = false;
 	private List<Player> players = new ArrayList<>();
 
-	private List<BaseCommand> history = new ArrayList<BaseCommand>();
+	private List<BaseCommand> history = new ArrayList<>();
 
 	public Game(String gameName, String ownerName){
 		this.name = gameName;

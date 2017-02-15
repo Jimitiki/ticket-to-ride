@@ -6,26 +6,24 @@ import java.util.List;
 import delta.monstarz.shared.commands.BaseCommand;
 
 public class CommandManager {
-
-
-	/**
-	 * validates that a command has valid data members, i.e. username & gameID correspond
-	 * @param command the Command object that will be validated
-	 * @throws Exception if validation fails
-	 */
-	public static void validate(BaseCommand command) throws Exception{
-
-	}
-
 	/**
 	 * Executes the given command
 	 * @param command Command object to be executed
 	 * @throws Exception if execution fails, i.e. action is invalid
 	 */
 	public static void execute(BaseCommand command) throws Exception{
-		command.execute();
-		Game game = ServerModelManager.getInstance().getGameByID(command.getGameID());
-		game.addCommand(command);
+		if (validate(command)) {
+			command.execute();
+			Game game = ServerModelManager.getInstance().getGameByID(command.getGameID());
+			game.addCommand(command);
+		} else {
+			throw new Exception();
+		}
+	}
+
+	private static boolean validate(BaseCommand command) {
+		ServerFacade server = ServerFacade.getInstance();
+		return server.gameExists(command.getGameID()) && server.personExists(command.getUsername());
 	}
 
 	/**
@@ -39,12 +37,12 @@ public class CommandManager {
 		Game game = ServerModelManager.getInstance().getGameByID(gameID);
 		List<BaseCommand> allCommands = game.getHistory();
 		List<BaseCommand> visibleCommands = new ArrayList<>();
-		for (int i = commandIndex + 1; i < allCommands.size();i++ ) {
+		for (int i = 0; i < allCommands.size();i++ ) {
 			BaseCommand command = allCommands.get(i);
 			if (command.isGlobal() || command.getUsername().equals(username)) {
 				visibleCommands.add(command);
 			}
 		}
-		return visibleCommands;
+		return visibleCommands.subList(commandIndex, visibleCommands.size());
 	}
 }

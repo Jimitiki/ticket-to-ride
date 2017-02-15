@@ -52,7 +52,7 @@ public class ServerFacade {
     }
 
     public int createGame(String username, String game_name) {
-        return 4; //working up to this point...
+        return modelManager.createGame(username, game_name);
     }
 
     public List<GameInfo> listGames(String username) {
@@ -60,4 +60,22 @@ public class ServerFacade {
         games.addAll(modelManager.getOpenGames());
         return games;
     }
+
+    public void joinGame(String username, int gameID) {
+	    modelManager.joinGame(username, gameID);
+    }
+
+	public boolean gameExists(int gameID) {
+		if (modelManager.getGameByID(gameID) != null) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean personExists(String username) {
+		if (modelManager.getPersonByUsername(username) != null) {
+			return true;
+		}
+		return false;
+	}
 }
