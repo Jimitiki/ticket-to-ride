@@ -81,6 +81,8 @@ public class ClientModel extends Observable{
 
 	public void addPlayer(String username) {
 		players.add(username);
+		setChanged();
+		notifyObservers();
 	}
 
 	public void removePlayer(String username) {
