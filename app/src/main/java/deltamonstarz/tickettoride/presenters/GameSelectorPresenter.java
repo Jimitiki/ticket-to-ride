@@ -62,7 +62,7 @@ public class GameSelectorPresenter extends Presenter{
 		}er
 	 */
 	public void joinGame(int gameID) {
-		proxy.joinGame(model.getAuthToken(), Integer.toString(model.getGameID()), model.getUsername());
+		proxy.joinGame(model.getAuthToken(), Integer.toString(gameID), model.getUsername());
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class GameSelectorPresenter extends Presenter{
 		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 10, TimeUnit.SECONDS);
 	}
 
-	public void endPoll() {
+	private void endPoll() {
 		scheduler.shutdown();
 	}
 
