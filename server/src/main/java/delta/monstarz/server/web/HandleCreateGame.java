@@ -33,8 +33,8 @@ public class HandleCreateGame extends ServerHandler {
 
 	        } catch (Exception e) {
 		        e.printStackTrace();
+		        response = null;
 	        }
-	        response = null;
 
 	        sendResponse(exchange);
         }

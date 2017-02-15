@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameSelectorActivity;
 
@@ -64,12 +65,16 @@ public class GameSelectorPresenter extends BasePresenter {
 		proxy.joinGame(model.getAuthToken(), Integer.toString(gameID), model.getUsername());
 	}
 
-	/**
-	 * Tells the deltamonstarz.tickettoride.ServerProxy to logout the user
-	 * Updates the client model and switched to LoginView
-	 */
-	public void logout() {
-		proxy.logout(model.getUsername(), model.getAuthToken());
+	@Override
+	public void onConnectionError() {
+		activity.onConnectionError();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		model.clearGame();
+		pollGameList();
 	}
 
 	/**
@@ -78,11 +83,6 @@ public class GameSelectorPresenter extends BasePresenter {
 	public void pollGameList() {
 		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 10, TimeUnit.SECONDS);
-	}
-
-	@Override
-	public void onConnectionError() {
-		activity.onConnectionError();
 	}
 
 	private void endPoll() {

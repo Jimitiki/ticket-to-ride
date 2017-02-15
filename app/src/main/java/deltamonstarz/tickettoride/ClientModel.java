@@ -129,6 +129,17 @@ public class ClientModel extends Observable{
 		this.presenter = presenter;
 	}
 
+	public void clearUser() {
+		username = null;
+		authToken = null;
+	}
+
+	public void clearGame() {
+		gameID = -1;
+		gameHistory = new ArrayList<>();
+		players = new ArrayList<>();
+	}
+
 	private void notifyPresenter() {
 		setChanged();
 		synchronized (this) {

@@ -17,6 +17,7 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 	@Override
 	protected BaseCommand doInBackground(String... params) {
 		try {
+			System.setProperty("http.keepAlive", "false");
 			URL url = new URL(params[0]);
 
 			HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -38,7 +39,9 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 			InputStream respBody = http.getInputStream();
 			String respData = readString(respBody);
 			System.out.print(respData);
-			return SerDes.deserializeCommand(respData, COMMAND_PREFIX);
+			BaseCommand command = SerDes.deserializeCommand(respData, COMMAND_PREFIX);
+			respBody.close();
+			return command;
 		}
 		catch (IOException e) {
 			e.printStackTrace();
