@@ -46,19 +46,15 @@ public class LoginActivity extends AppCompatActivity {
 
 		mRegisterButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View pView)
-			{
+			public void onClick(View pView) {
 				String host = mHostText.getText().toString();
 				String port = mPortText.getText().toString();
 				String username = mUsernameText.getText().toString();
 				String password = mPasswordText.getText().toString();
-				try
-				{
+				if (validateInput(username, password, host, port)) {
 					mPresenter.register(host, port, username, password);
-				}
-				catch(ConnectionException pE)
-				{
-					Toast.makeText(getApplicationContext(), "Error: Couldn't connect to server.", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -71,13 +67,10 @@ public class LoginActivity extends AppCompatActivity {
 				String port = mPortText.getText().toString();
 				String username = mUsernameText.getText().toString();
 				String password = mPasswordText.getText().toString();
-				try
-				{
+				if (validateInput(username, password, host, port)) {
 					mPresenter.login(host, port, username, password);
-				}
-				catch(ConnectionException pE)
-				{
-					Toast.makeText(getApplicationContext(), "Error: Couldn't connect to server.", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -97,10 +90,15 @@ public class LoginActivity extends AppCompatActivity {
 
 	public void onLoginFailed() {
 		Toast toast = Toast.makeText(this, "User validation failed", Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 	public void onConnectionError() {
 		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
 		toast.show();
+	}
+
+	private boolean validateInput(String username, String password, String IPAddress, String port) {
+		return !(username.equals("") || password.equals("") || IPAddress.equals("") || port.equals(""));
 	}
 }
