@@ -7,8 +7,8 @@ import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.IServerProxy;
 
 public abstract class Presenter implements Observer {
-	IServerProxy proxy;
-	ClientModel model;
+	static IServerProxy proxy;
+	static ClientModel model;
 
 	Presenter() {
 		model = ClientModel.getInstance();

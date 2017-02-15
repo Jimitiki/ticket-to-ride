@@ -35,7 +35,6 @@ public class HandleListGames extends ServerHandler {
                     OutputStream respBody = exchange.getResponseBody();
                     writeString(ser, respBody);
                     respBody.close();
-                    System.out.println("returned game list");
                 }
             }
         }

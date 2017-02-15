@@ -31,8 +31,7 @@ public class GameSelectorActivity extends AppCompatActivity
 
 	public static Intent newIntent(Context packageContext)
 	{
-		Intent i = new Intent(packageContext, GameSelectorActivity.class);
-		return i;
+		return new Intent(packageContext, GameSelectorActivity.class);
 	}
 
 	@Override
@@ -75,10 +74,14 @@ public class GameSelectorActivity extends AppCompatActivity
 	}
 
 	public void onLogout() {
-
+		mPresenter.endObserve();
+		Intent i = LoginActivity.newIntent(GameSelectorActivity.this);
+		startActivity(i);
 	}
 
 	public void onJoinGame() {
-
+		mPresenter.endObserve();
+		Intent i = GameActivity.newIntent(GameSelectorActivity.this);
+		startActivity(i);
 	}
 }
