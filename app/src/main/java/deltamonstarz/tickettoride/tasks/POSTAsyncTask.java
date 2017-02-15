@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import delta.monstarz.shared.SerDes;
@@ -13,6 +15,8 @@ import deltamonstarz.tickettoride.commands.ConnectionErrorCommand;
 import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 public class POSTAsyncTask extends HTTPAsyncTask {
+
+
 
 	@Override
 	protected BaseCommand doInBackground(String... params) {
@@ -30,6 +34,7 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 			http.addRequestProperty("Content-Type", "application/json");
 			http.addRequestProperty("Accept", "application/json");
 
+			http.setConnectTimeout(TIMEOUT);
 			http.connect();
 
 			OutputStream reqBody = http.getOutputStream();
@@ -42,6 +47,12 @@ public class POSTAsyncTask extends HTTPAsyncTask {
 			BaseCommand command = SerDes.deserializeCommand(respData, COMMAND_PREFIX);
 			respBody.close();
 			return command;
+		}
+		catch (ConnectException e){ // Server address is likely not correct
+			return new ConnectionErrorCommand("");
+		}
+		catch (SocketTimeoutException e){   // Port is likely not correct
+			return new ConnectionErrorCommand("");
 		}
 		catch (IOException e) {
 			e.printStackTrace();

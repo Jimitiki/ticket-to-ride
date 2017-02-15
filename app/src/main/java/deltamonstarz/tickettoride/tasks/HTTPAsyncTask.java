@@ -11,6 +11,7 @@ import deltamonstarz.tickettoride.presenters.LoginPresenter;
 
 abstract class HTTPAsyncTask extends AsyncTask<String, Integer, BaseCommand> {
 	final static String COMMAND_PREFIX = "deltamonstarz.tickettoride.commands.Client";
+	protected static final int TIMEOUT = 4000;
 
 	@Override
 	protected void onPostExecute(BaseCommand command) {
