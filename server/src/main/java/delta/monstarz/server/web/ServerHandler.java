@@ -1,13 +1,21 @@
 package delta.monstarz.server.web;
 import java.io.*;
 import java.net.*;
+import java.util.Map;
+
 import com.sun.net.httpserver.*;
+
+import delta.monstarz.server.ServerModelManager;
+import delta.monstarz.shared.SerDes;
+import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.CommandListCommand;
 
 /**
  * Created by oliphaun on 2/2/17.
  */
 
 public class ServerHandler implements HttpHandler {
+    protected String response;
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -59,6 +67,39 @@ public class ServerHandler implements HttpHandler {
         OutputStreamWriter sw = new OutputStreamWriter(os);
         sw.write(str);
         sw.flush();
+    }
+
+    protected boolean checkAuth_sendHeader(HttpExchange exchange) throws IOException {
+        Headers reqHeaders = exchange.getRequestHeaders();
+        boolean authorized = false;
+        if (reqHeaders.containsKey("Authorization")) {
+            String auth = reqHeaders.getFirst("Authorization");
+            ServerModelManager modelManager = ServerModelManager.getInstance();
+            authorized = modelManager.authTokenIsValid(auth);
+        }
+        try {
+            if (!authorized) {
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
+            exchange.getResponseBody().close();
+        }
+        return authorized;
+    }
+
+    protected void sendResponse(HttpExchange exchange) throws IOException {
+        try {
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+            OutputStream respBody = exchange.getResponseBody();
+            writeString(response, respBody);
+            respBody.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
+            exchange.getResponseBody().close();
+        }
     }
 }
 

@@ -14,6 +14,9 @@ public class LoginPresenter extends Presenter {
 
 	private LoginPresenter() {
 		super();
+//		proxy = ServerProxy.getInstance();
+//		initializeServerAddress("10.0.2.2", "8080");
+//		proxy.login("alex", "alex");
 	}
 
 	public static LoginPresenter getInstance() {
@@ -57,9 +60,9 @@ public class LoginPresenter extends Presenter {
 	 */
 	public void login(String ipAddress, String portNum, String username, String password) throws ConnectionException {
 		proxy = ServerProxy.getInstance();
-		createGame();
-//		initializeServerAddress(ipAddress, portNum);
-//		proxy.login(username, password);
+		initializeServerAddress(ipAddress, portNum);
+		proxy.login(username, password);
+//		createGame();
 	}
 
 	private void initializeServerAddress(String ipAddress, String portNum) {
