@@ -33,6 +33,7 @@ public class GamePresenter extends BasePresenter {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		activity.onGameUpdate(model.getPlayers());
 	}
 
 	/**
