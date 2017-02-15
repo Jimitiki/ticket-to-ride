@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
+import delta.monstarz.server.CommandManager;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.CommandListCommand;
@@ -30,7 +31,10 @@ public class HandleCommand extends ServerHandler {
 			InputStream reqBody = exchange.getRequestBody();
 			String reqData = readString(reqBody);
 			BaseCommand command = SerDes.deserializeCommand(reqData, COMMAND_PREFIX);
-			//do stuff
+			try {
+				CommandManager.execute(command);
+			} catch (Exception e) {
+			}
 			response = null;
 		}
 		sendResponse(exchange);
