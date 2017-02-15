@@ -72,6 +72,12 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mPresenter.onResume();
+	}
+
 	public void onGameListUpdate(List<GameInfo> infos) {
 		mAdapter = new GameSelectionRecyclerAdapter(infos);
 		mRecyclerView.setAdapter(mAdapter);
