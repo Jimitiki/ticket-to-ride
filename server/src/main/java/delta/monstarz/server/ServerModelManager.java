@@ -71,9 +71,12 @@ public class ServerModelManager {
 			Game game = new Game(gameName, ownerName);
 			games.put(game.getGameID(), game);
 			game.addPlayer(ownerName);
+
 			return game.getGameID();
 		}
-		return -1;
+		else {
+			return -1;
+		}
 	}
 
 	/**
@@ -83,7 +86,6 @@ public class ServerModelManager {
 	 * @param gameID ID of a game that exists
 	 */
 	public void joinGame(String playerName, int gameID){
-		//Todo: Do we need to make a distinction between joining a game for the first time and re-entering a game?
 		Game game = games.get(gameID);
 		if ( !game.hasPlayer(playerName) ){
 			games.get(gameID).addPlayer(playerName);
@@ -255,7 +257,6 @@ public class ServerModelManager {
 	 * tokens that are older than the time
 	 */
 	private void clearExpiredTokens(){
-		//Todo: Call this function periodically, probably once per minute
 		Date oldestAllowedTime = new Date();
 		oldestAllowedTime.setTime(oldestAllowedTime.getTime() - authTokenLifeTime);
 

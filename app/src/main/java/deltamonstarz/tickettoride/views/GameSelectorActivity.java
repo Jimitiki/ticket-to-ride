@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
+import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 
@@ -128,9 +129,12 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		public TextView playerCount;
 
 		public GameInfo gameInfo;
+		public View view;
 
 		public GameHolder(View v) {
 			super(v);
+			view = v;
+
 			gameName = (TextView) v.findViewById(R.id.nameText);
 			gameOwner = (TextView) v.findViewById(R.id.ownerText);
 			gameStarted = (TextView) v.findViewById(R.id.gameStarted);
@@ -180,8 +184,17 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 			holder.gameOwner.setText(holder.gameInfo.getOwnerName());
 			holder.playerCount.setText(String.valueOf(holder.gameInfo.getPlayerCount()));
 
+
+			String end = "";
+
+			// Has the game started?
 			if (holder.gameInfo.isGameStarted()) {
-				holder.gameStarted.setText("Yes");
+				holder.gameStarted.setText("Yes (Rejoin)");
+				holder.view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+			}
+			// Is the player in a game that has not yet stared?
+			else if (holder.gameInfo.getPlayers().contains(ClientModel.getInstance().getUsername())){
+				holder.gameStarted.setText("No (Rejoin)");
 			}
 			else{
 				holder.gameStarted.setText("No");

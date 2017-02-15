@@ -3,6 +3,7 @@ package delta.monstarz.server;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.Player;
@@ -113,13 +114,20 @@ public class Game {
 	 * @return Returns a GameInfo object that represents the game
 	 */
 	public GameInfo getGameInfo(){
+
+		TreeSet<String> playersNames = new TreeSet<>();
+		for (Player player: players){
+			playersNames.add(player.getUsername());
+		}
+
 		GameInfo gameInfo = new GameInfo(
 				name,
 				ownerName,
 				gameID,
 				startTime,
 				players.size(),
-				gameStarted
+				gameStarted,
+				playersNames
 		);
 
 		return gameInfo;
