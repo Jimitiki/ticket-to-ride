@@ -1,6 +1,7 @@
 package delta.monstarz.shared;
 
 import java.util.Date;
+import java.util.TreeSet;
 
 /**
  * The GameInfo class exists for the purpose of sending information to the client
@@ -16,14 +17,17 @@ public class GameInfo {
 	private Date startTime;
 	private int playerCount;
 	private boolean gameStarted;
+	private TreeSet<String> players;
 
-	public GameInfo(String name, String ownerName, int gameID, Date startTime, int playerCount, boolean gameStarted){
+
+	public GameInfo(String name, String ownerName, int gameID, Date startTime, int playerCount, boolean gameStarted, TreeSet<String> players){
 		this.name = name;
 		this.ownerName = ownerName;
 		this.gameID = gameID;
 		this.startTime = startTime;
 		this.playerCount = playerCount;
 		this.gameStarted = gameStarted;
+		this.players = players;
 	}
 
 	public String getName() {
@@ -72,6 +76,14 @@ public class GameInfo {
 
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
+	}
+
+	public TreeSet<String> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(TreeSet<String> players) {
+		this.players = players;
 	}
 
 	/**
