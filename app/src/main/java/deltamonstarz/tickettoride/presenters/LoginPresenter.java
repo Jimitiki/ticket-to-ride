@@ -1,5 +1,7 @@
 package deltamonstarz.tickettoride.presenters;
 
+import android.support.v7.app.AppCompatActivity;
+
 import java.util.Observable;
 
 import deltamonstarz.tickettoride.ServerProxy;
@@ -74,6 +76,16 @@ public class LoginPresenter extends BasePresenter {
 	public void onResume() {
 		super.onResume();
 		model.clearUser();
+	}
+
+	@Override
+	public void logOut() {
+
+	}
+
+	@Override
+	public AppCompatActivity getActivity() {
+		return activity;
 	}
 
 	private void initializeServerAddress(String ipAddress, String portNum) {

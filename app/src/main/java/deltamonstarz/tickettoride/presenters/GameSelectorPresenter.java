@@ -1,5 +1,7 @@
 package deltamonstarz.tickettoride.presenters;
 
+import android.support.v7.app.AppCompatActivity;
+
 import java.util.Observable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -32,7 +34,7 @@ public class GameSelectorPresenter extends BasePresenter {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (model.getAuthToken() == null) {
-			activity.onLogout();
+			activity.logout();
 			endPoll();
 		} else if (model.getGameID() >= 0) {
 			activity.onJoinGame();
@@ -81,6 +83,16 @@ public class GameSelectorPresenter extends BasePresenter {
 	public void onPause() {
 		super.onPause();
 		endPoll();
+	}
+
+	@Override
+	public void logOut() {
+		activity.logout();
+	}
+
+	@Override
+	public AppCompatActivity getActivity() {
+		return activity;
 	}
 
 	/**

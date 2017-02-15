@@ -1,5 +1,7 @@
 package deltamonstarz.tickettoride.presenters;
 
+import android.support.v7.app.AppCompatActivity;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,4 +41,8 @@ public abstract class BasePresenter implements Observer {
 	public void onPause() {
 		endObserve();
 	}
+
+	public abstract void logOut();
+
+	public abstract AppCompatActivity getActivity();
 }

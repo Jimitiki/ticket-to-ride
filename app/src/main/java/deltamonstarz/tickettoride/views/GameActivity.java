@@ -75,6 +75,13 @@ public class GameActivity extends AppCompatActivity
 
 	}
 
+	public void logout() {
+		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+		finish();
+	}
+
 	public void onConnectionError() {
 		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
 		toast.show();
