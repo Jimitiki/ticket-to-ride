@@ -57,7 +57,7 @@ public class ServerFacade {
 
     public List<GameInfo> listGames(String username) {
         List<GameInfo> games = modelManager.getGamesIn(username);
-        games.addAll(modelManager.getOpenGames());
+        games.addAll(modelManager.getJoinableGames(username));
         return games;
     }
 

@@ -190,15 +190,17 @@ public class ServerModelManager {
 	}
 
 	/**
+	 *  Players can only join a game that has not started and they are not already part of
+	 * @return A list of games that a player can join
 	 *
-	 * @return A list of all of the games that have not yet started
 	 */
-	public List<GameInfo> getOpenGames(){
+	public List<GameInfo> getJoinableGames(String username){
 
 		ArrayList<GameInfo> list = new ArrayList<>();
 
 		for (Map.Entry<Integer, Game> entry: games.entrySet()){
-			if ( !entry.getValue().isGameStarted() ){
+			Game game = entry.getValue();
+			if ( !game.isGameStarted() && !game.hasPlayer(username) ){
 				list.add(entry.getValue().getGameInfo());
 			}
 		}
