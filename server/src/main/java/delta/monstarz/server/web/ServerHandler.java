@@ -78,15 +78,7 @@ public class ServerHandler implements HttpHandler {
             ServerModelManager modelManager = ServerModelManager.getInstance();
             authorized = modelManager.authTokenIsValid(auth);
         }
-        try {
-            if (!authorized) {
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_UNAUTHORIZED, 0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
-            exchange.getResponseBody().close();
-        }
+
         return authorized;
     }
 
