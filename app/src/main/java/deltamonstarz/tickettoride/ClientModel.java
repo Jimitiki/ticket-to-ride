@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
+import deltamonstarz.tickettoride.presenters.BasePresenter;
 
 public class ClientModel extends Observable{
 	private static ClientModel clientModel = new ClientModel();
@@ -16,6 +17,7 @@ public class ClientModel extends Observable{
 	private List<BaseCommand> gameHistory;
 	private List<String> players;
 	private List<GameInfo> availableGames;
+	private BasePresenter presenter;
 
 	private ClientModel() {
 		gameID = -1;
@@ -115,6 +117,14 @@ public class ClientModel extends Observable{
 		this.gameID = gameID;
 		players = new ArrayList<>();
 		notifyPresenter();
+	}
+
+	public BasePresenter getPresenter() {
+		return presenter;
+	}
+
+	public void setPresenter(BasePresenter presenter) {
+		this.presenter = presenter;
 	}
 
 	private void notifyPresenter() {

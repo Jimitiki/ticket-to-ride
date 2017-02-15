@@ -22,10 +22,17 @@ public abstract class BasePresenter implements Observer {
 	public abstract void update(Observable o, Object arg);
 
 	public void observe() {
-		ClientModel.getInstance().addObserver(this);
+		model.addObserver(this);
+		model.setPresenter(this);
 	}
 
 	public void endObserve() {
 		ClientModel.getInstance().deleteObserver(this);
+	}
+
+	public abstract void onConnectionError();
+
+	public void onResume() {
+		observe();
 	}
 }

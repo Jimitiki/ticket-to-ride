@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -92,6 +93,10 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		FragmentManager manager = getSupportFragmentManager();
 		GameNameChoiceDialogFragment dialog = new GameNameChoiceDialogFragment();
 		dialog.show(manager, "choose_game_name__dialog");
+	}
+	public void onConnectionError() {
+		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 	@Override

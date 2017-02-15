@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,4 +30,9 @@ public class GameActivity extends AppCompatActivity
 	public void onLeaveGame() {}
 
 	public void onGameUpdate(List<Player> players) {}
+
+	public void onConnectionError() {
+		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
+		toast.show();
+	}
 }

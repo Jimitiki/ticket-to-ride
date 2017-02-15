@@ -33,8 +33,6 @@ public class LoginPresenter extends BasePresenter {
 	public void update(Observable o, Object arg) {
 		if (model.getAuthToken() != null) {
 			activity.onLogin();
-		} else {
-			activity.onLoginFailed();
 		}
 	}
 
@@ -67,10 +65,20 @@ public class LoginPresenter extends BasePresenter {
 //		createGame();
 	}
 
+	public void onLoginFailed() {
+		activity.onLoginFailed();
+	}
+
+	public void onRegisterFailed() {
+		activity.onRegisterFailed();
+	}
+
 	private void initializeServerAddress(String ipAddress, String portNum) {
 		proxy.setUrl(ipAddress);
 		proxy.setPort(portNum);
 	}
+
+
 
 	private void createGame() {
 

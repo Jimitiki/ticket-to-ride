@@ -66,4 +66,8 @@ public class GamePresenter extends BasePresenter {
 		}
 	}
 
+	@Override
+	public void onConnectionError() {
+		activity.onConnectionError();
+	}
 }
