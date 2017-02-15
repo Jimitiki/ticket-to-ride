@@ -16,6 +16,7 @@ import delta.monstarz.shared.commands.CommandListCommand;
 
 public class ServerHandler implements HttpHandler {
     protected String response;
+    protected static final String COMMAND_PREFIX = "delta.monstarz.server.commands.Server";
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {

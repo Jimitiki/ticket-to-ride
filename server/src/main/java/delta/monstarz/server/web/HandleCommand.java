@@ -12,10 +12,9 @@ import delta.monstarz.server.CommandManager;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.CommandListCommand;
+import delta.monstarz.shared.commands.JoinGameCommand;
 
 public class HandleCommand extends ServerHandler {
-	private static final String COMMAND_PREFIX = "delta.monstarz.server.commands.Server";
-
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		if (!checkAuth_sendHeader(exchange)) {
@@ -34,6 +33,8 @@ public class HandleCommand extends ServerHandler {
 				CommandManager.execute(command);
 			} catch (Exception e) {
 			}
+			BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
+
 			response = null;
 		}
 		sendResponse(exchange);
