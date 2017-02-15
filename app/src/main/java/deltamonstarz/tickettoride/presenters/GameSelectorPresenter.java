@@ -1,11 +1,12 @@
 package deltamonstarz.tickettoride.presenters;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import deltamonstarz.tickettoride.ClientModel;
+import delta.monstarz.shared.GameInfo;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameSelectorActivity;
 
@@ -13,6 +14,9 @@ public class GameSelectorPresenter extends BasePresenter {
 	private static GameSelectorPresenter presenter;
 	private GameSelectorActivity activity;
 	private ScheduledExecutorService scheduler;
+	private boolean isConnected;
+
+	private static final int POLL_TIME = 2;
 
 	private GameSelectorPresenter() {
 		super();
@@ -32,12 +36,13 @@ public class GameSelectorPresenter extends BasePresenter {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (model.getAuthToken() == null) {
-			activity.onLogout();
+			activity.logout();
 			endPoll();
 		} else if (model.getGameID() >= 0) {
 			activity.onJoinGame();
 			endPoll();
 		} else {
+			isConnected = true;
 			activity.onGameListUpdate(model.getAvailableGames());
 		}
 	}
@@ -67,7 +72,11 @@ public class GameSelectorPresenter extends BasePresenter {
 
 	@Override
 	public void onConnectionError() {
-		activity.onConnectionError();
+		if (isConnected) {
+			activity.onGameListUpdate(new ArrayList<GameInfo>());
+			activity.onConnectionError();
+			isConnected = false;
+		}
 	}
 
 	@Override
@@ -86,9 +95,9 @@ public class GameSelectorPresenter extends BasePresenter {
 	/**
 	 * Begins polling for a list of all current, joinable games
 	 */
-	public void pollGameList() {
+	private void pollGameList() {
 		scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 10, TimeUnit.SECONDS);
+		scheduler.scheduleAtFixedRate(new GamePoller(), 0, POLL_TIME, TimeUnit.SECONDS);
 	}
 
 	private void endPoll() {

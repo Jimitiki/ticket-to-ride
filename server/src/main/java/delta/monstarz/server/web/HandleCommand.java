@@ -34,8 +34,8 @@ public class HandleCommand extends ServerHandler {
 			try {
 				CommandManager.execute(command);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
-//			BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
 
 			response = null;
 		}

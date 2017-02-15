@@ -80,7 +80,9 @@ public class ClientModel extends Observable{
 	}
 
 	public void addPlayer(String username) {
-		players.add(username);
+		if (players.indexOf(username) == -1) {
+			players.add(username);
+		}
 		setChanged();
 		notifyObservers();
 	}

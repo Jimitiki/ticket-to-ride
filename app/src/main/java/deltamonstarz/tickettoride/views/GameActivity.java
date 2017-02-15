@@ -51,24 +51,12 @@ public class GameActivity extends AppCompatActivity
 		presenter.onPause();
 	}
 
-	public void onGameUpdate(List<String> players1) {
-
-		List<Player> players = new ArrayList<>();
-		players.add(new Player("Brad"));
-		players.add(new Player("Chris"));
-		players.add(new Player("Trevor"));
-		players.add(new Player("Alex"));
-
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Player Count: ");
-		sb.append(players.size());
-		sb.append(". Players: ");
+	public void onGameUpdate(List<String> players) {
+		StringBuilder sb = new StringBuilder("Players: ");
 		for(int i = 0; i < players.size(); i++)
 		{
-			Player player = players.get(i);
-			sb.append(player.getUsername());
-			sb.append(i < sb.length() - 1 ? ", " : "");
+			sb.append(players.get(i));
+			sb.append(i < players.size() - 1 ? ", " : "");
 		}
 		sb.append(".");
 		mPlayersText.setText(sb.toString());

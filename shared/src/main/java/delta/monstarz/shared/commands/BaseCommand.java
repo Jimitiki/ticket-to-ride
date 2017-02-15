@@ -1,6 +1,6 @@
 package delta.monstarz.shared.commands;
 
-public abstract class BaseCommand {
+public class BaseCommand {
     protected String name;
     protected String username;
     protected int gameID;
@@ -15,7 +15,7 @@ public abstract class BaseCommand {
 		this.gameID = gameID;
 	}
 
-	public abstract void execute();
+	public void execute() {}
 
 	public String getName() {
 		return name;

@@ -1,13 +1,14 @@
 package delta.monstarz.shared;
 
-/**
- * Created by oliphaun on 2/3/17.
- */
-
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.CommandListCommand;
 
 public class SerDes {
     public static BaseCommand deserializeCommand(String json, String packagePrefix)
@@ -24,7 +25,6 @@ public class SerDes {
             try {
                 c = Class.forName(classname);
             } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -33,6 +33,9 @@ public class SerDes {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+	    if (jsonObj.has("commands")) {
+		    ((CommandListCommand) basecmd).setCommands(deserializeCommandList(jsonObj.getAsJsonArray("commands")));
+	    }
         return basecmd;
     }
 
@@ -46,4 +49,12 @@ public class SerDes {
         Gson gson = new Gson();
         return gson.fromJson(json, Args.class);
     }
+
+	private static List<BaseCommand> deserializeCommandList(JsonArray commands) {
+		List<BaseCommand> commandList = new ArrayList<>();
+		for (int i = 0; i < commands.size(); i++) {
+			commandList.add(deserializeCommand(commands.get(i).toString(), "deltamonstarz.tickettoride.commands.Client"));
+		}
+		return commandList;
+	}
 }
