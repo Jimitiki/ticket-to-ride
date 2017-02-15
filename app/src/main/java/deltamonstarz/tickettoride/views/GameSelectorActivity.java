@@ -61,7 +61,7 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mLogoutButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onLogout();
+				logout();
 			}
 		});
 
@@ -93,13 +93,11 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mRecyclerView.setAdapter(mAdapter);
 	}
 
-	public void onLogout() {
+	public void logout() {
 		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 		finish();
-//		Intent i = LoginActivity.newIntent(GameSelectorActivity.this);
-//		startActivity(i);
 	}
 
 	public void onJoinGame() {
