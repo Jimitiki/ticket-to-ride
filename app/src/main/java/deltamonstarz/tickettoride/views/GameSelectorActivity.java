@@ -2,6 +2,7 @@ package deltamonstarz.tickettoride.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -19,9 +21,10 @@ import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 
 
-public class GameSelectorActivity extends AppCompatActivity
+public class GameSelectorActivity extends AppCompatActivity implements GameNameChoiceDialogFragment.OnCompleteListener
 {
 	//Widgets
+	private Button mCreateGameButton;
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
 	private RecyclerView.Adapter mAdapter;
@@ -44,6 +47,14 @@ public class GameSelectorActivity extends AppCompatActivity
 		mPresenter = GameSelectorPresenter.getInstance();
 		mPresenter.setActivity(this);
 		mPresenter.observe();
+
+		mCreateGameButton = (Button) findViewById(R.id.createGameButton);
+		mCreateGameButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				makeGameClick();
+			}
+		});
 
 		mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -77,8 +88,16 @@ public class GameSelectorActivity extends AppCompatActivity
 		startActivity(i);
 	}
 
+	private void makeGameClick(){
+		FragmentManager manager = getSupportFragmentManager();
+		GameNameChoiceDialogFragment dialog = new GameNameChoiceDialogFragment();
+		dialog.show(manager, "choose_game_name__dialog");
+	}
 
-
+	@Override
+	public void onComplete(String name) {
+		mPresenter.createGame(name);
+	}
 
 
 	private class GameHolder extends RecyclerView.ViewHolder {
