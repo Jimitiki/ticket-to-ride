@@ -18,7 +18,9 @@ public class ClientLoginCommand extends LoginCommand {
 			ClientModel model = ClientModel.getInstance();
 			ServerProxy.getInstance().createGame(model.getUsername(), "yeh", model.getAuthToken());
 		} else {
-			LoginPresenter.getInstance().notify();
+			synchronized (LoginPresenter.getInstance()) {
+				LoginPresenter.getInstance().notify();
+			}
 		}
 	}
 }

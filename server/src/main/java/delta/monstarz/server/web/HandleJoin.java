@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 import delta.monstarz.server.CommandManager;
+import delta.monstarz.shared.Args;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.CommandListCommand;
@@ -25,16 +26,16 @@ public class HandleJoin extends ServerHandler {
                 return;
             }
 
-            InputStream reqBody = exchange.getRequestBody();
-            String reqData = readString(reqBody);
-            BaseCommand command = SerDes.deserializeCommand(reqData, COMMAND_PREFIX);
-            try {
-                CommandManager.execute(command);
-            } catch (Exception e) {
-            }
-            BaseCommand clientcommand = new JoinGameCommand(command.getUsername(), command.getGameID());
+	        InputStream reqBody = exchange.getRequestBody();
+	        String reqData = readString(reqBody);
+	        Args args = SerDes.deserializeArgs(reqData);
+	        JoinGameCommand command = new JoinGameCommand(args.getStr1(), 1/*Integer.parseInt(args.getStr2())*/);
+	        try {
+	            CommandManager.execute(command);
+	        } catch (Exception e) {
+	        }
 
-            response = SerDes.serialize(clientcommand);
+	        response = SerDes.serialize(command);
 
             sendResponse(exchange);
         }

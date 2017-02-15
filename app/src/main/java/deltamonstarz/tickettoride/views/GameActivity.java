@@ -19,6 +19,6 @@ public class GameActivity extends AppCompatActivity
 
 	public static Intent newIntent(Context packageContext)
 	{
-		return new Intent(packageContext, GameSelectorActivity.class);
+		return new Intent(packageContext, GameActivity.class);
 	}
 }

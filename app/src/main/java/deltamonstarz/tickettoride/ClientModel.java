@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -118,6 +119,7 @@ public class ClientModel extends Observable{
 
 	public void joinGame(int gameID) {
 		this.gameID = gameID;
+		players = new ArrayList<>();
 		notifyPresenter();
 	}
 

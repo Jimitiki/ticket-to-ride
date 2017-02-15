@@ -12,6 +12,7 @@ import deltamonstarz.tickettoride.views.GameSelectorActivity;
 public class GameSelectorPresenter extends Presenter{
 	private static GameSelectorPresenter presenter;
 	private GameSelectorActivity activity;
+	private ScheduledExecutorService scheduler;
 
 	private GameSelectorPresenter() {
 		super();
@@ -32,8 +33,10 @@ public class GameSelectorPresenter extends Presenter{
 	public void update(Observable o, Object arg) {
 		if (model.getAuthToken() == null) {
 			activity.onLogout();
+			endPoll();
 		} else if (model.getGameID() >= 0) {
 			activity.onJoinGame();
+			endPoll();
 		} else {
 			activity.onGameListUpdate(model.getAvailableGames());
 		}
@@ -51,7 +54,12 @@ public class GameSelectorPresenter extends Presenter{
 	/**
 	 * Adds user to selected game
 	 * Switches to GameView
-	 * @param gameID gameID of the game chosen by the user
+	 * @param gameID gameID of the game chosen by the uspublic void run() {
+			if (proxy == null) {
+				proxy = ServerProxy.getInstance();
+			}
+			proxy.listGames(model.getAuthToken(), model.getUsername());
+		}er
 	 */
 	public void joinGame(int gameID) {
 		proxy.joinGame(model.getAuthToken(), Integer.toString(model.getGameID()), model.getUsername());
@@ -69,8 +77,12 @@ public class GameSelectorPresenter extends Presenter{
 	 * Begins polling for a list of all current, joinable games
 	 */
 	public void pollGameList() {
-		final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new GamePoller(), 0, 10, TimeUnit.SECONDS);
+	}
+
+	public void endPoll() {
+		scheduler.shutdown();
 	}
 
 	private class GamePoller implements Runnable {
