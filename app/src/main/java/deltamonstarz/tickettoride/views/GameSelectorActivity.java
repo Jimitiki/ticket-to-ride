@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
@@ -30,7 +31,7 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 	private Button mLogoutButton;
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
-	private RecyclerView.Adapter mAdapter;
+	private GameSelectionRecyclerAdapter mAdapter;
 
 	//Data Members
 	private GameSelectorPresenter mPresenter;
@@ -90,8 +91,17 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 	}
 
 	public void onGameListUpdate(List<GameInfo> infos) {
-		mAdapter = new GameSelectionRecyclerAdapter(infos);
-		mRecyclerView.setAdapter(mAdapter);
+
+		//Set Adapter if null
+		if(mRecyclerView.getAdapter() == null) {
+			mAdapter = new GameSelectionRecyclerAdapter();
+			mRecyclerView.setAdapter(mAdapter);
+		}
+
+		//Update list and notify
+		mAdapter.getGameList().clear();
+		mAdapter.getGameList().addAll(infos);
+		mAdapter.notifyDataSetChanged();
 	}
 
 	public void logout() {
@@ -121,7 +131,6 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mPresenter.createGame(name);
 	}
 
-
 	private class GameHolder extends RecyclerView.ViewHolder {
 		public TextView gameName;
 		public TextView gameOwner;
@@ -146,23 +155,20 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 					GameSelectorPresenter.getInstance().joinGame(gameInfo.getGameID());
 				}
 			});
-
 		}
 	}
-
-
 
 	private class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameHolder>
 	{
 		private List<GameInfo> mGameList;
 
-
-
-		public GameSelectionRecyclerAdapter(List<GameInfo> myGameList) {
-			mGameList = myGameList;
+		public GameSelectionRecyclerAdapter() {
+			mGameList = new ArrayList<>();
 		}
 
-
+		public List<GameInfo> getGameList() {
+			return mGameList;
+		}
 
 		// Create new views (invoked by the layout manager)
 		@Override
@@ -177,15 +183,11 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		// Replace the contents of a view (invoked by the layout manager)
 		@Override
 		public void onBindViewHolder(final GameHolder holder, int position) {
-
 			holder.gameInfo = mGameList.get(position);
 
 			holder.gameName.setText(holder.gameInfo.getName());
 			holder.gameOwner.setText(holder.gameInfo.getOwnerName());
 			holder.playerCount.setText(String.valueOf(holder.gameInfo.getPlayerCount()));
-
-
-			String end = "";
 
 			// Has the game started?
 			if (holder.gameInfo.isGameStarted()) {
