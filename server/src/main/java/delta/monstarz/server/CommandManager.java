@@ -34,15 +34,24 @@ public class CommandManager {
 	 * @return list of commands
 	 */
 	public static List<BaseCommand> getCommands(int gameID, String username, int commandIndex) {
-		Game game = ServerModelManager.getInstance().getGameByID(gameID);
-		List<BaseCommand> allCommands = game.getHistory();
-		List<BaseCommand> visibleCommands = new ArrayList<>();
-		for (int i = 0; i < allCommands.size();i++ ) {
-			BaseCommand command = allCommands.get(i);
-			if (command.isGlobal() || command.getUsername().equals(username)) {
-				visibleCommands.add(command);
+		try {
+			Game game = ServerModelManager.getInstance().getGameByID(gameID);
+			List<BaseCommand> allCommands = game.getHistory();
+			List<BaseCommand> visibleCommands = new ArrayList<>();
+			for (int i = 0; i < allCommands.size(); i++) {
+				BaseCommand command = allCommands.get(i);
+				if (command.isGlobal() || command.getUsername().equals(username)) {
+					visibleCommands.add(command);
+				}
 			}
+			if (visibleCommands.size() == 0 || commandIndex == 0) {
+				return visibleCommands;
+			} else {
+				return visibleCommands.subList(commandIndex, visibleCommands.size());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
 		}
-		return visibleCommands.subList(commandIndex, visibleCommands.size());
 	}
 }

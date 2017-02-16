@@ -18,7 +18,7 @@ public class GameSelectorPresenter extends BasePresenter {
 	private ScheduledExecutorService scheduler;
 	private boolean isConnected;
 
-	private static final int POLL_TIME = 2;
+	private static final long POLL_TIME = 1;
 
 	private GameSelectorPresenter() {
 		super();

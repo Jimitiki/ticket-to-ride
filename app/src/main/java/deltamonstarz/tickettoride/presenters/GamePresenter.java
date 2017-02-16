@@ -16,6 +16,7 @@ public class GamePresenter extends BasePresenter {
 	private GameActivity activity;
 	private static GamePresenter presenter;
 	private static ScheduledExecutorService scheduler;
+	private static final long POLL_TIME = 400;
 
 	private GamePresenter() {
 		super();
@@ -89,7 +90,7 @@ public class GamePresenter extends BasePresenter {
 	 */
 	private void pollGameHistory() {
 		scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, 10, TimeUnit.SECONDS);
+		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, POLL_TIME, TimeUnit.MILLISECONDS);
 	}
 
 	private void endPoll() {

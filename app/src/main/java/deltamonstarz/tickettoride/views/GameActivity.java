@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.Player;
+import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 
@@ -65,7 +66,7 @@ public class GameActivity extends AppCompatActivity
 		}
 		sb.append(".");
 		mPlayersText.setText(sb.toString());
-		if (players.size() > 1) {
+		if (players.size() > 1 && !ClientModel.getInstance().isStarted()) {
 			mStartGameButton.setEnabled(true);
 			mStartGameButton.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -79,6 +80,7 @@ public class GameActivity extends AppCompatActivity
 	public void onGameStart() {
 		Toast toast = Toast.makeText(this, "Game Started", Toast.LENGTH_LONG);
 		toast.show();
+		mStartGameButton.setEnabled(false);
 	}
 
 	public void logout() {
