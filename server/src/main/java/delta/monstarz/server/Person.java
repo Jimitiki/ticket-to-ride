@@ -45,7 +45,8 @@ public class Person {
 		this.lastLogin = lastLogin;
 	}
 
-	public void addAuthToken(String token){
+	public void setAuthToken(String token){
+		authTokens.clear();
 		authTokens.put(token, new Date());
 	}
 
