@@ -14,7 +14,8 @@ public class ClientModel extends Observable{
 	private String username;
 	private String authToken;
 	private int gameID;
-	private List<BaseCommand> gameHistory;
+	private int commandCounter;
+	private boolean isStarted;
 	private List<String> players;
 	private List<GameInfo> availableGames;
 	private BasePresenter presenter;
@@ -52,15 +53,7 @@ public class ClientModel extends Observable{
 	}
 
 	public int getCurCommand() {
-		return gameHistory.size();
-	}
-
-	public List<BaseCommand> getGameHistory() {
-		return gameHistory;
-	}
-
-	public void setGameHistory(List<BaseCommand> gameHistory) {
-		this.gameHistory = gameHistory;
+		return commandCounter;
 	}
 
 	public List<String> getPlayers() {
@@ -79,12 +72,19 @@ public class ClientModel extends Observable{
 		this.availableGames = availableGames;
 	}
 
+	public boolean isStarted() {
+		return isStarted;
+	}
+
+	public void startGame() {
+		isStarted = true;
+	}
+
 	public void addPlayer(String username) {
 		if (players.indexOf(username) == -1) {
 			players.add(username);
 		}
-		setChanged();
-		notifyObservers();
+		notifyPresenter();
 	}
 
 	public void removePlayer(String username) {
@@ -97,24 +97,9 @@ public class ClientModel extends Observable{
 		notifyPresenter();
 	}
 
-	public void removeLoginInformation() {
-		username = null;
-		authToken = null;
-		notifyPresenter();
-	}
-
 	public void updateAvailableGames(List<GameInfo> games) {
 		availableGames = games;
 		notifyPresenter();
-	}
-
-	/**
-	 * Gets game commands given after curCommand and executes them
-	 */
-	public void updateGame(List<BaseCommand> commands) {
-		for (BaseCommand command : commands) {
-			command.execute();
-		}
 	}
 
 	public void joinGame(int gameID) {
@@ -131,14 +116,19 @@ public class ClientModel extends Observable{
 		this.presenter = presenter;
 	}
 
+	public void incrementCommand() {
+		commandCounter++;
+	}
+
 	public void clearUser() {
 		username = null;
 		authToken = null;
 	}
 
 	public void clearGame() {
+		isStarted = false;
 		gameID = -1;
-		gameHistory = new ArrayList<>();
+		commandCounter = 0;
 		players = new ArrayList<>();
 	}
 

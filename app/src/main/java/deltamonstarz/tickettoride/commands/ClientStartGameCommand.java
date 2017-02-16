@@ -1,11 +1,8 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.StartGameCommand;
+import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
-
-/**
- * Created by cwjohn42 on 2/15/17.
- */
 
 public class ClientStartGameCommand extends StartGameCommand {
 	public ClientStartGameCommand(String username, int gameID) {
@@ -14,6 +11,10 @@ public class ClientStartGameCommand extends StartGameCommand {
 
 	@Override
 	public void execute() {
-		GamePresenter.getInstance().onGameStart();
+		ClientModel model = ClientModel.getInstance();
+		if (!model.isStarted()) {
+			model.startGame();
+			GamePresenter.getInstance().onGameStart();
+		}
 	}
 }
