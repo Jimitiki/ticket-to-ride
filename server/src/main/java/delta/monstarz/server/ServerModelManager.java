@@ -123,7 +123,7 @@ public class ServerModelManager {
 			Person person = new Person(username, password);
 
 			String newAuthToken = UUID.randomUUID().toString();
-			person.addAuthToken(newAuthToken);
+			person.setAuthToken(newAuthToken);
 
 			people.put(person.getUsername(), person);
 			System.out.println("Registered:" + username + ", " + password);
@@ -148,7 +148,7 @@ public class ServerModelManager {
 			Person person = people.get(username);
 			if ( person.getPassword().equals(password)){ // Password is good
 				String newAuthToken = UUID.randomUUID().toString();
-				person.addAuthToken(newAuthToken);
+				person.setAuthToken(newAuthToken);
 				System.out.println("Login Successful: " + username + ", " + password);
 				return newAuthToken;
 			}
