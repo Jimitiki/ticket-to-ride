@@ -1,4 +1,4 @@
-package deltamonstarz.tickettoride.views;
+package deltamonstarz.tickettoride.views.gamePlay;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import delta.monstarz.shared.Player;
 import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
+import deltamonstarz.tickettoride.views.LoginActivity;
 
 
 public class GameActivity extends AppCompatActivity
