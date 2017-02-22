@@ -19,51 +19,41 @@ public class ClientModel extends Observable{
 	private List<String> players;
 	private List<GameInfo> availableGames;
 	private BasePresenter presenter;
+	private ClientGame game;
 
 	private ClientModel() {
 		gameID = -1;
 	}
-
 	public static ClientModel getInstance() {
 		return clientModel;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getAuthToken() {
 		return authToken;
 	}
-
 	public void setAuthToken(String authToken) {
 		this.authToken = authToken;
 	}
-
 	public int getGameID() {
 		return gameID;
 	}
-
 	public void setGameID(int gameID) {
 		this.gameID = gameID;
 	}
-
 	public int getCurCommand() {
 		return commandCounter;
 	}
-
 	public List<String> getPlayers() {
 		return players;
 	}
-
 	public void setPlayers(List<String> players) {
 		this.players = players;
 	}
-
 	public List<GameInfo> getAvailableGames() {
 		return availableGames;
 	}
@@ -138,4 +128,7 @@ public class ClientModel extends Observable{
 			notifyObservers();
 		}
 	}
+
+	public ClientGame getGame() {return game;}
+	public void setGame(ClientGame game) {this.game = game;}
 }
