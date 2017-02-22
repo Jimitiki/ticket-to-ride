@@ -31,6 +31,13 @@ public class ServerModelManager {
 
 	}
 
+	/**
+	 * Get the singleton instance of the server model
+	 * Creates a new instance if an instance does not exist
+	 * @pre None
+	 * @post None
+	 * @return Server model instance
+	 */
 	public static ServerModelManager getInstance(){
 		if (instance == null){
 			instance = new ServerModelManager();
@@ -62,6 +69,8 @@ public class ServerModelManager {
 	 * A new game is created with an empty beginning state.
 	 * The owner is added to the game.
 	 * Other players can join the new game until the owner of the game starts the game
+	 * @pre ownerName and gameName not null, ownerName should be a username an account on the server
+	 * @post games count increases by one
 	 * @param ownerName Username of the person who made the game
 	 * @param gameName Name chosen by the creator of the gameloginExceptions
 	 * @return The id of the new game
@@ -82,6 +91,8 @@ public class ServerModelManager {
 	/**
 	 * Players can join a game that has not yet started and has less than the max number of players
 	 * A player only joins a game once
+	 * @pre plyerName not null and is a username on the server, gameId >= 0, game has at most 4 players
+	 * @post Game player count goes up by one
 	 * @param playerName Username of player
 	 * @param gameID ID of a game that exists
 	 */
@@ -93,20 +104,15 @@ public class ServerModelManager {
 
 	}
 
-	/**
-	 * Players can quit a game
-	 * @param playerName
-	 * @param gameID
-	 */
-	public void quitGame(String playerName, int gameID){
-
-	}
 
 	/**
 	 * A new user account is made
 	 * Each username must be unique
+	 * @pre username and password not null
+	 * @post AuthToken created and saved on the server, or an error is returned
 	 * @param username
 	 * @param password
+	 * @throws A LoginException
 	 * @return An authToken which will identify the current session for the user
 	 */
 	public String register(String username, String password) throws LoginException{
@@ -133,6 +139,8 @@ public class ServerModelManager {
 
 	/**
 	 * Users can login using a username and password that have already been registered
+	 * @pre username and password not null
+	 * @post AuthToken created and saved on the server, or an error is returned
 	 * @param username
 	 * @param password
 	 * @return
@@ -164,17 +172,8 @@ public class ServerModelManager {
 	}
 
 	/**
-	 * A player is logged out and their authToken can no longer be used.
-	 * @param authToken
-	 */
-	public void logout(String username, String authToken){
-		if ( people.containsKey(username) ){
-			people.get(username).removeAuthToken(authToken);
-		}
-	}
-
-	/**
-	 *
+	 * @pre username not null, username is for a person on the server
+	 * @post none
 	 * @param username
 	 * @return A list of games that the player is in
 	 */
@@ -193,6 +192,8 @@ public class ServerModelManager {
 
 	/**
 	 *  Players can only join a game that has not started and they are not already part of
+	 * @pre username not null and is an existing user on the server
+	 * @post No duplicate games are returned
 	 * @return A list of games that a player can join
 	 *
 	 */
@@ -211,17 +212,11 @@ public class ServerModelManager {
 	}
 
 	/**
-	 *
-	 * @return The games
-	 */
-	public HashMap<Integer, Game> getGames(){
-		return games;
-	}
-
-	/**
 	 * Start a game
 	 * A game can only start if it has at least two people
 	 * A game can't start if it has already started
+	 * @pre gameID of a existing game that has not yet started, the game should have at least two people
+	 * @post the game with gameID will start
 	 * @param gameID
 	 */
 	public void startGame(int gameID){
@@ -229,7 +224,8 @@ public class ServerModelManager {
 	}
 
 	/**
-	 *
+	 * @pre authToken is not null
+	 * @post none
 	 * @param authToken An authToken from an http header as part of a request from a client
 	 * @return Is the authToken valid
 	 */
@@ -265,10 +261,24 @@ public class ServerModelManager {
 		}
 	}
 
+	/**
+	 * Get a game by it's gameID
+	 * @pre gameID must not be less than 0 and must be for a game that exits
+	 * @post none
+	 * @param gameID
+	 * @return A game object
+	 */
 	public Game getGameByID(int gameID) {
 		return games.get(gameID);
 	}
 
+	/**
+	 * Get a person object by username
+	 * @pre username must not be null, username must be for an existing person on the server
+	 * @post none
+	 * @param username
+	 * @return Person Object connected associated with the username
+	 */
 	public Person getPersonByUsername(String username) {
 		return people.get(username);
 	}
