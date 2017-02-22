@@ -21,8 +21,6 @@ import deltamonstarz.tickettoride.presenters.GamePresenter;
 public class GameActivity extends AppCompatActivity
 {
 
-	private TextView mPlayersText;
-	private Button mStartGameButton;
 
 	private GamePresenter presenter;
 
@@ -34,10 +32,9 @@ public class GameActivity extends AppCompatActivity
 
 		presenter = GamePresenter.getInstance();
 		presenter.setActivity(this);
+		if (presenter.isGameStarted()) {
 
-		mPlayersText = (TextView) findViewById(R.id.playersText);
-		mStartGameButton = (Button) findViewById(R.id.startGame);
-		mStartGameButton.setEnabled(false);
+		}
 	}
 
 	public static Intent newIntent(Context packageContext)
@@ -57,31 +54,7 @@ public class GameActivity extends AppCompatActivity
 		presenter.onPause();
 	}
 
-	public void onGameUpdate(List<String> players) {
-		StringBuilder sb = new StringBuilder("Players: ");
-		for(int i = 0; i < players.size(); i++)
-		{
-			sb.append(players.get(i));
-			sb.append(i < players.size() - 1 ? ", " : "");
-		}
-		sb.append(".");
-		mPlayersText.setText(sb.toString());
-		if (players.size() > 1 && !ClientModel.getInstance().isStarted()) {
-			mStartGameButton.setEnabled(true);
-			mStartGameButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					presenter.startGame();
-				}
-			});
-		}
-	}
-
-	public void onGameStart() {
-		Toast toast = Toast.makeText(this, "Game Started", Toast.LENGTH_LONG);
-		toast.show();
-		mStartGameButton.setEnabled(false);
-	}
+	public void onGameUpdate(List<String> players) {}
 
 	public void logout() {
 		Intent intent = new Intent(getBaseContext(), LoginActivity.class);

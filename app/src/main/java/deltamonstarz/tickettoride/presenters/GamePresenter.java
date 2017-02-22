@@ -41,11 +41,13 @@ public class GamePresenter extends BasePresenter {
 		return presenter;
 	}
 
+	public boolean isGameStarted() {
+		return model.isStarted();
+	}
 
-
-//	public void setActivity(GameActivity activity) {
-//		this.activity = activity;
-//	}
+	public void setActivity(GameActivity activity) {
+		this.activity = activity;
+	}
 
 	/**
 	 * This function is called when the client model notifies this class of any changes. It
