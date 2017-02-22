@@ -14,6 +14,8 @@ import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.GameActivity;
 
 /**
+ * javadoc'd by Chris
+ *
  * The GamePresenter handles most of the client logic for the game map view.
  * It takes user input from the view and then notifies the server of that input. It
  * watches the client model, and processes any changes made to the model, updating the game view as

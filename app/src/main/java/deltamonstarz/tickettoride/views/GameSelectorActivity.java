@@ -24,6 +24,7 @@ import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 
 /**
+ * Created and javadoc'd by Brad
  * Operates the User Interface for the Game Selection Screen.
  */
 public class GameSelectorActivity extends AppCompatActivity implements GameNameChoiceDialogFragment.OnCompleteListener

@@ -15,6 +15,7 @@ import delta.monstarz.shared.GameInfo;
 
 /**
  * Created by Trevor on 2/2/2017.
+ * Also javadoc'd by Trevor
  */
 
 public class ServerModelManager {
@@ -91,7 +92,7 @@ public class ServerModelManager {
 	/**
 	 * Players can join a game that has not yet started and has less than the max number of players
 	 * A player only joins a game once
-	 * @pre plyerName not null and is a username on the server, gameId >= 0, game has at most 4 players
+	 * @pre playerName not null and is a username on the server, gameId gte 0, game has at most 4 players
 	 * @post Game player count goes up by one
 	 * @param playerName Username of player
 	 * @param gameID ID of a game that exists
@@ -112,7 +113,7 @@ public class ServerModelManager {
 	 * @post AuthToken created and saved on the server, or an error is returned
 	 * @param username
 	 * @param password
-	 * @throws A LoginException
+	 * @throws LoginException
 	 * @return An authToken which will identify the current session for the user
 	 */
 	public String register(String username, String password) throws LoginException{

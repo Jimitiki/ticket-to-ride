@@ -6,6 +6,18 @@ import delta.monstarz.shared.Args;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 
+/**
+ * Created and javadoc'd by Alex Williams
+ *
+ * ServerProxy treated as the server by the client and takes care of all the extra work to
+ * get information across the network correctly. Uses the ClientCommunicator to spin up async tasks
+ * to do the actual sending and update the model when they get the response.
+ *
+ * @author Alex Williams
+ * @invariants None
+ *
+ */
+
 public class ServerProxy implements IServerProxy {
 
     private String _url;
@@ -28,6 +40,8 @@ public class ServerProxy implements IServerProxy {
      * there is only one instance, but it is easily obtainable from anywhere.
      *  A singleton implementation
      *
+     * @pre none
+     * @post none
      * @return      an instance of the ServerProxy class
      */
     public static ServerProxy getInstance() {
@@ -53,6 +67,8 @@ public class ServerProxy implements IServerProxy {
      * *username already in use
      * *username and password must not be blank.
      *
+     * @pre none
+     * @post none
      * @param  username a new username a person desires to register with
      * @param  password the person's new password
      */
@@ -70,6 +86,8 @@ public class ServerProxy implements IServerProxy {
      * Possible errors that might be passed on from the model to the presenters include:
      * *username and password do not match
      *
+     * @pre none
+     * @post presentor eventually signalled by the model and switches to game list
      * @param  username a new username a person desires to register with
      * @param  password the person's new password
      */
@@ -89,6 +107,8 @@ public class ServerProxy implements IServerProxy {
      * *auth token not valid - returns them to login screen
      * *game_name cannot be blank
      *
+     * @pre none
+     * @post automatically joins the user to the game as well as creates it
      * @param  username a new username a person desires to register with
      * @param  game_name an arbitrary string to name a new game
      * @param auth the auth token sent back to the model by register/login for authentication
@@ -108,7 +128,8 @@ public class ServerProxy implements IServerProxy {
      * Possible errors that might be passed on from the model to the presenters include:
      * *auth token not valid - returns them to login screen
      *
-     *
+     * @pre none
+     * @post none
      * @param auth the auth token sent back to the model by register/login for authentication
      * @param  username a new username a person desires to register with
      */
@@ -127,7 +148,8 @@ public class ServerProxy implements IServerProxy {
      * *The server may send back an error depending on what the command is if it was not allowed.
      * and the user will be notified of the error as necessary.
      *
-     *
+     * @pre none
+     * @post varies with the command, but very de-coupled
      * @param auth the auth token sent back to the model by register/login for authentication
      * @param  command any command that inherits from BaseCommand to facilitate abstract communication
      */
@@ -146,7 +168,8 @@ public class ServerProxy implements IServerProxy {
      * *invalid gameID for this user - takes user back to game list
      * *invalid auth token - takes user back to login page
      *
-     *
+     * @pre none
+     * @post none
      * @param auth the auth token sent back to the model by register/login for authentication
      * @param  gameID the id of a game a person has joined
      * @param  username a new username a person desires to register with
@@ -169,7 +192,8 @@ public class ServerProxy implements IServerProxy {
      * *Game already full
      * *invalid auth token - user is sent to the login screen.
      *
-     *
+     * @pre none
+     * @post the user is then in a game and the presentor is signaled to switch the view
      * @param auth the auth token sent back to the model by register/login for authentication
      * @param  gameID the id of a game the user sees listed and wishes to join
      * @param  username a new username a person desires to register with
