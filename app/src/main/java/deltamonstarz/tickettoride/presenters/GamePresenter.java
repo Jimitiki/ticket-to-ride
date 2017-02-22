@@ -110,25 +110,25 @@ public class GamePresenter extends BasePresenter {
 	 * retrieves a summary of the other players' states from the model to be displayed by the view.
 	 * @return collection of PlayerInfo objects
 	 */
-	public List<PlayerInfo> getOpponentInfo() {
-		return null;
-	}
+//	public List<PlayerInfo> getOpponentInfo() {
+//		return null;
+//	}
 
 	/**
 	 * retrieves the game information of the user from the client model to be displayed by the view.
 	 * @return PlayerInfo object
 	 */
-	public PlayerInfo getPlayerInfo() {
-		return null;
-	}
+//	public PlayerInfo getPlayerInfo() {
+//		return null;
+//	}
 
 	/**
 	 * gets all of the routes on the board that have been claimed so the view can draw them.
 	 * @return collection of Route objects
 	 */
-	public List<Route> getClaimedRoutes() {
-		return null;
-	}
+//	public List<Route> getClaimedRoutes() {
+//		return null;
+//	}
 
 	/**
 	 * Removes all game and user data from the client model, resetting the session entirely.
@@ -138,10 +138,10 @@ public class GamePresenter extends BasePresenter {
 		activity.logout();
 	}
 
-//	@Override
-//	public AppCompatActivity getActivity() {
-//		return activity;
-//	}
+	@Override
+	public AppCompatActivity getActivity() {
+		return activity;
+	}
 
 //	public void onGameStart() {
 //		activity.onGameStart();
