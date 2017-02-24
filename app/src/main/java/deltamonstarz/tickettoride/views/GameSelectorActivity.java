@@ -22,8 +22,12 @@ import delta.monstarz.shared.GameInfo;
 import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
+import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
 
-
+/**
+ * Created and javadoc'd by Brad
+ * Operates the User Interface for the Game Selection Screen.
+ */
 public class GameSelectorActivity extends AppCompatActivity implements GameNameChoiceDialogFragment.OnCompleteListener
 {
 	//Widgets
@@ -36,12 +40,30 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 	//Data Members
 	private GameSelectorPresenter mPresenter;
 
-
+	/**
+	 * Creates an intent that can be used to start an instance of this activity.
+	 *
+	 * @pre none
+	 * @post none
+	 * @invariant none
+	 * @param packageContext The Context object used to create the
+	 * @return The intent
+	 */
 	public static Intent newIntent(Context packageContext)
 	{
 		return new Intent(packageContext, GameSelectorActivity.class);
 	}
 
+	/**
+	 * Initializes the activity.
+	 *
+	 * @pre none
+	 * @post Sets the layout to activity_game_selector
+	 * @post The activity will be associated with the GameSelectorPresenter
+	 * @post The recycler view will display an empty list
+	 * @invariant none
+	 * @param savedInstanceState A saved state used to recreate the activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -78,18 +100,40 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mRecyclerView.setLayoutManager(mLayoutManager);
 	}
 
+	/**
+	 * Resumes the activity
+	 *
+	 * @pre The activity was paused
+	 * @post The activity will be active
+	 * @invariant none
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		mPresenter.onResume();
 	}
 
+	/**
+	 * Pauses the activity
+	 *
+	 * @pre The activity was active
+	 * @post The activity will be paused
+	 * @invariant none
+	 */
 	@Override
 	protected void onPause() {
 		super.onPause();
 		mPresenter.onPause();
 	}
 
+	/**
+	 * Sets the content of the recycler view to be infos.
+	 *
+	 * @pre The activity was initialized
+	 * @post The recycler view will be populated with infos
+	 * @invariant none
+  	 * @param infos The list of game infos objects used to populate the recycler view.
+	 */
 	public void onGameListUpdate(List<GameInfo> infos) {
 
 		//Set Adapter if null
@@ -104,6 +148,13 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mAdapter.notifyDataSetChanged();
 	}
 
+	/**
+	 * Logs the user out.
+	 *
+	 * @pre The activity was initialized
+	 * @post The user will be taken back to the login screen
+	 * @invariant none
+	 */
 	public void logout() {
 		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -111,16 +162,38 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		finish();
 	}
 
+	/**
+	 * Starts a game activity
+	 *
+	 * @pre The activity was initialized
+	 * @post A Game Activity will take over for this one.
+	 * @invariant none
+	 */
 	public void onJoinGame() {
 		Intent i = GameActivity.newIntent(GameSelectorActivity.this);
 		startActivity(i);
 	}
 
+	/**
+	 * Displays a game creation dialogue.
+	 *
+	 * @pre The activity was initialized
+	 * @post A game creation dialogue will be displayed
+	 * @invariant none
+	 */
 	private void makeGameClick(){
 		FragmentManager manager = getSupportFragmentManager();
 		GameNameChoiceDialogFragment dialog = new GameNameChoiceDialogFragment();
 		dialog.show(manager, "choose_game_name__dialog");
 	}
+
+	/**
+	 * Notifies the user of a connection error.
+	 *
+	 * @pre A connection error happened.
+	 * @post A Toast will be displayed.
+	 * @invariant none
+	 */
 	public void onConnectionError() {
 		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
 		toast.show();
@@ -131,16 +204,25 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mPresenter.createGame(name);
 	}
 
+	/**
+	 * Provides an interface between the game information objects and the views in a recycler view.
+	 */
 	private class GameHolder extends RecyclerView.ViewHolder {
-		public TextView gameName;
-		public TextView gameOwner;
-		public TextView gameStarted;
-		public TextView playerCount;
+		private TextView gameName;
+		private TextView gameOwner;
+		private TextView gameStarted;
+		private TextView playerCount;
 
-		public GameInfo gameInfo;
-		public View view;
+		private GameInfo gameInfo;
+		private View view;
 
-		public GameHolder(View v) {
+		/**
+		 * Initializes a game holder.
+		 * A click listener will be set on the view to start a game.
+		 *
+		 * @param v The view that belongs the recycler view.
+		 */
+		GameHolder(View v) {
 			super(v);
 			view = v;
 
@@ -158,10 +240,20 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		}
 	}
 
+	/**
+	 * Defines how the dataset is bound to the recycler adapter.
+	 */
 	private class GameSelectionRecyclerAdapter extends RecyclerView.Adapter<GameHolder>
 	{
 		private List<GameInfo> mGameList;
 
+		/**
+		 * Initializes the recycler view adapter.
+		 *
+		 * @pre none
+		 * @post The recycler view will be empty.
+		 * @invariant none
+		 */
 		public GameSelectionRecyclerAdapter() {
 			mGameList = new ArrayList<>();
 		}
@@ -170,7 +262,13 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 			return mGameList;
 		}
 
-		// Create new views (invoked by the layout manager)
+		/**
+		 * Creates new views. (Invoked by the layout manager.)
+		 *
+		 * @pre none
+		 * @post A view will be added to the recycler.
+		 * @invariant none
+		 */
 		@Override
 		public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 			// create a new view
@@ -180,7 +278,15 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 			return vh;
 		}
 
-		// Replace the contents of a view (invoked by the layout manager)
+		/**
+		 * Replaces the contents of a view in the recycler. (Invoked by the layout manager.)
+		 *
+		 * @pre position is in the range of mGameList
+		 * @post holder will be bound to the data of the element at position.
+		 * @invariant none
+		 * @param holder The view holder being bound.
+		 * @param position The position of the data being bound.
+		 */
 		@Override
 		public void onBindViewHolder(final GameHolder holder, int position) {
 			holder.gameInfo = mGameList.get(position);
@@ -203,7 +309,14 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 			}
 		}
 
-		// Return the size of your dataset (invoked by the layout manager)
+		/**
+		 * Returns the size of the dataset. (Invoked by the layout manager.)
+		 *
+		 * @pre none
+		 * @post none
+		 * @invariant return value will be >= 0
+		 * @return the size of the dataset.
+		 */
 		@Override
 		public int getItemCount() {
 			return mGameList.size();

@@ -9,22 +9,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="deltamonstarz.tickettoride.views.GameActivity">
+    tools:context="deltamonstarz.tickettoride.views.gamePlay.GameActivity">
 
-    <TextView
-        android:id="@+id/playersText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"/>
-
-    <Button
-        android:text="Start Game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/playersText"
-        android:id="@+id/startGame"
-        android:elevation="0dp"
-        />
+    <FrameLayout
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:id="@+id/gameFragment"/>
 
 </RelativeLayout>

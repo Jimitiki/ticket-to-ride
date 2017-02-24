@@ -1,0 +1,174 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="deltamonstarz.tickettoride.views.gamePlay.PlayerCardsFragment">
+
+
+    <LinearLayout
+        android:layout_width="927dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="70"
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_01_red"
+                tools:text="5"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_01_red"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_02_white"
+                android:text="7"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_02_white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_03_orange"
+                android:text="9"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_03_orange"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_04_green"
+                android:text="7"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_04_green"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_05_blue"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_05_blue"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_06_black"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_06_black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_07_yellow"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_07_yellow"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_08_pink"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_08_pink"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/card_text_horizontal_width"
+                android:layout_height="match_parent"
+                android:id="@+id/card_count_09_gold"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/card_image_09_gold"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</FrameLayout>

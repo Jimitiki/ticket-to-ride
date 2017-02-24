@@ -92,7 +92,4 @@ public class LoginPresenter extends BasePresenter {
 		proxy.setPort(portNum);
 	}
 
-	private void createGame() {
-		proxy.createGame("alex", "alextest", model.getAuthToken());
-	}
 }

@@ -2,4 +2,13 @@
     <string name="app_name">TicketToRide</string>
     <string name="ok">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="draw_card">Draw Card</string>
+    <string name="place_train">Place Train</string>
+    <string name="destination_cards">Destination Cards</string>
+    <string name="history">History</string>
+    <string name="chat">Chat</string>
+    <string name="demo">Demo Next Action</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
