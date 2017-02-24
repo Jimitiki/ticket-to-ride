@@ -21,6 +21,7 @@ public class ClientGame {
 
 	public ClientGame(int id) {
 		gameID = id;
+		players = new ArrayList<>();
 	}
 
     public int getGameID() { return gameID; }
