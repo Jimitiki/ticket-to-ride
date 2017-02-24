@@ -10,6 +10,6 @@ public class Board {
     private String imageID;
     private Collection<City> cities;
     private Collection<Route> routes;
-    private IPlayer longestRoute;
+    private String longestRoute;
 
 }

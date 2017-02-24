@@ -11,7 +11,7 @@ public class Route {
     private City city2;
     private int length;
     private Enum color;
-    private IPlayer owner;
+    private String owner;
     private Collection<Segment> segments;
 
 }
