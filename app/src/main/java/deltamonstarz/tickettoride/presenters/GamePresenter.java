@@ -3,14 +3,16 @@ package deltamonstarz.tickettoride.presenters;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.Observable;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import delta.monstarz.shared.commands.StartGameCommand;
+import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
+import deltamonstarz.tickettoride.views.gamePlay.GameLobbyFragment;
 
 /**
- * javadoc'd by Chris
- *
  * The GamePresenter handles most of the client logic for the game map view.
  * It takes user input from the view and then notifies the server of that input. It
  * watches the client model, and processes any changes made to the model, updating the game view as
@@ -21,6 +23,7 @@ import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
  */
 public class GamePresenter extends BasePresenter {
 	private GameActivity activity;
+	private GameLobbyFragment lobbyFragment;
 	private static GamePresenter presenter;
 	private static ScheduledExecutorService scheduler;
 	private static final long POLL_TIME = 400;
@@ -44,6 +47,10 @@ public class GamePresenter extends BasePresenter {
 		this.activity = activity;
 	}
 
+	public void setLobbyFragment(GameLobbyFragment lobbyFragment) {
+		this.lobbyFragment = lobbyFragment;
+	}
+
 	/**
 	 * This function is called when the client model notifies this class of any changes. It
 	 * determines what has changed to update the view accordingly.
@@ -52,7 +59,7 @@ public class GamePresenter extends BasePresenter {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		activity.onGameUpdate(model.getPlayers());
+		lobbyFragment.onGameUpdate(model.getPlayers());
 	}
 
 //	/**
@@ -90,7 +97,7 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void onResume() {
 		super.onResume();
-		//pollGameHistory();
+		pollGameHistory();
 	}
 
 	/**
@@ -100,7 +107,7 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void onPause() {
 		super.onPause();
-		//endPoll();
+		endPoll();
 	}
 
 	/**
@@ -140,13 +147,13 @@ public class GamePresenter extends BasePresenter {
 		return activity;
 	}
 
-//	public void onGameStart() {
-//		activity.onGameStart();
-//	}
+	public void onGameStart() {
+		activity.onGameStart();
+	}
 
 	/*
 	 * Begins polling the server proxy for commands
-
+	*/
 	private void pollGameHistory() {
 		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, POLL_TIME, TimeUnit.MILLISECONDS);
@@ -164,5 +171,5 @@ public class GamePresenter extends BasePresenter {
 			}
 			proxy.listCommands(model.getAuthToken(), model.getGameID(), model.getUsername(), model.getCurCommand());
 		}
-	}*/
+	}
 }
