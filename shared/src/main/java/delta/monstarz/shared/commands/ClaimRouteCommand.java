@@ -3,6 +3,7 @@ package delta.monstarz.shared.commands;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.model.Route;
 
 /**
  * Created by oliphaun on 2/22/17.

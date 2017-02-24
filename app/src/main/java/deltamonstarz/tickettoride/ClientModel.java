@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
+import deltamonstarz.tickettoride.model.ClientGame;
 import deltamonstarz.tickettoride.presenters.BasePresenter;
 
 public class ClientModel extends Observable{
