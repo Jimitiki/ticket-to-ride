@@ -3,6 +3,8 @@ package delta.monstarz.shared.model;
 import java.util.Collection;
 import java.util.Map;
 
+import delta.monstarz.shared.model.*;
+
 /**
  * Created by Trevor on 2/2/2017.
  */
@@ -12,7 +14,7 @@ public class Player {
 	private Enum pcolor;
 	private int score;
 	private int numTrains;
-	private Map<TrainCard, Integer> trainCards;
+	private Map<delta.monstarz.shared.model.TrainCard, Integer> trainCards;
 	private Collection<DestCard> destCards;
 
 	public Player(String username){

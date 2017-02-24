@@ -2,6 +2,7 @@ package deltamonstarz.tickettoride.views.gamePlay;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,14 @@ public class GameFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		FragmentManager fm = getChildFragmentManager();
+		Fragment playerCardsFragment = fm.findFragmentById(R.id.player_card_fragment);
+		if (playerCardsFragment == null){
+			playerCardsFragment = new PlayerCardsFragment();
+			fm.beginTransaction().add(R.id.player_card_fragment, playerCardsFragment).commit();
+		}
+
 	}
 
 	@Override

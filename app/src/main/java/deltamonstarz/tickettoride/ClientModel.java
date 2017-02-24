@@ -50,7 +50,7 @@ public class ClientModel extends Observable{
 
 	public void startGame() {
 		game.setStarted(true);
-		DummyData.doTest();
+		//DummyData.doTest();
 	}
 
 	public void addPlayer(String username) {
