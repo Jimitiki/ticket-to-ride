@@ -100,6 +100,10 @@ public class ClientModel extends Observable{
 		}
 	}
 
+	public List<String> getPlayers() {
+		return null;
+	}
+
 	public ClientGame getGame() {return game;}
 	public void newGame(int gameID) {
 		game = new ClientGame(gameID);
