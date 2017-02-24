@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import delta.monstarz.shared.commands.StartGameCommand;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
+import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
 import deltamonstarz.tickettoride.views.gamePlay.GameLobbyFragment;
 
 /**
@@ -24,6 +25,7 @@ import deltamonstarz.tickettoride.views.gamePlay.GameLobbyFragment;
 public class GamePresenter extends BasePresenter {
 	private GameActivity activity;
 	private GameLobbyFragment lobbyFragment;
+	private GameFragment gameFragment;
 	private static GamePresenter presenter;
 	private static ScheduledExecutorService scheduler;
 	private static final long POLL_TIME = 400;
@@ -47,10 +49,13 @@ public class GamePresenter extends BasePresenter {
 		this.activity = activity;
 	}
 
-	public void setLobbyFragment(GameLobbyFragment lobbyFragment) {
-		this.lobbyFragment = lobbyFragment;
+	public void setLobbyFragment(GameLobbyFragment fragment) {
+		this.lobbyFragment = fragment;
 	}
 
+	public void setGameFragment(GameFragment fragment) {
+		gameFragment = fragment;
+	}
 	/**
 	 * This function is called when the client model notifies this class of any changes. It
 	 * determines what has changed to update the view accordingly.
@@ -59,7 +64,7 @@ public class GamePresenter extends BasePresenter {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		lobbyFragment.onGameUpdate(model.getPlayers());
+		lobbyFragment.onPlayerJoin(model.getPlayers());
 	}
 
 //	/**

@@ -50,7 +50,7 @@ public class GameLobbyFragment extends Fragment {
 		return v;
 	}
 
-	public void onGameUpdate(List<String> players) {
+	public void onPlayerJoin(List<String> players) {
 		StringBuilder sb = new StringBuilder("Players: ");
 		for(int i = 0; i < players.size(); i++)
 		{
