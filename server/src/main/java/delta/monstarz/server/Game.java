@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import delta.monstarz.shared.GameInfo;
-import delta.monstarz.shared.Player;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.commands.BaseCommand;
 
 /**

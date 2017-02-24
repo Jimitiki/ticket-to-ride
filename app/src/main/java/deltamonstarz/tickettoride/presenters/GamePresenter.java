@@ -3,9 +3,7 @@ package deltamonstarz.tickettoride.presenters;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.Observable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import delta.monstarz.shared.commands.StartGameCommand;
 import deltamonstarz.tickettoride.ServerProxy;

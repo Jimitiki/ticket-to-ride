@@ -70,7 +70,7 @@ public class GameActivity extends AppCompatActivity
 				.commit();
 		presenter.setGameFragment(gameFragment);
 	}
-	
+
 	private void onJoinGame() {
 		FragmentManager fm = this.getSupportFragmentManager();
 		lobbyFragment = (GameLobbyFragment) fm.findFragmentById(R.id.fragmentContainer);
