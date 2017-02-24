@@ -1,7 +1,5 @@
-package deltamonstarz.tickettoride.views;
+package deltamonstarz.tickettoride.views.gamePlay;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,24 +23,20 @@ public class GameLobbyFragment extends Fragment {
 	private TextView playerText;
 	private Button startGameButton;
 	private static GamePresenter presenter;
-	private static GameActivity activity;
 
 	public GameLobbyFragment() {
 		// Required empty public constructor
 	}
 
-	public static GameLobbyFragment newInstance(GameActivity gameActivity, GamePresenter gamePresenter) {
+	public static GameLobbyFragment newInstance() {
 		GameLobbyFragment fragment = new GameLobbyFragment();
-		activity = gameActivity;
-		presenter = gamePresenter;
+		presenter = GamePresenter.getInstance();
 		return fragment;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-		}
 	}
 
 	@Override
@@ -75,9 +68,5 @@ public class GameLobbyFragment extends Fragment {
 				}
 			});
 		}
-	}
-
-	public void onGameStart() {
-
 	}
 }
