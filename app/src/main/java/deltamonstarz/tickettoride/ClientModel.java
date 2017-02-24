@@ -101,7 +101,7 @@ public class ClientModel extends Observable{
 	}
 
 	public List<String> getPlayers() {
-		return null;
+		return game.getPlayers();
 	}
 
 	public ClientGame getGame() {return game;}
