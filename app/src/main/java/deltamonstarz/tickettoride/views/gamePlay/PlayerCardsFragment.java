@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import deltamonstarz.tickettoride.R;
@@ -20,6 +21,8 @@ import deltamonstarz.tickettoride.R;
  * A simple {@link Fragment} subclass.
  */
 public class PlayerCardsFragment extends Fragment {
+
+	static final String BASE_PATH = "train_cards/train_cards_";
 
 	ImageView redImg;
 	ImageView whiteImg;
@@ -55,49 +58,29 @@ public class PlayerCardsFragment extends Fragment {
 		pinkImg = (ImageView) view.findViewById(R.id.card_image_08_pink);
 		goldImg = (ImageView) view.findViewById(R.id.card_image_09_gold);
 
-		int id;
+		setImage(redImg, BASE_PATH + "red.PNG");
+		setImage(whiteImg, BASE_PATH + "white.PNG");
+		setImage(orangeImg, BASE_PATH + "orange.PNG");
+		setImage(greenImg, BASE_PATH + "green.PNG");
+		setImage(blueImg, BASE_PATH + "blue.PNG");
+		setImage(blackImg, BASE_PATH + "black.PNG");
+		setImage(yellowImg, BASE_PATH + "yellow.PNG");
+		setImage(pinkImg, BASE_PATH + "pink.PNG");
+		setImage(goldImg, BASE_PATH + "gold.PNG");
 
-		try {
-			InputStream is = getActivity().getAssets().open("train_cards/train_card_red.PNG");
-			Bitmap bm = BitmapFactory.decodeStream(is);
-			redImg.setImageBitmap(bm);
-		}
-		catch (Exception e){
-
-		}
-
-
-
-		/*
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-
-		id = getResources().getIdentifier("train_card_red", "drawable", "/asset/train_cards" );
-		redImg.setImageResource(id);
-		*/
 
 		return view;
+	}
+
+	void setImage(ImageView imageView, String filePath){
+		try {
+			InputStream is = getActivity().getAssets().open(filePath);
+			Bitmap bm = BitmapFactory.decodeStream(is);
+			imageView.setImageBitmap(bm);
+		}
+		catch (IOException e){
+
+		}
 	}
 
 }
