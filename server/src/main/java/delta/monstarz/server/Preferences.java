@@ -14,7 +14,6 @@ import java.awt.Point;
 
 import delta.monstarz.exceptions.PreferenceFormatException;
 import delta.monstarz.shared.Image;
-import delta.monstarz.shared.Route;
 import delta.monstarz.shared.Segment;
 
 /**
