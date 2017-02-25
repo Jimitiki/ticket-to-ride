@@ -1,6 +1,8 @@
-package delta.monstarz.shared;
+package delta.monstarz.server;
 
 import java.util.List;
+
+import delta.monstarz.shared.IDestinationDeck;
 
 /**
  * @author bradcarter
