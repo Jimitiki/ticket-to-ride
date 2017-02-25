@@ -2,7 +2,6 @@ package delta.monstarz.server;
 
 import java.util.List;
 
-import delta.monstarz.shared.TrainCard;
 import delta.monstarz.shared.ITrainDeck;
 
 /**
