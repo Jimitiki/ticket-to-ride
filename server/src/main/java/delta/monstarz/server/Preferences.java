@@ -13,8 +13,6 @@ import java.util.List;
 import java.awt.Point;
 
 import delta.monstarz.exceptions.PreferenceFormatException;
-import delta.monstarz.shared.City;
-import delta.monstarz.shared.DestinationDeck;
 import delta.monstarz.shared.Image;
 import delta.monstarz.shared.Route;
 import delta.monstarz.shared.Segment;
@@ -26,7 +24,7 @@ import delta.monstarz.shared.Segment;
  */
 public class Preferences {
 
-
+	/*
 	//Class Members-----------------------------------------------------------
 	//Static Fields
 	private static final String PREFERENCES_FILE_NAME = "/Users/bradcarter/Desktop/preferences.json";
@@ -86,7 +84,7 @@ public class Preferences {
 	 *
 	 *
 	 * @throws IOException if preferences.json cannot be read.
-	 */
+	 *
 	public void parsePreferenceFile() throws IOException
 	{
 		//Clear the current preferences
@@ -161,7 +159,7 @@ public class Preferences {
 
 //			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
 
-			Route route = new Route()
+			//Route route = new Route()
 		}
 	}
 
@@ -196,4 +194,5 @@ public class Preferences {
 			e.printStackTrace();
 		}
 	}
+	*/
 }
