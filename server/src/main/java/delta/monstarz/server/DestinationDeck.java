@@ -3,6 +3,7 @@ package delta.monstarz.server;
 import java.util.List;
 
 import delta.monstarz.shared.IDestinationDeck;
+import delta.monstarz.shared.model.DestCard;
 
 /**
  * @author bradcarter
@@ -10,13 +11,13 @@ import delta.monstarz.shared.IDestinationDeck;
 public class DestinationDeck implements IDestinationDeck
 {
 	@Override
-	public List<DestinationCard> drawCards()
+	public List<DestCard> drawCards()
 	{
 		return null;
 	}
 
 	@Override
-	public void returnCard(DestinationCard card)
+	public void returnCard(DestCard card)
 	{
 
 	}
