@@ -69,6 +69,7 @@ public class GameActivity extends AppCompatActivity
 				.replace(R.id.fragmentContainer, gameFragment)
 				.commit();
 		presenter.setGameFragment(gameFragment);
+		gameFragment.setActivity(this);
 	}
 
 	private void onJoinGame() {

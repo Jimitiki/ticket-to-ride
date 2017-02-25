@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
+import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +19,7 @@ import deltamonstarz.tickettoride.presenters.GamePresenter;
  */
 public class GameFragment extends Fragment {
 	private static GamePresenter presenter;
+	private GameActivity activity;
 	private Button drawCard;
 	private Button placeTrain;
 	private Button viewCards;
@@ -73,28 +75,31 @@ public class GameFragment extends Fragment {
 		placeTrain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.print("claiming route");
+				System.out.println("claiming route");
 			}
 		});
 
 		viewCards.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.print("opening destination card view");
+				System.out.println("opening destination card view");
 			}
 		});
 
 		viewHistory.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.print("opening history view");
+				System.out.println("opening history view");
 			}
 		});
 
 		viewChat.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.print("opening chat");
+				System.out.println("opening chat");
+				FragmentManager manager = activity.getSupportFragmentManager();
+				ChatDialogFragment dialog = new ChatDialogFragment();
+				dialog.show(manager, "chat_dialog");
 			}
 		});
 
@@ -110,5 +115,9 @@ public class GameFragment extends Fragment {
 
 	private void advanceDemo() {
 
+	}
+
+	public void setActivity(GameActivity activity) {
+		this.activity = activity;
 	}
 }
