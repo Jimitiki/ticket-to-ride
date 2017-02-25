@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.TreeSet;
 
 import delta.monstarz.shared.GameInfo;
-import delta.monstarz.shared.Player;
+
 import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.model.Player;
 
 /**
  * The Game class holds all the data related to a ticket to ride game

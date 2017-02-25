@@ -5,19 +5,11 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-import java.util.Map;
-
-import deltamonstarz.tickettoride.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.views.LoginActivity;
-import deltamonstarz.tickettoride.views.MapFragment;
 
 
 public class GameActivity extends AppCompatActivity
@@ -25,6 +17,8 @@ public class GameActivity extends AppCompatActivity
 
 
 	private GamePresenter presenter;
+	private GameLobbyFragment lobbyFragment;
+	private GameFragment gameFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -34,7 +28,7 @@ public class GameActivity extends AppCompatActivity
 
 		presenter = GamePresenter.getInstance();
 		presenter.setActivity(this);
-		startGameLobbyFragment();
+		onJoinGame();
 
 	}
 
@@ -55,8 +49,6 @@ public class GameActivity extends AppCompatActivity
 		presenter.onPause();
 	}
 
-	public void onGameUpdate(List<String> players) {}
-
 	public void logout() {
 		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -71,16 +63,22 @@ public class GameActivity extends AppCompatActivity
 
 	public void onGameStart() {
 		System.out.print("game started");
-		//TODO: Add code to start the game here
-	}
-	
-	private void startGameLobbyFragment() {
 		FragmentManager fm = this.getSupportFragmentManager();
-		GameLobbyFragment lobbyFragment = (GameLobbyFragment) fm.findFragmentById(R.id.gameFragment);
+		gameFragment = GameFragment.newInstance();
+		fm.beginTransaction()
+				.replace(R.id.fragmentContainer, gameFragment)
+				.commit();
+		presenter.setGameFragment(gameFragment);
+		gameFragment.setActivity(this);
+	}
+
+	private void onJoinGame() {
+		FragmentManager fm = this.getSupportFragmentManager();
+		lobbyFragment = (GameLobbyFragment) fm.findFragmentById(R.id.fragmentContainer);
 		if (lobbyFragment == null) {
 			lobbyFragment = GameLobbyFragment.newInstance();
 			fm.beginTransaction()
-					.add(R.id.gameFragment, lobbyFragment)
+					.add(R.id.fragmentContainer, lobbyFragment)
 					.commit();
 		}
 		presenter.setLobbyFragment(lobbyFragment);

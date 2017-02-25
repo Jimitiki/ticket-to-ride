@@ -6,24 +6,25 @@
 
 
     <LinearLayout
-        android:layout_width="927dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:text="70"
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_01_red"
-                tools:text="5"/>
+                tools:text="1"/>
 
             <ImageView
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/card_image_01_red"/>
@@ -32,16 +33,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_02_white"
-                android:text="7"/>
+                android:text="2"/>
 
             <ImageView
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/card_image_02_white"/>
@@ -50,13 +52,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_03_orange"
-                android:text="9"/>
+                android:text="3"/>
 
             <ImageView
                 android:layout_width="0dp"
@@ -68,13 +71,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_04_green"
-                android:text="7"/>
+                android:text="4"/>
 
             <ImageView
                 android:layout_width="0dp"
@@ -86,11 +90,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
+                android:text="5"
                 android:id="@+id/card_count_05_blue"/>
 
             <ImageView
@@ -103,11 +109,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
+                android:text="6"
                 android:id="@+id/card_count_06_black"/>
 
             <ImageView
@@ -120,11 +128,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
+                android:text="7"
                 android:id="@+id/card_count_07_yellow"/>
 
             <ImageView
@@ -137,11 +147,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
+                android:text="8"
                 android:id="@+id/card_count_08_pink"/>
 
             <ImageView
@@ -154,11 +166,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
+                android:text="9"
                 android:id="@+id/card_count_09_gold"/>
 
             <ImageView
