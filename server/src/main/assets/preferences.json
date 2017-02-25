@@ -1,6 +1,6 @@
 {
   "Map": {
-    "image": "map.png",
+    "file": "map.png",
     "height":500,
     "width": 1000
   },
@@ -38,26 +38,25 @@
       "trains": 2
     }
   ],
-  "CardSet": {
-    "TrainCards":[
-      {"color": "red", "image": "boxcar.jpg", "count": 12},
-      {"color": "blue", "image": "passenger.jpg", "count": 12},
-      {"color": "green", "image": "tanker.jpg", "count": 12},
-      {"color": "gold", "image": "engine.jpg", "count": 14}
-    ],
-    "DestinationCards":[
-      {
-        "endpoints":["Boston", "Santa Fe"],
-        "points": 9
-      },
-      {
-        "endpoints":["Denver", "Santa Fe"],
-        "points": 8
-      },
-      {
-        "endpoints":["Boston", "Denver"],
-        "points": 100
-      }
-    ]
-  }
+  "TrainCards":[
+    {"color": "red", "image": "boxcar.jpg", "count": 12},
+    {"color": "blue", "image": "passenger.jpg", "count": 12},
+    {"color": "green", "image": "tanker.jpg", "count": 12},
+    {"color": "gold", "image": "engine.jpg", "count": 14}
+  ],
+  "DestinationCards":[
+    {
+      "endpoints":["Boston", "Santa Fe"],
+      "points": 9
+    },
+    {
+      "endpoints":["Denver", "Santa Fe"],
+      "points": 8
+    },
+    {
+      "endpoints":["Boston", "Denver"],
+      "points": 100
+    }
+  ]
+
 }
