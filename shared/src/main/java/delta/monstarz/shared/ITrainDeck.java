@@ -1,8 +1,9 @@
 package delta.monstarz.shared;
 
+
 import java.util.List;
 
-import delta.monstarz.shared.TrainCard;
+import delta.monstarz.shared.model.TrainCard;
 
 /**
  * @author bradcarter
