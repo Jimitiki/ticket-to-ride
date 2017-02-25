@@ -11,25 +11,16 @@ public interface IDestinationDeck
 	/**
 	 * Draws 3 cards from the deck for the player
 	 */
-	public List<DestinationCard> drawCards()
-	{
-
-	}
+	public List<DestinationCard> drawCards();
 
 	/**
 	 * Returns a card to the deck
 	 */
-	public void returnCard(DestinationCard card)
-	{
-
-	}
+	public void returnCard(DestinationCard card);
 
 	/**
 	 * Clears the deck
 	 */
-	public void clear()
-	{
-
-	}
+	public void clear();
 
 }
