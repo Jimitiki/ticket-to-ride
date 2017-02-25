@@ -27,6 +27,9 @@ public class GameFragment extends Fragment {
 	private Button viewChat;
 	private Button demo;
 
+	private PlayerCardsFragment playerCardsFragment;
+	private GameInfoFragment gameInfoFragment;
+
 	public GameFragment() {}
 
 	/**
@@ -46,10 +49,19 @@ public class GameFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		FragmentManager fm = getChildFragmentManager();
-		Fragment playerCardsFragment = fm.findFragmentById(R.id.player_card_fragment);
+
+		// Add PlayerCard Fragment
+		playerCardsFragment = (PlayerCardsFragment) fm.findFragmentById(R.id.player_card_fragment);
 		if (playerCardsFragment == null){
 			playerCardsFragment = new PlayerCardsFragment();
 			fm.beginTransaction().add(R.id.player_card_fragment, playerCardsFragment).commit();
+		}
+
+		// Add Game/Player Info Fragment
+		gameInfoFragment = (GameInfoFragment) fm.findFragmentById(R.id.players_info_fragment);
+		if (gameInfoFragment == null){
+			gameInfoFragment = new GameInfoFragment();
+			fm.beginTransaction().add(R.id.players_info_fragment, gameInfoFragment).commit();
 		}
 
 	}
