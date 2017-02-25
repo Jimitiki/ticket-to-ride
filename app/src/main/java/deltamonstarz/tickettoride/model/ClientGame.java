@@ -3,8 +3,11 @@ package deltamonstarz.tickettoride.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.Route;
+import delta.monstarz.shared.model.TrainCard;
 
 /**
  * Created by oliphaun on 2/22/17.
@@ -25,11 +28,8 @@ public class ClientGame {
 	}
 
     public int getGameID() { return gameID; }
-
     public void setGameID(int gameID) { this.gameID = gameID; }
-
     public int getCurCommand() { return commandCounter; }
-
     public boolean isStarted() { return started;}
 
     public void setStarted(boolean started) {
@@ -41,22 +41,18 @@ public class ClientGame {
 	}
 
     public List<Opponent> getOpps() { return opps; }
-
     public void setOpps(List<Opponent> opps) { this.opps = opps; }
-
     public Player getMe() { return me; }
-
     public void setMe(Player me) { this.me = me; }
-
     public Board getBoard() { return board; }
-
     public void setBoard(Board board) { this.board = board;}
-
     public void incrementCommand() { commandCounter++;}
-
 	public List<String> getPlayers() {
 		return players;
 	}
+	public void drawTrainCard(TrainCard cardDrawn) {me.drawTrainCard(cardDrawn);}
+	public void addDestCard(DestCard card) {me.addDestCard(card);}
+	public void placeRoute(String player_username, Route route, boolean hasLongest) {board.placeRoute(player_username, route, hasLongest);}
 
 	public void addPlayer(String username) {
 		if (players.indexOf(username) == -1) {

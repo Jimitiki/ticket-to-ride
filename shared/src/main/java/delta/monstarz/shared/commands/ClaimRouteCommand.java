@@ -22,6 +22,6 @@ public abstract class ClaimRouteCommand extends BaseCommand {
         hasLongest = has;
     }
 
-//    @Override
-//    public void execute() {}
+    @Override
+    public void execute() {}
 }

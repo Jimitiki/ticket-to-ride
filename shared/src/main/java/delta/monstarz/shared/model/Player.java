@@ -3,7 +3,7 @@ package delta.monstarz.shared.model;
 import java.util.Collection;
 import java.util.Map;
 
-import delta.monstarz.shared.model.*;
+import delta.monstarz.shared.model.TrainCard;
 
 /**
  * Created by Trevor on 2/2/2017.
@@ -63,5 +63,13 @@ public class Player {
 
 	public void setDestCards(Collection<DestCard> destCards) {
 		this.destCards = destCards;
+	}
+
+	public void drawTrainCard(TrainCard card) {
+		trainCards.put(card, trainCards.get(card) + 1);
+	}
+
+	public void addDestCard(DestCard card) {
+		destCards.add(card);
 	}
 }

@@ -32,7 +32,5 @@ public class LoginCommand extends BaseCommand {
 	}
 
 	@Override
-	public void execute() {
-
-	}
+	public void execute() {}
 }

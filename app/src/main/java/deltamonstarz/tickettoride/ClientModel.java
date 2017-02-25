@@ -7,6 +7,9 @@ import java.util.Observer;
 
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.Route;
+import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.model.ClientGame;
 import deltamonstarz.tickettoride.model.DummyData;
 import deltamonstarz.tickettoride.presenters.BasePresenter;
@@ -41,6 +44,9 @@ public class ClientModel extends Observable{
 	public List<GameInfo> getAvailableGames() {
 		return availableGames;
 	}
+	public void drawTrainCard(TrainCard cardDrawn) {game.drawTrainCard(cardDrawn);}
+	public void addDestCard(DestCard card) {game.addDestCard(card);}
+	public void placeRoute(String player_username, Route route, boolean hasLongest) {game.placeRoute(player_username, route, hasLongest);}
 
 	public void setAvailableGames(List<GameInfo> availableGames) {
 		this.availableGames = availableGames;
