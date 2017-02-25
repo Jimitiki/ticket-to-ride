@@ -1,0 +1,62 @@
+{
+  "Map": {
+    "file": "map.png",
+    "height":500,
+    "width": 1000
+  },
+  "CityList":[
+    {
+    "name": "Boston",
+    "position": {"x":27, "y": 74}
+    },
+    {
+    "name": "Denver",
+    "position": {"x": 123, "y": 312}
+    },
+    {
+    "name": "Santa Fe",
+    "position": {"x": 56, "y":435}
+    }
+  ],
+  "RouteList":[
+    {
+      "endpoints":["Boston", "Santa Fe"],
+      "segmants":[
+        {"x": 20, "y": 62, "rotation": 0},
+        {"x": 62, "y": 35, "rotation": 90}
+      ],
+      "color": "red",
+      "trains": 3
+    },
+    {
+      "endpoints":["Denver", "Santa Fe"],
+      "segmants":[
+        {"x": 456, "y": 76, "rotation": 0},
+        {"x": 323, "y": 121, "rotation": 180}
+      ],
+      "color": "blue",
+      "trains": 2
+    }
+  ],
+  "TrainCards":[
+    {"color": "red", "image": "boxcar.jpg", "count": 12},
+    {"color": "blue", "image": "passenger.jpg", "count": 12},
+    {"color": "green", "image": "tanker.jpg", "count": 12},
+    {"color": "gold", "image": "engine.jpg", "count": 14}
+  ],
+  "DestinationCards":[
+    {
+      "endpoints":["Boston", "Santa Fe"],
+      "points": 9
+    },
+    {
+      "endpoints":["Denver", "Santa Fe"],
+      "points": 8
+    },
+    {
+      "endpoints":["Boston", "Denver"],
+      "points": 100
+    }
+  ]
+
+}
