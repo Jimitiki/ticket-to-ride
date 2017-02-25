@@ -1,50 +1,27 @@
 package delta.monstarz.shared;
 
+import java.util.List;
+
 /**
  * @author bradcarter
  */
-public class DestinationDeck
+public class DestinationDeck implements IDestinationDeck
 {
-	//Super Class Methods-----------------------------------------------------
-	//Implemented Methods
+	@Override
+	public List<DestinationCard> drawCards()
+	{
+		return null;
+	}
 
-	//Overridden Methods
-
-	//Inner Classes-----------------------------------------------------------
-	//Internal Classes
-
-	//Class Members-----------------------------------------------------------
-	//Static Fields
-	/**
-	 * The classes logging tag.
-	 */
-	private static final String TAG = "DestinationDeck";
-
-	//Static Variables
-
-	//Static Methods
-
-	//Instance Members-----------------------------------------------
-	//Instance Variables
-
-	//Constructors
-
-	//Object Methods
-
-	//Getters and Setters
-
-	//Public Methods
-	/**
-	 * Removes all cards from the deck.
-	 */
-	public void clear() {
+	@Override
+	public void returnCard(DestinationCard card)
+	{
 
 	}
 
-	//Internal Methods
+	@Override
+	public void clear()
+	{
 
-	//Sub Class Methods-------------------------------------------------------
-	//Protected Methods
-
-	//Abstract Methods
+	}
 }
