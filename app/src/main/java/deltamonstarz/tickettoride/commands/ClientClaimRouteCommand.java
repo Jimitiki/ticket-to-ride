@@ -2,7 +2,7 @@ package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.ClaimRouteCommand;
 import delta.monstarz.shared.model.Route;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 /**
  * Created by oliphaun on 2/22/17.

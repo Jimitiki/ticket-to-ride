@@ -1,17 +1,12 @@
-package deltamonstarz.tickettoride;
+package deltamonstarz.tickettoride.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
 import delta.monstarz.shared.GameInfo;
-import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
-import deltamonstarz.tickettoride.model.ClientGame;
-import deltamonstarz.tickettoride.model.DummyData;
 import deltamonstarz.tickettoride.presenters.BasePresenter;
 
 public class ClientModel extends Observable{
@@ -29,53 +24,53 @@ public class ClientModel extends Observable{
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
+	public synchronized void setUsername(String username) {
 		this.username = username;
 	}
 	public String getAuthToken() {
 		return authToken;
 	}
-	public void setAuthToken(String authToken) {
+	public synchronized void setAuthToken(String authToken) {
 		this.authToken = authToken;
 	}
 	public int getGameID() {return game == null ? -1 : game.getGameID();}
-	public void setGameID(int gameID) {game.setGameID(gameID);}
+	public synchronized void setGameID(int gameID) {game.setGameID(gameID);}
 	public int getCurCommand() {return game.getCurCommand();}
 	public List<GameInfo> getAvailableGames() {
 		return availableGames;
 	}
-	public void drawTrainCard(TrainCard cardDrawn) {game.drawTrainCard(cardDrawn);}
-	public void addDestCard(DestCard card) {game.addDestCard(card);}
-	public void placeRoute(String player_username, Route route, boolean hasLongest) {game.placeRoute(player_username, route, hasLongest);}
+	public synchronized void drawTrainCard(TrainCard cardDrawn) {game.drawTrainCard(cardDrawn);}
+	public synchronized void addDestCard(DestCard card) {game.addDestCard(card);}
+	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {game.placeRoute(player_username, route, hasLongest);}
 
-	public void setAvailableGames(List<GameInfo> availableGames) {
+	public synchronized void setAvailableGames(List<GameInfo> availableGames) {
 		this.availableGames = availableGames;
 	}
 
 	public boolean isStarted() {return game.isStarted();}
 
-	public void startGame() {
+	public synchronized void startGame() {
 		game.setStarted(true);
 		//DummyData.doTest();
 	}
 
-	public void addPlayer(String username) {
+	public synchronized void addPlayer(String username) {
 		game.addPlayer(username);
 		notifyPresenter();
 	}
 
-	public void addLoginInformation(String username, String authToken) {
+	public synchronized void addLoginInformation(String username, String authToken) {
 		this.username = username;
 		this.authToken = authToken;
 		notifyPresenter();
 	}
 
-	public void updateAvailableGames(List<GameInfo> games) {
+	public synchronized void updateAvailableGames(List<GameInfo> games) {
 		availableGames = games;
 		notifyPresenter();
 	}
 
-	public void joinGame(int gameID) {
+	public synchronized void joinGame(int gameID) {
 		newGame(gameID);
 		notifyPresenter();
 	}
@@ -88,22 +83,22 @@ public class ClientModel extends Observable{
 		this.presenter = presenter;
 	}
 
-	public void incrementCommand() { game.incrementCommand();}
+	public synchronized void incrementCommand() { game.incrementCommand();}
 
-	public void clearUser() {
+	public synchronized void clearUser() {
 		username = null;
 		authToken = null;
 	}
 
-	public void clearGame() {
+	public synchronized void clearGame() {
 		game = null;
 	}
 
-	private void notifyPresenter() {
+	private synchronized void notifyPresenter() {
 		setChanged();
-		synchronized (this) {
+//		synchronized (this) {
 			notifyObservers();
-		}
+//		}
 	}
 
 	public List<String> getPlayers() {
@@ -111,7 +106,7 @@ public class ClientModel extends Observable{
 	}
 
 	public ClientGame getGame() {return game;}
-	public void newGame(int gameID) {
+	public synchronized void newGame(int gameID) {
 		game = new ClientGame(gameID);
 	}
 }

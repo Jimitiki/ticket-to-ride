@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 

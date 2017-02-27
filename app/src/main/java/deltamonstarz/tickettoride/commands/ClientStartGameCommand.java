@@ -1,7 +1,7 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.StartGameCommand;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 
 public class ClientStartGameCommand extends StartGameCommand {
