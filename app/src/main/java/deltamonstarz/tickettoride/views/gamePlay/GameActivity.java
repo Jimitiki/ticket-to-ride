@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity
 
 	public void logout() {
 		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		startActivity(intent);
 		finish();
 	}

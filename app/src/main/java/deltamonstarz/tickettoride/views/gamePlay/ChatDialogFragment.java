@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import delta.monstarz.shared.Message;
 import deltamonstarz.tickettoride.R;
 
 public class ChatDialogFragment extends DialogFragment {
@@ -37,12 +38,18 @@ public class ChatDialogFragment extends DialogFragment {
 		View v = inflater.inflate(R.layout.fragment_chat_dialog, container, false);
 		sendButton = (Button) v.findViewById(R.id.sendMessageButton);
 		messageText = (EditText) v.findViewById(R.id.messageText);
-		sendButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				System.out.println(messageText.getText().toString());
-			}
-		});
+		sendButton.setOnClickListener(new OnSendClickListener());
 		return v;
+	}
+
+	public void onReceiveMessage(Message message) {
+
+	}
+
+	private class OnSendClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			System.out.println(messageText.getText().toString());
+		}
 	}
 }
