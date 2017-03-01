@@ -81,6 +81,9 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
+				FragmentManager manager = activity.getSupportFragmentManager();
+				ChooseDestinationDialog dialog = new ChooseDestinationDialog();
+				dialog.show(manager, "choose_destination_dialog");
 			}
 		});
 
