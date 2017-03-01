@@ -15,12 +15,10 @@ public class ClientLoginCommand extends LoginCommand {
 			ClientModel.getInstance().addLoginInformation(username, authToken);
 			ClientModel model = ClientModel.getInstance();
 		} else {
-			synchronized (LoginPresenter.getInstance()) {
-				if (isRegister) {
-					LoginPresenter.getInstance().onRegisterFailed();
-				} else {
-					LoginPresenter.getInstance().onLoginFailed();
-				}
+			if (isRegister) {
+				LoginPresenter.getInstance().onRegisterFailed();
+			} else {
+				LoginPresenter.getInstance().onLoginFailed();
 			}
 		}
 	}
