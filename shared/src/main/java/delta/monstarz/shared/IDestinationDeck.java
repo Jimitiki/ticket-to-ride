@@ -21,6 +21,11 @@ public interface IDestinationDeck
 	public void returnCard(DestCard card);
 
 	/**
+	 * Returns some cards to the deck
+	 */
+	public void returnCards(List<DestCard> cards);
+
+	/**
 	 * Clears the deck
 	 */
 	public void clear();
