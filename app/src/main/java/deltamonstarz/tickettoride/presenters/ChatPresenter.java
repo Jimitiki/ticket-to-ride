@@ -9,10 +9,6 @@ import delta.monstarz.shared.Message;
 import deltamonstarz.tickettoride.views.gamePlay.ChatDialogFragment;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
 
-/**
- * Created by cwjohn42 on 2/27/17.
- */
-
 public class ChatPresenter extends BasePresenter {
 	private static ChatPresenter presenter;
 	private GameActivity activity;
