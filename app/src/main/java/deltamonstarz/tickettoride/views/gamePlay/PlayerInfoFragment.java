@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import delta.monstarz.shared.model.PlayerColor;
 import deltamonstarz.tickettoride.R;
 
 /**
@@ -21,7 +22,7 @@ public class PlayerInfoFragment extends Fragment {
 	static final String TRAIN_CARD = "Train Cards: ";
 	static final String TRAIN_PIECES = "Train Pieces: ";
 
-	private int color = - 1;
+	PlayerColor color;
 
 	private TextView textName;
 	private TextView textPoints;
@@ -46,19 +47,19 @@ public class PlayerInfoFragment extends Fragment {
 		textTrainCardCount = (TextView) view.findViewById(R.id.player_info_train_cards);
 		textTrainPiecesCount = (TextView) view.findViewById(R.id.player_info_train_pieces);
 
-		if (color == 0){
+		if (color == PlayerColor.BLUE){
 			view.setBackgroundColor(getResources().getColor(R.color.player_blue));
 		}
-		else if (color == 1){
+		else if (color == PlayerColor.GREEN){
 			view.setBackgroundColor(getResources().getColor(R.color.player_green));
 		}
-		else if (color == 2){
+		else if (color == PlayerColor.RED){
 			view.setBackgroundColor(getResources().getColor(R.color.player_red));
 		}
-		else if (color == 3){
+		else if (color == PlayerColor.YELLOW){
 			view.setBackgroundColor(getResources().getColor(R.color.player_yellow));
 		}
-		else if (color == 4){
+		else if (color == PlayerColor.BLACK){
 			view.setBackgroundColor(getResources().getColor(R.color.player_black));
 		}
 
@@ -71,7 +72,7 @@ public class PlayerInfoFragment extends Fragment {
 		return view;
 	}
 
-	public void setColor(int color){
+	public void setColor(PlayerColor color){
 		this.color = color;
 	}
 

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
 import delta.monstarz.shared.model.DestCard;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 /**
  * Created by oliphaun on 2/25/17.

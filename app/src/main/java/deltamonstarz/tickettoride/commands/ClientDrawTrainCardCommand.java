@@ -1,7 +1,7 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.DrawTrainCardCommand;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 /**
  * Created by oliphaun on 2/25/17.

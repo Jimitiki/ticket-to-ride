@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Observable;
 import java.util.Observer;
 
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.IServerProxy;
 
 public abstract class BasePresenter implements Observer {

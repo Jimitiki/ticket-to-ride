@@ -1,7 +1,7 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.GameListCommand;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 public class ClientGameListCommand extends GameListCommand {
 	public ClientGameListCommand(String username) {

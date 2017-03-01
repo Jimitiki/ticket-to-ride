@@ -1,4 +1,4 @@
-package delta.monstarz.shared;
+package delta.monstarz.shared.model;
 
 
 import java.util.List;

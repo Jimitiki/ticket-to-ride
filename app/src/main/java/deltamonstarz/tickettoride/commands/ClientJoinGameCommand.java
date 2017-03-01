@@ -1,7 +1,7 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.JoinGameCommand;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 public class ClientJoinGameCommand extends JoinGameCommand {
 

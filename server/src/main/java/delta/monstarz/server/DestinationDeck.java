@@ -2,7 +2,7 @@ package delta.monstarz.server;
 
 import java.util.List;
 
-import delta.monstarz.shared.IDestinationDeck;
+import delta.monstarz.shared.model.IDestinationDeck;
 import delta.monstarz.shared.model.DestCard;
 
 /**
@@ -19,6 +19,11 @@ public class DestinationDeck implements IDestinationDeck
 	@Override
 	public void returnCard(DestCard card)
 	{
+
+	}
+
+	@Override
+	public void returnCards(List<DestCard> cards) {
 
 	}
 

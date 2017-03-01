@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import delta.monstarz.shared.model.PlayerColor;
 import deltamonstarz.tickettoride.R;
 
 /**
@@ -51,35 +52,35 @@ public class GameInfoFragment extends Fragment {
 		blue = (PlayerInfoFragment) fm.findFragmentById(R.id.player_info_fragment_01_blue);
 		if (blue == null){
 			blue = new PlayerInfoFragment();
-			blue.setColor(0);
+			blue.setColor(PlayerColor.BLUE);
 			fm.beginTransaction().add(R.id.player_info_fragment_01_blue, blue).commit();
 		}
 
 		green = (PlayerInfoFragment) fm.findFragmentById(R.id.player_info_fragment_02_green);
 		if (green == null){
 			green = new PlayerInfoFragment();
-			green.setColor(1);
+			green.setColor(PlayerColor.GREEN);
 			fm.beginTransaction().add(R.id.player_info_fragment_02_green, green).commit();
 		}
 
 		red = (PlayerInfoFragment) fm.findFragmentById(R.id.player_info_fragment_03_red);
 		if (red == null){
 			red = new PlayerInfoFragment();
-			red.setColor(2);
+			red.setColor(PlayerColor.RED);
 			fm.beginTransaction().add(R.id.player_info_fragment_03_red, red).commit();
 		}
 
 		yellow = (PlayerInfoFragment) fm.findFragmentById(R.id.player_info_fragment_04_yellow);
 		if (yellow == null){
 			yellow = new PlayerInfoFragment();
-			yellow.setColor(3);
+			yellow.setColor(PlayerColor.YELLOW);
 			fm.beginTransaction().add(R.id.player_info_fragment_04_yellow, yellow).commit();
 		}
 
 		black = (PlayerInfoFragment) fm.findFragmentById(R.id.player_info_fragment_05_black);
 		if (black == null){
 			black = new PlayerInfoFragment();
-			black.setColor(4);
+			black.setColor(PlayerColor.BLACK);
 			fm.beginTransaction().add(R.id.player_info_fragment_05_black, black).commit();
 		}
 

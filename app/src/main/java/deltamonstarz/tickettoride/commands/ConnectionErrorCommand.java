@@ -1,7 +1,7 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.BaseCommand;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.presenters.BasePresenter;
 
 public class ConnectionErrorCommand extends BaseCommand {

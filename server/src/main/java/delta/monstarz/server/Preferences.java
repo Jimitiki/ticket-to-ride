@@ -1,21 +1,5 @@
 package delta.monstarz.server;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.Point;
-
-import delta.monstarz.exceptions.PreferenceFormatException;
-import delta.monstarz.shared.Image;
-import delta.monstarz.shared.Segment;
-
 /**
  * This class stores game settings, including map data and card deck data.
  *

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
-import deltamonstarz.tickettoride.ClientModel;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;

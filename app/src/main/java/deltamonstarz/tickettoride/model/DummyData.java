@@ -1,7 +1,5 @@
 package deltamonstarz.tickettoride.model;
 
-import deltamonstarz.tickettoride.ClientModel;
-
 /**
  * Created by oliphaun on 2/24/17.
  */

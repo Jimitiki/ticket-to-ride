@@ -1,4 +1,4 @@
-package delta.monstarz.shared;
+package delta.monstarz.shared.model;
 
 import java.util.List;
 
@@ -19,6 +19,11 @@ public interface IDestinationDeck
 	 * Returns a card to the deck
 	 */
 	public void returnCard(DestCard card);
+
+	/**
+	 * Returns some cards to the deck
+	 */
+	public void returnCards(List<DestCard> cards);
 
 	/**
 	 * Clears the deck
