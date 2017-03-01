@@ -27,8 +27,10 @@ public class ChatDialogFragment extends DialogFragment {
 
 		builder.setView(R.layout.fragment_chat_dialog);
 
-
-		return builder.create();
+		AlertDialog dialog = builder.create();
+//		dialog.setCanceledOnTouchOutside(false);
+//		dialog.setCancelable(false);
+		return dialog;
 	}
 
 
