@@ -1,6 +1,7 @@
 package delta.monstarz.shared.commands;
 
-import java.util.Collection;
+import java.util.List;
+
 import delta.monstarz.shared.model.DestCard;
 
 /**
@@ -8,18 +9,20 @@ import delta.monstarz.shared.model.DestCard;
  */
 
 public class SelectDestCardsCommand extends BaseCommand {
-	protected Collection<DestCard> selection;
+	protected List<DestCard> selection;
+	protected List<DestCard> discard;
 
-	public Collection<DestCard> getChoices() {
+	public List<DestCard> getChoices() {
 		return selection;
 	}
-	public void setChoices(Collection<DestCard> choices) {
+	public void setChoices(List<DestCard> choices) {
 		this.selection = choices;
 	}
 
-	public SelectDestCardsCommand(String username, int gameID, Collection<DestCard> selection) {
+	public SelectDestCardsCommand(String username, int gameID, List<DestCard> selection, List<DestCard> discard) {
 		super(username, gameID);
 		this.selection = selection;
+		this.discard = discard;
 	}
 
 	@Override

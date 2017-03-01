@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Observable;
 
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
@@ -42,6 +43,7 @@ public class ClientModel extends Observable{
 	public synchronized void drawTrainCard(TrainCard cardDrawn) {game.drawTrainCard(cardDrawn);}
 	public synchronized void addDestCard(DestCard card) {game.addDestCard(card);}
 	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {game.placeRoute(player_username, route, hasLongest);}
+	public synchronized void setBoard(Board board) {game.setBoard(board);}
 
 	public synchronized void setAvailableGames(List<GameInfo> availableGames) {
 		this.availableGames = availableGames;

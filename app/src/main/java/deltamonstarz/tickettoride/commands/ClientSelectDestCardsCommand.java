@@ -1,6 +1,6 @@
 package deltamonstarz.tickettoride.commands;
 
-import java.util.Collection;
+import java.util.List;
 
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
 import delta.monstarz.shared.model.DestCard;
@@ -11,8 +11,8 @@ import deltamonstarz.tickettoride.model.ClientModel;
  */
 
 public class ClientSelectDestCardsCommand extends SelectDestCardsCommand {
-	public ClientSelectDestCardsCommand(String username, int gameID, Collection<DestCard> selection) {
-		super(username, gameID, selection);
+	public ClientSelectDestCardsCommand(String username, int gameID, List<DestCard> selection, List<DestCard> discard) {
+		super(username, gameID, selection, discard);
 	}
 
 	@Override

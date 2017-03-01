@@ -1,6 +1,24 @@
 package delta.monstarz.shared.commands;
 
+import delta.monstarz.shared.model.Board;
+
 public class StartGameCommand extends BaseCommand {
+	protected Board board;
+	protected int trainCount;
+
+	public int getTrainCount() {
+		return trainCount;
+	}
+	public void setTrainCount(int trainCount) {
+		this.trainCount = trainCount;
+	}
+	public Board getBoard() {
+		return board;
+	}
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
 	public StartGameCommand(String username, int gameID) {
 		super(username, gameID);
 		name = "StartGameCommand";

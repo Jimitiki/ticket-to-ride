@@ -1,15 +1,15 @@
 package delta.monstarz.shared.model;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
- * Created by oliphaun on 2/24/17.
+ *  Created by oliphaun on 2/24/17.
  */
 
 public class Board {
     private String imageID;
-    private Collection<City> cities;
-    private Collection<Route> routes;
+    private List<City> cities;
+    private List<Route> routes;
     private String longestRouteOwner;
 
     public void placeRoute(String player_username, Route route, boolean hasLongest) {
