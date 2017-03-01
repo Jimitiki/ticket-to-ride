@@ -1,12 +1,38 @@
 package delta.monstarz.shared.model;
 
+import java.awt.Point;
+
 /**
- * Created by oliphaun on 2/24/17.
+ * @author bradcarter
  */
+public class Segment
+{
+	private Point position;
+	private int rotation;
 
-public class Segment {
-    private double x;
-    private double y;
-    private double angle;
+	public Segment(Point pPosition, int pRotation)
+	{
+		position = pPosition;
+		rotation = pRotation;
+	}
 
+	public Point getPosition()
+	{
+		return position;
+	}
+
+	public void setPosition(Point pPosition)
+	{
+		position = pPosition;
+	}
+
+	public int getRotation()
+	{
+		return rotation;
+	}
+
+	public void setRotation(int pRotation)
+	{
+		rotation = pRotation;
+	}
 }

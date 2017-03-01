@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import delta.monstarz.shared.PlayerColor;
+import delta.monstarz.shared.model.PlayerColor;
 import deltamonstarz.tickettoride.R;
 
 /**

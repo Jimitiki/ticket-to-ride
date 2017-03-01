@@ -2,7 +2,7 @@ package delta.monstarz.server;
 
 import java.util.List;
 
-import delta.monstarz.shared.ITrainDeck;
+import delta.monstarz.shared.model.ITrainDeck;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
