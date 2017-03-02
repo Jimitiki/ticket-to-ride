@@ -7,34 +7,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:orientation="vertical">
 
-
-        <Button
-            android:id="@+id/destination_card_selection_01"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/destination_card_selection_vertical_height"
-            android:layout_margin="3dp"
-            android:text="---"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="5dp">
 
-        <Button
-            android:id="@+id/destination_card_selection_02"
+
+            <Button
+                android:id="@+id/destination_card_selection_01"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/destination_card_selection_vertical_height"
+                android:layout_margin="3dp"
+                android:text="---"/>
+
+            <Button
+                android:id="@+id/destination_card_selection_02"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/destination_card_selection_vertical_height"
+                android:layout_margin="3dp"
+                android:text="---"/>
+
+            <Button
+                android:id="@+id/destination_card_selection_03"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/destination_card_selection_vertical_height"
+                android:layout_margin="3dp"
+                android:text="---"/>
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/destination_card_selection_vertical_height"
-            android:layout_margin="3dp"
-            android:text="---"/>
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/destination_card_selection_03"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/destination_card_selection_vertical_height"
-            android:layout_margin="3dp"
-            android:text="---"/>
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/cancel"/>
 
+            <Button
+                android:id="@+id/accept_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/ok"/>
 
-
-
+        </LinearLayout>
 
     </LinearLayout>
 
