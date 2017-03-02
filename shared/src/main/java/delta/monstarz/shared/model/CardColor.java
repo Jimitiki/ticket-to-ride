@@ -12,7 +12,7 @@ public enum CardColor
 	YELLOW,
 	BLACK,
 	ORANGE,
-	PURPLE,
 	WHITE,
-	GOLD
+	GOLD,
+	UNKNOWN
 }

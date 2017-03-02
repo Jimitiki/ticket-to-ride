@@ -61,26 +61,9 @@ public class ChooseDestinationDialog extends DialogFragment {
 
 		builder.setTitle(TITLE);
 
-
 		builder.setView(buildView());
 
-		/*
-		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				// User clicked OK button
-			}
-		});
-
-		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				// User cancelled the dialog
-			}
-		});
-		*/
-
-
 		return builder.create();
-
 	}
 
 	private View buildView(){
@@ -170,8 +153,6 @@ public class ChooseDestinationDialog extends DialogFragment {
 
 
 	private void processCardClick(View view, boolean selected){
-		//selected = !selected; // Flip
-
 		if (selected){
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
 		}

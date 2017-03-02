@@ -9,4 +9,7 @@
     <string name="chat">Chat</string>
     <string name="demo">Demo Next Action</string>
     <string name="send">Send</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
