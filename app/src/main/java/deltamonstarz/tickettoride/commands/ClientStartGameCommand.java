@@ -1,8 +1,11 @@
 package deltamonstarz.tickettoride.commands;
 
 import delta.monstarz.shared.commands.StartGameCommand;
+import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
+import deltamonstarz.tickettoride.tasks.DemoAsyncTask;
 
 public class ClientStartGameCommand extends StartGameCommand {
 	public ClientStartGameCommand(String username, int gameID) {
@@ -16,6 +19,8 @@ public class ClientStartGameCommand extends StartGameCommand {
 			model.startGame();
 			model.setBoard(board);
 			GamePresenter.getInstance().onGameStart();
+			DemoAsyncTask task = new DemoAsyncTask();
+			task.execute("", "", "");
 		}
 	}
 }
