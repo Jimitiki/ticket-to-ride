@@ -14,25 +14,30 @@ import android.widget.EditText;
 
 import delta.monstarz.shared.Message;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.presenters.ChatPresenter;
 
 public class ChatDialogFragment extends DialogFragment {
 	private Button sendButton;
 	private EditText messageText;
+	private ChatPresenter presenter;
 
-	@TargetApi(21)
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-
-		builder.setView(R.layout.fragment_chat_dialog);
-
-		AlertDialog dialog = builder.create();
-//		dialog.setCanceledOnTouchOutside(false);
-//		dialog.setCancelable(false);
-		return dialog;
+	public ChatDialogFragment() {
+		presenter = ChatPresenter.getInstance();
 	}
 
+//	@TargetApi(21)
+//	@Override
+//	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//
+//
+//		builder.setView(R.layout.fragment_chat_dialog);
+//		presenter = ChatPresenter.getInstance();
+//		Dialog dialog = new Dialog();//builder.create();
+////		dialog.setCanceledOnTouchOutside(false);
+////		dialog.setCancelable(false);
+//		return dialog;
+//	}
 
 	@Nullable
 	@Override
@@ -51,7 +56,10 @@ public class ChatDialogFragment extends DialogFragment {
 	private class OnSendClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			System.out.println(messageText.getText().toString());
+			String message = messageText.getText().toString();
+			System.out.println(message);
+			presenter.sendMessage(message);
+			messageText.setText("");
 		}
 	}
 }
