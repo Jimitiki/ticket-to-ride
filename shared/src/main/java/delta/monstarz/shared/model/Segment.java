@@ -7,24 +7,25 @@ import java.awt.Point;
  */
 public class Segment
 {
-	private Point position;
+
+//	private Point position;
 	private int rotation;
 
 	public Segment(Point pPosition, int pRotation)
 	{
-		position = pPosition;
+//		position = pPosition;
 		rotation = pRotation;
 	}
 
-	public Point getPosition()
-	{
-		return position;
-	}
-
-	public void setPosition(Point pPosition)
-	{
-		position = pPosition;
-	}
+//	public Point getPosition()
+//	{
+//		return position;
+//	}
+//
+//	public void setPosition(Point pPosition)
+//	{
+//		position = pPosition;
+//	}
 
 	public int getRotation()
 	{
