@@ -1,25 +1,23 @@
-package delta.monstarz.server;
+package delta.monstarz.model.game.manager;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import delta.monstarz.shared.model.ITrainDeck;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
  * @author bradcarter
  */
-public class TrainDeck implements ITrainDeck
+public class TrainCardManager
 {
 	//Data Members
 	LinkedList<TrainCard> deck;
 	ArrayList<TrainCard> faceupCards;
 
 	//Constructor
-	public TrainDeck()
+	public TrainCardManager()
 	{
 		deck = new LinkedList<>();
 		faceupCards = new ArrayList<>();
@@ -55,13 +53,11 @@ public class TrainDeck implements ITrainDeck
 		}
 	}
 
-	@Override
 	public TrainCard drawCard()
 	{
 		return deck.removeFirst();
 	}
 
-	@Override
 	public List<TrainCard> drawCards(int number)
 	{
 		List<TrainCard> cards = new ArrayList<>();
@@ -72,13 +68,11 @@ public class TrainDeck implements ITrainDeck
 		return cards;
 	}
 
-	@Override
 	public List<TrainCard> getFaceUpCards()
 	{
 		return faceupCards;
 	}
 
-	@Override
 	public TrainCard drawFaceUpCard(int index)
 	{
 		if(index < 0 || index > 4)
@@ -89,7 +83,6 @@ public class TrainDeck implements ITrainDeck
 		return faceupCards.remove(index);
 	}
 
-	@Override
 	public void clear()
 	{
 		faceupCards.clear();

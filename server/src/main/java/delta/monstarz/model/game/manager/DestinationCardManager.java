@@ -1,23 +1,22 @@
-package delta.monstarz.server;
+package delta.monstarz.model.game.manager;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import delta.monstarz.shared.model.IDestinationDeck;
 import delta.monstarz.shared.model.DestCard;
 
 /**
  * @author bradcarter
  */
-public class DestinationDeck implements IDestinationDeck
+public class DestinationCardManager
 {
 	//Data Members
 	LinkedList<DestCard> deck;
 
 	//Constructor
-	public DestinationDeck() {
+	public DestinationCardManager() {
 		deck = new LinkedList<>();
 	}
 
@@ -37,7 +36,6 @@ public class DestinationDeck implements IDestinationDeck
 	 *
 	 * @return Three destination cards in a list
 	 */
-	@Override
 	public List<DestCard> drawCards() {
 		List<DestCard> cards = new ArrayList<>();
 		for(int i = 0; i < 3; i++) {
@@ -49,7 +47,6 @@ public class DestinationDeck implements IDestinationDeck
 	/**
 	 * Returns a card to the deck.
 	 */
-	@Override
 	public void returnCard(DestCard card) {
 		deck.addLast(card);
 	}
@@ -57,7 +54,6 @@ public class DestinationDeck implements IDestinationDeck
 	/**
 	 * Returns a list of cards to the deck.
 	 */
-	@Override
 	public void returnCards(List<DestCard> cards) {
 		for(DestCard card : cards) {
 			returnCard(card);
@@ -67,7 +63,6 @@ public class DestinationDeck implements IDestinationDeck
 	/**
 	 * Removes all cards from the deck.
 	 */
-	@Override
 	public void clear()
 	{
 		deck = new LinkedList<>();
