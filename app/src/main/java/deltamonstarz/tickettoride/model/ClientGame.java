@@ -61,4 +61,8 @@ public class ClientGame {
 	}
 
 	public void setDestCardChoices(List<DestCard> choices) { me.setDestCardChoices(choices);}
+
+	public List<DestCard> getDestCardChoices() {
+		return me.getDestCardChoices();
+	}
 }

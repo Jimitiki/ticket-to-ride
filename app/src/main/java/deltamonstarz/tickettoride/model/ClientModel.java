@@ -113,4 +113,5 @@ public class ClientModel extends Observable{
 	}
 
 	public void setDestCardChoices(List<DestCard> choices) { game.setDestCardChoices(choices);}
+	public List<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
 }
