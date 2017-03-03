@@ -11,7 +11,7 @@ import delta.monstarz.shared.model.TrainCard;
 
 public class Player {
 	private String username;
-	private Enum pcolor;
+	private PlayerColor pcolor;
 	private int score;
 	private int numTrains;
 	private Map<delta.monstarz.shared.model.TrainCard, Integer> trainCards;
@@ -29,7 +29,7 @@ public class Player {
 		this.username = username;
 	}
 
-	public void setPcolor(Enum my_pcolor) { pcolor = my_pcolor; }
+	public void setPcolor(PlayerColor my_pcolor) { pcolor = my_pcolor; }
 
 	public Enum getPcolor() { return pcolor; }
 

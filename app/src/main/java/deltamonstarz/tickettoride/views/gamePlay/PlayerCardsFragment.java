@@ -1,7 +1,6 @@
 package deltamonstarz.tickettoride.views.gamePlay;
 
 
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import deltamonstarz.tickettoride.R;
  */
 public class PlayerCardsFragment extends Fragment {
 
-	static final String BASE_PATH = "train_cards/train_card_";
+	static final String BASE_PATH = "card_images/train_card_";
 
 	TextView redCount;
 	TextView whiteCount;
