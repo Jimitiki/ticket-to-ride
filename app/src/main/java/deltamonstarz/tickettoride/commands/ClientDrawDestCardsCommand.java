@@ -16,7 +16,7 @@ public class ClientDrawDestCardsCommand extends DrawDestCardsCommand {
 	public void execute() {
 		ClientModel model = ClientModel.getInstance();
 		if (model.getGameID() == gameID) {
-//			model.destCard(cardDrawn);
+			model.setDestCardChoices(choices);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package delta.monstarz.shared.model;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import delta.monstarz.shared.model.TrainCard;
@@ -15,7 +15,16 @@ public class Player {
 	private int score;
 	private int numTrains;
 	private Map<delta.monstarz.shared.model.TrainCard, Integer> trainCards;
-	private Collection<DestCard> destCards;
+	private List<DestCard> destCards;
+	private List<DestCard> destCardChoices;
+
+	public List<DestCard> getDestCardChoices() {
+		return destCardChoices;
+	}
+
+	public void setDestCardChoices(List<DestCard> destCardChoices) {
+		this.destCardChoices = destCardChoices;
+	}
 
 	public Player(String username){
 		this.username = username;
@@ -57,11 +66,11 @@ public class Player {
 //		this.trainCards = trainCards;
 //	}
 
-	public Collection<DestCard> getDestCards() {
+	public List<DestCard> getDestCards() {
 		return destCards;
 	}
 
-	public void setDestCards(Collection<DestCard> destCards) {
+	public void setDestCards(List<DestCard> destCards) {
 		this.destCards = destCards;
 	}
 
