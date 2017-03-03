@@ -46,16 +46,124 @@
   ],
   "DestinationCards":[
     {
-      "endpoints":["Boston", "Santa Fe"],
-      "points": 9
+      "endpoints":["Los Angeles", "New York City"],
+      "points": 21
     },
     {
-      "endpoints":["Denver", "Santa Fe"],
+      "endpoints":["Duluth", "Houston"],
       "points": 8
     },
     {
-      "endpoints":["Boston", "Denver"],
-      "points": 100
+      "endpoints":["Sault Ste Marie", "Nashville"],
+      "points": 8
+    },
+    {
+      "endpoints":["New York", "Atlanta"],
+      "points": 6
+    },
+    {
+      "endpoints":["Portland", "Nashville"],
+      "points": 17
+    },
+    {
+      "endpoints":["Vancouver", "Montréal"],
+      "points": 20
+    },
+    {
+      "endpoints":["Duluth", "El Paso"],
+      "points": 10
+    },
+    {
+      "endpoints":["Toronto", "Miami"],
+      "points": 10
+    },
+    {
+      "endpoints":["Portland", "Phoenix"],
+      "points": 11
+    },
+    {
+      "endpoints":["Dallas", "New York City"],
+      "points": 11
+    },
+    {
+      "endpoints":["Calgary", "Salt Lake City"],
+      "points": 7
+    },
+    {
+      "endpoints":["Calgary", "Phoenix"],
+      "points": 13
+    },
+    {
+      "endpoints":["Los Angeles", "Miami"],
+      "points": 20
+    },
+    {
+      "endpoints":["Winnipeg", "Little Rock"],
+      "points": 11
+    },
+    {
+      "endpoints":["San Francisco", "Atlanta"],
+      "points": 17
+    },
+    {
+      "endpoints":["Kansas City", "Houston"],
+      "points": 5
+    },
+    {
+      "endpoints":["Los Angeles", "Chicago"],
+      "points": 16
+    },
+    {
+      "endpoints":["Denver", "Pittsburgh"],
+      "points": 11
+    },
+    {
+      "endpoints":["Chicago", "Santa Fe"],
+      "points": 9
+    },
+    {
+      "endpoints":["Vancouver", "Santa Fe"],
+      "points": 13
+    },
+    {
+      "endpoints":["Boston", "Miami"],
+      "points": 12
+    },
+    {
+      "endpoints":["Chicago", "New Orleans"],
+      "points": 7
+    },
+    {
+      "endpoints":["Montreal", "Atlanta"],
+      "points": 9
+    },
+    {
+      "endpoints":["Seattle", "New York"],
+      "points": 22
+    },
+    {
+      "endpoints":["Denver", "El Paso"],
+      "points": 4
+    },
+    {
+      "endpoints":["Helena", "Los Angeles"],
+      "points": 8
+    },
+    {
+      "endpoints":["Winnipeg", "Houston"],
+      "points": 12
+    },
+    {
+      "endpoints":["Montreal", "New Orleans"],
+      "points": 13
+    },
+    {
+      "endpoints":["Sault Ste. Marie", "Oklahoma City"],
+      "points": 9
+    },
+    {
+      "endpoints":["Seattle", "Los Angeles"],
+      "points": 9
     }
   ]
 
