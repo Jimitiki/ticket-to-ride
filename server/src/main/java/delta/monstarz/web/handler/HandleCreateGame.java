@@ -24,9 +24,7 @@ public class HandleCreateGame extends ServerHandler {
                 return;
             }
 
-            InputStream reqBody = exchange.getRequestBody();
-            String reqData = readString(reqBody);
-            Args args = SerDes.deserializeArgs(reqData);
+	        Args args = parseArgs(exchange);
             JoinGameCommand command = ServerCommunicator.createGame(args);
 	        try {
 		        CommandManager.execute(new ServerJoinGameCommand(command));

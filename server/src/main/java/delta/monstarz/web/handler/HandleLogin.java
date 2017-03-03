@@ -18,9 +18,7 @@ public class HandleLogin extends ServerHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if (exchange.getRequestMethod().toLowerCase().equals("post")) {
-            InputStream reqBody = exchange.getRequestBody();
-            String reqData = readString(reqBody);
-            Args args = SerDes.deserializeArgs(reqData);
+            Args args = parseArgs(exchange);
             LoginCommand command = ServerCommunicator.login(args);
             response = SerDes.serialize(command);
 

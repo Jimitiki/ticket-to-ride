@@ -5,6 +5,8 @@ import java.net.*;
 import com.sun.net.httpserver.*;
 
 import delta.monstarz.model.account.PersonManager;
+import delta.monstarz.shared.Args;
+import delta.monstarz.shared.SerDes;
 
 /**
  * Created by oliphaun on 2/2/17.
@@ -89,6 +91,13 @@ public class ServerHandler implements HttpHandler {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();
         }
+    }
+
+    protected Args parseArgs(HttpExchange exchange) throws IOException {
+        InputStream reqBody = exchange.getRequestBody();
+        String reqData = readString(reqBody);
+        Args args = SerDes.deserializeArgs(reqData);
+        return args;
     }
 }
 

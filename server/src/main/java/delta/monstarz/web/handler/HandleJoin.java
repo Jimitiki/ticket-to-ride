@@ -22,9 +22,7 @@ public class HandleJoin extends ServerHandler {
                 return;
             }
 
-	        InputStream reqBody = exchange.getRequestBody();
-	        String reqData = readString(reqBody);
-	        Args args = SerDes.deserializeArgs(reqData);
+	        Args args = parseArgs(exchange);
 	        JoinGameCommand command = new JoinGameCommand(args.getStr1(), Integer.parseInt(args.getStr2()));
 	        try {
 	            CommandManager.execute(new ServerJoinGameCommand(command));
