@@ -1,6 +1,6 @@
 package delta.monstarz.model.commands;
 
-import delta.monstarz.services.ServerFacade;
+import delta.monstarz.services.GameManagementService;
 import delta.monstarz.shared.commands.JoinGameCommand;
 
 public class ServerJoinGameCommand extends JoinGameCommand {
@@ -15,6 +15,6 @@ public class ServerJoinGameCommand extends JoinGameCommand {
 
 	@Override
 	public void execute() {
-		ServerFacade.getInstance().joinGame(username, gameID);
+		GameManagementService.getInstance().joinGame(username, gameID);
 	}
 }

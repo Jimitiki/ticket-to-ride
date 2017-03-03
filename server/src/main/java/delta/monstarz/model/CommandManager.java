@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.model.game.Game;
-import delta.monstarz.services.ServerFacade;
+import delta.monstarz.services.GameManagementService;
+import delta.monstarz.services.UserAuthenticationService;
 import delta.monstarz.shared.commands.BaseCommand;
 
 public class CommandManager {
@@ -24,8 +25,9 @@ public class CommandManager {
 	}
 
 	private static boolean validate(BaseCommand command) {
-		ServerFacade server = ServerFacade.getInstance();
-		return server.gameExists(command.getGameID()) && server.personExists(command.getUsername());
+		GameManagementService gameService = GameManagementService.getInstance();
+		UserAuthenticationService userService = UserAuthenticationService.getInstance();
+		return gameService.gameExists(command.getGameID()) && userService.personExists(command.getUsername());
 	}
 
 	/**
