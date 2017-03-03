@@ -88,8 +88,8 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
-				//launchDestinationChooserDialog();
-				launchChooseCardDialog();
+				launchDestinationChooserDialog();
+				//launchChooseCardDialog();
 			}
 		});
 
@@ -156,7 +156,7 @@ public class GameFragment extends Fragment {
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
 		//dialog.setDestCards(*ArrayList of DestCards*);
-		dialog.setCounts(3, 2);
+		dialog.setCounts(2, 2);
 
 		dialog.show(manager, "choose_destination_dialog");
 	}

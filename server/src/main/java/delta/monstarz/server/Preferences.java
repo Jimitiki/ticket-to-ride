@@ -140,7 +140,7 @@ public class Preferences {
 			//Parse color
 			String color = routeObject.get(COLOR).getAsString();
 
-//			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
+//			"segments":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
 
 			//Route route = new Route()
 		}

@@ -21,7 +21,7 @@
   "RouteList":[
     {
       "endpoints":["Boston", "Santa Fe"],
-      "segmants":[
+      "segments":[
         {"x": 20, "y": 62, "rotation": 0},
         {"x": 62, "y": 35, "rotation": 90}
       ],
@@ -30,7 +30,7 @@
     },
     {
       "endpoints":["Denver", "Santa Fe"],
-      "segmants":[
+      "segments":[
         {"x": 456, "y": 76, "rotation": 0},
         {"x": 323, "y": 121, "rotation": 180}
       ],
