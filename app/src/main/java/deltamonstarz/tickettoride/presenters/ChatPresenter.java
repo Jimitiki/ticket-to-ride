@@ -31,6 +31,7 @@ public class ChatPresenter extends BasePresenter {
 	public void update(Observable o, Object arg) {
 		if (arg instanceof Message) {
 			Message message = (Message) arg;
+			chatFragment.onReceiveMessage(message);
 		}
 	}
 
@@ -51,6 +52,11 @@ public class ChatPresenter extends BasePresenter {
 
 	public void sendMessage(String chat) {
 		Message message = new Message(chat, model.getUsername());
+		onReceiveMessage(message);
 
+	}
+
+	public void onReceiveMessage(Message message) {
+		chatFragment.onReceiveMessage(message);
 	}
 }

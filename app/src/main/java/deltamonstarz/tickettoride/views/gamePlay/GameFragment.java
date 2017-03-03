@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import delta.monstarz.shared.Message;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
@@ -43,6 +45,11 @@ public class GameFragment extends Fragment {
 		presenter = GamePresenter.getInstance();
 		return fragment;
 	}
+
+	public void setActivity(GameActivity activity) {
+		this.activity = activity;
+	}
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -110,11 +117,8 @@ public class GameFragment extends Fragment {
 
 		viewChat.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				System.out.println("opening chat");
-				FragmentManager manager = activity.getSupportFragmentManager();
-				ChatDialogFragment dialog = new ChatDialogFragment();
-				dialog.show(manager, "chat_dialog");
+			public void onClick(View view) {
+				openChat();
 			}
 		});
 
@@ -128,11 +132,15 @@ public class GameFragment extends Fragment {
 		return v;
 	}
 
-	private void advanceDemo() {
-
+	private void openChat() {
+		System.out.println("opening chat");
+		FragmentManager manager = activity.getSupportFragmentManager();
+		ChatDialogFragment dialog = new ChatDialogFragment();
+		dialog.setActivity(activity);
+		dialog.show(manager, "chat_dialog");
 	}
 
-	public void setActivity(GameActivity activity) {
-		this.activity = activity;
+	private void advanceDemo() {
+		openChat();
 	}
 }
