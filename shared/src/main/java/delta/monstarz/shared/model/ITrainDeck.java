@@ -29,7 +29,7 @@ public interface ITrainDeck
 	/**
 	 *
 	 */
-	public List<TrainCard> drawFaceUpCard(int index);
+	public TrainCard drawFaceUpCard(int index);
 
 	/**
 	 * Removes all cards from the deck.
