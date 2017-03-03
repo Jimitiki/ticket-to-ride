@@ -4,7 +4,7 @@ import java.net.*;
 
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.model.ServerModelManager;
+import delta.monstarz.model.account.PersonManager;
 
 /**
  * Created by oliphaun on 2/2/17.
@@ -71,8 +71,8 @@ public class ServerHandler implements HttpHandler {
         boolean authorized = false;
         if (reqHeaders.containsKey("Authorization")) {
             String auth = reqHeaders.getFirst("Authorization");
-            ServerModelManager modelManager = ServerModelManager.getInstance();
-            authorized = modelManager.authTokenIsValid(auth);
+            PersonManager personManager = PersonManager.getInstance();
+            authorized = personManager.authTokenIsValid(auth);
         }
 
         return authorized;

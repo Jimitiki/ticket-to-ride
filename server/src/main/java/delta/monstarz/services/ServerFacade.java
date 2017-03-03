@@ -3,7 +3,8 @@ package delta.monstarz.services;
 import java.util.List;
 
 import delta.monstarz.exceptions.loginExceptions.LoginException;
-import delta.monstarz.model.ServerModelManager;
+import delta.monstarz.model.GameManager;
+import delta.monstarz.model.account.PersonManager;
 import delta.monstarz.shared.GameInfo;
 
 /**
@@ -12,7 +13,8 @@ import delta.monstarz.shared.GameInfo;
 
 public class ServerFacade {
     private static ServerFacade _instance = null;
-    private static ServerModelManager modelManager = ServerModelManager.getInstance();
+	private static PersonManager personManager = PersonManager.getInstance();
+	private static GameManager gameManager = GameManager.getInstance();
 
     public static ServerFacade getInstance() {
         if (_instance == null) {
@@ -30,7 +32,7 @@ public class ServerFacade {
      */
     public String register(String username, String password) {
         try {
-            return modelManager.register(username, password);
+            return personManager.register(username, password);
         }
         catch (LoginException e){
             return "";
@@ -45,7 +47,7 @@ public class ServerFacade {
      */
     public String login(String username, String password) {
         try {
-            return modelManager.login(username, password);
+            return personManager.login(username, password);
         }
         catch (LoginException e){
             return "";
@@ -53,34 +55,34 @@ public class ServerFacade {
     }
 
     public int createGame(String username, String game_name) {
-        return modelManager.createGame(username, game_name);
+        return gameManager.createGame(username, game_name);
     }
 
     public List<GameInfo> listGames(String username) {
-        List<GameInfo> games = modelManager.getGamesIn(username);
-        games.addAll(modelManager.getJoinableGames(username));
+        List<GameInfo> games = gameManager.getGamesIn(username);
+        games.addAll(gameManager.getJoinableGames(username));
         return games;
     }
 
     public void joinGame(String username, int gameID) {
-	    modelManager.joinGame(username, gameID);
+	    gameManager.joinGame(username, gameID);
     }
 
 	public boolean gameExists(int gameID) {
-		if (modelManager.getGameByID(gameID) != null) {
+		if (gameManager.getGameByID(gameID) != null) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean personExists(String username) {
-		if (modelManager.getPersonByUsername(username) != null) {
+		if (personManager.getPersonForUsername(username) != null) {
 			return true;
 		}
 		return false;
 	}
 
 	public void startGame(int gameID) {
-		modelManager.startGame(gameID);
+		gameManager.startGame(gameID);
 	}
 }

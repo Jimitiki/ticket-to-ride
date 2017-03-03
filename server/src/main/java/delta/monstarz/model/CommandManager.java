@@ -16,7 +16,7 @@ public class CommandManager {
 	public static void execute(BaseCommand command) throws Exception{
 		if (validate(command)) {
 			command.execute();
-			Game game = ServerModelManager.getInstance().getGameByID(command.getGameID());
+			Game game = GameManager.getInstance().getGameByID(command.getGameID());
 			game.addCommand(command);
 		} else {
 			throw new Exception();
@@ -37,7 +37,7 @@ public class CommandManager {
 	 */
 	public static List<BaseCommand> getCommands(int gameID, String username, int commandIndex) {
 		try {
-			Game game = ServerModelManager.getInstance().getGameByID(gameID);
+			Game game = GameManager.getInstance().getGameByID(gameID);
 			List<BaseCommand> allCommands = game.getHistory();
 			List<BaseCommand> visibleCommands = new ArrayList<>();
 			for (int i = 0; i < allCommands.size(); i++) {
