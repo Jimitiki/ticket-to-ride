@@ -1,9 +1,7 @@
-package delta.monstarz.server;
+package delta.monstarz.model.account;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Trevor on 2/3/2017.

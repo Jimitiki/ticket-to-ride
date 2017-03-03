@@ -6,13 +6,10 @@ package tests;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
 import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
-import delta.monstarz.server.ServerModelManager;
-import delta.monstarz.shared.GameInfo;
+import delta.monstarz.model.ServerModelManager;
 
 import static org.junit.Assert.*;
 

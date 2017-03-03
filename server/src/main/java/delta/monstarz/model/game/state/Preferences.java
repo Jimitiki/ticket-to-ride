@@ -1,4 +1,4 @@
-package delta.monstarz.server;
+package delta.monstarz.model.game.state;
 
 /**
  * This class stores game settings, including map data and card deck data.
@@ -48,8 +48,8 @@ public class Preferences {
 	private Image mMap;
 	private List<City> mCities;
 	private List<Route> mRoutes;
-	private TrainDeck mTrainDeck;
-	private DestinationDeck mDestinationDeck;
+	private TrainCardManager mTrainDeck;
+	private DestinationCardManager mDestinationDeck;
 
 	//Constructors
 	private Preferences()
@@ -57,8 +57,8 @@ public class Preferences {
 		mMap = null;
 		mCities = new ArrayList<>();
 		mRoutes = new ArrayList<>();
-		mDestinationDeck = new DestinationDeck();
-		mTrainDeck = new TrainDeck();
+		mDestinationDeck = new DestinationCardManager();
+		mTrainDeck = new TrainCardManager();
 	}
 
 	//Public Methods

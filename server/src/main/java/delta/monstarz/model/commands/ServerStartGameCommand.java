@@ -1,6 +1,6 @@
-package delta.monstarz.server.commands;
+package delta.monstarz.model.commands;
 
-import delta.monstarz.server.ServerFacade;
+import delta.monstarz.services.ServerFacade;
 import delta.monstarz.shared.commands.StartGameCommand;
 
 /**

@@ -1,4 +1,4 @@
-package delta.monstarz.server.web;
+package delta.monstarz.web;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

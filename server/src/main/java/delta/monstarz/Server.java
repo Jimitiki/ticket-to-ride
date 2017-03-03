@@ -1,14 +1,14 @@
-package delta.monstarz.server;
+package delta.monstarz;
 import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.server.web.HandleCommand;
-import delta.monstarz.server.web.HandleCreateGame;
-import delta.monstarz.server.web.HandleJoin;
-import delta.monstarz.server.web.HandleLogin;
-import delta.monstarz.server.web.HandleRegister;
-import delta.monstarz.server.web.HandleListGames;
+import delta.monstarz.web.handler.HandleCommand;
+import delta.monstarz.web.handler.HandleCreateGame;
+import delta.monstarz.web.handler.HandleJoin;
+import delta.monstarz.web.handler.HandleLogin;
+import delta.monstarz.web.handler.HandleRegister;
+import delta.monstarz.web.handler.HandleListGames;
 
 public class Server {
 

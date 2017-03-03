@@ -1,4 +1,4 @@
-package delta.monstarz.server;
+package delta.monstarz.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +11,8 @@ import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
 import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
 
+import delta.monstarz.model.account.Person;
+import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.GameInfo;
 
 /**

@@ -1,8 +1,8 @@
-package delta.monstarz.server.web;
+package delta.monstarz.web;
 
 import java.util.List;
 
-import delta.monstarz.server.ServerFacade;
+import delta.monstarz.services.ServerFacade;
 import delta.monstarz.shared.Args;
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.GameListCommand;

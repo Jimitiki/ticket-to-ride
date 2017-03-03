@@ -1,8 +1,10 @@
-package delta.monstarz.server;
+package delta.monstarz.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.monstarz.model.game.Game;
+import delta.monstarz.services.ServerFacade;
 import delta.monstarz.shared.commands.BaseCommand;
 
 public class CommandManager {

@@ -1,8 +1,9 @@
-package delta.monstarz.server;
+package delta.monstarz.services;
 
 import java.util.List;
 
 import delta.monstarz.exceptions.loginExceptions.LoginException;
+import delta.monstarz.model.ServerModelManager;
 import delta.monstarz.shared.GameInfo;
 
 /**

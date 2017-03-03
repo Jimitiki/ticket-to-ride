@@ -1,14 +1,10 @@
-package delta.monstarz.server.web;
+package delta.monstarz.web.handler;
 import java.io.*;
 import java.net.*;
-import java.util.Map;
 
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.server.ServerModelManager;
-import delta.monstarz.shared.SerDes;
-import delta.monstarz.shared.commands.BaseCommand;
-import delta.monstarz.shared.commands.CommandListCommand;
+import delta.monstarz.model.ServerModelManager;
 
 /**
  * Created by oliphaun on 2/2/17.

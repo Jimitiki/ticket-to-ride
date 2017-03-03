@@ -1,10 +1,12 @@
-package delta.monstarz.server;
+package delta.monstarz.model.game;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
+import delta.monstarz.model.game.manager.DestinationCardManager;
+import delta.monstarz.model.game.manager.TrainCardManager;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
@@ -27,6 +29,8 @@ public class Game {
 	private Date startTime;
 	private boolean gameStarted = false;
 	private List<Player> players = new ArrayList<>();
+	private TrainCardManager trainDeck;
+	private DestinationCardManager destDeck;
 
 	private List<BaseCommand> history = new ArrayList<>();
 
@@ -61,6 +65,15 @@ public class Game {
 		return gameStarted;
 	}
 
+	public DestinationCardManager getDestDeck()
+	{
+		return destDeck;
+	}
+
+	public TrainCardManager getTrainDeck()
+	{
+		return trainDeck;
+	}
 
 	public List<BaseCommand> getHistory() {
 		return history;
