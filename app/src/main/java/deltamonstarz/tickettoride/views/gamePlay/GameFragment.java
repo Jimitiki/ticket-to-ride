@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
@@ -88,8 +91,8 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
-				launchDestinationChooserDialog();
-				//launchChooseCardDialog();
+				//launchDestinationChooserDialog();
+				launchChooseCardDialog();
 			}
 		});
 
@@ -151,12 +154,12 @@ public class GameFragment extends Fragment {
 		dialog.show(manager, "choose_card_dialog");
 	}
 
-	private void launchDestinationChooserDialog(){
+	public void launchDestinationChooserDialog(ArrayList<DestCard> cards, int minSelection){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
-		//dialog.setDestCards(*ArrayList of DestCards*);
-		dialog.setCounts(2, 2);
+		dialog.setDestCards(cards);
+		dialog.setCounts(3, minSelection);
 
 		dialog.show(manager, "choose_destination_dialog");
 	}
