@@ -107,6 +107,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("opening destination card view");
+				launchShowDestinationCardsDialog();
 			}
 		});
 
@@ -162,5 +163,13 @@ public class GameFragment extends Fragment {
 		dialog.setCounts(3, minSelection);
 
 		dialog.show(manager, "choose_destination_dialog");
+	}
+
+	private void launchShowDestinationCardsDialog(){
+		FragmentManager manager = activity.getSupportFragmentManager();
+		ShowDestinationCardsDialog dialog = new ShowDestinationCardsDialog();
+
+
+		dialog.show(manager, "show_destination_cards_dialog");
 	}
 }
