@@ -12,6 +12,9 @@ public class ServerStartGameCommand extends StartGameCommand {
 		super(username, gameID);
 	}
 
+	/**
+	 * Starts a game
+	 */
 	@Override
 	public void execute() {
 		GameManagementService.getInstance().startGame(gameID);
