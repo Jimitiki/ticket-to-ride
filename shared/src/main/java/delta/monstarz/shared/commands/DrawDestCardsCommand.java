@@ -1,6 +1,7 @@
 package delta.monstarz.shared.commands;
 
 import java.util.Collection;
+import java.util.List;
 
 import delta.monstarz.shared.model.DestCard;
 
@@ -9,13 +10,13 @@ import delta.monstarz.shared.model.DestCard;
  */
 
 public class DrawDestCardsCommand extends BaseCommand {
-	protected Collection<DestCard> choices;
+	protected List<DestCard> choices;
 	protected int mustKeep;
 
-	public Collection<DestCard> getChoices() {
+	public List<DestCard> getChoices() {
 		return choices;
 	}
-	public void setChoices(Collection<DestCard> choices) {
+	public void setChoices(List<DestCard> choices) {
 		this.choices = choices;
 	}
 	public int getMustKeep() {
