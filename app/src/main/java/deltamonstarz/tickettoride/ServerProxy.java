@@ -203,4 +203,10 @@ public class ServerProxy implements IServerProxy {
         String ser = SerDes.serialize(new Args(username, gameID));
         ClientCommunicator.POST(_url, _port, _pathJoin, auth, ser);
     }
+
+    @Override
+    public void initializeServerAddress(String ipAddress, String portNum) {
+        _url = ipAddress;
+	    _port = portNum;
+    }
 }

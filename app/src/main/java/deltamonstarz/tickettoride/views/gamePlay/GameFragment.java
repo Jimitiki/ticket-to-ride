@@ -11,9 +11,11 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
+import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
@@ -91,8 +93,9 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
-				//launchDestinationChooserDialog();
-				launchChooseCardDialog();
+				launchDestinationChooserDialog();
+				//launchChooseCardDialog();
+				//drawDestinationCards();
 			}
 		});
 
@@ -132,7 +135,25 @@ public class GameFragment extends Fragment {
 			}
 		});
 
+		disableButtons();
+
 		return v;
+	}
+
+	public void enableButtons(){
+		placeTrain.setEnabled(true);
+		viewCards.setEnabled(true);
+		viewHistory.setEnabled(true);
+		viewChat.setEnabled(true);
+		demo.setEnabled(true);
+	}
+
+	public void disableButtons(){
+		placeTrain.setEnabled(false);
+		viewCards.setEnabled(false);
+		viewHistory.setEnabled(false);
+		viewChat.setEnabled(false);
+		demo.setEnabled(false);
 	}
 
 	private void openChat() {
@@ -155,20 +176,28 @@ public class GameFragment extends Fragment {
 		dialog.show(manager, "choose_card_dialog");
 	}
 
-	public void launchDestinationChooserDialog(ArrayList<DestCard> cards, int minSelection){
+	public void launchDestinationChooserDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
-		dialog.setDestCards(cards);
-		dialog.setCounts(3, minSelection);
+
 
 		dialog.show(manager, "choose_destination_dialog");
+
+		//dialog.setDestCards(cards);
+		//dialog.setCounts(3, minSelection);
 	}
 
 	private void launchShowDestinationCardsDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ShowDestinationCardsDialog dialog = new ShowDestinationCardsDialog();
 
+		// Todo: Use real cards from the client model
+		ArrayList<DestCard> list = new ArrayList<>();
+		list.add(new DestCard(new City("Dallas"), new City("LA"), 5));
+		list.add(new DestCard(new City("Las Vegas"), new City("New York"), 10));
+
+		dialog.setDestCardList(list);
 
 		dialog.show(manager, "show_destination_cards_dialog");
 	}

@@ -16,9 +16,8 @@ public class ClientStartGameCommand extends StartGameCommand {
 	public void execute() {
 		ClientModel model = ClientModel.getInstance();
 		if (!model.isStarted()) {
-			model.startGame();
-			model.setBoard(board);
-			GamePresenter.getInstance().onGameStart();
+			model.startGame(board);
+			//GamePresenter.getInstance().onGameStart();
 			DemoAsyncTask task = new DemoAsyncTask();
 			task.execute("", "", "");
 		}

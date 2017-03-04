@@ -11,9 +11,13 @@ public class DestCard {
     private String imageID;
 
 
+	public DestCard(City city1, City city2, int value) {
+		this.city1 = city1;
+		this.city2 = city2;
+		this.value = value;
+	}
 
-
-    @Override
+	@Override
     public String toString(){
 	    String string;
 	    string = "(" + String.valueOf(value) + ") " + city1.getName() + " - " + city2.getName();

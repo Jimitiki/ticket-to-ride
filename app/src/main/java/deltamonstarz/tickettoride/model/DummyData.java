@@ -12,7 +12,7 @@ public class DummyData {
         model.addPlayer("joe");
         model.addPlayer("sam");
 //        model.addPlayer("dustin");
-        model.startGame();
+        //model.startGame();
 
 //        turn order?
 
