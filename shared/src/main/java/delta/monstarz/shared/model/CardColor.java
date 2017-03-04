@@ -1,8 +1,6 @@
 package delta.monstarz.shared.model;
 
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * @author bradcarter
  */

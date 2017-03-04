@@ -1,18 +1,15 @@
-package delta.monstarz.server.web;
+package delta.monstarz.web.handler;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.util.Map;
 
-import delta.monstarz.shared.Args;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.AuthBadCommand;
 import delta.monstarz.shared.commands.BaseCommand;
-import delta.monstarz.shared.commands.GameListCommand;
+import delta.monstarz.web.QueryParser;
+import delta.monstarz.web.ServerCommunicator;
 
 /**
  * Created by oliphaun on 2/10/17.

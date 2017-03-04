@@ -194,8 +194,8 @@ public class GameFragment extends Fragment {
 
 		// Todo: Use real cards from the client model
 		ArrayList<DestCard> list = new ArrayList<>();
-		list.add(new DestCard(new City("Dallas"), new City("LA"), 5));
-		list.add(new DestCard(new City("Las Vegas"), new City("New York"), 10));
+		list.add(new DestCard("Dallas", "LA", 5));
+		list.add(new DestCard("Las Vegas", "New York", 10));
 
 		dialog.setDestCardList(list);
 

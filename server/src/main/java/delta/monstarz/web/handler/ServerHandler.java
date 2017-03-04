@@ -1,14 +1,12 @@
-package delta.monstarz.server.web;
+package delta.monstarz.web.handler;
 import java.io.*;
 import java.net.*;
-import java.util.Map;
 
 import com.sun.net.httpserver.*;
 
-import delta.monstarz.server.ServerModelManager;
+import delta.monstarz.model.account.PersonManager;
+import delta.monstarz.shared.Args;
 import delta.monstarz.shared.SerDes;
-import delta.monstarz.shared.commands.BaseCommand;
-import delta.monstarz.shared.commands.CommandListCommand;
 
 /**
  * Created by oliphaun on 2/2/17.
@@ -75,8 +73,8 @@ public class ServerHandler implements HttpHandler {
         boolean authorized = false;
         if (reqHeaders.containsKey("Authorization")) {
             String auth = reqHeaders.getFirst("Authorization");
-            ServerModelManager modelManager = ServerModelManager.getInstance();
-            authorized = modelManager.authTokenIsValid(auth);
+            PersonManager personManager = PersonManager.getInstance();
+            authorized = personManager.authTokenIsValid(auth);
         }
 
         return authorized;
@@ -93,6 +91,13 @@ public class ServerHandler implements HttpHandler {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();
         }
+    }
+
+    protected Args parseArgs(HttpExchange exchange) throws IOException {
+        InputStream reqBody = exchange.getRequestBody();
+        String reqData = readString(reqBody);
+        Args args = SerDes.deserializeArgs(reqData);
+        return args;
     }
 }
 

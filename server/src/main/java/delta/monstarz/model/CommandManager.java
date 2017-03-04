@@ -1,8 +1,11 @@
-package delta.monstarz.server;
+package delta.monstarz.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.monstarz.model.game.Game;
+import delta.monstarz.services.GameManagementService;
+import delta.monstarz.services.UserAuthenticationService;
 import delta.monstarz.shared.commands.BaseCommand;
 
 public class CommandManager {
@@ -14,14 +17,15 @@ public class CommandManager {
 	public static void execute(BaseCommand command) {
 		if (validate(command)) {
 			command.execute();
-			Game game = ServerModelManager.getInstance().getGameByID(command.getGameID());
+			Game game = GameManager.getInstance().getGameByID(command.getGameID());
 			game.addCommand(command);
 		}
 	}
 
 	private static boolean validate(BaseCommand command) {
-		ServerFacade server = ServerFacade.getInstance();
-		return server.gameExists(command.getGameID()) && server.personExists(command.getUsername());
+		GameManagementService gameService = GameManagementService.getInstance();
+		UserAuthenticationService userService = UserAuthenticationService.getInstance();
+		return gameService.gameExists(command.getGameID()) && userService.personExists(command.getUsername());
 	}
 
 	/**
@@ -33,7 +37,7 @@ public class CommandManager {
 	 */
 	public static List<BaseCommand> getCommands(int gameID, String username, int commandIndex) {
 		try {
-			Game game = ServerModelManager.getInstance().getGameByID(gameID);
+			Game game = GameManager.getInstance().getGameByID(gameID);
 			List<BaseCommand> allCommands = game.getHistory();
 			List<BaseCommand> visibleCommands = new ArrayList<>();
 			for (int i = commandIndex +1; i < allCommands.size(); i++) {

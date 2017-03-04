@@ -5,22 +5,21 @@ package delta.monstarz.shared.model;
  */
 
 public class DestCard {
-    private City city1;
-    private City city2;
+    private String city1;
+    private String city2;
     private int value;
-    private String imageID;
 
-
-	public DestCard(City city1, City city2, int value) {
-		this.city1 = city1;
-		this.city2 = city2;
-		this.value = value;
+	public DestCard(String pCity1, String pCity2, int pValue)
+	{
+		city1 = pCity1;
+		city2 = pCity2;
+		value = pValue;
 	}
 
 	@Override
     public String toString(){
 	    String string;
-	    string = "(" + String.valueOf(value) + ") " + city1.getName() + " - " + city2.getName();
+	    string = "(" + String.valueOf(value) + ") " + city1 + " - " + city2;
 	    return string;
     }
 

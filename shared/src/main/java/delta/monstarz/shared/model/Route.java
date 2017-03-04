@@ -1,6 +1,7 @@
 package delta.monstarz.shared.model;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by oliphaun on 2/24/17.
@@ -8,27 +9,38 @@ import java.util.Collection;
 
 public class Route {
 	private int id; //todo add ids to json
-    private City city1;
-    private City city2;
+    private String city1;
+    private String city2;
     private int length;
     private Enum color;
     private String owner;
-    private Collection<Segment> segments;
+    private List<Segment> segments;
 
-	public int getId() {return id;}
+    public Route(int pId, String pCity1, String pCity2, int pLength, Enum pColor, String pOwner, List<Segment> pSegments)
+    {
+        id = pId;
+        city1 = pCity1;
+        city2 = pCity2;
+        length = pLength;
+        color = pColor;
+        owner = pOwner;
+        segments = pSegments;
+    }
+
+    public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
-    public Collection<Segment> getSegments() { return segments; }
-    public void setSegments(Collection<Segment> segments) { this.segments = segments; }
+    public List<Segment> getSegments() { return segments; }
+    public void setSegments(List<Segment> segments) { this.segments = segments; }
     public String getOwner() { return owner; }
     public void setOwner(String owner) { this.owner = owner; }
     public Enum getColor() { return color;}
     public void setColor(Enum color) { this.color = color; }
     public int getLength() {return length;}
     public void setLength(int length) { this.length = length;}
-    public City getCity2() { return city2;}
-    public void setCity2(City city2) {this.city2 = city2;}
-    public City getCity1() {return city1;}
-    public void setCity1(City city1) { this.city1 = city1;}
+    public String getCity2() { return city2;}
+    public void setCity2(String city2) {this.city2 = city2;}
+    public String getCity1() {return city1;}
+    public void setCity1(String city1) { this.city1 = city1;}
 
 
 }

@@ -1,18 +1,16 @@
-package delta.monstarz.server.web;
+package delta.monstarz.web.handler;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.util.Map;
 
-import delta.monstarz.server.CommandManager;
+import delta.monstarz.model.CommandManager;
 import delta.monstarz.shared.SerDes;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.CommandListCommand;
-import delta.monstarz.shared.commands.JoinGameCommand;
+import delta.monstarz.web.QueryParser;
 
 public class HandleCommand extends ServerHandler {
 	@Override

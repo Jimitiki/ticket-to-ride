@@ -52,8 +52,8 @@ public class DestinationCardPresenter extends BasePresenter {
 	public void drawCards() {
 		//proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
 		ArrayList<DestCard> destinationCards = new ArrayList<>();
-		destinationCards.add(new DestCard(new City("Dallas"), new City("LA"), 5));
-		destinationCards.add(new DestCard(new City("Las Vegas"), new City("New York"), 10));
+		destinationCards.add(new DestCard("Dallas", "LA", 5));
+		destinationCards.add(new DestCard("Las Vegas", "New York", 10));
 		onDestinationCardDraw(destinationCards, 2);
 	}
 

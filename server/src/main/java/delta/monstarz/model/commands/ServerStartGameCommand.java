@@ -1,6 +1,6 @@
-package delta.monstarz.server.commands;
+package delta.monstarz.model.commands;
 
-import delta.monstarz.server.ServerFacade;
+import delta.monstarz.services.GameManagementService;
 import delta.monstarz.shared.commands.StartGameCommand;
 
 /**
@@ -12,8 +12,11 @@ public class ServerStartGameCommand extends StartGameCommand {
 		super(username, gameID);
 	}
 
+	/**
+	 * Starts a game
+	 */
 	@Override
 	public void execute() {
-		ServerFacade.getInstance().startGame(gameID);
+		GameManagementService.getInstance().startGame(gameID);
 	}
 }
