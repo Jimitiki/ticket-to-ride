@@ -17,6 +17,7 @@ public abstract class BasePresenter implements Observer {
 	BasePresenter() {
 		model = ClientModel.getInstance();
 		proxy = ServerProxy.getInstance();
+		model.addObserver(this);
 	}
 
 	public static void setProxy(IServerProxy serverProxy) {
@@ -32,23 +33,10 @@ public abstract class BasePresenter implements Observer {
 
 	public abstract void update(UpdateType updateType);
 
-	private void observe() {
-		model.addObserver(this);
-		model.setPresenter(this);
-	}
-
-	public void endObserve() {
-		ClientModel.getInstance().deleteObserver(this);
-	}
-
 	public abstract void onConnectionError();
 
 	public void onResume() {
-		observe();
-	}
-
-	public void onPause() {
-		endObserve();
+		model.setPresenter(this);
 	}
 
 	public abstract void logOut();
