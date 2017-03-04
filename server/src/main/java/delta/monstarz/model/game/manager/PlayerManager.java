@@ -1,6 +1,7 @@
 package delta.monstarz.model.game.manager;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,7 +17,7 @@ public class PlayerManager
 	public static final int MAX_PLAYERS = 5;
 
 	//Instance Variables
-	List<Player> players;
+	Set<Player> players;
 	Player owner;
 	Player current;
 
@@ -24,13 +25,20 @@ public class PlayerManager
 
 	public PlayerManager()
 	{
-		players = new ArrayList<>();
+		players = new HashSet<>();
 	}
 
 
 	//Object Methods
 
-	//Getters and Setters
+	//Getters and Setter
+
+
+	public Set<Player> getPlayers()
+	{
+		return players;
+	}
+
 	public TreeSet<String> getPlayerNames()
 	{
 		TreeSet<String> names = new TreeSet<>();
