@@ -5,6 +5,7 @@ public class BaseCommand {
     protected String username;
     protected int gameID;
 	protected boolean isGlobal;
+	protected int id;
 
 	public BaseCommand(String username) {
 		this.username = username;
@@ -16,6 +17,14 @@ public class BaseCommand {
 	}
 
 	public void execute() {}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

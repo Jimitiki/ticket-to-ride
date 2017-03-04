@@ -85,7 +85,7 @@ public class ClientModel extends Observable{
 		this.presenter = presenter;
 	}
 
-	public synchronized void incrementCommand() { game.incrementCommand();}
+	public synchronized void setLastCommandID(int lastID) { game.setLastCommandID(lastID);}
 
 	public synchronized void clearUser() {
 		username = null;
