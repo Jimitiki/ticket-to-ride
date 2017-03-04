@@ -59,4 +59,10 @@ public class ClientGame {
 			players.add(username);
 		}
 	}
+
+	public void setDestCardChoices(List<DestCard> choices) { me.setDestCardChoices(choices);}
+
+	public List<DestCard> getDestCardChoices() {
+		return me.getDestCardChoices();
+	}
 }

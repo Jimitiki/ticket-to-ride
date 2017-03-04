@@ -174,7 +174,6 @@ public class ChooseDestinationDialog extends DialogFragment {
 			Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
 		}
 		else{
-
 			reportSelection();
 			dismiss(); // Close dialog
 		}
@@ -185,7 +184,37 @@ public class ChooseDestinationDialog extends DialogFragment {
 	}
 
 	private void reportSelection(){
+
+		ArrayList<DestCard> keepCards = new ArrayList<>();
+		ArrayList<DestCard> returnCards = new ArrayList<>();
+
+		/*
+
+		if (card1Selected){
+			keepCards.add(destCards.get(0));
+		}
+		else{
+			returnCards.add(destCards.get(0));
+		}
+
+		if (card2Selected){
+			keepCards.add(destCards.get(1));
+		}
+		else{
+			returnCards.add(destCards.get(1));
+		}
+
+		if (card2Selected){
+			keepCards.add(destCards.get(2));
+		}
+		else{
+			returnCards.add(destCards.get(2));
+		}
+
+		*/
+
 		// Todo: Send info back to presenter
+
 	}
 
 	private int getSelectedCount(){

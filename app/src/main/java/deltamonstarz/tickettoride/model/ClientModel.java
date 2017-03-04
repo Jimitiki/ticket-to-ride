@@ -111,4 +111,7 @@ public class ClientModel extends Observable{
 	public synchronized void newGame(int gameID) {
 		game = new ClientGame(gameID);
 	}
+
+	public void setDestCardChoices(List<DestCard> choices) { game.setDestCardChoices(choices);}
+	public List<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
 }

@@ -8,7 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
+import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
@@ -43,6 +48,11 @@ public class GameFragment extends Fragment {
 		presenter = GamePresenter.getInstance();
 		return fragment;
 	}
+
+	public void setActivity(GameActivity activity) {
+		this.activity = activity;
+	}
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +107,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("opening destination card view");
+				launchShowDestinationCardsDialog();
 			}
 		});
 
@@ -109,11 +120,8 @@ public class GameFragment extends Fragment {
 
 		viewChat.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				System.out.println("opening chat");
-				FragmentManager manager = activity.getSupportFragmentManager();
-				ChatDialogFragment dialog = new ChatDialogFragment();
-				dialog.show(manager, "chat_dialog");
+			public void onClick(View view) {
+				openChat();
 			}
 		});
 
@@ -127,12 +135,16 @@ public class GameFragment extends Fragment {
 		return v;
 	}
 
-	private void advanceDemo() {
-
+	private void openChat() {
+		System.out.println("opening chat");
+		FragmentManager manager = activity.getSupportFragmentManager();
+		ChatDialogFragment dialog = new ChatDialogFragment();
+		dialog.setActivity(activity);
+		dialog.show(manager, "chat_dialog");
 	}
 
-	public void setActivity(GameActivity activity) {
-		this.activity = activity;
+	private void advanceDemo() {
+		openChat();
 	}
 
 	private void launchChooseCardDialog(){
@@ -143,13 +155,21 @@ public class GameFragment extends Fragment {
 		dialog.show(manager, "choose_card_dialog");
 	}
 
-	private void launchDestinationChooserDialog(){
+	public void launchDestinationChooserDialog(ArrayList<DestCard> cards, int minSelection){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
-		//dialog.setDestCards(*ArrayList of DestCards*);
-		dialog.setCounts(3, 2);
+		dialog.setDestCards(cards);
+		dialog.setCounts(3, minSelection);
 
 		dialog.show(manager, "choose_destination_dialog");
+	}
+
+	private void launchShowDestinationCardsDialog(){
+		FragmentManager manager = activity.getSupportFragmentManager();
+		ShowDestinationCardsDialog dialog = new ShowDestinationCardsDialog();
+
+
+		dialog.show(manager, "show_destination_cards_dialog");
 	}
 }
