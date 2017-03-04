@@ -122,7 +122,7 @@ public class GameManager
 
 		for (Map.Entry<Integer, Game> entry: games.entrySet()){
 			Game game = entry.getValue();
-			if ( !game.isGameStarted() && !game.hasPlayer(username) && game.getNumPlayers() < Game.MAX_PLAYERS){
+			if ( !game.isGameStarted() && !game.hasPlayer(username) && game.getNumPlayers() < 5){
 				list.add(entry.getValue().getGameInfo());
 			}
 		}
