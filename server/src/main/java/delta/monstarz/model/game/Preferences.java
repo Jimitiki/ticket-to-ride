@@ -1,4 +1,4 @@
-package delta.monstarz.model.game.state;
+package delta.monstarz.model.game;
 
 /**
  * This class stores game settings, including map data and card deck data.
