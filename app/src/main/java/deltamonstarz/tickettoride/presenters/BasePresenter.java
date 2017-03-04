@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Observable;
 import java.util.Observer;
 
+import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.IServerProxy;
+import deltamonstarz.tickettoride.model.UpdateType;
 
 public abstract class BasePresenter implements Observer {
 	static IServerProxy proxy;
@@ -14,6 +16,8 @@ public abstract class BasePresenter implements Observer {
 
 	BasePresenter() {
 		model = ClientModel.getInstance();
+		proxy = ServerProxy.getInstance();
+		model.addObserver(this);
 	}
 
 	public static void setProxy(IServerProxy serverProxy) {
@@ -21,25 +25,18 @@ public abstract class BasePresenter implements Observer {
 	}
 
 	@Override
-	public abstract void update(Observable o, Object arg);
-
-	private void observe() {
-		model.addObserver(this);
-		model.setPresenter(this);
+	public void update(Observable o, Object arg) {
+		if (arg instanceof UpdateType) {
+			update((UpdateType) arg);
+		}
 	}
 
-	public void endObserve() {
-		ClientModel.getInstance().deleteObserver(this);
-	}
+	public abstract void update(UpdateType updateType);
 
 	public abstract void onConnectionError();
 
 	public void onResume() {
-		observe();
-	}
-
-	public void onPause() {
-		endObserve();
+		model.setPresenter(this);
 	}
 
 	public abstract void logOut();

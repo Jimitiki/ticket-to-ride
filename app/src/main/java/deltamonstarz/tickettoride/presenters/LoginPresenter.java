@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Observable;
 
 import deltamonstarz.tickettoride.ServerProxy;
+import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.LoginActivity;
 
 public class LoginPresenter extends BasePresenter {
 	private static LoginPresenter presenter;
 	private LoginActivity activity;
-	private ServerProxy proxy;
 
 	private LoginPresenter() {
 		super();
@@ -28,8 +28,8 @@ public class LoginPresenter extends BasePresenter {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (model.getAuthToken() != null) {
+	public void update(UpdateType updateType) {
+		if (updateType == UpdateType.LOGIN) {
 			activity.onLogin();
 		}
 	}
@@ -45,8 +45,7 @@ public class LoginPresenter extends BasePresenter {
 	 * @param password the corresponding password
 	 */
 	public void register(String ipAddress, String portNum, String username, String password) {
-		proxy = ServerProxy.getInstance();
-		initializeServerAddress(ipAddress, portNum);
+		proxy.initializeServerAddress(ipAddress, portNum);
 		proxy.register(username, password);
 	}
 
@@ -57,8 +56,7 @@ public class LoginPresenter extends BasePresenter {
 	 * @param password the corresponding password
 	 */
 	public void login(String ipAddress, String portNum, String username, String password) {
-		proxy = ServerProxy.getInstance();
-		initializeServerAddress(ipAddress, portNum);
+		proxy.initializeServerAddress(ipAddress, portNum);
 		proxy.login(username, password);
 //		createGame();
 	}
@@ -74,22 +72,13 @@ public class LoginPresenter extends BasePresenter {
 	@Override
 	public void onResume() {
 		super.onResume();
-		model.clearUser();
 	}
 
 	@Override
-	public void logOut() {
-
-	}
+	public void logOut() {}
 
 	@Override
 	public AppCompatActivity getActivity() {
 		return activity;
 	}
-
-	private void initializeServerAddress(String ipAddress, String portNum) {
-		proxy.setUrl(ipAddress);
-		proxy.setPort(portNum);
-	}
-
 }

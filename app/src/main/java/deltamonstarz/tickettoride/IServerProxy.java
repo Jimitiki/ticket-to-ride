@@ -21,4 +21,6 @@ public interface IServerProxy {
 	void listCommands(String auth, int gameID, String username, int curCommand);
 
 	void joinGame(String auth, String gameID, String username);
+
+	void initializeServerAddress(String ipAddress, String portNum);
 }

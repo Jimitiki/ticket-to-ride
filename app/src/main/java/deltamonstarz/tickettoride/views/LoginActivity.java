@@ -36,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 		mRegisterButton = (Button) findViewById(R.id.register_button);
 		mLoginButton = (Button) findViewById(R.id.login_button);
 
-		mHostText.setText("10.0.2.2");
-		mPortText.setText("8080");
+		mHostText.setText(R.string.defaultIP);
+		mPortText.setText(R.string.defaultPort);
 
 		mPresenter = LoginPresenter.getInstance();
 		mPresenter.setActivity(this);
@@ -80,12 +80,6 @@ public class LoginActivity extends AppCompatActivity {
 		mPresenter.onResume();
 	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		mPresenter.onPause();
-	}
-
 	public static Intent newIntent(Context packageContext)
 	{
 		return new Intent(packageContext, LoginActivity.class);
@@ -93,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
 
 	public void onLogin()
 	{
-		mPresenter.endObserve();
 		Intent i = GameSelectorActivity.newIntent(LoginActivity.this);
 		startActivity(i);
 	}

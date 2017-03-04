@@ -25,12 +25,15 @@ import java.util.ArrayList;
 
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChooseDestinationDialog extends DialogFragment {
 	static final String TITLE = "Choose A Destination";
+
+	DestinationCardPresenter presenter;
 
 	Button cancel;
 	Button accept;
@@ -42,7 +45,7 @@ public class ChooseDestinationDialog extends DialogFragment {
 	Boolean card2Selected = false;
 	Boolean card3Selected = false;
 
-	ArrayList<DestCard> destCards = new ArrayList<>();
+	ArrayList<DestCard> destCards;
 
 	int cardCount = 0;
 	int minRequired = 0;
@@ -97,71 +100,87 @@ public class ChooseDestinationDialog extends DialogFragment {
 
 
 		// ToDo: Use the destination cards to set the correct text
-		if (cardCount > 0) {
+		card1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				card1Selected = !card1Selected;
+				processCardClick(v, card1Selected, 1);
+			}
+		});
 
-			//card1.setText(destCards.get(0).toString());
-			card1.setText("(#1) Dest1 - Dest 1");
+		card2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				card2Selected = !card2Selected;
+				processCardClick(v, card2Selected, 2);
+			}
+		});
 
-			card1.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					card1Selected = !card1Selected;
-					processCardClick(v, card1Selected);
-				}
-			});
-		}
-
-		if (cardCount > 1) {
-
-			//card2.setText(destCards.get(1).toString());
-			card2.setText("(#2) Dest2 - Dest 2");
-
-			card2.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					card2Selected = !card2Selected;
-					processCardClick(v, card2Selected);
-				}
-			});
-		}
-
-		if (cardCount > 2) {
-
-			//card3.setText(destCards.get(2).toString());
-			card3.setText("(#3) Dest3 - Dest 3");
-
-			card3.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					card3Selected = !card3Selected;
-					processCardClick(v, card3Selected);
-				}
-			});
-		}
+		card3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				card3Selected = !card3Selected;
+				processCardClick(v, card3Selected, 3);
+			}
+		});
 
 		return view;
 	}
 
-	public void setCounts(int cardCount, int minRequired){
-		this.cardCount = cardCount;
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		presenter = DestinationCardPresenter.getInstance();
+		presenter.setChooseDestinationDialog(this);
+		presenter.drawCards();
+	}
+
+	public void setDestCards(ArrayList<DestCard> destCards, int minRequired){
+		this.cardCount = destCards.size();
 		this.minRequired = minRequired;
-	}
-
-	public void setDestCards(ArrayList<DestCard> destCards){
 		this.destCards = destCards;
+
+		if (this.destCards.size() > 0) {
+			card1.setText(destCards.get(0).toString());
+			//card1.setText("(#1) Dest1 - Dest 1");
+		}
+
+		if (this.destCards.size() > 1) {
+			card2.setText(destCards.get(1).toString());
+			//card2.setText("(#2) Dest2 - Dest 2");
+		}
+
+		if (this.destCards.size() > 2) {
+			card3.setText(destCards.get(2).toString());
+			//card3.setText("(#3) Dest3 - Dest 3");
+		}
 	}
 
 
-	private void processCardClick(View view, boolean selected){
-		if (selected){
-			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+	private void processCardClick(View view, boolean selected, int card){
+
+		// We only process a card click if the cards have been set
+		// and we the specified card has a corresponding destCard
+		if (destCards == null || destCards.size() < card) {
+			return;
 		}
-		else{
+
+
+		if (selected) {
+			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+		} else {
 			view.setBackgroundColor(getResources().getColor(R.color.grayButton));
 		}
 	}
 
 	private void acceptClick(){
+
+		if (destCards == null){
+			Toast.makeText(getActivity(), "Waiting for cards from server", Toast.LENGTH_LONG).show();
+			return;
+		}
+
+
 		// Not enough selected
 		if (getSelectedCount() < minRequired){
 			String text = "Choose at least " + String.valueOf(minRequired);
@@ -188,32 +207,31 @@ public class ChooseDestinationDialog extends DialogFragment {
 		ArrayList<DestCard> keepCards = new ArrayList<>();
 		ArrayList<DestCard> returnCards = new ArrayList<>();
 
-		/*
-
-		if (card1Selected){
-			keepCards.add(destCards.get(0));
-		}
-		else{
-			returnCards.add(destCards.get(0));
-		}
-
-		if (card2Selected){
-			keepCards.add(destCards.get(1));
-		}
-		else{
-			returnCards.add(destCards.get(1));
+		if (destCards.size() > 0) {
+			if (card1Selected) {
+				keepCards.add(destCards.get(0));
+			} else {
+				returnCards.add(destCards.get(0));
+			}
 		}
 
-		if (card2Selected){
-			keepCards.add(destCards.get(2));
-		}
-		else{
-			returnCards.add(destCards.get(2));
+		if (destCards.size() > 1) {
+			if (card2Selected) {
+				keepCards.add(destCards.get(1));
+			} else {
+				returnCards.add(destCards.get(1));
+			}
 		}
 
-		*/
+		if (destCards.size() > 2) {
+			if (card3Selected) {
+				keepCards.add(destCards.get(2));
+			} else {
+				returnCards.add(destCards.get(2));
+			}
+		}
 
-		// Todo: Send info back to presenter
+		presenter.reportSelection(keepCards, returnCards);
 
 	}
 

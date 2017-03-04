@@ -6,6 +6,7 @@ import android.support.v7.app.NotificationCompat;
 import java.util.Observable;
 
 import delta.monstarz.shared.Message;
+import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChatDialogFragment;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
 
@@ -28,10 +29,9 @@ public class ChatPresenter extends BasePresenter {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (arg instanceof Message) {
-			Message message = (Message) arg;
-			chatFragment.onReceiveMessage(message);
+	public void update(UpdateType updateType) {
+		if (updateType == UpdateType.CHAT) {
+			chatFragment.onReceiveMessage(model.getLastMessage());
 		}
 	}
 
