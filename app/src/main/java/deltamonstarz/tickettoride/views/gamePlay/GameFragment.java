@@ -92,9 +92,9 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
-				//launchDestinationChooserDialog();
+				launchDestinationChooserDialog();
 				//launchChooseCardDialog();
-				drawDestinationCards();
+				//drawDestinationCards();
 			}
 		});
 
@@ -134,7 +134,25 @@ public class GameFragment extends Fragment {
 			}
 		});
 
+		disableButtons();
+
 		return v;
+	}
+
+	public void enableButtons(){
+		placeTrain.setEnabled(true);
+		viewCards.setEnabled(true);
+		viewHistory.setEnabled(true);
+		viewChat.setEnabled(true);
+		demo.setEnabled(true);
+	}
+
+	public void disableButtons(){
+		placeTrain.setEnabled(false);
+		viewCards.setEnabled(false);
+		viewHistory.setEnabled(false);
+		viewChat.setEnabled(false);
+		demo.setEnabled(false);
 	}
 
 	private void openChat() {
@@ -157,20 +175,16 @@ public class GameFragment extends Fragment {
 		dialog.show(manager, "choose_card_dialog");
 	}
 
-	private void drawDestinationCards() {
-		DestinationCardPresenter dcPresenter = DestinationCardPresenter.getInstance();
-		dcPresenter.setGameFragment(this);
-
-	}
-
-	public void launchDestinationChooserDialog(ArrayList<DestCard> cards, int minSelection){
+	public void launchDestinationChooserDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
-		dialog.setDestCards(cards);
-		dialog.setCounts(3, minSelection);
+
 
 		dialog.show(manager, "choose_destination_dialog");
+
+		//dialog.setDestCards(cards);
+		//dialog.setCounts(3, minSelection);
 	}
 
 	private void launchShowDestinationCardsDialog(){

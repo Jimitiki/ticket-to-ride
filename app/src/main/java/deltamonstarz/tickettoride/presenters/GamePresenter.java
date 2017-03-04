@@ -62,7 +62,16 @@ public class GamePresenter extends BasePresenter {
 	 */
 	@Override
 	public void update(UpdateType updateType) {
-		lobbyFragment.onPlayerJoin(model.getPlayers());
+		switch (updateType) {
+			case USER_JOIN:
+				lobbyFragment.onPlayerJoin(model.getPlayers());
+				break;
+			case START_GAME:
+				onGameStart();
+				break;
+			case DEST_CARDS:
+				gameFragment.enableButtons();
+		}
 	}
 
 //	/**

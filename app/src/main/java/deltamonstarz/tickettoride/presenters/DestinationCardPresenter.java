@@ -9,14 +9,16 @@ import java.util.Observable;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.DrawDestCardsCommand;
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
+import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.model.UpdateType;
+import deltamonstarz.tickettoride.views.gamePlay.ChooseDestinationDialog;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
 import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
 
 public class DestinationCardPresenter extends BasePresenter {
 	private static DestinationCardPresenter presenter;
-	GameFragment gameFragment;
+	ChooseDestinationDialog chooseDestinationDialog;
 
 	private DestinationCardPresenter() {};
 
@@ -27,9 +29,8 @@ public class DestinationCardPresenter extends BasePresenter {
 		return presenter;
 	}
 
-	public void setGameFragment(GameFragment gameFragment) {
-		this.gameFragment = gameFragment;
-		proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
+	public void setChooseDestinationDialog(ChooseDestinationDialog chooseDestinationDialog) {
+		this.chooseDestinationDialog = chooseDestinationDialog;
 	}
 
 	@Override
@@ -51,6 +52,14 @@ public class DestinationCardPresenter extends BasePresenter {
 		return null;
 	}
 
+	public void drawCards() {
+		//proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
+		ArrayList<DestCard> destinationCards = new ArrayList<>();
+		destinationCards.add(new DestCard(new City("Dallas"), new City("LA"), 5));
+		destinationCards.add(new DestCard(new City("Las Vegas"), new City("New York"), 10));
+		onDestinationCardDraw(destinationCards, 2);
+	}
+
 	public void reportSelection(List<DestCard> keptCards, List<DestCard> returnedCards) {
 		proxy.sendCommand(model.getUsername(), new SelectDestCardsCommand(
 				model.getUsername(), model.getGameID(), keptCards, returnedCards
@@ -58,6 +67,6 @@ public class DestinationCardPresenter extends BasePresenter {
 	}
 
 	public void onDestinationCardDraw(ArrayList<DestCard> destinationCards, int minSelection) {
-		gameFragment.launchDestinationChooserDialog(destinationCards, minSelection);
+		chooseDestinationDialog.setDestCards(destinationCards, minSelection);
 	}
 }

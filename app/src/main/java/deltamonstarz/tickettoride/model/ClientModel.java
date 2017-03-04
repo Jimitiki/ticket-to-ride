@@ -52,14 +52,16 @@ public class ClientModel extends Observable{
 
 	public boolean isStarted() {return game.isStarted();}
 
-	public synchronized void startGame() {
+	public synchronized void startGame(Board board) {
 		game.setStarted(true);
+		setBoard(board);
+		notifyPresenter(UpdateType.START_GAME);
 		//DummyData.doTest();
 	}
 
 	public synchronized void addPlayer(String username) {
 		game.addPlayer(username);
-		notifyPresenter(UpdateType.LOGIN);
+		notifyPresenter(UpdateType.USER_JOIN);
 	}
 
 	public synchronized void addLoginInformation(String username, String authToken) {
