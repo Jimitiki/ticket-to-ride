@@ -9,6 +9,7 @@ public enum CardColor
 {
 	BLUE,
 	GREEN,
+	PINK,
 	RED,
 	YELLOW,
 	BLACK,
@@ -23,6 +24,8 @@ public enum CardColor
 				return BLUE;
 			case "green":
 				return GREEN;
+			case "pink":
+				return PINK;
 			case "red":
 				return RED;
 			case "yellow":
