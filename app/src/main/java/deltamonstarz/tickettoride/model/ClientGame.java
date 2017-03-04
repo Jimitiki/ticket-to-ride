@@ -3,6 +3,7 @@ package deltamonstarz.tickettoride.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
@@ -21,6 +22,7 @@ public class ClientGame {
     private int lastCommandID;
     private int gameID;
 	private List<String> players;
+	private List<Message> chatHistory;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -35,6 +37,7 @@ public class ClientGame {
     public void setStarted(boolean started) {
 		this.started = started;
 		opps = new ArrayList<Opponent>();
+	    chatHistory = new ArrayList<>();
 		for (String username : players) {
 			opps.add(new Opponent(username));
 		}
@@ -64,5 +67,17 @@ public class ClientGame {
 
 	public List<DestCard> getDestCardChoices() {
 		return me.getDestCardChoices();
+	}
+
+	public List<Message> getChatHistory() {
+		return chatHistory;
+	}
+
+	public Message getLastMessage() {
+		return chatHistory.get(chatHistory.size() - 1);
+	}
+
+	public void addMessage(Message message) {
+		chatHistory.add(message);
 	}
 }
