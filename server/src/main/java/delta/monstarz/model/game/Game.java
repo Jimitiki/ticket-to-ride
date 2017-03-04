@@ -54,7 +54,7 @@ public class Game {
 	private TrainCardManager trainDeck;
 	private DestinationCardManager destDeck;
 	private Board board;
-
+	private int nextID = 0;
 	private List<BaseCommand> history = new ArrayList<>();
 
 	//Constructor
@@ -111,6 +111,11 @@ public class Game {
 	}
 
 	//Public Methods
+	public void addCommand(BaseCommand command) {
+		command.setId(nextID++);
+		history.add(command);
+	}
+
 	/**
 	 * Starts the game
 	 * New players can no longer join the game
@@ -177,10 +182,6 @@ public class Game {
 		);
 
 		return gameInfo;
-	}
-
-	public void addCommand(BaseCommand command) {
-		history.add(command);
 	}
 
 	//Internal Methods
