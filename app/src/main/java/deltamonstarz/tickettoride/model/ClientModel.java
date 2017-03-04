@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Observable;
 
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Route;
@@ -58,23 +59,23 @@ public class ClientModel extends Observable{
 
 	public synchronized void addPlayer(String username) {
 		game.addPlayer(username);
-		notifyPresenter();
+		notifyPresenter(UpdateType.LOGIN);
 	}
 
 	public synchronized void addLoginInformation(String username, String authToken) {
 		this.username = username;
 		this.authToken = authToken;
-		notifyPresenter();
+		notifyPresenter(UpdateType.LOGIN);
 	}
 
 	public synchronized void updateAvailableGames(List<GameInfo> games) {
 		availableGames = games;
-		notifyPresenter();
+		notifyPresenter(UpdateType.GAME_LIST);
 	}
 
 	public synchronized void joinGame(int gameID) {
 		newGame(gameID);
-		notifyPresenter();
+		notifyPresenter(UpdateType.JOIN_GAME);
 	}
 
 	public BasePresenter getPresenter() {
@@ -90,16 +91,18 @@ public class ClientModel extends Observable{
 	public synchronized void clearUser() {
 		username = null;
 		authToken = null;
+		notifyPresenter(UpdateType.LOGOUT);
 	}
 
 	public synchronized void clearGame() {
 		game = null;
+		notifyPresenter(UpdateType.LEAVE_GAME);
 	}
 
-	private synchronized void notifyPresenter() {
+	private synchronized void notifyPresenter(UpdateType updateType) {
 		setChanged();
 //		synchronized (this) {
-			notifyObservers();
+			notifyObservers(updateType);
 //		}
 	}
 
@@ -114,4 +117,17 @@ public class ClientModel extends Observable{
 
 	public void setDestCardChoices(List<DestCard> choices) { game.setDestCardChoices(choices);}
 	public List<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
+
+	public List<Message> getChatHistory() {
+		return game.getChatHistory();
+	}
+
+	public Message getLastMessage() {
+		return game.getLastMessage();
+	}
+
+	public void addMessage(Message message) {
+		game.addMessage(message);
+		notifyPresenter(UpdateType.CHAT);
+	}
 }

@@ -14,6 +14,7 @@ import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
+import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
@@ -92,7 +93,8 @@ public class GameFragment extends Fragment {
 			public void onClick(View v) {
 				System.out.print("drawing card");
 				//launchDestinationChooserDialog();
-				launchChooseCardDialog();
+				//launchChooseCardDialog();
+				drawDestinationCards();
 			}
 		});
 
@@ -153,6 +155,12 @@ public class GameFragment extends Fragment {
 
 
 		dialog.show(manager, "choose_card_dialog");
+	}
+
+	private void drawDestinationCards() {
+		DestinationCardPresenter dcPresenter = DestinationCardPresenter.getInstance();
+		dcPresenter.setGameFragment(this);
+
 	}
 
 	public void launchDestinationChooserDialog(ArrayList<DestCard> cards, int minSelection){

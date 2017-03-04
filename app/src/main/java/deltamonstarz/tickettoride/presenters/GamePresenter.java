@@ -2,13 +2,13 @@ package deltamonstarz.tickettoride.presenters;
 
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.Observable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import delta.monstarz.shared.commands.StartGameCommand;
+import delta.monstarz.shared.model.Route;
+import deltamonstarz.tickettoride.Poller;
 import deltamonstarz.tickettoride.ServerProxy;
+import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
 import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
 import deltamonstarz.tickettoride.views.gamePlay.GameLobbyFragment;
@@ -26,9 +26,8 @@ public class GamePresenter extends BasePresenter {
 	private GameActivity activity;
 	private GameLobbyFragment lobbyFragment;
 	private GameFragment gameFragment;
+	private Poller poller;
 	private static GamePresenter presenter;
-	private static ScheduledExecutorService scheduler;
-	private static final long POLL_TIME = 400;
 
 	private GamePresenter() {
 		super();
@@ -59,11 +58,10 @@ public class GamePresenter extends BasePresenter {
 	/**
 	 * This function is called when the client model notifies this class of any changes. It
 	 * determines what has changed to update the view accordingly.
-	 * @param o The observable that notified its observers
-	 * @param arg Any arguments passed by the notify function
+	 * @param updateType what was altered in the model
 	 */
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(UpdateType updateType) {
 		lobbyFragment.onPlayerJoin(model.getPlayers());
 	}
 
@@ -102,7 +100,10 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void onResume() {
 		super.onResume();
-		pollGameHistory();
+		if (poller == null) {
+			poller = new Poller();
+		}
+		poller.startPoll(new CommandPoller());
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void onPause() {
 		super.onPause();
-		endPoll();
+		poller.endPoll();
 	}
 
 	/**
@@ -135,9 +136,9 @@ public class GamePresenter extends BasePresenter {
 	 * gets all of the routes on the board that have been claimed so the view can draw them.
 	 * @return collection of Route objects
 	 */
-//	public List<Route> getClaimedRoutes() {
-//		return null;
-//	}
+	public List<Route> getClaimedRoutes() {
+		return null;
+	}
 
 	/**
 	 * Removes all game and user data from the client model, resetting the session entirely.
@@ -156,24 +157,9 @@ public class GamePresenter extends BasePresenter {
 		activity.onGameStart();
 	}
 
-	/*
-	 * Begins polling the server proxy for commands
-	*/
-	private void pollGameHistory() {
-		scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(new CommandPoller(), 0, POLL_TIME, TimeUnit.MILLISECONDS);
-	}
-
-	private void endPoll() {
-		scheduler.shutdown();
-	}
-
 	private class CommandPoller implements Runnable {
 		@Override
 		public void run() {
-			if (proxy == null) {
-				proxy = ServerProxy.getInstance();
-			}
 			proxy.listCommands(model.getAuthToken(), model.getGameID(), model.getUsername(), model.getCurCommand());
 		}
 	}

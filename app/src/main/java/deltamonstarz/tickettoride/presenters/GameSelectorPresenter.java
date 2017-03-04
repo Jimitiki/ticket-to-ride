@@ -9,16 +9,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import delta.monstarz.shared.GameInfo;
+import deltamonstarz.tickettoride.Poller;
 import deltamonstarz.tickettoride.ServerProxy;
+import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.GameSelectorActivity;
 
 public class GameSelectorPresenter extends BasePresenter {
 	private static GameSelectorPresenter presenter;
 	private GameSelectorActivity activity;
 	private ScheduledExecutorService scheduler;
+	private Poller poller;
 	private boolean isConnected;
-
-	private static final long POLL_TIME = 1;
 
 	private GameSelectorPresenter() {
 		super();
@@ -36,16 +37,18 @@ public class GameSelectorPresenter extends BasePresenter {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		if (model.getAuthToken() == null) {
-			activity.logout();
-			endPoll();
-		} else if (model.getGameID() >= 0) {
-			activity.onJoinGame();
-			endPoll();
-		} else {
-			isConnected = true;
-			activity.onGameListUpdate(model.getAvailableGames());
+	public void update(UpdateType updateType) {
+		switch (updateType) {
+			case LOGOUT:
+				activity.logout();
+				break;
+			case JOIN_GAME:
+				activity.onJoinGame();
+				break;
+			case GAME_LIST:
+				isConnected = true;
+				activity.onGameListUpdate(model.getAvailableGames());
+				break;
 		}
 	}
 
@@ -85,13 +88,16 @@ public class GameSelectorPresenter extends BasePresenter {
 	public void onResume() {
 		super.onResume();
 		model.clearGame();
-		pollGameList();
+		if (poller == null) {
+			poller = new Poller();
+		}
+		poller.startPoll(new GamePoller());
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		endPoll();
+		poller.endPoll();
 	}
 
 	@Override
@@ -104,17 +110,6 @@ public class GameSelectorPresenter extends BasePresenter {
 		return activity;
 	}
 
-	/**
-	 * Begins polling for a list of all current, joinable games
-	 */
-	private void pollGameList() {
-		scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(new GamePoller(), 0, POLL_TIME, TimeUnit.SECONDS);
-	}
-
-	private void endPoll() {
-		scheduler.shutdown();
-	}
 
 	private class GamePoller implements Runnable {
 		@Override
