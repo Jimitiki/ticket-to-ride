@@ -2,6 +2,7 @@ package delta.monstarz.commands;
 
 import java.util.List;
 
+import delta.monstarz.exceptions.InvalidCommandException;
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
@@ -26,11 +27,14 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 	//Public Methods
 
 	@Override
-	public void execute()
+	public void execute() //throws InvalidCommandException
 	{
 		Game game = GameManager.getInstance().getGameByID(gameID);
 		Player player = game.getPlayerByUsername(username);
 		for (DestCard card : selection) {
+			if (player.getDestCardChoices().contains(card)) {
+				//throw new InvalidCommandException();
+			}
 			player.addDestCard(card);
 		}
 		game.getDestDeck().returnCards(discard);

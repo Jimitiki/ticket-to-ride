@@ -3,6 +3,7 @@ package delta.monstarz.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.monstarz.exceptions.InvalidCommandException;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.services.GameManagementService;
 import delta.monstarz.services.UserAuthenticationService;
@@ -16,9 +17,13 @@ public class CommandManager {
 	 */
 	public static void execute(BaseCommand command) {
 		if (validate(command)) {
-			command.execute();
 			Game game = GameManager.getInstance().getGameByID(command.getGameID());
-			game.addCommand(command);
+//			try {
+				command.execute();
+				game.addCommand(command);
+//			} catch(InvalidCommandException e) {
+//				pass;
+//			}
 		}
 	}
 
