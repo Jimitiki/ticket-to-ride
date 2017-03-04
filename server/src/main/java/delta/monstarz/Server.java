@@ -38,7 +38,7 @@ public class Server {
 		server.createContext("/join", new HandleJoin());
 		server.createContext("/game", new HandleListGames());
 
-		System.out.println("Starting server");
+		System.out.println("Starting server on port " + portNumber);
 		server.start();
 	}
 

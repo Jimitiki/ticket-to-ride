@@ -13,14 +13,9 @@ import delta.monstarz.shared.commands.BaseCommand;
 import deltamonstarz.tickettoride.commands.ConnectionErrorCommand;
 
 public class POSTAsyncTask extends HTTPAsyncTask {
-
-
-
 	@Override
 	protected BaseCommand doInBackground(String... params) {
 		try {
-			URL url = new URL(params[0]);
-
 			HttpURLConnection http = HTTPRequests.POST(params[0], params[1], params[2]);//(
 
 			InputStream respBody = http.getInputStream();

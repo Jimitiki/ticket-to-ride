@@ -10,14 +10,10 @@ import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 
-/**
- * Created by oliphaun on 2/22/17.
- */
-
 public class ClientGame {
     private Board board;
     private Player me;
-    private List<Opponent> opps;
+    private List<PlayerInfo> opps;
     private boolean started;
     private int lastCommandID;
     private int gameID;
@@ -38,17 +34,17 @@ public class ClientGame {
 
     public void setStarted(boolean started) {
 		this.started = started;
-		opps = new ArrayList<Opponent>();
+		opps = new ArrayList<>();
 	    chatHistory = new ArrayList<>();
 		for (String username : players) {
-			if (ClientModel.getInstance().getUsername() != username) {
-				opps.add(new Opponent(username));
+			if (ClientModel.getInstance().getUsername().equals(username)) {
+				opps.add(new PlayerInfo(username));
 			}
 		}
 	}
 
-    public List<Opponent> getOpps() { return opps; }
-    public void setOpps(List<Opponent> opps) { this.opps = opps; }
+    public List<PlayerInfo> getOpps() { return opps; }
+    public void setOpps(List<PlayerInfo> opps) { this.opps = opps; }
     public Player getMe() { return me; }
     public void setMe(Player me) { this.me = me; }
     public Board getBoard() { return board; }
@@ -67,10 +63,18 @@ public class ClientGame {
 		}
 	}
 
-	public void setDestCardChoices(List<DestCard> choices) { me.setDestCardChoices(choices);}
+	public void setDestCardChoices(ArrayList<DestCard> choices) { me.setDestCardChoices(choices);}
 
-	public List<DestCard> getDestCardChoices() {
+	public ArrayList<DestCard> getDestCardChoices() {
 		return me.getDestCardChoices();
+	}
+
+	public int getMinSelection() {
+		return me.getMinSelection();
+	}
+
+	public void setMinSelection(int minSelection) {
+		me.setMinSelection(minSelection);
 	}
 
 	public List<Message> getChatHistory() {

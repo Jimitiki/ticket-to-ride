@@ -13,7 +13,7 @@ import delta.monstarz.shared.model.DestCard;
 public class DestinationCardManager
 {
 	//Data Members
-	LinkedList<DestCard> deck;
+	private LinkedList<DestCard> deck;
 
 	//Constructor
 	public DestinationCardManager() {
@@ -36,8 +36,8 @@ public class DestinationCardManager
 	 *
 	 * @return Three destination cards in a list
 	 */
-	public List<DestCard> drawCards() {
-		List<DestCard> cards = new ArrayList<>();
+	public ArrayList<DestCard> drawCards() {
+		ArrayList<DestCard> cards = new ArrayList<>();
 		for(int i = 0; i < 3; i++) {
 			cards.add(deck.removeFirst());
 		}

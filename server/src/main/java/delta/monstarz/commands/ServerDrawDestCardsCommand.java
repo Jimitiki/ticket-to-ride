@@ -1,5 +1,6 @@
 package delta.monstarz.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.model.GameManager;
@@ -21,7 +22,7 @@ public class ServerDrawDestCardsCommand extends DrawDestCardsCommand
 	@Override
 	public void execute() {
 		Game game = GameManager.getInstance().getGameByID(gameID);
-		List<DestCard> cards = game.getDestDeck().drawCards();
+		ArrayList<DestCard> cards = game.getDestDeck().drawCards();
 		this.setChoices(cards);
 	}
 }

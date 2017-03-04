@@ -1,10 +1,6 @@
 package deltamonstarz.tickettoride.model;
 
-/**
- * Created by oliphaun on 2/24/17.
- */
-
-public class Opponent {
+public class PlayerInfo {
 	private String username;
 	private Enum pcolor;
 	private int score;
@@ -12,7 +8,7 @@ public class Opponent {
 	private int numDestCards;
 	private int numTrains;
 
-	public Opponent(String username) {
+	public PlayerInfo(String username) {
 		this.username = username;
 		numDestCards = numTrainsCards = score = 0;
 		numTrains = 45;

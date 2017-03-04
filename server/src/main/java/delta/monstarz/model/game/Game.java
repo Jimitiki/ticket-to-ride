@@ -133,8 +133,8 @@ public class Game {
 					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p, gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
-				ServerDrawDestCardsCommand destCommand = new ServerDrawDestCardsCommand(p, gameID);
-				CommandManager.execute(destCommand);
+//				ServerDrawDestCardsCommand destCommand = new ServerDrawDestCardsCommand(p, gameID);
+//				CommandManager.execute(destCommand);
 			}
 
 			gameStarted = true;
@@ -174,7 +174,7 @@ public class Game {
 
 		TreeSet<String> playersNames = playerManager.getPlayerNames();
 
-		GameInfo gameInfo = new GameInfo(
+		return new GameInfo(
 				name,
 				ownerName,
 				gameID,
@@ -183,8 +183,6 @@ public class Game {
 				gameStarted,
 				playersNames
 		);
-
-		return gameInfo;
 	}
 
 	//Internal Methods
@@ -241,7 +239,7 @@ public class Game {
 			//Parse the Segments
 			// TODO fix this
 //			List<Segment> segments = parseSegments(routeObject.get("segmants").getAsJsonArray());
-			List<Segment> segments = new ArrayList<Segment>();
+			List<Segment> segments = new ArrayList<>();
 
 			//Parse color
 //			String color = routeObject.get("color").getAsString();

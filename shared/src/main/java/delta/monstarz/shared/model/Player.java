@@ -1,5 +1,6 @@
 package delta.monstarz.shared.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -16,15 +17,16 @@ public class Player {
 	private PlayerColor pcolor;
 	private int score;
 	private int numTrains;
+	private int minSelection;
 	private Map<TrainCard, Integer> trainCards;
 	private List<DestCard> destCards;
-	private List<DestCard> destCardChoices;
+	private ArrayList<DestCard> destCardChoices;
 
-	public List<DestCard> getDestCardChoices() {
+	public ArrayList<DestCard> getDestCardChoices() {
 		return destCardChoices;
 	}
 
-	public void setDestCardChoices(List<DestCard> destCardChoices) {
+	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
 		this.destCardChoices = destCardChoices;
 	}
 
@@ -74,6 +76,14 @@ public class Player {
 
 	public void setDestCards(List<DestCard> destCards) {
 		this.destCards = destCards;
+	}
+
+	public int getMinSelection() {
+		return minSelection;
+	}
+
+	public void setMinSelection(int minSelection) {
+		this.minSelection = minSelection;
 	}
 
 	public void drawTrainCard(TrainCard card) {

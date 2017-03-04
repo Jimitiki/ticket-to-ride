@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -117,11 +118,25 @@ public class ClientModel extends Observable{
 		game = new ClientGame(gameID);
 	}
 
-	public void setDestCardChoices(List<DestCard> choices) { game.setDestCardChoices(choices);}
-	public List<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
+	public void drawDestinationCards(ArrayList<DestCard> choices, int minSelection) {
+		setDestCardChoices(choices);
+		setMinSelection(minSelection);
+		notifyPresenter(UpdateType.DRAW_DEST_CARDS);
+	}
+
+	public void setDestCardChoices(ArrayList<DestCard> choices) { game.setDestCardChoices(choices);}
+	public ArrayList<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
 
 	public List<Message> getChatHistory() {
 		return game.getChatHistory();
+	}
+
+	public int getMinSelection() {
+		return game.getMinSelection();
+	}
+
+	public void setMinSelection(int minSelection) {
+		game.setMinSelection(minSelection);
 	}
 
 	public Message getLastMessage() {

@@ -32,6 +32,9 @@ public class DestinationCardPresenter extends BasePresenter {
 
 	@Override
 	public void update(UpdateType updateType) {
+		if (updateType == UpdateType.DRAW_DEST_CARDS) {
+			onDestinationCardDraw(model.getDestCardChoices(), model.getMinSelection());
+		}
 	}
 
 	@Override
@@ -50,11 +53,11 @@ public class DestinationCardPresenter extends BasePresenter {
 	}
 
 	public void drawCards() {
-		//proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
-		ArrayList<DestCard> destinationCards = new ArrayList<>();
-		destinationCards.add(new DestCard("Dallas", "LA", 5));
-		destinationCards.add(new DestCard("Las Vegas", "New York", 10));
-		onDestinationCardDraw(destinationCards, 2);
+		proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
+//		ArrayList<DestCard> destinationCards = new ArrayList<>();
+//		destinationCards.add(new DestCard("Dallas", "LA", 5));
+//		destinationCards.add(new DestCard("Las Vegas", "New York", 10));
+//		onDestinationCardDraw(destinationCards, 2);
 	}
 
 	public void reportSelection(List<DestCard> keptCards, List<DestCard> returnedCards) {
@@ -63,7 +66,7 @@ public class DestinationCardPresenter extends BasePresenter {
 		));
 	}
 
-	public void onDestinationCardDraw(ArrayList<DestCard> destinationCards, int minSelection) {
+	private void onDestinationCardDraw(ArrayList<DestCard> destinationCards, int minSelection) {
 		chooseDestinationDialog.setDestCards(destinationCards, minSelection);
 	}
 }
