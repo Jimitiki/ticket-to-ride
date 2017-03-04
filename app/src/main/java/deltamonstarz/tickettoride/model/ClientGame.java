@@ -18,7 +18,7 @@ public class ClientGame {
     private Player me;
     private List<Opponent> opps;
     private boolean started;
-    private int commandCounter;
+    private int lastCommandID;
     private int gameID;
 	private List<String> players;
 
@@ -29,7 +29,7 @@ public class ClientGame {
 
     public int getGameID() { return gameID; }
     public void setGameID(int gameID) { this.gameID = gameID; }
-    public int getCurCommand() { return commandCounter; }
+    public int getCurCommand() { return lastCommandID; }
     public boolean isStarted() { return started;}
 
     public void setStarted(boolean started) {
@@ -46,7 +46,7 @@ public class ClientGame {
     public void setMe(Player me) { this.me = me; }
     public Board getBoard() { return board; }
     public void setBoard(Board board) { this.board = board;}
-    public void incrementCommand() { commandCounter++;}
+    public void setLastCommandID(int lastID) { lastCommandID = lastID;}
 	public List<String> getPlayers() {
 		return players;
 	}

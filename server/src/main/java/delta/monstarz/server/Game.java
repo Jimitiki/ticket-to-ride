@@ -27,6 +27,7 @@ public class Game {
 	private Date startTime;
 	private boolean gameStarted = false;
 	private List<Player> players = new ArrayList<>();
+	private int nextID;
 
 	private List<BaseCommand> history = new ArrayList<>();
 
@@ -64,6 +65,11 @@ public class Game {
 
 	public List<BaseCommand> getHistory() {
 		return history;
+	}
+
+	public void addCommand(BaseCommand command) {
+		command.setId(nextID++);
+		history.add(command);
 	}
 
 	/**
@@ -132,9 +138,5 @@ public class Game {
 		);
 
 		return gameInfo;
-	}
-
-	public void addCommand(BaseCommand command) {
-		history.add(command);
 	}
 }
