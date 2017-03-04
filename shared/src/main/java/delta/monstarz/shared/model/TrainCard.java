@@ -11,10 +11,10 @@ public class TrainCard {
     private CardColor color;
     private String imageID;
 
-    public TrainCard(int pIndex, CardColor pColor, String pImageID)
+    public TrainCard(CardColor pColor)
     {
-        index = pIndex;
+        //index = pIndex;
         color = pColor;
-        imageID = pImageID;
+        //imageID = pImageID;
     }
 }
