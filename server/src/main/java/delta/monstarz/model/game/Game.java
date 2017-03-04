@@ -118,6 +118,10 @@ public class Game {
 		history.add(command);
 	}
 
+	public Player getPlayerByUsername(String username) {
+		return playerManager.getPlayerByUsername(username);
+	}
+
 	/**
 	 * Starts the game
 	 * New players can no longer join the game
@@ -130,10 +134,11 @@ public class Game {
 			{
 				for(int i = 0; i < 4; i++)
 				{
-					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p, gameID, -1);
+					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p.getUsername(), gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
 				ServerDrawDestCardsCommand destCommand = new ServerDrawDestCardsCommand(p, gameID);
+				destCommand.setMustKeep(2);
 				CommandManager.execute(destCommand);
 			}
 

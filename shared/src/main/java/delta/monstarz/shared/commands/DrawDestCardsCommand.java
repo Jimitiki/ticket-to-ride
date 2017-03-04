@@ -11,7 +11,7 @@ import delta.monstarz.shared.model.DestCard;
 
 public class DrawDestCardsCommand extends BaseCommand {
 	protected List<DestCard> choices;
-	protected int mustKeep;
+	protected int mustKeep = 1;
 
 	public List<DestCard> getChoices() {
 		return choices;
