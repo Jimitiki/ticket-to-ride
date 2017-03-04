@@ -7,10 +7,14 @@ import javax.smartcardio.Card;
  */
 
 public class TrainCard {
+    private int index;
     private CardColor color;
     private String imageID;
 
-    public TrainCard(CardColor color) {
-        this.color = color;
+    public TrainCard(int pIndex, CardColor pColor, String pImageID)
+    {
+        index = pIndex;
+        color = pColor;
+        imageID = pImageID;
     }
 }
