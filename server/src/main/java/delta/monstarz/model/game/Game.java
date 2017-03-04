@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import delta.monstarz.model.commands.ServerDrawDestCardsCommand;
+import delta.monstarz.model.commands.ServerDrawTrainCardCommand;
 import delta.monstarz.model.game.manager.DestinationCardManager;
 import delta.monstarz.model.game.manager.PlayerManager;
 import delta.monstarz.model.game.manager.RouteManager;
@@ -21,6 +23,7 @@ import delta.monstarz.model.game.manager.TrainCardManager;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.DrawTrainCardCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
@@ -115,6 +118,17 @@ public class Game {
 	public void start(){
 		if (playerManager.size() > 1){
 			parseConfigurations(trainDeck, destDeck, board);
+
+			for(Player p : playerManager.getPlayers())
+			{
+				for(int i = 0; i < 4; i++)
+				{
+					ServerDrawTrainCardCommand c = new ServerDrawTrainCardCommand(p, gameID, -1);
+					c.execute();
+				}
+				ServerDrawDestCardsCommand c = new ServerDrawDestCardsCommand(p, gameID);
+			}
+
 			gameStarted = true;
 			startTime = new Date(); // All new dates start with the current time
 		}
@@ -261,7 +275,7 @@ public class Game {
 			int count = card.get("count").getAsInt();
 			for(int j = 0; j < count; j++)
 			{
-				TrainCard trainCard = new TrainCard(index, c, image);
+				TrainCard trainCard = new TrainCard(c);
 				manager.addCard(trainCard);
 				index++;
 			}
