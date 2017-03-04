@@ -49,6 +49,14 @@ public class PlayerManager
 		return names;
 	}
 
+	public Player getPlayerByUsername(String username) {
+		for (Player p : players) {
+			if (p.getUsername() == username) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 	//Public Methods
 	public int size()
