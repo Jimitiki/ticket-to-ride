@@ -72,7 +72,6 @@ public class LoginPresenter extends BasePresenter {
 	@Override
 	public void onResume() {
 		super.onResume();
-		model.clearUser();
 	}
 
 	@Override

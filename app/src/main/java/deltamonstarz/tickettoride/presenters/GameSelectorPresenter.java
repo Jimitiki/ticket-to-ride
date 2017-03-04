@@ -94,15 +94,14 @@ public class GameSelectorPresenter extends BasePresenter {
 		poller.startPoll(new GamePoller());
 	}
 
-	@Override
 	public void onPause() {
-		super.onPause();
 		poller.endPoll();
 	}
 
 	@Override
 	public void logOut() {
 		activity.logout();
+		model.clearUser();
 	}
 
 	@Override

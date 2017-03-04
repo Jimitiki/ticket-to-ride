@@ -6,21 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.DrawDestCardsCommand;
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChooseDestinationDialog;
-import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
-import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
 
 public class DestinationCardPresenter extends BasePresenter {
 	private static DestinationCardPresenter presenter;
-	ChooseDestinationDialog chooseDestinationDialog;
+	private ChooseDestinationDialog chooseDestinationDialog;
 
-	private DestinationCardPresenter() {};
+	private DestinationCardPresenter() {}
 
 	public static DestinationCardPresenter getInstance() {
 		if (presenter == null) {

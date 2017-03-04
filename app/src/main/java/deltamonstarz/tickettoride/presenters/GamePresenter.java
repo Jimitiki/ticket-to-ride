@@ -67,7 +67,7 @@ public class GamePresenter extends BasePresenter {
 				lobbyFragment.onPlayerJoin(model.getPlayers());
 				break;
 			case START_GAME:
-				onGameStart();
+				activity.onGameStart();
 				break;
 			case DEST_CARDS:
 				gameFragment.enableButtons();
@@ -119,9 +119,7 @@ public class GamePresenter extends BasePresenter {
 	 * The game activity calls this function when it is paused. It is used to stop polling the
 	 * server and observing the model
 	 */
-	@Override
 	public void onPause() {
-		super.onPause();
 		poller.endPoll();
 	}
 
@@ -160,10 +158,6 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public AppCompatActivity getActivity() {
 		return activity;
-	}
-
-	public void onGameStart() {
-		activity.onGameStart();
 	}
 
 	private class CommandPoller implements Runnable {

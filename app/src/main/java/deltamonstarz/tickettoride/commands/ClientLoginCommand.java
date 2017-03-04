@@ -13,7 +13,6 @@ public class ClientLoginCommand extends LoginCommand {
 	public void execute() {
 		if (loginSuccessful) {
 			ClientModel.getInstance().addLoginInformation(username, authToken);
-			ClientModel model = ClientModel.getInstance();
 		} else {
 			if (isRegister) {
 				LoginPresenter.getInstance().onRegisterFailed();
