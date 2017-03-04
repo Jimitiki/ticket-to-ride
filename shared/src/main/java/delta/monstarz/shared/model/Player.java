@@ -1,6 +1,7 @@
 package delta.monstarz.shared.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class Player {
 	private PlayerColor pcolor;
 	private int score;
 	private int numTrains;
-	private Map<delta.monstarz.shared.model.TrainCard, Integer> trainCards;
+	private Map<TrainCard, Integer> trainCards;
 	private List<DestCard> destCards;
 	private List<DestCard> destCardChoices;
 
@@ -29,6 +30,7 @@ public class Player {
 
 	public Player(String username){
 		this.username = username;
+		trainCards = new HashMap<>();
 	}
 	public String getUsername() {
 		return username;
@@ -75,6 +77,9 @@ public class Player {
 	}
 
 	public void drawTrainCard(TrainCard card) {
+		if (! trainCards.containsKey(card)) {
+			trainCards.put(card, 0);
+		}
 		trainCards.put(card, trainCards.get(card) + 1);
 	}
 

@@ -4,7 +4,7 @@ import delta.monstarz.shared.model.Board;
 
 public class StartGameCommand extends BaseCommand {
 	protected Board board;
-	protected int trainCount;
+	protected int trainCount = 45;
 
 	public int getTrainCount() {
 		return trainCount;

@@ -28,6 +28,7 @@ public class DrawDestCardsCommand extends BaseCommand {
 
 	public DrawDestCardsCommand(String username, int gameID) {
 		super(username, gameID);
+		name = "DrawDestCardsCommand";
 	}
 
 	@Override

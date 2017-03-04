@@ -23,6 +23,7 @@ public class SelectDestCardsCommand extends BaseCommand {
 		super(username, gameID);
 		this.selection = selection;
 		this.discard = discard;
+		name = "SelectDestCardsCommand";
 	}
 
 	@Override

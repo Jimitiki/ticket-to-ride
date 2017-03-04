@@ -25,6 +25,8 @@ public class ClientGame {
 	public ClientGame(int id) {
 		gameID = id;
 		players = new ArrayList<>();
+		me = new Player(ClientModel.getInstance().getUsername());
+		lastCommandID = -1;
 	}
 
     public int getGameID() { return gameID; }
@@ -36,7 +38,9 @@ public class ClientGame {
 		this.started = started;
 		opps = new ArrayList<Opponent>();
 		for (String username : players) {
-			opps.add(new Opponent(username));
+			if (ClientModel.getInstance().getUsername() != username) {
+				opps.add(new Opponent(username));
+			}
 		}
 	}
 

@@ -11,9 +11,15 @@ public class ClientCommandListCommand extends CommandListCommand {
 
 	@Override
 	public void execute() {
-		for (BaseCommand command : commands) {
-			command.execute();
-			ClientModel.getInstance().setLastCommandID(command.getId());
+		ClientModel model = ClientModel.getInstance();
+		if (model.getGame() != null) {
+			int curCommandID = model.getCurCommand();
+			for (BaseCommand command : commands) {
+				if (command.getId() > curCommandID) {
+					command.execute();
+					ClientModel.getInstance().setLastCommandID(command.getId());
+				}
+			}
 		}
 	}
 }

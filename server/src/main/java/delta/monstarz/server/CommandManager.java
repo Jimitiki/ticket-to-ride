@@ -11,13 +11,11 @@ public class CommandManager {
 	 * @param command Command object to be executed
 	 * @throws Exception if execution fails, i.e. action is invalid
 	 */
-	public static void execute(BaseCommand command) throws Exception{
+	public static void execute(BaseCommand command) {
 		if (validate(command)) {
 			command.execute();
 			Game game = ServerModelManager.getInstance().getGameByID(command.getGameID());
 			game.addCommand(command);
-		} else {
-			throw new Exception();
 		}
 	}
 
@@ -38,17 +36,13 @@ public class CommandManager {
 			Game game = ServerModelManager.getInstance().getGameByID(gameID);
 			List<BaseCommand> allCommands = game.getHistory();
 			List<BaseCommand> visibleCommands = new ArrayList<>();
-			for (int i = 0; i < allCommands.size(); i++) {
+			for (int i = commandIndex +1; i < allCommands.size(); i++) {
 				BaseCommand command = allCommands.get(i);
 				if (command.isGlobal() || command.getUsername().equals(username)) {
 					visibleCommands.add(command);
 				}
 			}
-			if (visibleCommands.size() == 0 || commandIndex == 0) {
-				return visibleCommands;
-			} else {
-				return visibleCommands.subList(commandIndex, visibleCommands.size());
-			}
+			return visibleCommands;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<>();
