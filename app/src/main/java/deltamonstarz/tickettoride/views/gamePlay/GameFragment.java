@@ -11,6 +11,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
@@ -191,6 +192,12 @@ public class GameFragment extends Fragment {
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ShowDestinationCardsDialog dialog = new ShowDestinationCardsDialog();
 
+		// Todo: Use real cards from the client model
+		ArrayList<DestCard> list = new ArrayList<>();
+		list.add(new DestCard(new City("Dallas"), new City("LA"), 5));
+		list.add(new DestCard(new City("Las Vegas"), new City("New York"), 10));
+
+		dialog.setDestCardList(list);
 
 		dialog.show(manager, "show_destination_cards_dialog");
 	}
