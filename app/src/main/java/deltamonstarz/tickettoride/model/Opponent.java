@@ -1,12 +1,14 @@
 package deltamonstarz.tickettoride.model;
 
+import delta.monstarz.shared.model.PlayerColor;
+
 /**
  * Created by oliphaun on 2/24/17.
  */
 
 public class Opponent {
 	private String username;
-	private Enum pcolor;
+	private PlayerColor playerColor;
 	private int score;
 	private int numTrainsCards;
 	private int numDestCards;
@@ -22,9 +24,9 @@ public class Opponent {
 		return username;
 	}
 
-	public void setPcolor(Enum my_pcolor) { pcolor = my_pcolor; }
+	public void setPlayerColor(PlayerColor my_pcolor) { playerColor = my_pcolor; }
 
-	public Enum getPcolor() { return pcolor; }
+	public PlayerColor getPlayerColor() { return playerColor; }
 
 	public int getScore() {
 		return score;

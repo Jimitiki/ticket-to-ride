@@ -249,12 +249,12 @@ public class Game {
 			List<Segment> segments = new ArrayList<Segment>();
 
 			//Parse color
-//			String color = routeObject.get("color").getAsString();
-//			CardColor c = CardColor.fromString(color);
+			String color = routeObject.get("color").getAsString();
+			CardColor c = CardColor.fromString(color);
 
 			//			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
 
-			Route route = new Route(i, endpoint1, endpoint2, segments.size(), null, null, segments); //first null is c
+			Route route = new Route(i, endpoint1, endpoint2, segments.size(), c, null, segments); //first null is c
 			board.getRoutes().add(route);
 		}
 	}
