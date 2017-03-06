@@ -20,6 +20,7 @@ public class DrawTrainCardCommand extends BaseCommand {
 	public DrawTrainCardCommand(String username, int gameID, int drawPileID) {
 		super(username, gameID);
 		this.drawPileID = drawPileID;
+		name = "DrawTrainCardCommand";
 	}
 
 	@Override

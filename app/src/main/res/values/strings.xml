@@ -11,6 +11,6 @@
     <string name="send">Send</string>
     <string name="colon">:</string>
     <string name="close">Close</string>
-    <string name="defaultIP">10.0.0.2</string>
+    <string name="defaultIP">10.0.2.2</string>
     <string name="defaultPort">8080</string>
 </resources>

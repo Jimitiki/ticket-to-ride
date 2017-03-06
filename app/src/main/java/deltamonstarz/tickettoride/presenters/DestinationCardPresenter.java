@@ -4,11 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import delta.monstarz.shared.commands.DrawDestCardsCommand;
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
-import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChooseDestinationDialog;
@@ -32,6 +30,9 @@ public class DestinationCardPresenter extends BasePresenter {
 
 	@Override
 	public void update(UpdateType updateType) {
+		if (updateType == UpdateType.DRAW_DEST_CARDS) {
+			onDestinationCardDraw(model.getDestCardChoices(), model.getMinSelection());
+		}
 	}
 
 	@Override
@@ -50,11 +51,7 @@ public class DestinationCardPresenter extends BasePresenter {
 	}
 
 	public void drawCards() {
-		//proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
-		ArrayList<DestCard> destinationCards = new ArrayList<>();
-		destinationCards.add(new DestCard(new City("Dallas"), new City("LA"), 5));
-		destinationCards.add(new DestCard(new City("Las Vegas"), new City("New York"), 10));
-		onDestinationCardDraw(destinationCards, 2);
+		proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
 	}
 
 	public void reportSelection(List<DestCard> keptCards, List<DestCard> returnedCards) {
@@ -63,7 +60,7 @@ public class DestinationCardPresenter extends BasePresenter {
 		));
 	}
 
-	public void onDestinationCardDraw(ArrayList<DestCard> destinationCards, int minSelection) {
+	private void onDestinationCardDraw(ArrayList<DestCard> destinationCards, int minSelection) {
 		chooseDestinationDialog.setDestCards(destinationCards, minSelection);
 	}
 }

@@ -16,6 +16,7 @@ public abstract class ClaimRouteCommand extends BaseCommand {
     public ClaimRouteCommand(String username, Route r) {
         super(username);
         route = r;
+        name = "ClaimRouteCommand";
     }
 
     public void setHasLongest(boolean has) {

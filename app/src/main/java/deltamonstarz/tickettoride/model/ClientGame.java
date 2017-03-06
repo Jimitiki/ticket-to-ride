@@ -7,19 +7,16 @@ import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
-
-/**
- * Created by oliphaun on 2/22/17.
- */
 
 public class ClientGame {
     private Board board;
     private Player me;
-    private List<Opponent> opps;
+    private List<PlayerInfo> playerInfos;
     private boolean started;
-    private int commandCounter;
+    private int lastCommandID;
     private int gameID;
 	private List<String> players;
 	private List<Message> chatHistory;
@@ -27,29 +24,48 @@ public class ClientGame {
 	public ClientGame(int id) {
 		gameID = id;
 		players = new ArrayList<>();
+		me = new Player(ClientModel.getInstance().getUsername());
+		lastCommandID = -1;
 	}
 
     public int getGameID() { return gameID; }
     public void setGameID(int gameID) { this.gameID = gameID; }
-    public int getCurCommand() { return commandCounter; }
+    public int getCurCommand() { return lastCommandID; }
     public boolean isStarted() { return started;}
 
     public void setStarted(boolean started) {
 		this.started = started;
-		opps = new ArrayList<Opponent>();
+//		opps = new ArrayList<>();
 	    chatHistory = new ArrayList<>();
-		for (String username : players) {
-			opps.add(new Opponent(username));
-		}
+//		for (String username : players) {
+//			if (ClientModel.getInstance().getUsername().equals(username)) {
+//				opps.add(new PlayerInfo(username));
+//			}
+//		}
 	}
 
-    public List<Opponent> getOpps() { return opps; }
-    public void setOpps(List<Opponent> opps) { this.opps = opps; }
-    public Player getMe() { return me; }
+
+	public List<PlayerInfo> getPlayerInfos() {
+		return playerInfos;
+	}
+
+	// Iterate through current playerInfos and replace the one with a matching username
+	// else just add the player_info to the end.
+	public void updatePlayerInfo(PlayerInfo player_info) {
+		for (int i = 0; i < playerInfos.size(); i++) {
+			if (playerInfos.get(i).getUsername() == player_info.getUsername()) {
+				playerInfos.set(i, player_info);
+				return;
+			}
+		}
+		playerInfos.add(player_info);
+	}
+
+	public Player getMe() { return me; }
     public void setMe(Player me) { this.me = me; }
     public Board getBoard() { return board; }
     public void setBoard(Board board) { this.board = board;}
-    public void incrementCommand() { commandCounter++;}
+    public void setLastCommandID(int lastID) { lastCommandID = lastID;}
 	public List<String> getPlayers() {
 		return players;
 	}
@@ -63,10 +79,18 @@ public class ClientGame {
 		}
 	}
 
-	public void setDestCardChoices(List<DestCard> choices) { me.setDestCardChoices(choices);}
+	public void setDestCardChoices(ArrayList<DestCard> choices) { me.setDestCardChoices(choices);}
 
-	public List<DestCard> getDestCardChoices() {
+	public ArrayList<DestCard> getDestCardChoices() {
 		return me.getDestCardChoices();
+	}
+
+	public int getMinSelection() {
+		return me.getMinSelection();
+	}
+
+	public void setMinSelection(int minSelection) {
+		me.setMinSelection(minSelection);
 	}
 
 	public List<Message> getChatHistory() {

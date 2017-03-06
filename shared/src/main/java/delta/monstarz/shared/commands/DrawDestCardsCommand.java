@@ -1,22 +1,17 @@
 package delta.monstarz.shared.commands;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.ArrayList;
 
 import delta.monstarz.shared.model.DestCard;
 
-/**
- * Created by oliphaun on 2/25/17.
- */
-
 public class DrawDestCardsCommand extends BaseCommand {
-	protected List<DestCard> choices;
+	protected ArrayList<DestCard> choices;
 	protected int mustKeep;
 
-	public List<DestCard> getChoices() {
+	public ArrayList<DestCard> getChoices() {
 		return choices;
 	}
-	public void setChoices(List<DestCard> choices) {
+	public void setChoices(ArrayList<DestCard> choices) {
 		this.choices = choices;
 	}
 	public int getMustKeep() {
@@ -28,6 +23,7 @@ public class DrawDestCardsCommand extends BaseCommand {
 
 	public DrawDestCardsCommand(String username, int gameID) {
 		super(username, gameID);
+		name = "DrawDestCardsCommand";
 	}
 
 	@Override
