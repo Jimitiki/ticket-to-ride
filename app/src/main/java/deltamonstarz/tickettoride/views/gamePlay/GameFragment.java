@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.PlayerInfo;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
@@ -95,7 +98,6 @@ public class GameFragment extends Fragment {
 				System.out.print("drawing card");
 				launchDestinationChooserDialog();
 				//launchChooseCardDialog();
-				//drawDestinationCards();
 			}
 		});
 
@@ -118,6 +120,33 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("opening history view");
+				PlayerInfo pI = new PlayerInfo(
+						"Trevor",
+						PlayerColor.RED,
+						10,
+						9,
+						8,
+						7,
+						true,
+						true);
+				ClientUpdatePlayerInfoCommand c = new ClientUpdatePlayerInfoCommand(pI);
+				c.execute();
+
+				pI.setPlayerColor(PlayerColor.BLUE);
+				c = new ClientUpdatePlayerInfoCommand(pI);
+				c.execute();
+
+				pI.setPlayerColor(PlayerColor.GREEN);
+				c = new ClientUpdatePlayerInfoCommand(pI);
+				c.execute();
+
+				pI.setPlayerColor(PlayerColor.BLACK);
+				c = new ClientUpdatePlayerInfoCommand(pI);
+				c.execute();
+
+				pI.setPlayerColor(PlayerColor.YELLOW);
+				c = new ClientUpdatePlayerInfoCommand(pI);
+				c.execute();
 			}
 		});
 
@@ -135,7 +164,7 @@ public class GameFragment extends Fragment {
 			}
 		});
 
-		disableButtons();
+		//disableButtons();
 
 		return v;
 	}
@@ -200,5 +229,9 @@ public class GameFragment extends Fragment {
 		dialog.setDestCardList(list);
 
 		dialog.show(manager, "show_destination_cards_dialog");
+	}
+
+	public void updatePlayerInfo(){
+		gameInfoFragment.update();
 	}
 }

@@ -151,5 +151,6 @@ public class ClientModel extends Observable{
 
 	public void updatePlayerInfo(PlayerInfo player_info) {
 		game.updatePlayerInfo(player_info);
+		notifyPresenter(UpdateType.PLAYER_INFO);
 	}
 }
