@@ -3,6 +3,8 @@ package delta.monstarz.shared.model;
 import java.util.Collection;
 import java.util.List;
 
+import javax.smartcardio.Card;
+
 /**
  * Created by oliphaun on 2/24/17.
  */
@@ -12,11 +14,11 @@ public class Route {
     private String city1;
     private String city2;
     private int length;
-    private Enum color;
+    private CardColor color;
     private String owner;
     private List<Segment> segments;
 
-    public Route(int pId, String pCity1, String pCity2, int pLength, Enum pColor, String pOwner, List<Segment> pSegments)
+    public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, String pOwner, List<Segment> pSegments)
     {
         id = pId;
         city1 = pCity1;
@@ -33,8 +35,8 @@ public class Route {
     public void setSegments(List<Segment> segments) { this.segments = segments; }
     public String getOwner() { return owner; }
     public void setOwner(String owner) { this.owner = owner; }
-    public Enum getColor() { return color;}
-    public void setColor(Enum color) { this.color = color; }
+    public CardColor getColor() { return color;}
+    public void setColor(CardColor color) { this.color = color; }
     public int getLength() {return length;}
     public void setLength(int length) { this.length = length;}
     public String getCity2() { return city2;}

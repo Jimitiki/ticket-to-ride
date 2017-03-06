@@ -44,7 +44,7 @@ public class Player {
 
 	public void setPcolor(PlayerColor my_pcolor) { pcolor = my_pcolor; }
 
-	public Enum getPcolor() { return pcolor; }
+	public PlayerColor getPcolor() { return pcolor; }
 
 	public int getScore() {
 		return score;
