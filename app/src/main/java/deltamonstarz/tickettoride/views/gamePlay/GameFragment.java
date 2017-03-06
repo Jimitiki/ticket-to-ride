@@ -120,6 +120,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("opening history view");
+				/*
 				PlayerInfo pI = new PlayerInfo(
 						"Trevor",
 						PlayerColor.RED,
@@ -147,6 +148,7 @@ public class GameFragment extends Fragment {
 				pI.setPlayerColor(PlayerColor.YELLOW);
 				c = new ClientUpdatePlayerInfoCommand(pI);
 				c.execute();
+				*/
 			}
 		});
 
