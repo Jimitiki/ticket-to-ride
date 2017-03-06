@@ -1,4 +1,4 @@
-package deltamonstarz.tickettoride.model;
+package delta.monstarz.shared.model;
 
 public class PlayerInfo {
 	private String username;
@@ -7,6 +7,8 @@ public class PlayerInfo {
 	private int numTrainsCards;
 	private int numDestCards;
 	private int numTrains;
+	private boolean hasLongestRoute;
+	private boolean isPlayersTurn;
 
 	public PlayerInfo(String username) {
 		this.username = username;
@@ -52,5 +54,21 @@ public class PlayerInfo {
 
 	public void setNumTrains(int numTrains) {
 		this.numTrains = numTrains;
+	}
+
+	public boolean isHasLongestRoute() {
+		return hasLongestRoute;
+	}
+
+	public void setHasLongestRoute(boolean hasLongestRoute) {
+		this.hasLongestRoute = hasLongestRoute;
+	}
+
+	public boolean isPlayersTurn() {
+		return isPlayersTurn;
+	}
+
+	public void setPlayersTurn(boolean playersTurn) {
+		isPlayersTurn = playersTurn;
 	}
 }

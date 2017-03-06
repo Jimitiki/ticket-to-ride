@@ -7,6 +7,7 @@ import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 
