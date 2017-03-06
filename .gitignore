@@ -50,3 +50,4 @@ gen/
 /captures
 .externalNativeBuild
 .idea/dataSources.ids
+/.idea/modules.xml

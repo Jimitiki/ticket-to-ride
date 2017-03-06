@@ -16,5 +16,6 @@ public enum UpdateType {
 	DEST_CARDS,
 	TRAIN_CARD,
 	CHAT,
-	ROUTE
+	ROUTE,
+	PLAYER_INFO
 }

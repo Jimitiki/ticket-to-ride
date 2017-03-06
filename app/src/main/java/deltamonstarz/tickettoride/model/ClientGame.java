@@ -14,7 +14,7 @@ import delta.monstarz.shared.model.TrainCard;
 public class ClientGame {
     private Board board;
     private Player me;
-    private List<PlayerInfo> playerInfos;
+    private List<PlayerInfo> playerInfos = new ArrayList<>();
     private boolean started;
     private int lastCommandID;
     private int gameID;
