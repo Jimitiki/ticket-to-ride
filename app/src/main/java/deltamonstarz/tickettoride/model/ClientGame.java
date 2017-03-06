@@ -14,7 +14,7 @@ import delta.monstarz.shared.model.TrainCard;
 public class ClientGame {
     private Board board;
     private Player me;
-    private List<PlayerInfo> opps;
+    private List<PlayerInfo> playerInfos;
     private boolean started;
     private int lastCommandID;
     private int gameID;
@@ -35,18 +35,33 @@ public class ClientGame {
 
     public void setStarted(boolean started) {
 		this.started = started;
-		opps = new ArrayList<>();
+//		opps = new ArrayList<>();
 	    chatHistory = new ArrayList<>();
-		for (String username : players) {
-			if (ClientModel.getInstance().getUsername().equals(username)) {
-				opps.add(new PlayerInfo(username));
-			}
-		}
+//		for (String username : players) {
+//			if (ClientModel.getInstance().getUsername().equals(username)) {
+//				opps.add(new PlayerInfo(username));
+//			}
+//		}
 	}
 
-    public List<PlayerInfo> getOpps() { return opps; }
-    public void setOpps(List<PlayerInfo> opps) { this.opps = opps; }
-    public Player getMe() { return me; }
+
+	public List<PlayerInfo> getPlayerInfos() {
+		return playerInfos;
+	}
+
+	// Iterate through current playerInfos and replace the one with a matching username
+	// else just add the player_info to the end.
+	public void updatePlayerInfo(PlayerInfo player_info) {
+		for (int i = 0; i < playerInfos.size(); i++) {
+			if (playerInfos.get(i).getUsername() == player_info.getUsername()) {
+				playerInfos.set(i, player_info);
+				return;
+			}
+		}
+		playerInfos.add(player_info);
+	}
+
+	public Player getMe() { return me; }
     public void setMe(Player me) { this.me = me; }
     public Board getBoard() { return board; }
     public void setBoard(Board board) { this.board = board;}

@@ -8,6 +8,7 @@ import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.presenters.BasePresenter;
@@ -146,5 +147,9 @@ public class ClientModel extends Observable{
 	public void addMessage(Message message) {
 		game.addMessage(message);
 		notifyPresenter(UpdateType.CHAT);
+	}
+
+	public void updatePlayerInfo(PlayerInfo player_info) {
+		game.updatePlayerInfo(player_info);
 	}
 }
