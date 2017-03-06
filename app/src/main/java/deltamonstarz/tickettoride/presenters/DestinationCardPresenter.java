@@ -4,11 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import delta.monstarz.shared.commands.DrawDestCardsCommand;
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
-import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChooseDestinationDialog;
@@ -54,10 +52,6 @@ public class DestinationCardPresenter extends BasePresenter {
 
 	public void drawCards() {
 		proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
-//		ArrayList<DestCard> destinationCards = new ArrayList<>();
-//		destinationCards.add(new DestCard("Dallas", "LA", 5));
-//		destinationCards.add(new DestCard("Las Vegas", "New York", 10));
-//		onDestinationCardDraw(destinationCards, 2);
 	}
 
 	public void reportSelection(List<DestCard> keptCards, List<DestCard> returnedCards) {

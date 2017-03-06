@@ -8,7 +8,7 @@ public class DrawDestCardsCommand extends BaseCommand {
 	protected ArrayList<DestCard> choices;
 	protected int mustKeep;
 
-	public List<DestCard> getChoices() {
+	public ArrayList<DestCard> getChoices() {
 		return choices;
 	}
 	public void setChoices(ArrayList<DestCard> choices) {
