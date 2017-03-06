@@ -1,13 +1,20 @@
 package deltamonstarz.tickettoride.views.gamePlay;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import delta.monstarz.shared.Message;
@@ -27,6 +34,12 @@ import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 public class GameFragment extends Fragment {
 	private static GamePresenter presenter;
 	private GameActivity activity;
+	private PlayerCardsFragment playerCardsFragment;
+	private GameInfoFragment gameInfoFragment;
+	private Canvas map;
+	private Rect canvasRect;
+
+	private MapView mapView;
 	private Button drawCard;
 	private Button placeTrain;
 	private Button viewCards;
@@ -34,8 +47,7 @@ public class GameFragment extends Fragment {
 	private Button viewChat;
 	private Button demo;
 
-	private PlayerCardsFragment playerCardsFragment;
-	private GameInfoFragment gameInfoFragment;
+	private String mapImagePath;
 
 	public GameFragment() {}
 
@@ -55,6 +67,9 @@ public class GameFragment extends Fragment {
 		this.activity = activity;
 	}
 
+	public void setMapImagePath(String mapImagePath) {
+		this.mapImagePath = mapImagePath;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,11 +104,17 @@ public class GameFragment extends Fragment {
 		viewChat = (Button) v.findViewById(R.id.chat_button);
 		demo = (Button) v.findViewById(R.id.demo_button);
 
+		mapView = (MapView) v.findViewById(R.id.mapView);
+
+		mapView.setActivity(activity);
+		mapView.generateBitmap(mapImagePath, 0, 0);
+
 		drawCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
-				launchDestinationChooserDialog();
+				mapView.redraw();
+				//launchDestinationChooserDialog();
 				//launchChooseCardDialog();
 				//drawDestinationCards();
 			}

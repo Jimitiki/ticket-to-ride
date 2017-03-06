@@ -67,7 +67,7 @@ public class GamePresenter extends BasePresenter {
 				lobbyFragment.onPlayerJoin(model.getPlayers());
 				break;
 			case START_GAME:
-				activity.onGameStart();
+				activity.onGameStart(model.getMapImagePath());
 				break;
 			case DEST_CARDS:
 				gameFragment.enableButtons();

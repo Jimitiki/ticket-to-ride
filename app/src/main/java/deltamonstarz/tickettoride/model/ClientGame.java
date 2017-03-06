@@ -104,4 +104,8 @@ public class ClientGame {
 	public void addMessage(Message message) {
 		chatHistory.add(message);
 	}
+
+	public String getMapImagePath() {
+		return board.getImageID();
+	}
 }

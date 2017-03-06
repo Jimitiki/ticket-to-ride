@@ -16,6 +16,7 @@ public class Route {
     private int length;
     private CardColor color;
     private String owner;
+    private PlayerColor trainColor;
     private List<Segment> segments;
 
     public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, String pOwner, List<Segment> pSegments)
