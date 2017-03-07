@@ -25,11 +25,11 @@
                 android:layout_width="100dp">
             </FrameLayout>
 
-            <SurfaceView
-                android:layout_height="match_parent"
-                android:id="@+id/surfaceView"
+            <deltamonstarz.tickettoride.views.gamePlay.MapView
+                android:id="@+id/mapView"
                 android:layout_weight="1"
-                android:layout_width="0dp"/>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
 
             <FrameLayout
                 android:id="@+id/players_info_fragment"

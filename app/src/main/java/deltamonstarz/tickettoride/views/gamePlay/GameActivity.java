@@ -62,10 +62,11 @@ public class GameActivity extends AppCompatActivity
 		toast.show();
 	}
 
-	public void onGameStart() {
+	public void onGameStart(String mapPath) {
 		System.out.print("game started");
 		FragmentManager fm = this.getSupportFragmentManager();
 		gameFragment = GameFragment.newInstance();
+		gameFragment.setMapImagePath(mapPath);
 		fm.beginTransaction()
 				.replace(R.id.fragmentContainer, gameFragment)
 				.commit();

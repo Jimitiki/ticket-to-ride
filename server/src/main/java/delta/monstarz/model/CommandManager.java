@@ -1,6 +1,7 @@
 package delta.monstarz.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import delta.monstarz.exceptions.InvalidCommandException;
@@ -18,12 +19,13 @@ public class CommandManager {
 	public static void execute(BaseCommand command) {
 		if (validate(command)) {
 			Game game = GameManager.getInstance().getGameByID(command.getGameID());
-//			try {
-				command.execute();
+
+			command.execute();
+
+			if (command.expires() == false) {
 				game.addCommand(command);
-//			} catch(InvalidCommandException e) {
-//				pass;
-//			}
+			}
+
 		}
 	}
 
@@ -51,6 +53,17 @@ public class CommandManager {
 					visibleCommands.add(command);
 				}
 			}
+
+			// These commands are deleted once they have been sent back
+			List<BaseCommand> commandsThatExpire = game.getOneTimeUseCommands();
+			for ( Iterator<BaseCommand> iterator = commandsThatExpire.iterator(); iterator.hasNext(); ){
+				BaseCommand command = iterator.next();
+				if (username.equals(command.getUsername())){
+					visibleCommands.add(command);
+					iterator.remove();
+				}
+			}
+
 			return visibleCommands;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -51,13 +51,21 @@ public class DestinationCardPresenter extends BasePresenter {
 	}
 
 	public void drawCards() {
-		proxy.sendCommand(model.getAuthToken(), new DrawDestCardsCommand(model.getUsername(), model.getGameID()));
+		DrawDestCardsCommand command = new DrawDestCardsCommand(model.getUsername(), model.getGameID());
+		command.setExpires(true);
+		proxy.sendCommand(model.getAuthToken(),command );
 	}
 
 	public void reportSelection(List<DestCard> keptCards, List<DestCard> returnedCards) {
-		proxy.sendCommand(model.getUsername(), new SelectDestCardsCommand(
-				model.getUsername(), model.getGameID(), keptCards, returnedCards
-		));
+		SelectDestCardsCommand command = new SelectDestCardsCommand(
+				model.getUsername(),
+				model.getGameID(),
+				keptCards,
+				returnedCards
+		);
+
+		proxy.sendCommand(model.getAuthToken(), command);
+
 	}
 
 	private void onDestinationCardDraw(ArrayList<DestCard> destinationCards, int minSelection) {

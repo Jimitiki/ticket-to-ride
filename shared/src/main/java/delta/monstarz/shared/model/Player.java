@@ -1,12 +1,9 @@
 package delta.monstarz.shared.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import delta.monstarz.shared.model.TrainCard;
 
 /**
  * Created by Trevor on 2/2/2017.
@@ -14,12 +11,12 @@ import delta.monstarz.shared.model.TrainCard;
 
 public class Player {
 	private String username;
-	private PlayerColor pcolor;
+	private PlayerColor playerColor;
 	private int score;
 	private int numTrains;
 	private int minSelection;
 	private Map<TrainCard, Integer> trainCards;
-	private List<DestCard> destCards;
+	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
 
 	public ArrayList<DestCard> getDestCardChoices() {
@@ -42,9 +39,9 @@ public class Player {
 		this.username = username;
 	}
 
-	public void setPcolor(PlayerColor my_pcolor) { pcolor = my_pcolor; }
+	public void setPlayerColor(PlayerColor my_pcolor) { playerColor = my_pcolor; }
 
-	public PlayerColor getPcolor() { return pcolor; }
+	public PlayerColor getPlayerColor() { return playerColor; }
 
 	public int getScore() {
 		return score;

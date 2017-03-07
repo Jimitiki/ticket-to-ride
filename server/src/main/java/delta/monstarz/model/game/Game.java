@@ -54,6 +54,7 @@ public class Game {
 	private Board board;
 	private int nextID = 0;
 	private List<BaseCommand> history = new ArrayList<>();
+	private List<BaseCommand> oneTimeUseCommands = new ArrayList<>();
 
 	//Constructor
 	public Game(String gameName, String ownerName) {
@@ -112,10 +113,20 @@ public class Game {
 		return history;
 	}
 
+	public List<BaseCommand> getOneTimeUseCommands() {
+		return oneTimeUseCommands;
+	}
+
 	//Public Methods
 	public void addCommand(BaseCommand command) {
 		command.setId(nextID++);
-		history.add(command);
+		if (command.expires()){
+			oneTimeUseCommands.add(command);
+		}
+		else{
+			history.add(command);
+		}
+
 	}
 
 	public Player getPlayerByUsername(String username) {
@@ -137,9 +148,6 @@ public class Game {
 					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p.getUsername(), gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
-				ServerDrawDestCardsCommand destCommand = new ServerDrawDestCardsCommand(p, gameID);
-				destCommand.setMustKeep(2);
-				CommandManager.execute(destCommand);
 			}
 
 			gameStarted = true;

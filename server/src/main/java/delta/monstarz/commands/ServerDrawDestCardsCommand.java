@@ -22,7 +22,24 @@ public class ServerDrawDestCardsCommand extends DrawDestCardsCommand
 	@Override
 	public void execute() {
 		Game game = GameManager.getInstance().getGameByID(gameID);
-		ArrayList<DestCard> cards = game.getDestDeck().drawCards();
-		this.setChoices(cards);
+
+		DrawDestCardsCommand command = new DrawDestCardsCommand(username, gameID);
+
+		Player player = GameManager.getInstance().getGameByID(gameID).getPlayerByUsername(username);
+
+		ArrayList<DestCard> cards = player.getDestCardChoices();
+
+		if (cards == null ){
+			cards = game.getDestDeck().drawCards();
+			player.setDestCardChoices(cards);
+		}
+
+		command.setChoices(cards);
+		command.setExpires(true);
+
+		if (player.getDestCards().size() <= 1){
+			command.setMustKeep(2);
+		}
+		game.addCommand(command);
 	}
 }

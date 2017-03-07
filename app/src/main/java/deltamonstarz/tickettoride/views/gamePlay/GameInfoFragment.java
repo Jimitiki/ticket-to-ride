@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.PlayerInfo;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,6 +87,27 @@ public class GameInfoFragment extends Fragment {
 		}
 
 
+	}
 
+	public void update(){
+		for (PlayerInfo playerInfo: ClientModel.getInstance().getGame().getPlayerInfos()) {
+			switch(playerInfo.getPlayerColor()){
+				case BLUE:
+					blue.update(playerInfo);
+					break;
+				case GREEN:
+					green.update(playerInfo);
+					break;
+				case RED:
+					red.update(playerInfo);
+					break;
+				case YELLOW:
+					yellow.update(playerInfo);
+					break;
+				case BLACK:
+					black.update(playerInfo);
+					break;
+			}
+		}
 	}
 }

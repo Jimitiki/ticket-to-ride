@@ -1,5 +1,7 @@
 package delta.monstarz.shared.model;
 
+import delta.monstarz.shared.model.PlayerColor;
+
 public class PlayerInfo {
 	private String username;
 	private PlayerColor playerColor;
@@ -10,11 +12,18 @@ public class PlayerInfo {
 	private boolean hasLongestRoute;
 	private boolean isPlayersTurn;
 
-	public PlayerInfo(String username) {
+	public PlayerInfo(String username, PlayerColor playerColor, int score, int numTrainsCards,
+	                  int numDestCards, int numTrains, boolean hasLongestRoute, boolean isPlayersTurn) {
 		this.username = username;
-		numDestCards = numTrainsCards = score = 0;
-		numTrains = 45;
+		this.playerColor = playerColor;
+		this.score = score;
+		this.numTrainsCards = numTrainsCards;
+		this.numDestCards = numDestCards;
+		this.numTrains = numTrains;
+		this.hasLongestRoute = hasLongestRoute;
+		this.isPlayersTurn = isPlayersTurn;
 	}
+
 
 	public String getUsername() {
 		return username;
