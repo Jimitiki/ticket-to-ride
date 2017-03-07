@@ -5,6 +5,7 @@ public class BaseCommand {
     protected String username;
     protected int gameID;
 	protected boolean isGlobal;
+	protected boolean expires = false;
 	protected int id;
 
 	public BaseCommand(String username) {
@@ -56,5 +57,13 @@ public class BaseCommand {
 
 	public void setGlobal(boolean global) {
 		isGlobal = global;
+	}
+
+	public boolean expires() {
+		return expires;
+	}
+
+	public void setExpires(boolean expires) {
+		this.expires = expires;
 	}
 }

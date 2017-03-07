@@ -24,6 +24,7 @@ import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
@@ -116,9 +117,15 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
-				mapView.redraw();
-				//launchDestinationChooserDialog();
-				//launchChooseCardDialog();
+
+				// Todo: Law of delimiter?
+				if (ClientModel.getInstance().getGame().getMe().getDestCards().size() >= 2){
+					launchChooseCardDialog();
+				}
+				else{
+					launchDestinationChooserDialog();
+				}
+
 			}
 		});
 
@@ -183,7 +190,8 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				advanceDemo();
+				mapView.redraw();
+				//advanceDemo();
 			}
 		});
 

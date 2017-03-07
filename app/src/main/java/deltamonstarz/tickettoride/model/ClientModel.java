@@ -125,7 +125,9 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.DRAW_DEST_CARDS);
 	}
 
-	public void setDestCardChoices(ArrayList<DestCard> choices) { game.setDestCardChoices(choices);}
+	public void setDestCardChoices(ArrayList<DestCard> choices) {
+		game.setDestCardChoices(choices);
+	}
 	public ArrayList<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
 
 	public List<Message> getChatHistory() {

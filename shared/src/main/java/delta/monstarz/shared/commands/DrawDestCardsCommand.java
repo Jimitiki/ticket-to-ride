@@ -24,6 +24,8 @@ public class DrawDestCardsCommand extends BaseCommand {
 	public DrawDestCardsCommand(String username, int gameID) {
 		super(username, gameID);
 		name = "DrawDestCardsCommand";
+		this.mustKeep = 1; // Default is one, first draw this should be set to two, server decides :)
+		isGlobal = false;
 	}
 
 	@Override

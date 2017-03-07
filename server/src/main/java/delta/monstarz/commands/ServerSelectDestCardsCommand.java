@@ -37,8 +37,11 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 			}
 			player.addDestCard(card);
 		}
+		// This is set to null because the server caches the destination cards the player has commited to choose from
+		// Once they have made a decision the player no longer is restricted to choosing from the cached cards
+		player.setDestCardChoices(null);
 		game.getDestDeck().returnCards(discard);
-		//TODO Implement this
+		//TODO Implement this, the client need to be told to draw the cards(send a command). This is because the game will need to sync up later!
 	}
 
 

@@ -51,7 +51,7 @@ public class PlayerManager
 
 	public Player getPlayerByUsername(String username) {
 		for (Player p : players) {
-			if (p.getUsername() == username) {
+			if (p.getUsername().equals(username)) {
 				return p;
 			}
 		}
