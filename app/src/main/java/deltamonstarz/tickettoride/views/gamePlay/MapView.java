@@ -12,16 +12,26 @@ import android.view.View;
 import java.io.IOException;
 import java.io.InputStream;
 
+import delta.monstarz.shared.model.PlayerColor;
+
 public class MapView extends View {
-	private Bitmap bitmap;
+	private Bitmap mapImage;
 	private GameActivity activity;
 	private Rect sourceRect;
 	private RectF destRect;
 	private float mapScaleX;
 	private float mapScaleY;
 
-
+	private final static String[] TRAIN_IMAGES = {
+			"Blue.png",
+			"Green.png",
+			"Red.png",
+			"Yellow.png",
+			"Black.png"
+	};
+	private static Bitmap[] trainImages = new Bitmap[5];
 	private final static String MAP_PATH_PREFIX = "maps/";
+	private final static String TRAIN_PATH_PREFIX = "train_icons/";
 
 	public MapView(Context context) {
 		super(context);
@@ -42,8 +52,8 @@ public class MapView extends View {
 	public void generateBitmap(String mapImagePath, int viewHeight, int viewWidth) {
 		try {
 			InputStream is = activity.getAssets().open(MAP_PATH_PREFIX + mapImagePath);
-			bitmap = BitmapFactory.decodeStream(is);
-			sourceRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+			mapImage = BitmapFactory.decodeStream(is);
+			sourceRect = new Rect(0, 0, mapImage.getWidth(), mapImage.getHeight());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,11 +69,18 @@ public class MapView extends View {
 		super.onDraw(canvas);
 		if (destRect == null) {
 			destRect = new RectF(0, 0, getWidth(), getHeight());
-			mapScaleX = getWidth() / bitmap.getWidth();
-			mapScaleY = getHeight() / bitmap.getHeight();
+			mapScaleX = getWidth() / mapImage.getWidth();
+			mapScaleY = getHeight() / mapImage.getHeight();
+			//1442, 740
+		}
+		canvas.drawBitmap(mapImage, sourceRect, destRect, null);
+		System.out.println(getHeight() + "x : y" + getWidth());
+	}
+
+	private void drawTrain(int x, int y, int theta, PlayerColor color)
+	{
+		if (trainImages[color.getValue()] == null) {
 
 		}
-		canvas.drawBitmap(bitmap, sourceRect, destRect, null);
-		System.out.println(getHeight() + "x : y" + getWidth());
 	}
 }
