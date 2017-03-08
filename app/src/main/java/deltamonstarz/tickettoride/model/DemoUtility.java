@@ -68,7 +68,7 @@ public class DemoUtility {
 	}
 
 	private static void showToast(String text){
-		Toast.makeText(appContext, text, Toast.LENGTH_LONG).show();
+		Toast.makeText(appContext, text, Toast.LENGTH_SHORT).show();
 	}
 
 	private static void demo0(){
@@ -134,7 +134,7 @@ public class DemoUtility {
 		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
 		commandInfo.execute();
 
-		showToast("Current players score incremented by 5");
+		showToast("Current player's score incremented by 5");
 
 	}
 
@@ -151,15 +151,39 @@ public class DemoUtility {
 		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
 		commandInfo.execute();
 
-		showToast("Current players trains decremented by 4");
+		showToast("Current player's trains decremented by 4");
 	}
 
 	private static void demo5(){
+		// Update player info
+		PlayerInfo changedInfo = null;
+		for (PlayerInfo playerInfo:model.getPlayerInfos()){
+			if (playerInfo.getUsername().equals(model.getUsername())){
+				changedInfo = playerInfo;
+			}
+		}
 
+		changedInfo.setHasLongestRoute(true);
+		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
+		commandInfo.execute();
+
+		showToast("Current player now has longest route");
 	}
 
 	private static void demo6(){
+		// Update player info
+		PlayerInfo changedInfo = null;
+		for (PlayerInfo playerInfo:model.getPlayerInfos()){
+			if (playerInfo.getUsername().equals(model.getUsername())){
+				changedInfo = playerInfo;
+			}
+		}
 
+		changedInfo.setPlayersTurn(true);
+		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
+		commandInfo.execute();
+
+		showToast("It is now the current player's turn");
 	}
 
 	private static void demo7(){
