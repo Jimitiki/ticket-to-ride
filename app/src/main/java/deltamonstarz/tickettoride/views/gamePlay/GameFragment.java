@@ -251,13 +251,7 @@ public class GameFragment extends Fragment {
 	private void launchShowDestinationCardsDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ShowDestinationCardsDialog dialog = new ShowDestinationCardsDialog();
-
-		// Todo: Use real cards from the client model
-		ArrayList<DestCard> list = new ArrayList<>();
-		list.add(new DestCard("Dallas", "LA", 5));
-		list.add(new DestCard("Las Vegas", "New York", 10));
-
-		dialog.setDestCardList(list);
+		dialog.setDestCardList(presenter.getDestinationCards());
 
 		dialog.show(manager, "show_destination_cards_dialog");
 	}

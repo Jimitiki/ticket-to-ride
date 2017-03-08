@@ -160,4 +160,8 @@ public class ClientModel extends Observable{
 		return game.getMapImagePath();
 	}
 
+	public List<DestCard> getDestinationCards() {
+		return game.getMe().getDestCards();
+	}
+
 }

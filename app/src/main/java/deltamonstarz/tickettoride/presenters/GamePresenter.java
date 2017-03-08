@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.List;
 
 import delta.monstarz.shared.commands.StartGameCommand;
+import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.Poller;
 import deltamonstarz.tickettoride.model.UpdateType;
@@ -146,6 +147,10 @@ public class GamePresenter extends BasePresenter {
 	 */
 	public List<Route> getClaimedRoutes() {
 		return null;
+	}
+
+	public List<DestCard> getDestinationCards() {
+		return model.getDestinationCards();
 	}
 
 	/**
