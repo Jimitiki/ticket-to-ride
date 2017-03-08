@@ -67,6 +67,7 @@ public class ClientModel extends Observable{
 
 	public synchronized void addDestCard(DestCard card) {
 		game.addDestCard(card);
+		notifyPresenter(UpdateType.DEST_CARDS);
 	}
 
 	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {
