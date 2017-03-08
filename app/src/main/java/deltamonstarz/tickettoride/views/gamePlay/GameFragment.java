@@ -196,17 +196,21 @@ public class GameFragment extends Fragment {
 			}
 		});
 
-		//disableButtons();
+		if (ClientModel.getInstance().getGame().getMe().getDestCards().size() <= 1) {
+			disableButtons();
+		}
 
 		return v;
 	}
 
 	public void enableButtons(){
-		placeTrain.setEnabled(true);
-		viewCards.setEnabled(true);
-		viewHistory.setEnabled(true);
-		viewChat.setEnabled(true);
-		demo.setEnabled(true);
+		if (placeTrain != null) {
+			placeTrain.setEnabled(true);
+			viewCards.setEnabled(true);
+			viewHistory.setEnabled(true);
+			viewChat.setEnabled(true);
+			demo.setEnabled(true);
+		}
 	}
 
 	public void disableButtons(){
@@ -241,12 +245,7 @@ public class GameFragment extends Fragment {
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
-
-
 		dialog.show(manager, "choose_destination_dialog");
-
-		//dialog.setDestCards(cards);
-		//dialog.setCounts(3, minSelection);
 	}
 
 	private void launchShowDestinationCardsDialog(){
