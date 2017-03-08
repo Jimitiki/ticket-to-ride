@@ -16,12 +16,14 @@ import android.widget.Button;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
+import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
 import deltamonstarz.tickettoride.model.ClientModel;
@@ -261,5 +263,10 @@ public class GameFragment extends Fragment {
 
 	public void updateCardCounts() {
 		playerCardsFragment.update();
+	}
+
+	public void onClaimRoute(List<Route> routes) {
+		mapView.setClaimedRoutes(routes);
+		mapView.redraw();
 	}
 }

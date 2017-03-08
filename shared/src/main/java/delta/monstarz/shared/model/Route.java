@@ -15,14 +15,13 @@ public class Route {
     private PlayerColor trainColor;
     private List<Segment> segments;
 
-    public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, String pOwner, List<Segment> pSegments)
+    public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, List<Segment> pSegments)
     {
         id = pId;
         city1 = pCity1;
         city2 = pCity2;
         length = pLength;
         color = pColor;
-        owner = pOwner;
         segments = pSegments;
     }
 
@@ -46,7 +45,7 @@ public class Route {
 	    return owner;
     }
 
-    void setOwner(String owner) {
+    public void setOwner(String owner) {
 	    this.owner = owner;
     }
 
@@ -90,5 +89,8 @@ public class Route {
 	    this.city1 = city1;
     }
 
-
+	public void claim(Player player) {
+		this.owner = player.getUsername();
+		this.trainColor = player.getPlayerColor();
+	}
 }

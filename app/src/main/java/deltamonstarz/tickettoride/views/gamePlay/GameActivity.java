@@ -15,8 +15,6 @@ import deltamonstarz.tickettoride.views.LoginActivity;
 
 public class GameActivity extends AppCompatActivity
 {
-
-
 	private GamePresenter presenter;
 	private GameLobbyFragment lobbyFragment;
 	private GameFragment gameFragment;
