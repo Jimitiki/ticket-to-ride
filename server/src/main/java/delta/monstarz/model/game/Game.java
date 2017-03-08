@@ -69,6 +69,10 @@ public class Game {
 		this.ownerName = ownerName;
 		this.gameID = nextNewGameID;
 		nextNewGameID++;
+
+		parseConfigurations(trainDeck, destDeck, board);
+		trainDeck.initialize();
+		destDeck.shuffle();
 	}
 
 	//Getters and Setters
@@ -140,7 +144,6 @@ public class Game {
 	 */
 	public void start(){
 		if (playerManager.size() > 1){
-			parseConfigurations(trainDeck, destDeck, board);
 
 			for(Player p : playerManager.getPlayers())
 			{
@@ -223,6 +226,11 @@ public class Game {
 		JsonParser parser = new JsonParser();
 		JsonObject preferenceObject = parser.parse(contents).getAsJsonObject();
 
+		int trainCount = preferenceObject.get("TrainCount").getAsInt();
+		playerManager.setStartTrains(trainCount);
+
+		int endGameTrainCount = preferenceObject.get("EndGameTrainCount").getAsInt();
+
 		JsonObject mapObject = preferenceObject.getAsJsonObject("Map");
 		parseMap(mapObject, board);
 
@@ -303,7 +311,6 @@ public class Game {
 				index++;
 			}
 		}
-		manager.initialize();
 	}
 
 	private void parseDestinationCards(JsonArray destinationCardList, DestinationCardManager destManager)

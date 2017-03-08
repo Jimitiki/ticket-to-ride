@@ -35,6 +35,7 @@ public class TrainCardManager
 		for (int i = 0; i < FACE_UP_COUNT; i++){
 			faceupCards.add(drawCard());
 		}
+		//TODO validate not 3 locomotives and reset face up cards if so
 	}
 
 	/**

@@ -20,6 +20,7 @@ public class PlayerManager
 	Set<Player> players;
 	Player owner;
 	Player current;
+	private int startTrains;
 
 	//Constructors
 
@@ -66,7 +67,12 @@ public class PlayerManager
 
 	public void add(Player player)
 	{
+		player.setNumTrains(startTrains);
 		players.add(player);
+	}
+
+	public void setStartTrains(int startTrains) {
+		this.startTrains = startTrains;
 	}
 
 	//Internal Methods

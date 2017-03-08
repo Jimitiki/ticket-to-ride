@@ -1,4 +1,6 @@
 {
+  "TrainCount": 45,
+  "EndGameTrainCount": 2,
   "Map": {
     "file": "mapNA.png",
     "height":500,
