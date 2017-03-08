@@ -50,7 +50,6 @@ public class GameInfoFragment extends Fragment {
 		// Add Game/Player Info Fragment
 		FragmentManager fm = getChildFragmentManager();
 
-		// Todo: Change setColor() to an enum value
 		blue = (PlayerInfoFragment) fm.findFragmentById(R.id.player_info_fragment_01_blue);
 		if (blue == null){
 			blue = new PlayerInfoFragment();

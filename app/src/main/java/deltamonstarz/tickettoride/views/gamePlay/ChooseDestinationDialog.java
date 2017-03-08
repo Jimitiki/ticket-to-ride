@@ -99,7 +99,6 @@ public class ChooseDestinationDialog extends DialogFragment {
 		});
 
 
-		// ToDo: Use the destination cards to set the correct text
 		card1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
