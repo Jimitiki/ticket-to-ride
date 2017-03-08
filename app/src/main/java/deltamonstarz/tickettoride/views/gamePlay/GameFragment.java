@@ -226,7 +226,8 @@ public class GameFragment extends Fragment {
 		demo.setEnabled(false);
 	}
 
-	private void openChat() {
+	//TODO: make private
+	public void openChat() {
 		System.out.println("opening chat");
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChatDialogFragment dialog = new ChatDialogFragment();

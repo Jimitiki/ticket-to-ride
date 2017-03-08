@@ -168,6 +168,11 @@ public class GamePresenter extends BasePresenter {
 		activity.logout();
 	}
 
+	//TODO: Delete after demo is finished
+	public GameFragment getGameFragment() {
+		return gameFragment;
+	}
+
 	@Override
 	public AppCompatActivity getActivity() {
 		return activity;

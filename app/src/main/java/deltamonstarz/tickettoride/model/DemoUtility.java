@@ -1,16 +1,21 @@
 package deltamonstarz.tickettoride.model;
 
 import android.content.Context;
+import android.os.Handler;
 import android.widget.Toast;
 
 import java.util.List;
 
+import delta.monstarz.shared.Message;
 import delta.monstarz.shared.commands.DrawTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.commands.ClientDrawTrainCardCommand;
+import deltamonstarz.tickettoride.commands.ClientSendMessageCommand;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
+import deltamonstarz.tickettoride.presenters.GamePresenter;
+import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
 
 /**
  * Created by lyman126 on 3/8/17.
@@ -116,7 +121,20 @@ public class DemoUtility {
 	}
 
 	private static void demo2(){
-
+		GameFragment fragment = GamePresenter.getInstance().getGameFragment();
+		fragment.openChat();
+		final Handler handler = new Handler();
+		List<PlayerInfo> players = model.getPlayerInfos();
+		for (int i = 0; i < players.size(); i++) {
+			PlayerInfo playerInfo = players.get(i);
+			final String username = playerInfo.getUsername();
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					new ClientSendMessageCommand(username, model.getGameID(), new Message("Hello, I am " + username, username)).execute();
+				}
+			}, i * 200);
+		}
 	}
 
 	private static void demo3(){

@@ -3,6 +3,7 @@ package deltamonstarz.tickettoride.presenters;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 
+import java.util.List;
 import java.util.Observable;
 
 import delta.monstarz.shared.Message;
@@ -57,5 +58,9 @@ public class ChatPresenter extends BasePresenter {
 		//proxy.sendCommand(model.getAuthToken(), new SendMessageCommand(model.getUsername(), model.getGameID(), message));
 		new ClientSendMessageCommand(model.getUsername(), model.getGameID(), message).execute();
 		//chatFragment.onReceiveMessage(message);
+	}
+
+	public List<Message> getMessages() {
+		return model.getChatHistory();
 	}
 }
