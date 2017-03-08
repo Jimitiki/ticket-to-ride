@@ -3,6 +3,7 @@ package delta.monstarz.commands;
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.DrawTrainCardCommand;
+import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.TrainCard;
 
@@ -30,6 +31,7 @@ public class ServerDrawTrainCardCommand extends DrawTrainCardCommand
 		Player player = game.getPlayerByUsername(username);
 		player.drawTrainCard(card);
 		this.setCardDrawn(card);
+		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
 	}
 
 

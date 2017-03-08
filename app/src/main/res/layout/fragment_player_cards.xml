@@ -21,7 +21,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_01_red"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 tools:text="0"/>
 
             <ImageView
@@ -41,7 +41,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_02_white"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="0"/>
 
             <ImageView
@@ -61,7 +61,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_03_orange"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="0"/>
 
             <ImageView
@@ -81,7 +81,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:id="@+id/card_count_04_green"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="0"/>
 
             <ImageView
@@ -101,7 +101,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:id="@+id/card_count_05_blue"/>
 
             <ImageView
@@ -121,7 +121,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:id="@+id/card_count_06_black"/>
 
             <ImageView
@@ -141,7 +141,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:id="@+id/card_count_07_yellow"/>
 
             <ImageView
@@ -161,7 +161,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:id="@+id/card_count_08_pink"/>
 
             <ImageView
@@ -181,7 +181,7 @@
                 android:layout_width="@dimen/card_text_horizontal_width"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:id="@+id/card_count_09_gold"/>
 
             <ImageView
