@@ -11,8 +11,12 @@ import android.view.View;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.Route;
+import delta.monstarz.shared.model.Segment;
 
 public class MapView extends View {
 	private Bitmap mapImage;
@@ -21,6 +25,9 @@ public class MapView extends View {
 	private RectF destRect;
 	private float mapScaleX;
 	private float mapScaleY;
+	private List<Route> claimedRoutes = new ArrayList<>();
+
+	private final float TRAIN_SCALE = (float) 0.13;
 
 	private final static String[] TRAIN_IMAGES = {
 			"Blue.png",
@@ -49,6 +56,10 @@ public class MapView extends View {
 		this.activity = activity;
 	}
 
+	public void addRoute(Route route) {
+		claimedRoutes.add(route);
+	}
+
 	public void generateBitmap(String mapImagePath, int viewHeight, int viewWidth) {
 		try {
 			InputStream is = activity.getAssets().open(MAP_PATH_PREFIX + mapImagePath);
@@ -59,8 +70,7 @@ public class MapView extends View {
 		}
 	}
 
-	public void redraw()
-	{
+	public void redraw() {
 		invalidate();
 	}
 
@@ -71,16 +81,37 @@ public class MapView extends View {
 			destRect = new RectF(0, 0, getWidth(), getHeight());
 			mapScaleX = getWidth() / mapImage.getWidth();
 			mapScaleY = getHeight() / mapImage.getHeight();
-			//1442, 740
 		}
 		canvas.drawBitmap(mapImage, sourceRect, destRect, null);
-		System.out.println(getHeight() + "x : y" + getWidth());
+		drawRoutes(canvas);
 	}
 
-	private void drawTrain(int x, int y, int theta, PlayerColor color)
-	{
-		if (trainImages[color.getValue()] == null) {
+	private void drawRoutes(Canvas canvas) {
+		for (Route route : claimedRoutes) {
+			List<Segment> routeSegments = route.getSegments();
+			for (Segment segment : routeSegments) {
+				drawTrain(segment, route.getTrainColor(), canvas);
+			}
+		}
+//		drawTrain(new Segment(1442, 740, 45), PlayerColor.RED, canvas);
+	}
 
+	private void drawTrain(Segment segment, PlayerColor color, Canvas canvas)
+	{
+
+		try {
+			if (trainImages[color.getValue()] == null) {
+					InputStream is = activity.getAssets().open(TRAIN_PATH_PREFIX + TRAIN_IMAGES[color.getValue()]);
+					trainImages[color.getValue()] = BitmapFactory.decodeStream(is);
+			}
+			Bitmap trainImage = trainImages[color.getValue()];
+//			canvas.save();
+//			canvas.rotate(segment.getRotation());
+//			canvas.drawBitmap(trainImage, new Rect(0, 0, trainImage.getWidth(), trainImage.getHeight()),
+//					new RectF(0, 0, trainImage.getWidth() * TRAIN_SCALE * mapScaleX, trainImage.getHeight() * mapScaleX), null);
+//			canvas.restore();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
