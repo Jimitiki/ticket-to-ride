@@ -126,7 +126,7 @@ public class Game {
 		else{
 			history.add(command);
 		}
-
+		int i = 1;
 	}
 
 	public Player getPlayerByUsername(String username) {

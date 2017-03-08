@@ -10,7 +10,7 @@ import deltamonstarz.tickettoride.model.ClientModel;
 
 public class ClientUpdatePlayerInfoCommand extends UpdatePlayerInfoCommand {
 	public ClientUpdatePlayerInfoCommand(PlayerInfo playerInfo) {
-		super(playerInfo);
+		super("", -1, playerInfo);
 	}
 
 	@Override

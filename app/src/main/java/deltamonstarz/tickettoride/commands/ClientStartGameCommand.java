@@ -18,8 +18,8 @@ public class ClientStartGameCommand extends StartGameCommand {
 		if (!model.isStarted()) {
 			model.startGame(board);
 			//GamePresenter.getInstance().onGameStart();
-			DemoAsyncTask task = new DemoAsyncTask();
-			task.execute("", "", "");
+			//DemoAsyncTask task = new DemoAsyncTask();
+			//task.execute("", "", "");
 		}
 	}
 }
