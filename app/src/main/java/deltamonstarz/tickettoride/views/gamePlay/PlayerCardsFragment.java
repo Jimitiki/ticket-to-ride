@@ -14,8 +14,12 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
+import delta.monstarz.shared.model.CardColor;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,25 +79,11 @@ public class PlayerCardsFragment extends Fragment {
 		pinkImg = (ImageView) view.findViewById(R.id.card_image_08_pink);
 		goldImg = (ImageView) view.findViewById(R.id.card_image_09_gold);
 
-		setCardCounts();
 		setCardImages();
 
+		update();
 
 		return view;
-	}
-
-	void setCardCounts(){
-		// Todo: Access the model to set the values
-
-		redCount.setText("10");
-		whiteCount.setText("20");
-		orangeCount.setText("30");
-		greenCount.setText("40");
-		blueCount.setText("50");
-		blackCount.setText("60");
-		yellowCount.setText("70");
-		pinkCount.setText("80");
-		goldCount.setText("90");
 	}
 
 	void setCardImages(){
@@ -115,7 +105,49 @@ public class PlayerCardsFragment extends Fragment {
 			imageView.setImageBitmap(bm);
 		}
 		catch (IOException e){
+			e.printStackTrace();
+		}
+	}
 
+	public void update(){
+		HashMap<CardColor, Integer> cards = ClientModel.getInstance().getGame().getMe().getTrainCards();
+
+		for (Map.Entry<CardColor, Integer> entry: cards.entrySet()){
+			setValue(entry.getKey(), entry.getValue());
+		}
+
+	}
+
+	private void setValue(CardColor color, int count){
+		String num = String.valueOf(count);
+		switch(color){
+			case RED:
+				redCount.setText(num);
+				break;
+			case WHITE:
+			whiteCount.setText(num);
+				break;
+			case ORANGE:
+				orangeCount.setText(num);
+				break;
+			case GREEN:
+				greenCount.setText(num);
+				break;
+			case BLUE:
+				blueCount.setText(num);
+				break;
+			case BLACK:
+				blackCount.setText(num);
+				break;
+			case YELLOW:
+				yellowCount.setText(num);
+				break;
+			case PINK:
+				pinkCount.setText(num);
+				break;
+			case GOLD:
+				goldCount.setText(num);
+				break;
 		}
 	}
 

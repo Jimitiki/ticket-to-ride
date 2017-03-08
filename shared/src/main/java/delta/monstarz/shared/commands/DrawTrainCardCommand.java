@@ -21,6 +21,7 @@ public class DrawTrainCardCommand extends BaseCommand {
 		super(username, gameID);
 		this.drawPileID = drawPileID;
 		name = "DrawTrainCardCommand";
+		isGlobal = false;
 	}
 
 	@Override

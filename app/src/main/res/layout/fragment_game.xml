@@ -4,7 +4,6 @@
              android:layout_height="match_parent"
              tools:context="deltamonstarz.tickettoride.views.gamePlay.GameFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
         android:orientation="vertical"

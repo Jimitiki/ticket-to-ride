@@ -118,7 +118,6 @@ public class GameFragment extends Fragment {
 			public void onClick(View v) {
 				System.out.print("drawing card");
 
-				// Todo: Law of delimiter?
 				if (ClientModel.getInstance().getGame().getMe().getDestCards().size() >= 2){
 					launchChooseCardDialog();
 				}
@@ -260,5 +259,9 @@ public class GameFragment extends Fragment {
 		if (gameInfoFragment != null) {
 			gameInfoFragment.update();
 		}
+	}
+
+	public void updateCardCounts() {
+		playerCardsFragment.update();
 	}
 }

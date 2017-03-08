@@ -22,31 +22,59 @@ public class ClientModel extends Observable{
 	private ClientGame game;
 
 	private ClientModel() {}
+
 	public static ClientModel getInstance() {
 		return clientModel;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public synchronized void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getAuthToken() {
 		return authToken;
 	}
+
 	public synchronized void setAuthToken(String authToken) {
 		this.authToken = authToken;
 	}
-	public int getGameID() {return game == null ? -1 : game.getGameID();}
-	public synchronized void setGameID(int gameID) {game.setGameID(gameID);}
-	public int getCurCommand() {return game.getCurCommand();}
+
+	public int getGameID() {
+		return game == null ? -1 : game.getGameID();
+	}
+
+	public synchronized void setGameID(int gameID) {
+		game.setGameID(gameID);
+	}
+
+	public int getCurCommand() {
+		return game.getCurCommand();
+	}
+
 	public List<GameInfo> getAvailableGames() {
 		return availableGames;
 	}
-	public synchronized void drawTrainCard(TrainCard cardDrawn) {game.drawTrainCard(cardDrawn);}
-	public synchronized void addDestCard(DestCard card) {game.addDestCard(card);}
-	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {game.placeRoute(player_username, route, hasLongest);}
-	public synchronized void setBoard(Board board) {game.setBoard(board);}
+
+	public synchronized void drawTrainCard(TrainCard cardDrawn) {
+		game.drawTrainCard(cardDrawn);
+		notifyPresenter(UpdateType.TRAIN_CARD);
+	}
+
+	public synchronized void addDestCard(DestCard card) {
+		game.addDestCard(card);
+	}
+
+	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {
+		game.placeRoute(player_username, route, hasLongest);
+	}
+
+	public synchronized void setBoard(Board board) {
+		game.setBoard(board);
+	}
 
 	public synchronized void setAvailableGames(List<GameInfo> availableGames) {
 		this.availableGames = availableGames;
