@@ -52,9 +52,6 @@ public class ChatDialogFragment extends DialogFragment {
 
 		messageListView = (RecyclerView) v.findViewById(R.id.messagesView);
 		messageListView.setHasFixedSize(true);
-		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
-		//linearLayoutManager.setStackFromEnd(true);
-		messageListView.setLayoutManager(linearLayoutManager);
 
 		presenter.setChatFragment(this);
 		return v;
@@ -69,6 +66,9 @@ public class ChatDialogFragment extends DialogFragment {
 		if(messageListView.getAdapter() == null) {
 			adapter = new MessageListAdapter();
 			messageListView.setAdapter(adapter);
+			LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+			//linearLayoutManager.setStackFromEnd(true);
+			messageListView.setLayoutManager(linearLayoutManager);
 		}
 
 		adapter.addMessage(message);
@@ -127,8 +127,16 @@ public class ChatDialogFragment extends DialogFragment {
 			return messages.size();
 		}
 
-		public void addMessage(Message message) {
+		void addMessage(Message message) {
 			messages.add(message);
+		}
+
+		List<Message> getMessages() {
+			return messages;
+		}
+
+		void setMessages(List<Message> messages) {
+			this.messages = messages;
 		}
 	}
 }
