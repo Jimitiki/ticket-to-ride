@@ -47,7 +47,10 @@ public class CommandManager {
 			Game game = GameManager.getInstance().getGameByID(gameID);
 			List<BaseCommand> allCommands = game.getHistory();
 			List<BaseCommand> visibleCommands = new ArrayList<>();
-			for (int i = commandIndex +1; i < allCommands.size(); i++) {
+			for (int i = 0; i < allCommands.size(); i++) {
+				if (allCommands.get(i).getId() <= commandIndex) {
+					continue;
+				}
 				BaseCommand command = allCommands.get(i);
 				if (command.isGlobal() || command.getUsername().equals(username)) {
 					visibleCommands.add(command);

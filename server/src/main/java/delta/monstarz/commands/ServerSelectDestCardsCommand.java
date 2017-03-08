@@ -32,12 +32,12 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 		Game game = GameManager.getInstance().getGameByID(gameID);
 		Player player = game.getPlayerByUsername(username);
 		for (DestCard card : selection) {
-			if (player.getDestCardChoices().contains(card)) {
+			//if (! player.getDestCardChoices().contains(card)) {
 				//throw new InvalidCommandException();
-			}
+			//}
 			player.addDestCard(card);
 		}
-		// This is set to null because the server caches the destination cards the player has commited to choose from
+		// This is set to null because the server caches the destination cards the player has committed to choose from
 		// Once they have made a decision the player no longer is restricted to choosing from the cached cards
 		player.setDestCardChoices(null);
 		game.getDestDeck().returnCards(discard);
