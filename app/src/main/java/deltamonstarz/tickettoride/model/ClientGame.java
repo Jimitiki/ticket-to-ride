@@ -28,10 +28,21 @@ public class ClientGame {
 		lastCommandID = -1;
 	}
 
-    public int getGameID() { return gameID; }
-    public void setGameID(int gameID) { this.gameID = gameID; }
-    public int getCurCommand() { return lastCommandID; }
-    public boolean isStarted() { return started;}
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+
+	public int getCurCommand() {
+		return lastCommandID;
+	}
+
+	public boolean isStarted() {
+		return started;
+	}
 
     public void setStarted(boolean started) {
 		this.started = started;
@@ -61,17 +72,41 @@ public class ClientGame {
 		playerInfos.add(player_info);
 	}
 
-	public Player getMe() { return me; }
-    public void setMe(Player me) { this.me = me; }
-    public Board getBoard() { return board; }
-    public void setBoard(Board board) { this.board = board;}
-    public void setLastCommandID(int lastID) { lastCommandID = lastID;}
+	public Player getMe() {
+		return me;
+	}
+
+	public void setMe(Player me) {
+		this.me = me;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public void setLastCommandID(int lastID) {
+		lastCommandID = lastID;
+	}
+
 	public List<String> getPlayers() {
 		return players;
 	}
-	public void drawTrainCard(TrainCard cardDrawn) {me.drawTrainCard(cardDrawn);}
-	public void addDestCard(DestCard card) {me.addDestCard(card);}
-	public void placeRoute(String player_username, Route route, boolean hasLongest) {board.placeRoute(player_username, route, hasLongest);}
+
+	public void drawTrainCard(TrainCard cardDrawn) {
+		me.drawTrainCard(cardDrawn);
+	}
+
+	public void addDestCard(DestCard card) {
+		me.addDestCard(card);
+	}
+
+	public void placeRoute(String player_username, Route route, boolean hasLongest) {
+		board.placeRoute(player_username, route, hasLongest);
+	}
 
 	public void addPlayer(String username) {
 		if (players.indexOf(username) == -1) {

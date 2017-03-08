@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Trevor on 2/2/2017.
@@ -15,7 +16,7 @@ public class Player {
 	private int score;
 	private int numTrains;
 	private int minSelection;
-	private Map<TrainCard, Integer> trainCards;
+	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
 
@@ -59,14 +60,6 @@ public class Player {
 		this.numTrains = numTrains;
 	}
 
-//	public Map<TrainCard, Integer> getTrainCards() {
-//		return trainCards;
-//	}
-//
-//	public void setTrainCards(Map<TrainCard, Integer> trainCards) {
-//		this.trainCards = trainCards;
-//	}
-
 	public List<DestCard> getDestCards() {
 		return destCards;
 	}
@@ -84,10 +77,14 @@ public class Player {
 	}
 
 	public void drawTrainCard(TrainCard card) {
-		if (! trainCards.containsKey(card)) {
-			trainCards.put(card, 0);
+		if (! trainCards.containsKey(card.getColor())) {
+			trainCards.put(card.getColor(), 0);
 		}
-		trainCards.put(card, trainCards.get(card) + 1);
+		trainCards.put(card.getColor(), trainCards.get(card.getColor()) + 1);
+	}
+
+	public HashMap<CardColor, Integer> getTrainCards(){
+		return trainCards;
 	}
 
 	public void addDestCard(DestCard card) {

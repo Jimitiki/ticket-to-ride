@@ -259,4 +259,8 @@ public class GameFragment extends Fragment {
 	public void updatePlayerInfo(){
 		gameInfoFragment.update();
 	}
+
+	public void updateCardCounts() {
+		playerCardsFragment.update();
+	}
 }
