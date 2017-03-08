@@ -12,6 +12,9 @@ import delta.monstarz.shared.model.TrainCard;
  */
 public class TrainCardManager
 {
+	static final int FACE_UP_COUNT = 5;
+
+
 	//Data Members
 	LinkedList<TrainCard> deck;
 	ArrayList<TrainCard> faceupCards;
@@ -23,19 +26,23 @@ public class TrainCardManager
 		faceupCards = new ArrayList<>();
 	}
 
+	public void initialize(){
+		shuffle();
+		assignFaceUpCards();
+	}
+
+	private void assignFaceUpCards(){
+		for (int i = 0; i < FACE_UP_COUNT; i++){
+			faceupCards.add(drawCard());
+		}
+	}
+
 	/**
 	 * Adds a card to the face up selection, or the deck if that is full.
 	 */
 	public void addCard(TrainCard card)
 	{
-		if(faceupCards.size() < 5)
-		{
-			faceupCards.add(card);
-		}
-		else
-		{
-			deck.add(card);
-		}
+		deck.add(card);
 	}
 
 
@@ -44,28 +51,12 @@ public class TrainCardManager
 	 */
 	public void shuffle()
 	{
-		deck.addAll(faceupCards);
-		faceupCards.clear();
 		Collections.shuffle(deck);
-		for(int i = 0; i < 5; i++)
-		{
-			faceupCards.add(deck.removeFirst());
-		}
 	}
 
 	public TrainCard drawCard()
 	{
 		return deck.removeFirst();
-	}
-
-	public List<TrainCard> drawCards(int number)
-	{
-		List<TrainCard> cards = new ArrayList<>();
-		for(int i = 0; i < number; i++)
-		{
-			cards.add(drawCard());
-		}
-		return cards;
 	}
 
 	public List<TrainCard> getFaceUpCards()
@@ -75,12 +66,9 @@ public class TrainCardManager
 
 	public TrainCard drawFaceUpCard(int index)
 	{
-		if(index < 0 || index > 4)
-		{
-			//Throw Exception?
-		}
-		faceupCards.add(deck.removeFirst());
-		return faceupCards.remove(index);
+		TrainCard card = faceupCards.get(index);
+		faceupCards.add(index, drawCard());
+		return card;
 	}
 
 	public void clear()

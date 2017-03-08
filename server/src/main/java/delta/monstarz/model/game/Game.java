@@ -295,7 +295,6 @@ public class Game {
 			JsonObject card = trainCardList.get(i).getAsJsonObject();
 			String color = card.get("color").getAsString();
 			CardColor c = CardColor.fromString(color);
-			String image = card.get("image").getAsString();
 			int count = card.get("count").getAsInt();
 			for(int j = 0; j < count; j++)
 			{
@@ -304,6 +303,7 @@ public class Game {
 				index++;
 			}
 		}
+		manager.initialize();
 	}
 
 	private void parseDestinationCards(JsonArray destinationCardList, DestinationCardManager destManager)

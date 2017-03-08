@@ -564,10 +564,15 @@
     }
   ],
   "TrainCards":[
-    {"color": "red", "image": "boxcar.jpg", "count": 12},
-    {"color": "blue", "image": "passenger.jpg", "count": 12},
-    {"color": "green", "image": "tanker.jpg", "count": 12},
-    {"color": "gold", "image": "engine.jpg", "count": 14}
+    {"color": "blue", "count": 12},
+    {"color": "green", "count": 12},
+    {"color": "pink", "count": 12},
+    {"color": "red", "count": 12},
+    {"color": "yellow", "count": 12},
+    {"color": "black", "count": 12},
+    {"color": "orange", "count": 12},
+    {"color": "white", "count": 12},
+    {"color": "gold", "count": 14}
   ],
   "DestinationCards":[
     {
