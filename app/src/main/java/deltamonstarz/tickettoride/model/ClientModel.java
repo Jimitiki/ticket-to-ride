@@ -134,16 +134,17 @@ public class ClientModel extends Observable{
 
 	private synchronized void notifyPresenter(UpdateType updateType) {
 		setChanged();
-//		synchronized (this) {
-			notifyObservers(updateType);
-//		}
+		notifyObservers(updateType);
 	}
 
 	public List<String> getPlayers() {
 		return game.getPlayers();
 	}
 
-	public ClientGame getGame() {return game;}
+	public ClientGame getGame() {
+		return game;
+	}
+
 	public synchronized void newGame(int gameID) {
 		game = new ClientGame(gameID);
 	}
