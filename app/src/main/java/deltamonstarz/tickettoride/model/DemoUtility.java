@@ -90,7 +90,7 @@ public class DemoUtility {
 		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
 		commandInfo.execute();
 
-		showToast("Drew a new gold train card");	commandCard.setCardDrawn(new TrainCard(CardColor.BLUE));
+		showToast("Drew a new gold train card");
 
 	}
 
@@ -120,11 +120,38 @@ public class DemoUtility {
 	}
 
 	private static void demo3(){
+		// Set our points to 5
+
+		// Update player info
+		PlayerInfo changedInfo = null;
+		for (PlayerInfo playerInfo:model.getPlayerInfos()){
+			if (playerInfo.getUsername().equals(model.getUsername())){
+				changedInfo = playerInfo;
+			}
+		}
+
+		changedInfo.setScore(changedInfo.getScore() + 5);
+		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
+		commandInfo.execute();
+
+		showToast("Current players score incremented by 5");
 
 	}
 
 	private static void demo4(){
+		// Update player info
+		PlayerInfo changedInfo = null;
+		for (PlayerInfo playerInfo:model.getPlayerInfos()){
+			if (playerInfo.getUsername().equals(model.getUsername())){
+				changedInfo = playerInfo;
+			}
+		}
 
+		changedInfo.setNumTrains(changedInfo.getNumTrains() - 4);
+		ClientUpdatePlayerInfoCommand commandInfo = new ClientUpdatePlayerInfoCommand(changedInfo);
+		commandInfo.execute();
+
+		showToast("Current players trains decremented by 4");
 	}
 
 	private static void demo5(){
