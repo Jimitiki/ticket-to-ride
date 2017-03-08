@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -134,6 +135,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("claiming route");
+				Toast.makeText(getContext(), "Routes can only be claimed during your turn.", Toast.LENGTH_LONG).show();
 			}
 		});
 
