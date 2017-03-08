@@ -72,6 +72,7 @@ public class ClientModel extends Observable{
 
 	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {
 		game.placeRoute(player_username, route, hasLongest);
+		notifyPresenter(UpdateType.ROUTE);
 	}
 
 	public synchronized void setBoard(Board board) {
