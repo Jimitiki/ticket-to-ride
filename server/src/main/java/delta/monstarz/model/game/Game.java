@@ -26,6 +26,7 @@ import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.Segment;
 import delta.monstarz.shared.model.TrainCard;
@@ -162,6 +163,8 @@ public class Game {
 	public void addPlayer(String username){
 		if (playerManager.size() < playerManager.MAX_PLAYERS && !gameStarted){
 			Player player = new Player(username);
+			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
+			player.setPlayerColor(color);
 			playerManager.add(player);
 		}
 	}

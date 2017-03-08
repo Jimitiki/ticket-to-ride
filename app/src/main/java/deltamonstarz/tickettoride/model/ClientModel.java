@@ -194,4 +194,8 @@ public class ClientModel extends Observable{
 		return game.getMe().getDestCards();
 	}
 
+	public List<PlayerInfo> getPlayerInfos() {
+		return game.getPlayerInfos();
+	}
+
 }

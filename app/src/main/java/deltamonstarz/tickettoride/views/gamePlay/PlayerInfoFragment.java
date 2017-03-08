@@ -4,20 +4,24 @@ package deltamonstarz.tickettoride.views.gamePlay;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import delta.monstarz.shared.Image;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.model.ClientModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +37,7 @@ public class PlayerInfoFragment extends Fragment {
 	static final String TRAIN_PIECES = "Train Pieces: ";
 
 	PlayerColor color;
+	GameInfoFragment gameInfoFragment;
 
 	private ImageView turnImage;
 	private ImageView longestTrainImage;
@@ -82,12 +87,25 @@ public class PlayerInfoFragment extends Fragment {
 		return view;
 	}
 
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		gameInfoFragment.update();
+	}
+
 	public void setColor(PlayerColor color){
 		this.color = color;
 	}
 
+	public void setGameInfoFragment(GameInfoFragment gameInfoFragment) {
+		this.gameInfoFragment = gameInfoFragment;
+	}
+
 	public void update(PlayerInfo playerInfo){
-		View view = getView();
+
+		if (!allViewsSet()){
+			return;
+		}
 
 		String points = String.valueOf(playerInfo.getScore());
 		String destCardCount = String.valueOf(playerInfo.getNumDestCards());
@@ -149,6 +167,23 @@ public class PlayerInfoFragment extends Fragment {
 		}
 		catch (IOException e){
 
+		}
+	}
+
+	private boolean allViewsSet(){
+		if (
+			turnImage == null ||
+			longestTrainImage == null ||
+			textName == null ||
+			textPoints == null ||
+			textDestCardCount == null ||
+			textTrainCardCount == null ||
+			textTrainPiecesCount == null
+				){
+			return false;
+		}
+		else{
+			return true;
 		}
 	}
 

@@ -73,7 +73,9 @@ public class GamePresenter extends BasePresenter {
 				gameFragment.enableButtons();
 				break;
 			case PLAYER_INFO:
-				gameFragment.updatePlayerInfo();
+				if (gameFragment != null){
+					gameFragment.updatePlayerInfo();
+				}
 				break;
 			case TRAIN_CARD:
 				if (gameFragment != null) {
