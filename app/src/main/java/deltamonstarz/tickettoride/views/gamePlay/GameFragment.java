@@ -28,6 +28,7 @@ import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
 import deltamonstarz.tickettoride.model.ClientModel;
+import deltamonstarz.tickettoride.model.DemoUtility;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
@@ -193,14 +194,16 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//mapView.redraw();
-				advanceDemo();
+				DemoUtility.nextDemo(getContext());
 			}
 		});
 
 		if (ClientModel.getInstance().getGame().getMe().getDestCards().size() <= 1) {
 			disableButtons();
 		}
+
+		DemoUtility.index = 0;
+
 
 		return v;
 	}
@@ -232,7 +235,8 @@ public class GameFragment extends Fragment {
 	}
 
 	private void advanceDemo() {
-		presenter.listCheck();
+		DemoUtility.nextDemo(getContext());
+		//presenter.listCheck();
 	}
 
 	private void launchChooseCardDialog(){
