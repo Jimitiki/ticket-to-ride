@@ -252,18 +252,22 @@ public class Game {
 			String endpoint1 = endpointArray.get(0).getAsString();
 			String endpoint2 = endpointArray.get(1).getAsString();
 
+			List<Segment> segments = new ArrayList<>();
+
 			//Parse the Segments
 			// TODO fix this
-//			List<Segment> segments = parseSegments(routeObject.get("segmants").getAsJsonArray());
-			List<Segment> segments = new ArrayList<>();
+			if (routeObject.has("segments")) {
+				segments = parseSegments(routeObject.get("segments").getAsJsonArray());
+			}
 
 			//Parse color
 			String color = routeObject.get("color").getAsString();
 			CardColor c = CardColor.fromString(color);
+			int routeLength = routeObject.get("length").getAsInt();
 
 			//			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
 
-			Route route = new Route(i, endpoint1, endpoint2, segments.size(), c, null, segments); //first null is c
+			Route route = new Route(i, endpoint1, endpoint2, routeLength, c, segments); //first null is c
 			board.getRoutes().add(route);
 		}
 	}

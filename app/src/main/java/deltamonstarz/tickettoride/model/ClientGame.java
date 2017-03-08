@@ -144,4 +144,8 @@ public class ClientGame {
 	public String getMapImagePath() {
 		return board.getImageID();
 	}
+
+	public List<Route> getRoutes() {
+		return board.getRoutes();
+	}
 }

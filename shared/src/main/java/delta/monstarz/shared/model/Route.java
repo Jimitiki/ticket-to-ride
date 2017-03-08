@@ -1,9 +1,6 @@
 package delta.monstarz.shared.model;
 
-import java.util.Collection;
 import java.util.List;
-
-import javax.smartcardio.Card;
 
 public class Route {
 	private int id; //todo add ids to json
@@ -15,14 +12,13 @@ public class Route {
     private PlayerColor trainColor;
     private List<Segment> segments;
 
-    public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, String pOwner, List<Segment> pSegments)
+    public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, List<Segment> pSegments)
     {
         id = pId;
         city1 = pCity1;
         city2 = pCity2;
         length = pLength;
         color = pColor;
-        owner = pOwner;
         segments = pSegments;
     }
 

@@ -82,6 +82,8 @@ public class GamePresenter extends BasePresenter {
 					gameFragment.updateCardCounts();
 				}
 				break;
+			case ROUTE:
+				gameFragment.onRouteClaimed(model.getClaimedRoutes());
 		}
 	}
 
@@ -150,16 +152,12 @@ public class GamePresenter extends BasePresenter {
 //		return null;
 //	}
 
-	/**
-	 * gets all of the routes on the board that have been claimed so the view can draw them.
-	 * @return collection of Route objects
-	 */
-	public List<Route> getClaimedRoutes() {
-		return null;
-	}
-
 	public List<DestCard> getDestinationCards() {
 		return model.getDestinationCards();
+	}
+
+	public void listCheck() {
+		gameFragment.onRouteClaimed(model.getGoodRoutes());
 	}
 
 	/**

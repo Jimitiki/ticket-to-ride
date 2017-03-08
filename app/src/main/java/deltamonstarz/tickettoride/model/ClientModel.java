@@ -8,6 +8,7 @@ import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
@@ -192,6 +193,35 @@ public class ClientModel extends Observable{
 
 	public List<DestCard> getDestinationCards() {
 		return game.getMe().getDestCards();
+	}
+
+	public List<Route> getRoutes() {
+		return game.getRoutes();
+	}
+
+	public List<Route> getClaimedRoutes() {
+		List<Route> routes = game.getRoutes();
+		List<Route> claimedRoutes = new ArrayList<>();
+		for (Route route : routes) {
+			if (route.getOwner() != null) {
+				claimedRoutes.add(route);
+			}
+		}
+		return claimedRoutes;
+	}
+
+	//this function name rules, shut up
+	//TODO: delete this
+	public List<Route> getGoodRoutes() {
+		List<Route> routes = game.getRoutes();
+		List<Route> goodRoutes = new ArrayList<>();
+		for (Route route : routes) {
+			if (route.getSegments() != null) {
+				goodRoutes.add(route);
+				route.setTrainColor(PlayerColor.YELLOW);
+			}
+		}
+		return goodRoutes;
 	}
 
 	public List<PlayerInfo> getPlayerInfos() {
