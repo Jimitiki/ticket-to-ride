@@ -3,9 +3,12 @@ package deltamonstarz.tickettoride.presenters;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 
+import java.util.List;
 import java.util.Observable;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.commands.SendMessageCommand;
+import deltamonstarz.tickettoride.commands.ClientSendMessageCommand;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChatDialogFragment;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
@@ -52,11 +55,10 @@ public class ChatPresenter extends BasePresenter {
 
 	public void sendMessage(String chat) {
 		Message message = new Message(chat, model.getUsername());
-		onReceiveMessage(message);
-
+		new ClientSendMessageCommand(model.getUsername(), model.getGameID(), message).execute();
 	}
 
-	public void onReceiveMessage(Message message) {
-		chatFragment.onReceiveMessage(message);
+	public List<Message> getMessages() {
+		return model.getChatHistory();
 	}
 }

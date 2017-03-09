@@ -1,9 +1,6 @@
 package delta.monstarz.shared.model;
 
-import java.util.Collection;
 import java.util.List;
-
-import javax.smartcardio.Card;
 
 public class Route {
 	private int id; //todo add ids to json
@@ -45,7 +42,7 @@ public class Route {
 	    return owner;
     }
 
-    public void setOwner(String owner) {
+    void setOwner(String owner) {
 	    this.owner = owner;
     }
 
@@ -89,8 +86,8 @@ public class Route {
 	    this.city1 = city1;
     }
 
-	public void claim(Player player) {
-		this.owner = player.getUsername();
-		this.trainColor = player.getPlayerColor();
+	public void claim(String username, PlayerColor trainColor) {
+		owner = username;
+		this.trainColor = trainColor;
 	}
 }

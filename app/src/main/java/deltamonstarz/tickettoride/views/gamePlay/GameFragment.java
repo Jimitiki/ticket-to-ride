@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
 import deltamonstarz.tickettoride.model.ClientModel;
+import deltamonstarz.tickettoride.model.DemoUtility;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
@@ -134,6 +136,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("claiming route");
+				Toast.makeText(getContext(), "Routes can only be claimed during your turn.", Toast.LENGTH_LONG).show();
 			}
 		});
 
@@ -191,22 +194,28 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mapView.redraw();
-				//advanceDemo();
+				DemoUtility.nextDemo(getContext());
 			}
 		});
 
-		//disableButtons();
+		if (ClientModel.getInstance().getGame().getMe().getDestCards().size() <= 1) {
+			disableButtons();
+		}
+
+		DemoUtility.index = 0;
+
 
 		return v;
 	}
 
 	public void enableButtons(){
-		placeTrain.setEnabled(true);
-		viewCards.setEnabled(true);
-		viewHistory.setEnabled(true);
-		viewChat.setEnabled(true);
-		demo.setEnabled(true);
+		if (placeTrain != null) {
+			placeTrain.setEnabled(true);
+			viewCards.setEnabled(true);
+			viewHistory.setEnabled(true);
+			viewChat.setEnabled(true);
+			demo.setEnabled(true);
+		}
 	}
 
 	public void disableButtons(){
@@ -217,7 +226,8 @@ public class GameFragment extends Fragment {
 		demo.setEnabled(false);
 	}
 
-	private void openChat() {
+	//TODO: make private
+	public void openChat() {
 		System.out.println("opening chat");
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChatDialogFragment dialog = new ChatDialogFragment();
@@ -226,7 +236,8 @@ public class GameFragment extends Fragment {
 	}
 
 	private void advanceDemo() {
-		openChat();
+		DemoUtility.nextDemo(getContext());
+		//presenter.listCheck();
 	}
 
 	private void launchChooseCardDialog(){
@@ -241,12 +252,7 @@ public class GameFragment extends Fragment {
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
 
-
-
 		dialog.show(manager, "choose_destination_dialog");
-
-		//dialog.setDestCards(cards);
-		//dialog.setCounts(3, minSelection);
 	}
 
 	private void launchShowDestinationCardsDialog(){
@@ -258,14 +264,16 @@ public class GameFragment extends Fragment {
 	}
 
 	public void updatePlayerInfo(){
-		gameInfoFragment.update();
+		if (gameInfoFragment != null) {
+			gameInfoFragment.update();
+		}
 	}
 
 	public void updateCardCounts() {
 		playerCardsFragment.update();
 	}
 
-	public void onClaimRoute(List<Route> routes) {
+	public void onRouteClaimed(List<Route> routes) {
 		mapView.setClaimedRoutes(routes);
 		mapView.redraw();
 	}

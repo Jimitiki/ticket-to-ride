@@ -1,8 +1,5 @@
 package deltamonstarz.tickettoride.views.gamePlay;
 
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,9 +18,6 @@ import java.util.List;
 import delta.monstarz.shared.Message;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
-import deltamonstarz.tickettoride.presenters.GameSelectorPresenter;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class ChatDialogFragment extends DialogFragment {
 	private GameActivity activity;
@@ -52,6 +45,7 @@ public class ChatDialogFragment extends DialogFragment {
 
 		messageListView = (RecyclerView) v.findViewById(R.id.messagesView);
 		messageListView.setHasFixedSize(true);
+
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
 		//linearLayoutManager.setStackFromEnd(true);
 		messageListView.setLayoutManager(linearLayoutManager);
@@ -63,16 +57,21 @@ public class ChatDialogFragment extends DialogFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		initializeAdapter();
+		adapter.setMessages(presenter.getMessages());
+
 	}
 
 	public void onReceiveMessage(Message message) {
-		if(messageListView.getAdapter() == null) {
+		initializeAdapter();
+		adapter.notifyDataSetChanged();
+	}
+
+	private void initializeAdapter() {
+		if (messageListView.getAdapter() == null) {
 			adapter = new MessageListAdapter();
 			messageListView.setAdapter(adapter);
 		}
-
-		adapter.addMessage(message);
-		adapter.notifyDataSetChanged();
 	}
 
 	private class OnSendClickListener implements View.OnClickListener {
@@ -127,8 +126,8 @@ public class ChatDialogFragment extends DialogFragment {
 			return messages.size();
 		}
 
-		public void addMessage(Message message) {
-			messages.add(message);
+		void setMessages(List<Message> messages) {
+			this.messages = messages;
 		}
 	}
 }

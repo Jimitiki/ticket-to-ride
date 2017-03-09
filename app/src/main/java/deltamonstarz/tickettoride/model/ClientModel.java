@@ -8,6 +8,7 @@ import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
@@ -66,10 +67,12 @@ public class ClientModel extends Observable{
 
 	public synchronized void addDestCard(DestCard card) {
 		game.addDestCard(card);
+		notifyPresenter(UpdateType.DEST_CARDS);
 	}
 
 	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {
 		game.placeRoute(player_username, route, hasLongest);
+		notifyPresenter(UpdateType.ROUTE);
 	}
 
 	public synchronized void setBoard(Board board) {
@@ -133,16 +136,17 @@ public class ClientModel extends Observable{
 
 	private synchronized void notifyPresenter(UpdateType updateType) {
 		setChanged();
-//		synchronized (this) {
-			notifyObservers(updateType);
-//		}
+		notifyObservers(updateType);
 	}
 
 	public List<String> getPlayers() {
 		return game.getPlayers();
 	}
 
-	public ClientGame getGame() {return game;}
+	public ClientGame getGame() {
+		return game;
+	}
+
 	public synchronized void newGame(int gameID) {
 		game = new ClientGame(gameID);
 	}
@@ -181,7 +185,9 @@ public class ClientModel extends Observable{
 
 	public void updatePlayerInfo(PlayerInfo player_info) {
 		game.updatePlayerInfo(player_info);
-		notifyPresenter(UpdateType.PLAYER_INFO);
+		if (game.isStarted()) {
+			notifyPresenter(UpdateType.PLAYER_INFO);
+		}
 	}
 
 	public String getMapImagePath() {
@@ -190,6 +196,39 @@ public class ClientModel extends Observable{
 
 	public List<DestCard> getDestinationCards() {
 		return game.getMe().getDestCards();
+	}
+
+	public List<Route> getRoutes() {
+		return game.getRoutes();
+	}
+
+	public List<Route> getClaimedRoutes() {
+		List<Route> routes = game.getRoutes();
+		List<Route> claimedRoutes = new ArrayList<>();
+		for (Route route : routes) {
+			if (route.getOwner() != null) {
+				claimedRoutes.add(route);
+			}
+		}
+		return claimedRoutes;
+	}
+
+	//this function name rules, shut up
+	//TODO: delete this
+	public List<Route> getGoodRoutes() {
+		List<Route> routes = game.getRoutes();
+		List<Route> goodRoutes = new ArrayList<>();
+		for (Route route : routes) {
+			if (route.getSegments() != null) {
+				goodRoutes.add(route);
+				route.setTrainColor(PlayerColor.YELLOW);
+			}
+		}
+		return goodRoutes;
+	}
+
+	public List<PlayerInfo> getPlayerInfos() {
+		return game.getPlayerInfos();
 	}
 
 }

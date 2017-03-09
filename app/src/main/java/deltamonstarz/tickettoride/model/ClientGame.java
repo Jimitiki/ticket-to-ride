@@ -64,11 +64,12 @@ public class ClientGame {
 	// else just add the player_info to the end.
 	public void updatePlayerInfo(PlayerInfo player_info) {
 		for (int i = 0; i < playerInfos.size(); i++) {
-			if (playerInfos.get(i).getUsername() == player_info.getUsername()) {
+			if (playerInfos.get(i).getUsername().equals(player_info.getUsername()) ) {
 				playerInfos.set(i, player_info);
 				return;
 			}
 		}
+		//if no matches
 		playerInfos.add(player_info);
 	}
 
@@ -142,5 +143,9 @@ public class ClientGame {
 
 	public String getMapImagePath() {
 		return board.getImageID();
+	}
+
+	public List<Route> getRoutes() {
+		return board.getRoutes();
 	}
 }

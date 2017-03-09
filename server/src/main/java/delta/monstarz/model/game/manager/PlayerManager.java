@@ -17,15 +17,16 @@ public class PlayerManager
 	public static final int MAX_PLAYERS = 5;
 
 	//Instance Variables
-	Set<Player> players;
+	List<Player> players;
 	Player owner;
 	Player current;
+	private int startTrains;
 
 	//Constructors
 
 	public PlayerManager()
 	{
-		players = new HashSet<>();
+		players = new ArrayList<>();
 	}
 
 
@@ -34,7 +35,7 @@ public class PlayerManager
 	//Getters and Setter
 
 
-	public Set<Player> getPlayers()
+	public List<Player> getPlayers()
 	{
 		return players;
 	}
@@ -66,7 +67,18 @@ public class PlayerManager
 
 	public void add(Player player)
 	{
+		if (players.size() == 0) {
+			current = player;
+			player.setTakingTurn(true);
+		} else {
+			player.setTakingTurn(false);
+		}
+		player.setNumTrains(startTrains);
 		players.add(player);
+	}
+
+	public void setStartTrains(int startTrains) {
+		this.startTrains = startTrains;
 	}
 
 	//Internal Methods

@@ -26,6 +26,7 @@ import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.Segment;
 import delta.monstarz.shared.model.TrainCard;
@@ -68,6 +69,10 @@ public class Game {
 		this.ownerName = ownerName;
 		this.gameID = nextNewGameID;
 		nextNewGameID++;
+
+		parseConfigurations(trainDeck, destDeck, board);
+		trainDeck.initialize();
+		destDeck.shuffle();
 	}
 
 	//Getters and Setters
@@ -126,7 +131,7 @@ public class Game {
 		else{
 			history.add(command);
 		}
-
+		int i = 1;
 	}
 
 	public Player getPlayerByUsername(String username) {
@@ -139,7 +144,6 @@ public class Game {
 	 */
 	public void start(){
 		if (playerManager.size() > 1){
-			parseConfigurations(trainDeck, destDeck, board);
 
 			for(Player p : playerManager.getPlayers())
 			{
@@ -160,8 +164,10 @@ public class Game {
 	 * @param username
 	 */
 	public void addPlayer(String username){
-		if (playerManager.size() < playerManager.MAX_PLAYERS && !gameStarted){
+		if (playerManager.size() < playerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
 			Player player = new Player(username);
+			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
+			player.setPlayerColor(color);
 			playerManager.add(player);
 		}
 	}
@@ -220,6 +226,11 @@ public class Game {
 		JsonParser parser = new JsonParser();
 		JsonObject preferenceObject = parser.parse(contents).getAsJsonObject();
 
+		int trainCount = preferenceObject.get("TrainCount").getAsInt();
+		playerManager.setStartTrains(trainCount);
+
+		int endGameTrainCount = preferenceObject.get("EndGameTrainCount").getAsInt();
+
 		JsonObject mapObject = preferenceObject.getAsJsonObject("Map");
 		parseMap(mapObject, board);
 
@@ -249,18 +260,23 @@ public class Game {
 			String endpoint1 = endpointArray.get(0).getAsString();
 			String endpoint2 = endpointArray.get(1).getAsString();
 
+			List<Segment> segments = new ArrayList<>();
+
 			//Parse the Segments
 			// TODO fix this
-//			List<Segment> segments = parseSegments(routeObject.get("segmants").getAsJsonArray());
-			List<Segment> segments = new ArrayList<>();
+			if (routeObject.has("segments")) {
+				segments = parseSegments(routeObject.get("segments").getAsJsonArray());
+			}
 
 			//Parse color
 			String color = routeObject.get("color").getAsString();
 			CardColor c = CardColor.fromString(color);
+			int routeLength = routeObject.get("length").getAsInt();
 
 			//			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
 
-			Route route = new Route(i, endpoint1, endpoint2, segments.size(), c, null, segments); //first null is c
+			Route route = new Route(i, endpoint1, endpoint2, routeLength, c, segments); //first null is c
+			route.setId(i);
 			board.getRoutes().add(route);
 		}
 	}
@@ -288,7 +304,6 @@ public class Game {
 			JsonObject card = trainCardList.get(i).getAsJsonObject();
 			String color = card.get("color").getAsString();
 			CardColor c = CardColor.fromString(color);
-			String image = card.get("image").getAsString();
 			int count = card.get("count").getAsInt();
 			for(int j = 0; j < count; j++)
 			{

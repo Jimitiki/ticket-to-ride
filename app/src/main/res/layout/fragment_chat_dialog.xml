@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:id="@+id/messagesView"
         android:layout_alignParentStart="true"
@@ -14,16 +15,18 @@
     <RelativeLayout
         android:id="@+id/inputContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/messageText"
             android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/sendMessageButton"/>
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/sendMessageButton"
+            android:background="@color/grayButton"/>
 
         <Button
             android:layout_width="wrap_content"

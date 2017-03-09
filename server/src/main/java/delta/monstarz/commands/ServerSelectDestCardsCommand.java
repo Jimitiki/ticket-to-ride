@@ -6,6 +6,7 @@ import delta.monstarz.exceptions.InvalidCommandException;
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
+import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 
@@ -41,7 +42,7 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 		// Once they have made a decision the player no longer is restricted to choosing from the cached cards
 		player.setDestCardChoices(null);
 		game.getDestDeck().returnCards(discard);
-		//TODO Implement this, the client need to be told to draw the cards(send a command). This is because the game will need to sync up later!
+		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
 	}
 
 

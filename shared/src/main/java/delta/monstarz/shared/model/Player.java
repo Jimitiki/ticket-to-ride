@@ -1,6 +1,7 @@
 package delta.monstarz.shared.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class Player {
 	private int score;
 	private int numTrains;
 	private int minSelection;
+	private boolean isTakingTurn;
 	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
@@ -76,6 +78,14 @@ public class Player {
 		this.minSelection = minSelection;
 	}
 
+	public boolean isTakingTurn() {
+		return isTakingTurn;
+	}
+
+	public void setTakingTurn(boolean hasTurn) {
+		this.isTakingTurn = hasTurn;
+	}
+
 	public void drawTrainCard(TrainCard card) {
 		if (! trainCards.containsKey(card.getColor())) {
 			trainCards.put(card.getColor(), 0);
@@ -89,5 +99,15 @@ public class Player {
 
 	public void addDestCard(DestCard card) {
 		destCards.add(card);
+	}
+
+	public PlayerInfo playerInfo() {
+		Collection<Integer> card_nums = trainCards.values();
+		int numTrainsCards = 0;
+		for (int n : card_nums) {
+			numTrainsCards += n;
+		}
+
+		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn);
 	}
 }

@@ -73,13 +73,17 @@ public class GamePresenter extends BasePresenter {
 				gameFragment.enableButtons();
 				break;
 			case PLAYER_INFO:
-				gameFragment.updatePlayerInfo();
+				if (gameFragment != null){
+					gameFragment.updatePlayerInfo();
+				}
 				break;
 			case TRAIN_CARD:
 				if (gameFragment != null) {
 					gameFragment.updateCardCounts();
 				}
 				break;
+			case ROUTE:
+				gameFragment.onRouteClaimed(model.getClaimedRoutes());
 		}
 	}
 
@@ -148,16 +152,12 @@ public class GamePresenter extends BasePresenter {
 //		return null;
 //	}
 
-	/**
-	 * gets all of the routes on the board that have been claimed so the view can draw them.
-	 * @return collection of Route objects
-	 */
-	public List<Route> getClaimedRoutes() {
-		return null;
-	}
-
 	public List<DestCard> getDestinationCards() {
 		return model.getDestinationCards();
+	}
+
+	public void listCheck() {
+		gameFragment.onRouteClaimed(model.getGoodRoutes());
 	}
 
 	/**
@@ -166,6 +166,11 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void logOut() {
 		activity.logout();
+	}
+
+	//TODO: Delete after demo is finished
+	public GameFragment getGameFragment() {
+		return gameFragment;
 	}
 
 	@Override
