@@ -164,16 +164,12 @@ public class Game {
 	 * @param username
 	 */
 	public void addPlayer(String username){
-		if (playerManager.size() < playerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
+		if (playerManager.size() < PlayerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
 			Player player = new Player(username);
 			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
 			player.setPlayerColor(color);
 			playerManager.add(player);
 		}
-	}
-
-	public void removePlayer(String username) {
-		//TODO Should players be a map of usernames to player objects?
 	}
 
 	/**
@@ -263,7 +259,7 @@ public class Game {
 			List<Segment> segments = new ArrayList<>();
 
 			//Parse the Segments
-			// TODO fix this
+			// TODO: get rid of condition when all segments are added to json
 			if (routeObject.has("segments")) {
 				segments = parseSegments(routeObject.get("segments").getAsJsonArray());
 			}

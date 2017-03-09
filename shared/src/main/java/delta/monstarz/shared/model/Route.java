@@ -3,7 +3,7 @@ package delta.monstarz.shared.model;
 import java.util.List;
 
 public class Route {
-	private int id; //todo add ids to json
+	private int id;
     private String city1;
     private String city2;
     private int length;

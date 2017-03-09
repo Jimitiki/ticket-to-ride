@@ -127,12 +127,51 @@
     {
       "endpoints":["Seattle", "Calgary"],
       "length":4,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 145,
+          "y": 210,
+          "rotation": 0
+        },
+        {
+          "x": 212,
+          "y": 211,
+          "rotation": -7
+        },
+        {
+          "x": 278,
+          "y": 200,
+          "rotation": -38
+        },
+        {
+          "x": 330,
+          "y": 159,
+          "rotation": -64
+        }
+      ]
     },
     {
       "endpoints":["Vancouver", "Calgary"],
       "length":3,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 150,
+          "y": 102,
+          "rotation": -7
+        },
+        {
+          "x": 217,
+          "y": 94,
+          "rotation": -7
+        },
+        {
+          "x": 284,
+          "y": 87,
+          "rotation": -7
+        }
+      ]
     },
     {
       "endpoints":["Winnipeg", "Calgary"],
@@ -407,12 +446,46 @@
     {
       "endpoints":["San Francisco", "Los Angeles"],
       "length":3,
-      "color": "pink"
+      "color": "pink",
+      "segments": [
+        {
+          "x": 80,
+          "y": 699,
+          "rotation": 65
+        },
+        {
+          "x": 108,
+          "y": 760,
+          "rotation": 54
+        },
+        {
+          "x": 147,
+          "y": 814,
+          "rotation": 45
+        }
+      ]
     },
     {
       "endpoints":["San Francisco", "Los Angeles"],
       "length":3,
-      "color": "yellow"
+      "color": "yellow",
+      "segments": [
+        {
+          "x":62,
+          "y":712,
+          "rotation": 65
+        },
+        {
+          "x": 89,
+          "y": 773,
+          "rotation": 54
+        },
+        {
+          "x": 127,
+          "y": 827,
+          "rotation": 45
+        }
+      ]
     },
     {
       "endpoints":["New Orleans", "Miami"],
@@ -507,22 +580,90 @@
     {
       "endpoints":["San Francisco", "Portland"],
       "length":5,
-      "color": "green"
+      "color": "green",
+      "segments": [
+        {
+          "x": 65,
+          "y": 340,
+          "rotation": 113
+        },
+        {
+          "x": 40,
+          "y": 402,
+          "rotation": 102
+        },
+        {
+          "x": 27,
+          "y": 466,
+          "rotation": 92
+        },
+        {
+          "x": 25,
+          "y": 534,
+          "rotation": 84
+        },
+        {
+          "x": 30,
+          "y": 600,
+          "rotation": 73
+        }
+      ]
     },
     {
       "endpoints":["San Francisco", "Portland"],
       "length":5,
-      "color": "pink"
+      "color": "pink",
+      "segments": [
+        {
+          "x": 92,
+          "y": 343,
+          "rotation": 113
+        },
+        {
+          "x": 67,
+          "y": 406,
+          "rotation": 102
+        },
+        {
+          "x": 54,
+          "y": 470,
+          "rotation": 92
+        },
+        {
+          "x": 52,
+          "y": 537,
+          "rotation": 84
+        },
+        {
+          "x": 57,
+          "y": 603,
+          "rotation": 73
+        }
+      ]
     },
     {
       "endpoints":["Seattle", "Portland"],
       "length":1,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 104,
+          "y": 239,
+          "rotation": 113
+        }
+      ]
     },
     {
       "endpoints":["Seattle", "Portland"],
       "length":1,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 125,
+          "y":248,
+          "rotation": 113
+        }
+      ]
     },
     {
       "endpoints":["Washington", "Raleigh"],
@@ -557,12 +698,26 @@
     {
       "endpoints":["Vancouver", "Seattle"],
       "length":1,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 115,
+          "y": 142,
+          "rotation": 90
+        }
+      ]
     },
     {
       "endpoints":["Vancouver", "Seattle"],
       "length":1,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 139,
+          "y": 141,
+          "rotation": 90
+        }
+      ]
     }
   ],
   "TrainCards":[

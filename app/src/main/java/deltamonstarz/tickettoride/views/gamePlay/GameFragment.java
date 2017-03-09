@@ -152,35 +152,6 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("opening history view");
-				/*
-				PlayerInfo pI = new PlayerInfo(
-						"Trevor",
-						PlayerColor.RED,
-						10,
-						9,
-						8,
-						7,
-						true,
-						true);
-				ClientUpdatePlayerInfoCommand c = new ClientUpdatePlayerInfoCommand(pI);
-				c.execute();
-
-				pI.setPlayerColor(PlayerColor.BLUE);
-				c = new ClientUpdatePlayerInfoCommand(pI);
-				c.execute();
-
-				pI.setPlayerColor(PlayerColor.GREEN);
-				c = new ClientUpdatePlayerInfoCommand(pI);
-				c.execute();
-
-				pI.setPlayerColor(PlayerColor.BLACK);
-				c = new ClientUpdatePlayerInfoCommand(pI);
-				c.execute();
-
-				pI.setPlayerColor(PlayerColor.YELLOW);
-				c = new ClientUpdatePlayerInfoCommand(pI);
-				c.execute();
-				*/
 			}
 		});
 
@@ -194,7 +165,7 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DemoUtility.nextDemo(getContext());
+				presenter.listCheck();
 			}
 		});
 
@@ -226,8 +197,7 @@ public class GameFragment extends Fragment {
 		demo.setEnabled(false);
 	}
 
-	//TODO: make private
-	public void openChat() {
+	private void openChat() {
 		System.out.println("opening chat");
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChatDialogFragment dialog = new ChatDialogFragment();
@@ -236,8 +206,7 @@ public class GameFragment extends Fragment {
 	}
 
 	private void advanceDemo() {
-		DemoUtility.nextDemo(getContext());
-		//presenter.listCheck();
+		//DemoUtility.nextDemo(getContext());
 	}
 
 	private void launchChooseCardDialog(){

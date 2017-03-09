@@ -118,24 +118,9 @@ public class DemoUtility {
 		showToast("Opponent drew two train cards");
 	}
 
-	private static void demo2(){
-		GameFragment fragment = GamePresenter.getInstance().getGameFragment();
-		fragment.openChat();
-		final Handler handler = new Handler();
-		List<PlayerInfo> players = model.getPlayerInfos();
-		for (int i = 0; i < players.size(); i++) {
-			PlayerInfo playerInfo = players.get(i);
-			final String username = playerInfo.getUsername();
-			handler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					new ClientSendMessageCommand(username, model.getGameID(), new Message("Hello, I am " + username, username)).execute();
-				}
-			}, i * 200);
-		}
-	}
+	private static void demo2() {}
 
-	private static void demo3(){
+	private static void demo3() {
 		// Set our points to 5
 
 		// Update player info

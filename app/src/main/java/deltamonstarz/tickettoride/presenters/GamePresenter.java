@@ -156,6 +156,7 @@ public class GamePresenter extends BasePresenter {
 		return model.getDestinationCards();
 	}
 
+	//TODO: delete this when all route data is added to json
 	public void listCheck() {
 		gameFragment.onRouteClaimed(model.getGoodRoutes());
 	}
@@ -166,11 +167,6 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void logOut() {
 		activity.logout();
-	}
-
-	//TODO: Delete after demo is finished
-	public GameFragment getGameFragment() {
-		return gameFragment;
 	}
 
 	@Override
