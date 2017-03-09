@@ -1,20 +1,13 @@
 package delta.monstarz.shared.commands;
 
-import java.util.List;
-
-import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.model.Route;
 
-/**
- * Created by oliphaun on 2/22/17.
- */
-
-public abstract class ClaimRouteCommand extends BaseCommand {
+public class ClaimRouteCommand extends BaseCommand {
     protected Route route;
     protected boolean hasLongest;
 
-    public ClaimRouteCommand(String username, Route r) {
-        super(username);
+    public ClaimRouteCommand(String username, int gameID, Route r) {
+        super(username, gameID);
         route = r;
         name = "ClaimRouteCommand";
     }

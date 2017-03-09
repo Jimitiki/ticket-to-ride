@@ -276,6 +276,7 @@ public class Game {
 			//			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
 
 			Route route = new Route(i, endpoint1, endpoint2, routeLength, c, segments); //first null is c
+			route.setId(i);
 			board.getRoutes().add(route);
 		}
 	}

@@ -7,19 +7,17 @@ import android.widget.Toast;
 import java.util.List;
 
 import delta.monstarz.shared.Message;
-import delta.monstarz.shared.commands.DrawTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
+import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
+import deltamonstarz.tickettoride.commands.ClientClaimRouteCommand;
 import deltamonstarz.tickettoride.commands.ClientDrawTrainCardCommand;
 import deltamonstarz.tickettoride.commands.ClientSendMessageCommand;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
-
-/**
- * Created by lyman126 on 3/8/17.
- */
 
 public class DemoUtility {
 
@@ -205,7 +203,9 @@ public class DemoUtility {
 	}
 
 	private static void demo7(){
-
+		Route route = model.getRoutes().get(1);
+		route.claim(model.getUsername(), PlayerColor.BLUE);
+		new ClientClaimRouteCommand(model.getUsername(), model.getGameID(), route).execute();
 	}
 
 	private static void demo8(){

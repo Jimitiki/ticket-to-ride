@@ -86,5 +86,8 @@ public class Route {
 	    this.city1 = city1;
     }
 
-
+	public void claim(String username, PlayerColor trainColor) {
+		owner = username;
+		this.trainColor = trainColor;
+	}
 }
