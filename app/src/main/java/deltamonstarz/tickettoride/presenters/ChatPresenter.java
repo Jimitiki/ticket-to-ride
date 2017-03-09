@@ -55,9 +55,7 @@ public class ChatPresenter extends BasePresenter {
 
 	public void sendMessage(String chat) {
 		Message message = new Message(chat, model.getUsername());
-		//proxy.sendCommand(model.getAuthToken(), new SendMessageCommand(model.getUsername(), model.getGameID(), message));
 		new ClientSendMessageCommand(model.getUsername(), model.getGameID(), message).execute();
-		//chatFragment.onReceiveMessage(message);
 	}
 
 	public List<Message> getMessages() {

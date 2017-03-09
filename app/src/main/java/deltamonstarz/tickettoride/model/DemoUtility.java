@@ -190,6 +190,10 @@ public class DemoUtility {
 		// Update player info
 		PlayerInfo changedInfo = null;
 		for (PlayerInfo playerInfo:model.getPlayerInfos()){
+			if (playerInfo.isPlayersTurn()) {
+				playerInfo.setPlayersTurn(false);
+				new ClientUpdatePlayerInfoCommand(playerInfo).execute();
+			}
 			if (playerInfo.getUsername().equals(model.getUsername())){
 				changedInfo = playerInfo;
 			}
@@ -206,6 +210,8 @@ public class DemoUtility {
 		Route route = model.getRoutes().get(1);
 		route.claim(model.getUsername(), PlayerColor.BLUE);
 		new ClientClaimRouteCommand(model.getUsername(), model.getGameID(), route).execute();
+
+		showToast("Blue player claimed route from Miami to Atlanta");
 	}
 
 	private static void demo8(){

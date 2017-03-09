@@ -164,7 +164,7 @@ public class Game {
 	 * @param username
 	 */
 	public void addPlayer(String username){
-		if (playerManager.size() < playerManager.MAX_PLAYERS && !gameStarted){
+		if (playerManager.size() < playerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
 			Player player = new Player(username);
 			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
 			player.setPlayerColor(color);

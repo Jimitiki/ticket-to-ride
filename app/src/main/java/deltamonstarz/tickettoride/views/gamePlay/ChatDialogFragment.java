@@ -131,10 +131,6 @@ public class ChatDialogFragment extends DialogFragment {
 			messages.add(message);
 		}
 
-		List<Message> getMessages() {
-			return messages;
-		}
-
 		void setMessages(List<Message> messages) {
 			this.messages = messages;
 		}
