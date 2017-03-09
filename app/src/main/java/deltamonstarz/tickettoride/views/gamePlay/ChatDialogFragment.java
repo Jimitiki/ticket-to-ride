@@ -64,7 +64,6 @@ public class ChatDialogFragment extends DialogFragment {
 
 	public void onReceiveMessage(Message message) {
 		initializeAdapter();
-		adapter.addMessage(message);
 		adapter.notifyDataSetChanged();
 	}
 
@@ -125,10 +124,6 @@ public class ChatDialogFragment extends DialogFragment {
 		@Override
 		public int getItemCount() {
 			return messages.size();
-		}
-
-		void addMessage(Message message) {
-			messages.add(message);
 		}
 
 		void setMessages(List<Message> messages) {
