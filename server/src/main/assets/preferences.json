@@ -2,9 +2,7 @@
   "TrainCount": 45,
   "EndGameTrainCount": 2,
   "Map": {
-    "file": "mapNA.png",
-    "height":500,
-    "width": 1000
+    "file": "mapNA.png"
   },
   "RouteList":[
     {
@@ -395,22 +393,120 @@
     {
       "endpoints":["San Francisco", "Salt Lake City"],
       "length":5,
-      "color": "orange"
+      "color": "orange",
+      "segments": [
+        {
+          "x": 81,
+          "y": 656,
+          "rotation": -18
+        },
+        {
+          "x": 144,
+          "y": 635,
+          "rotation": -18
+        },
+        {
+          "x": 206,
+          "y": 614,
+          "rotation": -18
+        },
+        {
+          "x": 271,
+          "y": 593,
+          "rotation": -18
+        },
+        {
+          "x": 332,
+          "y": 572,
+          "rotation": -18
+        }
+      ]
     },
     {
       "endpoints":["San Francisco", "Salt Lake City"],
       "length":5,
-      "color": "white"
+      "color": "white",
+      "segments": [
+        {
+          "x": 89,
+          "y": 678,
+          "rotation": -18
+        },
+        {
+          "x": 152,
+          "y": 657,
+          "rotation": -18
+        },
+        {
+          "x": 214,
+          "y": 636,
+          "rotation": -18
+        },
+        {
+          "x": 277,
+          "y": 615,
+          "rotation": -18
+        },
+        {
+          "x": 340,
+          "y": 594,
+          "rotation": -18
+        }
+      ]
     },
     {
       "endpoints":["Toronto", "Sault Ste. Marie"],
       "length":2,
-      "color": "Toronto"
+      "color": "Toronto",
+      "segments": [
+        {
+          "x": 1273,
+          "y": 195,
+          "rotation": 12
+        },
+        {
+          "x": 1339,
+          "y": 209,
+          "rotation": 12
+        }
+      ]
     },
     {
       "endpoints":["Winnipeg", "Sault Ste. Marie"],
       "length":6,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 831,
+          "y": 96,
+          "rotation": 12
+        },
+        {
+          "x": 897,
+          "y": 110,
+          "rotation": 12
+        },
+        {
+          "x": 963,
+          "y": 123,
+          "rotation": 12
+        },
+        {
+          "x": 1029,
+          "y": 137,
+          "rotation": 12
+        },
+        {
+          "x": 1094,
+          "y": 151,
+          "rotation": 12
+        },
+        {
+          "x": 1160,
+          "y": 164,
+          "rotation": 12
+        }
+      ]
     },
     {
       "endpoints":["Seattle", "Calgary"],

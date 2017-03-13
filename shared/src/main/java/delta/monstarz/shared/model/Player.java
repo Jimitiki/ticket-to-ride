@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import sun.security.krb5.internal.crypto.Des;
-
 public class Player {
 	private String username;
 	private PlayerColor playerColor;
@@ -22,6 +20,7 @@ public class Player {
 	public Player(String username){
 		this.username = username;
 		trainCards = new HashMap<>();
+		state = new InactiveState();
 	}
 	public String getUsername() {
 		return username;

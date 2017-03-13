@@ -20,7 +20,7 @@ import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.Segment;
 
 public class MapView extends View {
-	private static Bitmap mapImage;
+	private Bitmap mapImage;
 	private GameActivity activity;
 	private static Rect sourceRect;
 	private static RectF destRect;
@@ -28,7 +28,7 @@ public class MapView extends View {
 	private static float mapScaleY;
 	private static List<Route> claimedRoutes = new ArrayList<>();
 
-	private final float TRAIN_SCALE = (float) 0.21;
+	private final float TRAIN_SCALE = (float) 0.18;
 	private final int TRAIN_OFFSET_X = -2;
 	private final int TRAIN_OFFSET_Y = -3;
 
