@@ -98,7 +98,7 @@ public class ClientGame {
 	}
 
 	public void drawTrainCard(TrainCard cardDrawn) {
-		me.drawTrainCard(cardDrawn);
+		me.drawTrainCard(cardDrawn, true);
 	}
 
 	public void addDestCard(DestCard card) {

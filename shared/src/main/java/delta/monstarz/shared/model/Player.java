@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-/**
- * Created by Trevor on 2/2/2017.
- */
+import sun.security.krb5.internal.crypto.Des;
 
 public class Player {
 	private String username;
@@ -21,14 +17,7 @@ public class Player {
 	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
-
-	public ArrayList<DestCard> getDestCardChoices() {
-		return destCardChoices;
-	}
-
-	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
-		this.destCardChoices = destCardChoices;
-	}
+	private PlayerState state;
 
 	public Player(String username){
 		this.username = username;
@@ -66,10 +55,6 @@ public class Player {
 		return destCards;
 	}
 
-	public void setDestCards(List<DestCard> destCards) {
-		this.destCards = destCards;
-	}
-
 	public int getMinSelection() {
 		return minSelection;
 	}
@@ -86,19 +71,40 @@ public class Player {
 		this.isTakingTurn = hasTurn;
 	}
 
-	public void drawTrainCard(TrainCard card) {
-		if (! trainCards.containsKey(card.getColor())) {
-			trainCards.put(card.getColor(), 0);
-		}
-		trainCards.put(card.getColor(), trainCards.get(card.getColor()) + 1);
-	}
-
 	public HashMap<CardColor, Integer> getTrainCards(){
 		return trainCards;
 	}
 
+	public ArrayList<DestCard> getDestCardChoices() {
+		return destCardChoices;
+	}
+
+	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
+		this.destCardChoices = destCardChoices;
+	}
+
 	public void addDestCard(DestCard card) {
 		destCards.add(card);
+	}
+
+	public void startTurn() {
+		state.startTurn();
+	}
+
+	public void drawTrainCard(TrainCard card, boolean isFaceUp) {
+		state.drawTrainCard(card, isFaceUp);
+	}
+
+	public void drawDestinationCards(ArrayList<DestCard> cards) {
+		state.drawDestinationCards(cards);
+	}
+
+	public void selectDestinationCards(ArrayList<DestCard> cards) {
+		state.selectDestinationCards(cards);
+	}
+
+	public void claimRoute(Route route) {
+		state.claimRoute(route);
 	}
 
 	public PlayerInfo playerInfo() {
@@ -109,5 +115,63 @@ public class Player {
 		}
 
 		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn);
+	}
+
+	private class InactiveState extends PlayerState {
+		@Override
+		public void startTurn() {
+			state = new PlayerTurnState();
+			isTakingTurn = true;
+		}
+	}
+
+	private class PlayerTurnState extends PlayerState {
+		@Override
+		void drawTrainCard(TrainCard card, boolean isFaceUp) {
+			CardColor cardColor = card.getColor();
+			if (! trainCards.containsKey(cardColor)) {
+				trainCards.put(cardColor, 0);
+			}
+			trainCards.put(cardColor, trainCards.get(cardColor) + 1);
+			if (cardColor == CardColor.GOLD && isFaceUp) {
+				state = new InactiveState();
+				isTakingTurn = false;
+			} else {
+				state = new TrainCardState();
+			}
+		}
+
+		@Override
+		void drawDestinationCards(ArrayList<DestCard> cards) {
+			destCardChoices = cards;
+			state = new DestinationCardState();
+		}
+
+		@Override
+		void claimRoute(Route route) {
+			isTakingTurn = false;
+			state = new InactiveState();
+		}
+	}
+
+	private class TrainCardState extends PlayerState {
+		@Override
+		void drawTrainCard(TrainCard card, boolean isFaceUp) {
+			if (card.getColor() != CardColor.GOLD || !isFaceUp) {
+				CardColor cardColor = card.getColor();
+				if (! trainCards.containsKey(cardColor)) {
+					trainCards.put(cardColor, 0);
+				}
+				trainCards.put(cardColor, trainCards.get(cardColor) + 1);
+			}
+		}
+	}
+
+	private class DestinationCardState extends PlayerState {
+		@Override
+		void selectDestinationCards(ArrayList<DestCard> cards) {
+			destCards.addAll(cards);
+			state = new InactiveState();
+		}
 	}
 }
