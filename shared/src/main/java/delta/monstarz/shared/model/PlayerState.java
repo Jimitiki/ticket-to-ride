@@ -5,7 +5,9 @@ import java.util.ArrayList;
 abstract class PlayerState {
 	void startTurn() {}
 
-	void drawTrainCard(TrainCard card, boolean isFaceUp) {}
+	void drawTrainCard(TrainCard card) {}
+
+	void selectTrainCard(TrainCard card) {}
 
 	void drawDestinationCards(ArrayList<DestCard> cards) {}
 
