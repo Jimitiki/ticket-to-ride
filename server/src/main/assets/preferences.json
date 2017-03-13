@@ -8,108 +8,6 @@
   },
   "RouteList":[
     {
-      "endpoints":["Charleston", "Atlanta"],
-      "length":2,
-      "color": "gold",
-      "segments": [
-        {
-          "x": 1600,
-          "y": 765,
-          "rotation": 86
-        },
-        {
-          "x": 1603,
-          "y": 833,
-          "rotation": 81
-        },
-        {
-          "x": 1613,
-          "y": 898,
-          "rotation": 75
-        },
-        {
-          "x": 1634,
-          "y": 960,
-          "rotation": 68
-        }
-      ]
-    },
-    {
-      "endpoints":["Miami", "Atlanta"],
-      "length":5,
-      "color": "blue",
-      "segments":[
-        {
-          "x": 1432,
-          "y": 760,
-          "rotation": 48
-        },
-        {
-          "x": 1474,
-          "y": 813,
-          "rotation": 48
-        },
-        {
-          "x": 1516,
-          "y": 866,
-          "rotation": 48
-        },
-        {
-          "x": 1559,
-          "y": 918,
-          "rotation": 48
-        },
-        {
-          "x": 1601,
-          "y": 971,
-          "rotation": 48
-        }
-
-      ]
-    },
-    {
-      "endpoints":["Nashville", "Atlanta"],
-      "length":1,
-      "color": "gold",
-      "segments": [
-        {
-          "x": 1343,
-          "y": 673,
-          "rotation": 25
-        }
-      ]
-    },
-    {
-      "endpoints":["New Orleans", "Atlanta"],
-      "length":4,
-      "color": "orange"
-    },
-    {
-      "endpoints":["New Orleans", "Atlanta"],
-      "length":4,
-      "color": "yellow"
-    },
-    {
-      "endpoints":["Raleigh", "Atlanta"],
-      "length":2,
-      "color": "gold"
-    },
-    {
-      "endpoints":["Raleigh", "Atlanta"],
-      "length":2,
-      "color": "gold"
-    },
-    {
-      "endpoints":["Montreal", "Boston"],
-      "length":2,
-      "color": "gold"
-    },
-    {
-      "endpoints":["Montreal", "Boston"],
-      "length":2,
-      "color": "gold"
-    },
-    {
       "endpoints":["New York", "Boston"],
       "length":2,
       "color": "red"
@@ -123,55 +21,6 @@
       "endpoints":["Helena", "Calgary"],
       "length":4,
       "color": "gold"
-    },
-    {
-      "endpoints":["Seattle", "Calgary"],
-      "length":4,
-      "color": "gold",
-      "segments": [
-        {
-          "x": 145,
-          "y": 210,
-          "rotation": 0
-        },
-        {
-          "x": 212,
-          "y": 211,
-          "rotation": -7
-        },
-        {
-          "x": 278,
-          "y": 200,
-          "rotation": -38
-        },
-        {
-          "x": 330,
-          "y": 159,
-          "rotation": -64
-        }
-      ]
-    },
-    {
-      "endpoints":["Vancouver", "Calgary"],
-      "length":3,
-      "color": "gold",
-      "segments": [
-        {
-          "x": 150,
-          "y": 102,
-          "rotation": -7
-        },
-        {
-          "x": 217,
-          "y": 94,
-          "rotation": -7
-        },
-        {
-          "x": 284,
-          "y": 87,
-          "rotation": -7
-        }
-      ]
     },
     {
       "endpoints":["Winnipeg", "Calgary"],
@@ -444,50 +293,6 @@
       "color": "gold"
     },
     {
-      "endpoints":["San Francisco", "Los Angeles"],
-      "length":3,
-      "color": "pink",
-      "segments": [
-        {
-          "x": 80,
-          "y": 699,
-          "rotation": 65
-        },
-        {
-          "x": 108,
-          "y": 760,
-          "rotation": 54
-        },
-        {
-          "x": 147,
-          "y": 814,
-          "rotation": 45
-        }
-      ]
-    },
-    {
-      "endpoints":["San Francisco", "Los Angeles"],
-      "length":3,
-      "color": "yellow",
-      "segments": [
-        {
-          "x":62,
-          "y":712,
-          "rotation": 65
-        },
-        {
-          "x": 89,
-          "y": 773,
-          "rotation": 54
-        },
-        {
-          "x": 127,
-          "y": 827,
-          "rotation": 45
-        }
-      ]
-    },
-    {
       "endpoints":["New Orleans", "Miami"],
       "length":6,
       "color": "red"
@@ -578,6 +383,85 @@
       "color": "blue"
     },
     {
+      "endpoints":["Washington", "Raleigh"],
+      "length":2,
+      "color": "gold"
+    },
+    {
+      "endpoints":["Washington", "Raleigh"],
+      "length":2,
+      "color": "gold"
+    },
+    {
+      "endpoints":["San Francisco", "Salt Lake City"],
+      "length":5,
+      "color": "orange"
+    },
+    {
+      "endpoints":["San Francisco", "Salt Lake City"],
+      "length":5,
+      "color": "white"
+    },
+    {
+      "endpoints":["Toronto", "Sault Ste. Marie"],
+      "length":2,
+      "color": "Toronto"
+    },
+    {
+      "endpoints":["Winnipeg", "Sault Ste. Marie"],
+      "length":6,
+      "color": "gold"
+    },
+    {
+      "endpoints":["Seattle", "Calgary"],
+      "length":4,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 145,
+          "y": 210,
+          "rotation": 0
+        },
+        {
+          "x": 212,
+          "y": 211,
+          "rotation": -7
+        },
+        {
+          "x": 278,
+          "y": 200,
+          "rotation": -38
+        },
+        {
+          "x": 330,
+          "y": 159,
+          "rotation": -64
+        }
+      ]
+    },
+    {
+      "endpoints":["Vancouver", "Calgary"],
+      "length":3,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 150,
+          "y": 102,
+          "rotation": -7
+        },
+        {
+          "x": 217,
+          "y": 94,
+          "rotation": -7
+        },
+        {
+          "x": 284,
+          "y": 87,
+          "rotation": -7
+        }
+      ]
+    },
+    {
       "endpoints":["San Francisco", "Portland"],
       "length":5,
       "color": "green",
@@ -666,34 +550,48 @@
       ]
     },
     {
-      "endpoints":["Washington", "Raleigh"],
-      "length":2,
-      "color": "gold"
+      "endpoints":["San Francisco", "Los Angeles"],
+      "length":3,
+      "color": "pink",
+      "segments": [
+        {
+          "x": 80,
+          "y": 699,
+          "rotation": 65
+        },
+        {
+          "x": 108,
+          "y": 760,
+          "rotation": 54
+        },
+        {
+          "x": 147,
+          "y": 814,
+          "rotation": 45
+        }
+      ]
     },
     {
-      "endpoints":["Washington", "Raleigh"],
-      "length":2,
-      "color": "gold"
-    },
-    {
-      "endpoints":["San Francisco", "Salt Lake City"],
-      "length":5,
-      "color": "orange"
-    },
-    {
-      "endpoints":["San Francisco", "Salt Lake City"],
-      "length":5,
-      "color": "white"
-    },
-    {
-      "endpoints":["Toronto", "Sault Ste. Marie"],
-      "length":2,
-      "color": "Toronto"
-    },
-    {
-      "endpoints":["Winnipeg", "Sault Ste. Marie"],
-      "length":6,
-      "color": "gold"
+      "endpoints":["San Francisco", "Los Angeles"],
+      "length":3,
+      "color": "yellow",
+      "segments": [
+        {
+          "x":62,
+          "y":712,
+          "rotation": 65
+        },
+        {
+          "x": 89,
+          "y": 773,
+          "rotation": 54
+        },
+        {
+          "x": 127,
+          "y": 827,
+          "rotation": 45
+        }
+      ]
     },
     {
       "endpoints":["Vancouver", "Seattle"],
@@ -716,6 +614,198 @@
           "x": 139,
           "y": 141,
           "rotation": 90
+        }
+      ]
+    },
+    {
+      "endpoints":["Charleston", "Atlanta"],
+      "length":2,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1600,
+          "y": 765,
+          "rotation": 86
+        },
+        {
+          "x": 1603,
+          "y": 833,
+          "rotation": 81
+        },
+        {
+          "x": 1613,
+          "y": 898,
+          "rotation": 75
+        },
+        {
+          "x": 1634,
+          "y": 960,
+          "rotation": 68
+        }
+      ]
+    },
+    {
+      "endpoints":["Miami", "Atlanta"],
+      "length":5,
+      "color": "blue",
+      "segments":[
+        {
+          "x": 1432,
+          "y": 760,
+          "rotation": 48
+        },
+        {
+          "x": 1474,
+          "y": 813,
+          "rotation": 48
+        },
+        {
+          "x": 1516,
+          "y": 866,
+          "rotation": 48
+        },
+        {
+          "x": 1559,
+          "y": 918,
+          "rotation": 48
+        },
+        {
+          "x": 1601,
+          "y": 971,
+          "rotation": 48
+        }
+
+      ]
+    },
+    {
+      "endpoints":["Nashville", "Atlanta"],
+      "length":1,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1343,
+          "y": 673,
+          "rotation": 25
+        }
+      ]
+    },
+    {
+      "endpoints":["New Orleans", "Atlanta"],
+      "length":4,
+      "color": "yellow",
+      "segments": [
+        {
+          "x": 1234,
+          "y": 942,
+          "rotation": -74
+        },
+        {
+          "x": 1260,
+          "y": 878,
+          "rotation": -66
+        },
+        {
+          "x": 1299,
+          "y": 820,
+          "rotation": -58
+        },
+        {
+          "x": 1344,
+          "y": 768,
+          "rotation": -40
+        }
+      ]
+    },
+    {
+      "endpoints":["New Orleans", "Atlanta"],
+      "length":4,
+      "color": "orange",
+      "segments": [
+        {
+          "x": 1251,
+          "y": 958,
+          "rotation": -74
+        },
+        {
+          "x": 1277,
+          "y": 895,
+          "rotation": -66
+        },
+        {
+          "x": 1316,
+          "y": 838,
+          "rotation": -58
+        },
+        {
+          "x": 1360,
+          "y": 786,
+          "rotation": -40
+        }
+      ]
+    },
+    {
+      "endpoints":["Raleigh", "Atlanta"],
+      "length":2,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1417,
+          "y": 704,
+          "rotation": -38
+        },{
+          "x": 1468,
+          "y": 660,
+          "rotation": -38
+        }
+      ]
+    },
+    {
+      "endpoints":["Raleigh", "Atlanta"],
+      "length":2,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1432,
+          "y": 721,
+          "rotation": -42
+        },{
+          "x": 1483,
+          "y": 677,
+          "rotation": -42
+        }
+      ]
+    },
+    {
+      "endpoints":["Montreal", "Boston"],
+      "length":2,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1631,
+          "y": 77,
+          "rotation": 38
+        },
+        {
+          "x": 1683,
+          "y": 119,
+          "rotation": 38
+        }
+      ]
+    },
+    {
+      "endpoints":["Montreal", "Boston"],
+      "length":2,
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1616,
+          "y": 95,
+          "rotation": 38
+        },
+        {
+          "x": 1668,
+          "y": 138,
+          "rotation": 38
         }
       ]
     }
