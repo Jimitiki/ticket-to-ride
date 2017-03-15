@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import delta.monstarz.model.game.Game;
+import delta.monstarz.shared.commands.SelectTrainCardCommand;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
@@ -17,13 +20,13 @@ public class TrainCardManager
 
 	//Data Members
 	LinkedList<TrainCard> deck;
-	ArrayList<TrainCard> faceupCards;
+	ArrayList<TrainCard> faceUpCards;
 
 	//Constructor
 	public TrainCardManager()
 	{
 		deck = new LinkedList<>();
-		faceupCards = new ArrayList<>();
+		faceUpCards = new ArrayList<>();
 	}
 
 	public void initialize(){
@@ -31,11 +34,24 @@ public class TrainCardManager
 		assignFaceUpCards();
 	}
 
-	private void assignFaceUpCards(){
-		for (int i = 0; i < FACE_UP_COUNT; i++){
-			faceupCards.add(drawCard());
-		}
-		//TODO validate not 3 locomotives and reset face up cards if so
+	public void assignFaceUpCards(){
+		int numGoldCards = 0;
+		do {
+			for (int i = 0; i < FACE_UP_COUNT; i++) {
+				TrainCard card = drawCard();
+				if (card.getColor() == CardColor.GOLD) {
+					numGoldCards++;
+				}
+				faceUpCards.set(i, drawCard());
+
+			}
+			if (numGoldCards >= 3) {
+				for (TrainCard card : faceUpCards) {
+					addCard(card);
+				}
+				shuffle();
+			}
+		} while (numGoldCards >= 3);
 	}
 
 	/**
@@ -62,19 +78,23 @@ public class TrainCardManager
 
 	public List<TrainCard> getFaceUpCards()
 	{
-		return faceupCards;
+		return faceUpCards;
 	}
 
 	public TrainCard drawFaceUpCard(int index)
 	{
-		TrainCard card = faceupCards.get(index);
-		faceupCards.add(index, drawCard());
+		TrainCard card = faceUpCards.get(index);
+		faceUpCards.add(index, drawCard());
 		return card;
+	}
+
+	public TrainCard getFaceUpCardByPosition(int index) {
+		return faceUpCards.get(index);
 	}
 
 	public void clear()
 	{
-		faceupCards.clear();
+		faceUpCards.clear();
 		deck.clear();
 	}
 }

@@ -22,6 +22,7 @@ import delta.monstarz.model.game.manager.TrainCardManager;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
@@ -52,7 +53,6 @@ public class Game {
 	private StateManager stateManager;
 	private TrainCardManager trainDeck;
 	private DestinationCardManager destDeck;
-	private List<TrainCard> faceUpCards = new ArrayList<>();
 	private Board board;
 	private int nextID = 0;
 	private List<BaseCommand> history = new ArrayList<>();
@@ -73,6 +73,12 @@ public class Game {
 
 		parseConfigurations(trainDeck, destDeck, board);
 		trainDeck.initialize();
+		List<TrainCard> faceUpCards = trainDeck.getFaceUpCards();
+		for (int i = 0; i < faceUpCards.size(); i++) {
+			SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameID, i);
+			command.setReplacementCard(faceUpCards.get(i));
+			history.add(command);
+		}
 		destDeck.shuffle();
 	}
 
@@ -124,13 +130,11 @@ public class Game {
 	}
 
 	public TrainCard replaceFaceUpCard(int position) {
-		TrainCard newCard = trainDeck.drawCard();
-		faceUpCards.set(position, newCard);
-		return newCard;
+		return trainDeck.drawFaceUpCard(position);
 	}
 
 	public TrainCard getFaceUpCardByPosition(int position) {
-		return faceUpCards.get(position);
+		return trainDeck.drawFaceUpCard(position);
 	}
 
 	//Public Methods
