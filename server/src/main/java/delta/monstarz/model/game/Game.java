@@ -72,14 +72,6 @@ public class Game {
 		nextNewGameID++;
 
 		parseConfigurations(trainDeck, destDeck, board);
-		trainDeck.initialize();
-		List<TrainCard> faceUpCards = trainDeck.getFaceUpCards();
-		for (int i = 0; i < faceUpCards.size(); i++) {
-			SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameID, i);
-			command.setReplacementCard(faceUpCards.get(i));
-			history.add(command);
-		}
-		destDeck.shuffle();
 	}
 
 	//Getters and Setters
@@ -159,6 +151,8 @@ public class Game {
 	 */
 	public void start(){
 		if (playerManager.size() > 1){
+			trainDeck.initialize();
+			destDeck.shuffle();
 
 			for(Player p : playerManager.getPlayers())
 			{
@@ -167,6 +161,13 @@ public class Game {
 					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p.getUsername(), gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
+			}
+
+			List<TrainCard> faceUpCards = trainDeck.getFaceUpCards();
+			for (int i = 0; i < faceUpCards.size(); i++) {
+				SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameID, i);
+				command.setReplacementCard(faceUpCards.get(i));
+				history.add(command);
 			}
 
 			gameStarted = true;
