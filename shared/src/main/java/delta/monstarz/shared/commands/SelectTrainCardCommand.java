@@ -17,6 +17,14 @@ public class SelectTrainCardCommand extends BaseCommand {
 		return cardSpot;
 	}
 
+	public TrainCard getReplacementCard() {
+		return replacementCard;
+	}
+
+	public void setReplacementCard(TrainCard replacementCard) {
+		this.replacementCard = replacementCard;
+	}
+
 	@Override
 	public void execute() {}
 }
