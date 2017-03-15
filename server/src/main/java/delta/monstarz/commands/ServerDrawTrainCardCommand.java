@@ -29,7 +29,7 @@ public class ServerDrawTrainCardCommand extends DrawTrainCardCommand
 		Game game = GameManager.getInstance().getGameByID(gameID);
 		TrainCard card = game.getTrainDeck().drawCard();
 		Player player = game.getPlayerByUsername(username);
-		player.drawTrainCard(card, true);
+		player.drawTrainCard(card);
 		this.setCardDrawn(card);
 		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
 	}

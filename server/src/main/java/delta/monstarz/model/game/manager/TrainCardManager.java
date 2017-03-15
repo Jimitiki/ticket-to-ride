@@ -62,7 +62,6 @@ public class TrainCardManager
 		deck.add(card);
 	}
 
-
 	/**
 	 * Places the faceup cards back in the deck, shuffles the deck, and then draws 5 new face cards
 	 */
