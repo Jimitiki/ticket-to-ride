@@ -20,12 +20,23 @@ public class ClientGame {
     private int gameID;
 	private List<String> players;
 	private List<Message> chatHistory;
+	private List<TrainCard> faceUpCards;
 
 	public ClientGame(int id) {
 		gameID = id;
 		players = new ArrayList<>();
 		me = new Player(ClientModel.getInstance().getUsername());
 		lastCommandID = -1;
+		faceUpCards = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			faceUpCards.add(null);
+		}
+	}
+
+	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
+		TrainCard cardDrawn = faceUpCards.get(cardSpot);
+		faceUpCards.set(cardSpot, replacementCard);
+		return cardDrawn;
 	}
 
 	public int getGameID() {
@@ -97,9 +108,9 @@ public class ClientGame {
 		return players;
 	}
 
-	public void drawTrainCard(TrainCard cardDrawn) {
-		me.drawTrainCard(cardDrawn, true);
-	}
+//	public void drawTrainCard(TrainCard cardDrawn) {
+//		me.drawTrainCard(cardDrawn, true);
+//	}
 
 	public void addDestCard(DestCard card) {
 		me.addDestCard(card);
