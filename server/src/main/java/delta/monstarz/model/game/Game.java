@@ -52,6 +52,7 @@ public class Game {
 	private StateManager stateManager;
 	private TrainCardManager trainDeck;
 	private DestinationCardManager destDeck;
+	private List<TrainCard> faceUpCards = new ArrayList<>();
 	private Board board;
 	private int nextID = 0;
 	private List<BaseCommand> history = new ArrayList<>();
@@ -122,6 +123,16 @@ public class Game {
 		return oneTimeUseCommands;
 	}
 
+	public TrainCard replaceFaceUpCard(int position) {
+		TrainCard newCard = trainDeck.drawCard();
+		faceUpCards.set(position, newCard);
+		return newCard;
+	}
+
+	public TrainCard getFaceUpCardByPosition(int position) {
+		return faceUpCards.get(position);
+	}
+
 	//Public Methods
 	public void addCommand(BaseCommand command) {
 		command.setId(nextID++);
@@ -161,7 +172,7 @@ public class Game {
 
 	/**
 	 * Add a player to the game as long as the game is not full
-	 * @param username
+	 * @param username The unique string username of the user to add
 	 */
 	public void addPlayer(String username){
 		if (playerManager.size() < PlayerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
