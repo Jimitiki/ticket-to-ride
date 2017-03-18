@@ -43,7 +43,6 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("I'm a server. Currently I just authenticate and list games");
 		String portNumber;
 		if(args.length == 0) {
 			portNumber = "8080";

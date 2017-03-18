@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.List;
 
 import delta.monstarz.shared.commands.DrawTrainCardCommand;
+import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.model.ClientModel;
@@ -59,7 +60,8 @@ public class ChooseCardPresenter extends BasePresenter {
 	}
 
 	public void drawFaceUpCard(int index){
-
+		SelectTrainCardCommand command = new SelectTrainCardCommand(model.getUsername(), model.getGameID(), index);
+		ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
 	}
 
 	public void setChooseCardDialog(ChooseCardDialog chooseCardDialog) {
