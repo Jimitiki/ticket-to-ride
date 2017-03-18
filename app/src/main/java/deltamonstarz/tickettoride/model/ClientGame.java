@@ -36,6 +36,7 @@ public class ClientGame {
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
 		TrainCard cardDrawn = faceUpCards.get(cardSpot);
 		faceUpCards.set(cardSpot, replacementCard);
+		ClientModel.getInstance().notifyPresenter(UpdateType.FACE_UP_CARD);
 		return cardDrawn;
 	}
 
@@ -158,5 +159,9 @@ public class ClientGame {
 
 	public List<Route> getRoutes() {
 		return board.getRoutes();
+	}
+
+	public List<TrainCard> getFaceUpCards() {
+		return faceUpCards;
 	}
 }

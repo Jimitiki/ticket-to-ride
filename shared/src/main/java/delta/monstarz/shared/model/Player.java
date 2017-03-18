@@ -20,7 +20,7 @@ public class Player {
 	public Player(String username) {
 		this.username = username;
 		trainCards = new HashMap<>();
-		state = new InactiveState();
+		state = new SetupState();
 	}
 
 	public String getUsername() {
@@ -125,11 +125,36 @@ public class Player {
 		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn);
 	}
 
+	private class SetupState extends PlayerState {
+		@Override
+		void drawTrainCard(TrainCard card) {
+			CardColor cardColor = card.getColor();
+			if (! trainCards.containsKey(cardColor)) {
+				trainCards.put(cardColor, 0);
+			}
+			trainCards.put(cardColor, trainCards.get(cardColor) + 1);
+		}
+
+		@Override
+		void drawDestinationCards(ArrayList<DestCard> cards) {
+			destCardChoices = cards;
+			state = new DestinationCardState();
+		}
+
+
+	}
+
 	private class InactiveState extends PlayerState {
 		@Override
 		public void startTurn() {
 			state = new PlayerTurnState();
 			isTakingTurn = true;
+		}
+
+		@Override
+		void drawDestinationCards(ArrayList<DestCard> cards) {
+			destCardChoices = cards;
+			state = new DestinationCardState();
 		}
 	}
 
