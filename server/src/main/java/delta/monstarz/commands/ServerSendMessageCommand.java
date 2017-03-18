@@ -9,7 +9,5 @@ public class ServerSendMessageCommand extends SendMessageCommand {
 	}
 
 	@Override
-	public void execute() {
-		super.execute();
-	}
+	public void execute() {}
 }
