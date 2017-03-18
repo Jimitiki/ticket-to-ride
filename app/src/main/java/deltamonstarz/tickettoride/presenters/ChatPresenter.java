@@ -8,6 +8,7 @@ import java.util.Observable;
 
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.commands.SendMessageCommand;
+import deltamonstarz.tickettoride.ServerProxy;
 import deltamonstarz.tickettoride.commands.ClientSendMessageCommand;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChatDialogFragment;
@@ -55,7 +56,8 @@ public class ChatPresenter extends BasePresenter {
 
 	public void sendMessage(String chat) {
 		Message message = new Message(chat, model.getUsername());
-		new ClientSendMessageCommand(model.getUsername(), model.getGameID(), message).execute();
+		ServerProxy.getInstance().sendCommand(model.getAuthToken(),
+				new ClientSendMessageCommand(model.getUsername(), model.getGameID(), message));
 	}
 
 	public List<Message> getMessages() {
