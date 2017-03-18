@@ -15,7 +15,7 @@ public class ServerDrawTrainCardCommand extends DrawTrainCardCommand
 	//Constructors
 	public ServerDrawTrainCardCommand(String username, int gameID, int drawPileID)
 	{
-		super(username, gameID, drawPileID);
+		super(username, gameID);
 	}
 
 	//Object Methods

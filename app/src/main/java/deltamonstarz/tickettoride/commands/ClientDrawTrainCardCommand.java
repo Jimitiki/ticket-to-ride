@@ -9,7 +9,7 @@ import deltamonstarz.tickettoride.model.ClientModel;
 
 public class ClientDrawTrainCardCommand extends DrawTrainCardCommand {
 	public ClientDrawTrainCardCommand(String username, int gameID, int drawPileID) {
-		super(username, gameID, drawPileID);
+		super(username, gameID);
 	}
 
 	@Override

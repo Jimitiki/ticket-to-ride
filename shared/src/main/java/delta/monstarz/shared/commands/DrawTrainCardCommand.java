@@ -7,19 +7,15 @@ import delta.monstarz.shared.model.TrainCard;
  */
 
 public class DrawTrainCardCommand extends BaseCommand {
-	protected int drawPileID;
 	protected TrainCard cardDrawn;
 
-	public int getDrawPileID() {return drawPileID;}
-	public void setDrawPileID(int drawPileID) {this.drawPileID = drawPileID;}
 	public TrainCard getCardDrawn() {return cardDrawn;}
 	public void setCardDrawn(TrainCard cardDrawn) {
 		this.cardDrawn = cardDrawn;
 	}
 
-	public DrawTrainCardCommand(String username, int gameID, int drawPileID) {
+	public DrawTrainCardCommand(String username, int gameID) {
 		super(username, gameID);
-		this.drawPileID = drawPileID;
 		name = "DrawTrainCardCommand";
 		isGlobal = false;
 	}
