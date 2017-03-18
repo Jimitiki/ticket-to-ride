@@ -38,7 +38,7 @@ public class ClientGame {
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
 		TrainCard cardDrawn = faceUpCards.get(cardSpot);
 		faceUpCards.set(cardSpot, replacementCard);
-		model.notifyPresenter(UpdateType.FACE_UP_CARD);
+		model.notifyPresenter(UpdateType.TRAIN_CARD);
 		return cardDrawn;
 	}
 

@@ -165,7 +165,7 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				presenter.listCheck();
+				activity.onGameEnd();
 			}
 		});
 

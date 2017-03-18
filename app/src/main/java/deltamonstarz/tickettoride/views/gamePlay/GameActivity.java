@@ -18,6 +18,7 @@ public class GameActivity extends AppCompatActivity
 	private GamePresenter presenter;
 	private GameLobbyFragment lobbyFragment;
 	private GameFragment gameFragment;
+	private GameResultsFragment resultsFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -70,6 +71,15 @@ public class GameActivity extends AppCompatActivity
 				.commit();
 		presenter.setGameFragment(gameFragment);
 		gameFragment.setActivity(this);
+	}
+
+	public void onGameEnd() {
+		System.out.print("game ended");
+		FragmentManager fm = this.getSupportFragmentManager();
+		resultsFragment = GameResultsFragment.newInstance();
+		fm.beginTransaction()
+				.replace(R.id.fragmentContainer, resultsFragment)
+				.commit();
 	}
 
 	private void onJoinGame() {
