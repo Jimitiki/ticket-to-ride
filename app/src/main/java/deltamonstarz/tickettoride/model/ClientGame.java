@@ -21,6 +21,7 @@ public class ClientGame {
 	private List<String> players;
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
+	private ClientModel model;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -31,11 +32,13 @@ public class ClientGame {
 		for (int i = 0; i < 5; i++) {
 			faceUpCards.add(null);
 		}
+		model = ClientModel.getInstance();
 	}
 
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
 		TrainCard cardDrawn = faceUpCards.get(cardSpot);
 		faceUpCards.set(cardSpot, replacementCard);
+		model.notifyPresenter(UpdateType.FACE_UP_CARD);
 		return cardDrawn;
 	}
 

@@ -134,7 +134,7 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.LEAVE_GAME);
 	}
 
-	private synchronized void notifyPresenter(UpdateType updateType) {
+	synchronized void notifyPresenter(UpdateType updateType) {
 		setChanged();
 		notifyObservers(updateType);
 	}
