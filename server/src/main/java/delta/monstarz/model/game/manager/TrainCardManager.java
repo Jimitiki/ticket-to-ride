@@ -1,5 +1,8 @@
 package delta.monstarz.model.game.manager;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -10,23 +13,32 @@ import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.TrainCard;
 
-/**
- * @author bradcarter
- */
 public class TrainCardManager
 {
-	static final int FACE_UP_COUNT = 5;
+	private static final int FACE_UP_COUNT = 5;
 
 
 	//Data Members
-	LinkedList<TrainCard> deck;
-	ArrayList<TrainCard> faceUpCards;
+	private LinkedList<TrainCard> deck;
+	private ArrayList<TrainCard> faceUpCards;
 
 	//Constructor
-	public TrainCardManager()
+	public TrainCardManager(JsonArray jsonTrainCards)
 	{
 		deck = new LinkedList<>();
 		faceUpCards = new ArrayList<>();
+		for(int i = 0; i < jsonTrainCards.size(); i++)
+		{
+			JsonObject card = jsonTrainCards.get(i).getAsJsonObject();
+			String color = card.get("color").getAsString();
+			CardColor c = CardColor.fromString(color);
+			int count = card.get("count").getAsInt();
+			for(int j = 0; j < count; j++)
+			{
+				TrainCard trainCard = new TrainCard(c);
+				deck.add(trainCard);
+			}
+		}
 	}
 
 	public void initialize(){
@@ -58,7 +70,7 @@ public class TrainCardManager
 	}
 
 	/**
-	 * Adds a card to the face up selection, or the deck if that is full.
+	 * Adds a card to the deck.
 	 */
 	public void addCard(TrainCard card)
 	{

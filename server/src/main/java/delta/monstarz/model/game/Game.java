@@ -1,35 +1,25 @@
 package delta.monstarz.model.game;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.jar.JarEntry;
 
-import delta.monstarz.commands.ServerDrawDestCardsCommand;
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
 import delta.monstarz.model.CommandManager;
 import delta.monstarz.model.game.manager.DestinationCardManager;
 import delta.monstarz.model.game.manager.PlayerManager;
-import delta.monstarz.model.game.manager.StateManager;
 import delta.monstarz.model.game.manager.TrainCardManager;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.Board;
-import delta.monstarz.shared.model.CardColor;
-import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
-import delta.monstarz.shared.model.Route;
-import delta.monstarz.shared.model.Segment;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
@@ -50,7 +40,6 @@ public class Game {
 	private boolean gameStarted = false;
 
 	private PlayerManager playerManager;
-	private StateManager stateManager;
 	private TrainCardManager trainDeck;
 	private DestinationCardManager destDeck;
 	private Board board;
@@ -59,19 +48,19 @@ public class Game {
 	private List<BaseCommand> oneTimeUseCommands = new ArrayList<>();
 
 	//Constructor
-	public Game(String gameName, String ownerName) {
+	public Game(JsonObject jsonGame, String name, String ownerName) {
 		playerManager = new PlayerManager();
-		stateManager = new StateManager();
-		trainDeck = new TrainCardManager();
-		destDeck = new DestinationCardManager();
-		board = new Board();
-
-		this.name = gameName;
+		this.name = name;
 		this.ownerName = ownerName;
 		this.gameID = nextNewGameID;
 		nextNewGameID++;
 
-		parseConfigurations(trainDeck, destDeck, board);
+		playerManager.setStartTrains(jsonGame.get("TrainCount").getAsInt());
+
+		board = new Board(jsonGame.getAsJsonObject("Map"),
+				jsonGame.getAsJsonArray("RouteList"));
+		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
+		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
 	}
 
 	//Getters and Setters
@@ -129,7 +118,20 @@ public class Game {
 		return trainDeck.drawFaceUpCard(position);
 	}
 
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public void setTrainDeck(TrainCardManager trainDeck) {
+		this.trainDeck = trainDeck;
+	}
+
+	public void setDestDeck(DestinationCardManager destDeck) {
+		this.destDeck = destDeck;
+	}
+
 	//Public Methods
+
 	public void addCommand(BaseCommand command) {
 		command.setId(nextID++);
 		if (command.expires()){
@@ -214,131 +216,4 @@ public class Game {
 				playersNames
 		);
 	}
-
-	//Internal Methods
-	private void parseConfigurations(TrainCardManager trainManager, DestinationCardManager destinationManager, Board board)
-	{
-		//Get the file contents
-		String fileName = "server/src/main/assets/preferences.json";
-		String contents;
-		try
-		{
-			contents = new String(Files.readAllBytes(Paths.get(fileName)));//TODO Fix file access
-		}
-		catch(IOException e)
-		{
-			//Log.debug("The preferences file could not be opened.");
-			int i = 0;
-			return;
-		}
-
-
-		//Parse JSON
-		JsonParser parser = new JsonParser();
-		JsonObject preferenceObject = parser.parse(contents).getAsJsonObject();
-
-		int trainCount = preferenceObject.get("TrainCount").getAsInt();
-		playerManager.setStartTrains(trainCount);
-
-		int endGameTrainCount = preferenceObject.get("EndGameTrainCount").getAsInt();
-
-		JsonObject mapObject = preferenceObject.getAsJsonObject("Map");
-		parseMap(mapObject, board);
-
-		JsonArray routeList = preferenceObject.getAsJsonArray("RouteList");
-		parseRoutes(routeList);
-
-		JsonArray trainCardList = preferenceObject.getAsJsonArray("TrainCards");
-		parseTrainCards(trainCardList, trainManager);
-
-		JsonArray destinationCardList = preferenceObject.getAsJsonArray("DestinationCards");
-		parseDestinationCards(destinationCardList, destinationManager);
-	}
-
-	private void parseMap(JsonObject mapObject, Board board)
-	{
-		String fileName = mapObject.get("file").getAsString();
-		board.setImageID(fileName);
-	}
-
-	private void parseRoutes(JsonArray routeList)
-	{
-		for(int i = 0; i < routeList.size(); i++) {
-			JsonObject routeObject = routeList.get(i).getAsJsonObject();
-
-			//Parse the Endpoints
-			JsonArray endpointArray = routeObject.get("endpoints").getAsJsonArray();
-			String endpoint1 = endpointArray.get(0).getAsString();
-			String endpoint2 = endpointArray.get(1).getAsString();
-
-			List<Segment> segments = new ArrayList<>();
-
-			//Parse the Segments
-			// TODO: get rid of condition when all segments are added to json
-			if (routeObject.has("segments")) {
-				segments = parseSegments(routeObject.get("segments").getAsJsonArray());
-			}
-
-			//Parse color
-			String color = routeObject.get("color").getAsString();
-			CardColor c = CardColor.fromString(color);
-			int routeLength = routeObject.get("length").getAsInt();
-
-			//			"segmants":[{"x":20, "y":62, "rotation":0}, {"x":62, "y":35, "rotation":90}],
-
-			Route route = new Route(i, endpoint1, endpoint2, routeLength, c, segments); //first null is c
-			route.setId(i);
-			board.getRoutes().add(route);
-		}
-	}
-
-	private List<Segment> parseSegments(JsonArray segmentArray)
-	{
-		List<Segment> output = new ArrayList<>();
-		for(int i = 0; i < segmentArray.size(); i++)
-		{
-			JsonObject segment = segmentArray.get(i).getAsJsonObject();
-			int x = segment.get("x").getAsInt();
-			int y = segment.get("y").getAsInt();
-			int r = segment.get("rotation").getAsInt();
-			Segment s = new Segment(x, y, r);
-			output.add(s);
-		}
-		return output;
-	}
-
-	private void parseTrainCards(JsonArray trainCardList, TrainCardManager manager)
-	{
-		int index = 0;
-		for(int i = 0; i < trainCardList.size(); i++)
-		{
-			JsonObject card = trainCardList.get(i).getAsJsonObject();
-			String color = card.get("color").getAsString();
-			CardColor c = CardColor.fromString(color);
-			int count = card.get("count").getAsInt();
-			for(int j = 0; j < count; j++)
-			{
-				TrainCard trainCard = new TrainCard(c);
-				manager.addCard(trainCard);
-				index++;
-			}
-		}
-	}
-
-	private void parseDestinationCards(JsonArray destinationCardList, DestinationCardManager destManager)
-	{
-		for(int i = 0; i < destinationCardList.size(); i++)
-		{
-			JsonObject destCard = destinationCardList.get(i).getAsJsonObject();
-
-			JsonArray endpointArray = destCard.get("endpoints").getAsJsonArray();
-			String endpoint1 = endpointArray.get(0).getAsString();
-			String endpoint2 = endpointArray.get(1).getAsString();
-			int points = destCard.get("points").getAsInt();
-
-			DestCard card = new DestCard(endpoint1, endpoint2, points);
-			destManager.addCard(card);
-		}
-	}
-
 }

@@ -1,5 +1,7 @@
 package delta.monstarz.model;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import delta.monstarz.model.account.PersonManager;
 import delta.monstarz.model.game.Game;
+import delta.monstarz.JSONReader;
 import delta.monstarz.shared.GameInfo;
 
 /**
@@ -63,7 +66,8 @@ public class GameManager
 	public int createGame(String ownerName, String gameName)
 	{
 		if (PersonManager.getInstance().isValidUsername(ownerName)) {
-			Game game = new Game(gameName, ownerName);
+			JsonObject jsonGame = JSONReader.readJSON("server/src/main/assets/preferences.json");
+			Game game = new Game(jsonGame, ownerName, gameName);
 			games.put(game.getGameID(), game);
 			game.addPlayer(ownerName);
 

@@ -1,11 +1,10 @@
 package delta.monstarz.shared.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- *  Created by oliphaun on 2/24/17.
- */
 
 public class Board {
 
@@ -16,10 +15,14 @@ public class Board {
     private String longestRouteOwner;
 
 	//Constructor
-	public Board()
+	public Board(JsonObject jsonMap, JsonArray jsonRoutes)
 	{
 		cities = new ArrayList<>();
 		routes = new ArrayList<>();
+		imageID = jsonMap.get("file").getAsString();
+		for (int i = 0; i < jsonRoutes.size(); i++) {
+			routes.add(new Route(jsonRoutes.get(i).getAsJsonObject()));
+		}
 	}
 
 	//Getters and Setters

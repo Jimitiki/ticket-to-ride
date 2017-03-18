@@ -1,5 +1,9 @@
 package delta.monstarz.shared.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Route {
@@ -12,14 +16,27 @@ public class Route {
     private PlayerColor trainColor;
     private List<Segment> segments;
 
-    public Route(int pId, String pCity1, String pCity2, int pLength, CardColor pColor, List<Segment> pSegments)
-    {
-        id = pId;
-        city1 = pCity1;
-        city2 = pCity2;
-        length = pLength;
-        color = pColor;
-        segments = pSegments;
+    public Route(JsonObject jsonRoute) {
+
+        //Parse the Endpoints
+        JsonArray endpointArray = jsonRoute.get("endpoints").getAsJsonArray();
+        city1 = endpointArray.get(0).getAsString();
+        city2 = endpointArray.get(1).getAsString();
+
+
+        //Parse the Segments
+        // TODO: get rid of condition when all segments are added to json
+        segments = new ArrayList<>();
+        if (jsonRoute.has("segments")) {
+            JsonArray jsonSegments = jsonRoute.get("segments").getAsJsonArray();
+            for (int i = 0; i < jsonSegments.size(); i++) {
+                segments.add(new Segment(jsonSegments.get(i).getAsJsonObject()));
+            }
+        }
+
+        //Parse color
+	    color = CardColor.fromString(jsonRoute.get("color").getAsString());
+        length = jsonRoute.get("length").getAsInt();
     }
 
     public int getId() {
