@@ -108,9 +108,9 @@ public class ClientGame {
 		return players;
 	}
 
-//	public void drawTrainCard(TrainCard cardDrawn) {
-//		me.drawTrainCard(cardDrawn, true);
-//	}
+	public void drawTrainCard(TrainCard cardDrawn) {
+		me.drawTrainCard(cardDrawn);
+	}
 
 	public void addDestCard(DestCard card) {
 		me.addDestCard(card);

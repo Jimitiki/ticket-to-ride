@@ -103,42 +103,42 @@ public class ChooseCardDialog extends DialogFragment {
 		card0Image.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				processTrainCardClick();
+				processTrainCardClick(0);
 			}
 		});
 
 		card1Image.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				processTrainCardClick();
+				processTrainCardClick(1);
 			}
 		});
 
 		card2Image.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				processTrainCardClick();
+				processTrainCardClick(2);
 			}
 		});
 
 		card3Image.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				processTrainCardClick();
+				processTrainCardClick(3);
 			}
 		});
 
 		card4Image.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				processTrainCardClick();
+				processTrainCardClick(4);
 			}
 		});
 
 		deckCardImage.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				processTrainCardClick();
+				processDeckCardClick();
 			}
 		});
 
@@ -153,14 +153,10 @@ public class ChooseCardDialog extends DialogFragment {
 		// Todo: Use the real card images based on what it is holding
 
 		setTrainCard(0, CardColor.WHITE);
-		//setImage(card0Image, BASE_PATH_TRAIN + "red.PNG");
-		setImage(card1Image, BASE_PATH_TRAIN + "white.PNG");
-		setImage(card2Image, BASE_PATH_TRAIN + "orange.PNG");
-		setImage(card3Image, BASE_PATH_TRAIN + "green.PNG");
-		setImage(card4Image, BASE_PATH_TRAIN + "blue.PNG");
-
-
-
+		setTrainCard(1, CardColor.BLACK);
+		setTrainCard(2, CardColor.BLUE);
+		setTrainCard(3, CardColor.GOLD);
+		setTrainCard(4, CardColor.ORANGE);
 
 
 		setImage(deckCardImage, BASE_PATH_TRAIN + "back.PNG");
@@ -169,7 +165,11 @@ public class ChooseCardDialog extends DialogFragment {
 		return view;
 	}
 
-	private void processTrainCardClick(){
+	private void processTrainCardClick(int cardIndex){
+
+	}
+
+	private void processDeckCardClick(){
 
 	}
 
@@ -197,6 +197,7 @@ public class ChooseCardDialog extends DialogFragment {
 			case 0:
 				card0Color = color;
 				setImage(card0Image, getFilePath(color));
+				break;
 			case 1:
 				card1Color = color;
 				setImage(card1Image, getFilePath(color));

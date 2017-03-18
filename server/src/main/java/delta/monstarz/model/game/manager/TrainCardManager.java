@@ -31,6 +31,9 @@ public class TrainCardManager
 
 	public void initialize(){
 		shuffle();
+		for (int i = 0; i < FACE_UP_COUNT; i++) {
+			faceUpCards.add(null);
+		}
 		assignFaceUpCards();
 	}
 
