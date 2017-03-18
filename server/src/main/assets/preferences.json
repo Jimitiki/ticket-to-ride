@@ -383,12 +383,36 @@
     {
       "endpoints":["Washington", "Raleigh"],
       "length":2,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1558,
+          "y": 612,
+          "rotation": -52
+        },
+        {
+          "x": 1602,
+          "y": 560,
+          "rotation": -52
+        }
+      ]
     },
     {
       "endpoints":["Washington", "Raleigh"],
       "length":2,
-      "color": "gold"
+      "color": "gold",
+      "segments": [
+        {
+          "x": 1541,
+          "y": 597,
+          "rotation": -52
+        },
+        {
+          "x": 1584,
+          "y": 545,
+          "rotation": -52
+        }
+      ]
     },
     {
       "endpoints":["San Francisco", "Salt Lake City"],
