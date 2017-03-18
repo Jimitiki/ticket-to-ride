@@ -239,7 +239,9 @@ public class GameFragment extends Fragment {
 	}
 
 	public void updateCardCounts() {
-		playerCardsFragment.update();
+		if (playerCardsFragment != null) {
+			playerCardsFragment.update();
+		}
 	}
 
 	public void onRouteClaimed(List<Route> routes) {

@@ -18,5 +18,6 @@ public enum UpdateType {
 	CHAT,
 	ROUTE,
 	PLAYER_INFO,
-	FACE_UP_CARD
+	FACE_UP_CARD,
+	REPORT_DRAWN_CARD
 }

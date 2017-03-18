@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -157,9 +158,6 @@ public class ChooseCardDialog extends DialogFragment {
 			}
 		});
 
-
-		// Todo: Use the real card images based on what it is holding
-
 		List<TrainCard> cards = ClientModel.getInstance().getGame().getFaceUpCards();
 		setCards(cards);
 
@@ -194,7 +192,7 @@ public class ChooseCardDialog extends DialogFragment {
 	}
 
 	private void processDeckCardClick(){
-
+		presenter.drawDeckCard();
 	}
 
 	private void processDestinationCardClick(){
@@ -279,6 +277,12 @@ public class ChooseCardDialog extends DialogFragment {
 		catch (IOException e){
 
 		}
+	}
+
+	public void reportCardType(CardColor color){
+		String text;
+		text = "You drew a " + color.toString() + " card.";
+		Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
@@ -21,6 +22,7 @@ public class ClientGame {
 	private List<String> players;
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
+	CardColor mostRecentCardColor;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -111,6 +113,8 @@ public class ClientGame {
 
 	public void drawTrainCard(TrainCard cardDrawn) {
 		me.drawTrainCard(cardDrawn);
+		mostRecentCardColor = cardDrawn.getColor();
+		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
 	}
 
 	public void addDestCard(DestCard card) {
@@ -163,5 +167,9 @@ public class ClientGame {
 
 	public List<TrainCard> getFaceUpCards() {
 		return faceUpCards;
+	}
+
+	public CardColor getMostRecentCardColor() {
+		return mostRecentCardColor;
 	}
 }

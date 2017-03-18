@@ -47,4 +47,9 @@ public enum CardColor
 
 		}
 	}
+
+	@Override
+	public String toString(){
+		return name().toLowerCase();
+	}
 }
