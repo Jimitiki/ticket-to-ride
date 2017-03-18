@@ -138,7 +138,6 @@ public class Game {
 		else{
 			history.add(command);
 		}
-		int i = 1;
 	}
 
 	public Player getPlayerByUsername(String username) {
@@ -167,7 +166,7 @@ public class Game {
 			for (int i = 0; i < faceUpCards.size(); i++) {
 				SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameID, i);
 				command.setReplacementCard(faceUpCards.get(i));
-				history.add(command);
+				addCommand(command);
 			}
 
 			gameStarted = true;
@@ -342,13 +341,4 @@ public class Game {
 		}
 	}
 
-	public static void main(String[] args)
-	{
-
-		Game game = new Game("Game", "Brad");
-		game.playerManager.add(new Player("Brad"));
-		game.playerManager.add(new Player("Alex"));
-		game.playerManager.add(new Player("Chris"));
-		game.start();
-	}
 }

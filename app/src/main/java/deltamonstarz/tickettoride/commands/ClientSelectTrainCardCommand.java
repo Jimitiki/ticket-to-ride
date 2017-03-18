@@ -20,7 +20,7 @@ public class ClientSelectTrainCardCommand extends SelectTrainCardCommand {
 		ClientGame game = ClientModel.getInstance().getGame();
 		Player me = game.getMe();
 		TrainCard cardDrawn = game.drawFaceupTrainCard(cardSpot, replacementCard);
-		if (username.equals(me.getUsername()) && cardDrawn != null) {
+		if (me.getUsername().equals(username) && cardDrawn != null) {
 			me.drawTrainCard(cardDrawn);
 		}
 	}
