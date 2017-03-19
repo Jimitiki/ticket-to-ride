@@ -18,8 +18,10 @@ import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
@@ -196,6 +198,30 @@ public class Game {
 	 */
 	public boolean hasPlayer(String username){
 		return playerManager.getPlayerNames().contains(username);
+	}
+
+	/**
+	 * Checks the claimed route against the list of routes the player can claim
+	 * If the route is available, claims it for the player, removing the cards used
+	 * from the player's hand, and adding them to the deck
+	 * @return true if successful, else false
+	 */
+	public boolean claimRoute(int routeID, String username, CardColor cardsUsed) {
+		Player player = playerManager.getPlayerByUsername(username);
+		boolean isAvailable = false;
+		Route selectedRoute = null;
+		for (Route availableRoute : board.getAvailableRoutes(player)) {
+			if (availableRoute.getID() == routeID) {
+				isAvailable = true;
+				selectedRoute = availableRoute;
+				break;
+			}
+		}
+		if (isAvailable) {
+			board.claimRoute(routeID, username, player.getPlayerColor());
+			player.claimRoute(selectedRoute, cardsUsed);
+		}
+		return isAvailable;
 	}
 
 	/**

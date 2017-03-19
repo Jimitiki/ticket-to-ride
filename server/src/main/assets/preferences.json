@@ -24,7 +24,7 @@
       "doubleID": -1,
       "endpoints":["Helena", "Calgary"],
       "length":4,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 3,
@@ -45,7 +45,7 @@
       "doubleID": -1,
       "endpoints":["Raleigh", "Charleston"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 6,
@@ -94,7 +94,7 @@
       "doubleID": -1,
       "endpoints":["Toronto", "Chicago"],
       "length":4,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 13,
@@ -108,35 +108,35 @@
       "doubleID": 15,
       "endpoints":["Houston", "Dallas"],
       "length":1,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 15,
       "doubleID": 14,
       "endpoints":["Houston", "Dallas"],
       "length":1,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 16,
       "doubleID": -1,
       "endpoints":["Little Rock", "Dallas"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 17,
       "doubleID": 18,
       "endpoints":["Oklahoma City", "Dallas"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 18,
       "doubleID": 17,
       "endpoints":["Oklahoma City", "Dallas"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 19,
@@ -199,7 +199,7 @@
       "doubleID": -1,
       "endpoints":["Santa Fe", "Denver"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 28,
@@ -213,21 +213,21 @@
       "doubleID": 30,
       "endpoints":["Omaha", "Duluth"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 30,
       "doubleID": 29,
       "endpoints":["Omaha", "Duluth"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 31,
       "doubleID": -1,
       "endpoints":["Sault Ste. Marie", "Duluth"],
       "length":3,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 32,
@@ -269,14 +269,14 @@
       "doubleID": -1,
       "endpoints":["Phoenix", "El Paso"],
       "length":3,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 38,
       "doubleID": -1,
       "endpoints":["Santa Fe", "El Paso"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 39,
@@ -311,35 +311,35 @@
       "doubleID": -1,
       "endpoints":["New Orleans", "Houston"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 44,
       "doubleID": 45,
       "endpoints":["Oklahoma City", "Kansas City"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 45,
       "doubleID": 44,
       "endpoints":["Oklahoma City", "Kansas City"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 46,
       "doubleID": 47,
       "endpoints":["Omaha", "Kansas City"],
       "length":1,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 47,
       "doubleID": 46,
       "endpoints":["Omaha", "Kansas City"],
       "length":1,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 48,
@@ -360,7 +360,7 @@
       "doubleID": -1,
       "endpoints":["Los Angeles", "Las Vegas"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 51,
@@ -388,21 +388,21 @@
       "doubleID": -1,
       "endpoints":["Oklahoma City", "Little Rock"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 55,
       "doubleID": -1,
       "endpoints":["Saint Louis", "Little Rock"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 56,
       "doubleID": -1,
       "endpoints":["Phoenix", "Los Angeles"],
       "length":3,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 57,
@@ -430,7 +430,7 @@
       "doubleID": -1,
       "endpoints":["Toronto", "Montreal"],
       "length":3,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 61,
@@ -451,7 +451,7 @@
       "doubleID": -1,
       "endpoints":["St. Louis", "Nashville"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 64,
@@ -493,14 +493,14 @@
       "doubleID": -1,
       "endpoints":["Santa Fe", "Phoenix"],
       "length":3,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 70,
       "doubleID": -1,
       "endpoints":["Raleigh", "Pittsburgh"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 71,
@@ -514,14 +514,14 @@
       "doubleID": -1,
       "endpoints":["Toronto", "Pittsburgh"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 73,
       "doubleID": -1,
       "endpoints":["Washington", "Pittsburgh"],
       "length":2,
-      "color": "gold"
+      "color": "gray"
     },
     {
       "id": 74,
@@ -535,7 +535,7 @@
       "doubleID": 76,
       "endpoints":["Washington", "Raleigh"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1558,
@@ -554,7 +554,7 @@
       "doubleID": 75,
       "endpoints":["Washington", "Raleigh"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1541,
@@ -660,7 +660,7 @@
       "doubleID": -1,
       "endpoints":["Winnipeg", "Sault Ste. Marie"],
       "length":6,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 831,
@@ -699,7 +699,7 @@
       "doubleID": -1,
       "endpoints":["Seattle", "Calgary"],
       "length":4,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 145,
@@ -728,7 +728,7 @@
       "doubleID": -1,
       "endpoints":["Vancouver", "Calgary"],
       "length":3,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 150,
@@ -820,7 +820,7 @@
       "doubleID": 86,
       "endpoints":["Seattle", "Portland"],
       "length":1,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 104,
@@ -834,7 +834,7 @@
       "doubleID": 85,
       "endpoints":["Seattle", "Portland"],
       "length":1,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 125,
@@ -896,7 +896,7 @@
       "doubleID": 90,
       "endpoints":["Vancouver", "Seattle"],
       "length":1,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 115,
@@ -910,7 +910,7 @@
       "doubleID": 89,
       "endpoints":["Vancouver", "Seattle"],
       "length":1,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 139,
@@ -924,7 +924,7 @@
       "doubleID": -1,
       "endpoints":["Charleston", "Atlanta"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1600,
@@ -988,7 +988,7 @@
       "doubleID": -1,
       "endpoints":["Nashville", "Atlanta"],
       "length":1,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1343,
@@ -1060,7 +1060,7 @@
       "doubleID": 97,
       "endpoints":["Raleigh", "Atlanta"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1417,
@@ -1078,7 +1078,7 @@
       "doubleID": 96,
       "endpoints":["Raleigh", "Atlanta"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1432,
@@ -1096,7 +1096,7 @@
       "doubleID": 99,
       "endpoints":["Montreal", "Boston"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1631,
@@ -1115,7 +1115,7 @@
       "doubleID": 98,
       "endpoints":["Montreal", "Boston"],
       "length":2,
-      "color": "gold",
+      "color": "gray",
       "segments": [
         {
           "x": 1616,

@@ -1,11 +1,10 @@
 package delta.monstarz.shared.model;
 
-/**
- * Created by oliphaun on 2/24/17.
- */
+import java.util.List;
 
 public class City {
     private String name;
+	private List<Route> routes;
 
 	public City(String name) {
 		this.name = name;

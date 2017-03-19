@@ -111,8 +111,18 @@ public class Player {
 		state.selectDestinationCards(cards);
 	}
 
-	public void claimRoute(Route route) {
-		state.claimRoute(route);
+	int getMaxCardColorCount() {
+		int maxCount = 0;
+		for (int count : trainCards.values()) {
+			if (count > maxCount) {
+				maxCount = count;
+			}
+		}
+		return maxCount;
+	}
+
+	public void claimRoute(Route route, CardColor color) {
+		state.claimRoute(route, color);
 	}
 
 	public PlayerInfo playerInfo() {
@@ -191,7 +201,13 @@ public class Player {
 		}
 
 		@Override
-		void claimRoute(Route route) {
+		void claimRoute(Route route, CardColor color) {
+			int routeLength = route.getLength();
+			//TODO: use a switch statement, maybe?
+			int points = (int) (.5 * routeLength * routeLength - 0.6 * routeLength + 1.4);
+			score += points;
+			int cardCount = trainCards.get(color) - routeLength;
+			trainCards.put(color, cardCount);
 			isTakingTurn = false;
 			state = new InactiveState();
 		}

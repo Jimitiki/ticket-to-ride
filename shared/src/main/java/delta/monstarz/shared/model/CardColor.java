@@ -36,6 +36,7 @@ public enum CardColor
 				return ORANGE;
 			case "white":
 				return WHITE;
+			case "gray":
 			case "gold":
 				return GOLD;
 

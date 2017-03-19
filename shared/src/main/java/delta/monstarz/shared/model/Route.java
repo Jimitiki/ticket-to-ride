@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Route {
 	private int id;
+	private int doubleID;
     private String city1;
     private String city2;
     private int length;
@@ -15,14 +16,15 @@ public class Route {
     private String owner;
     private PlayerColor trainColor;
     private List<Segment> segments;
+	private boolean isClaimed = false;
 
     public Route(JsonObject jsonRoute) {
-
+	    id = jsonRoute.get("id").getAsInt();
+	    doubleID = jsonRoute.get("doubleID").getAsInt();
         //Parse the Endpoints
         JsonArray endpointArray = jsonRoute.get("endpoints").getAsJsonArray();
         city1 = endpointArray.get(0).getAsString();
         city2 = endpointArray.get(1).getAsString();
-
 
         //Parse the Segments
         // TODO: get rid of condition when all segments are added to json
@@ -39,20 +41,16 @@ public class Route {
         length = jsonRoute.get("length").getAsInt();
     }
 
-    public int getId() {
+    public int getID() {
 	    return id;
     }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    int getDoubleID() {
+	    return doubleID;
+    }
 
     public List<Segment> getSegments() {
 	    return segments;
-    }
-
-    public void setSegments(List<Segment> segments) {
-	    this.segments = segments;
     }
 
     public String getOwner() {
@@ -79,7 +77,7 @@ public class Route {
 	    this.color = color;
     }
 
-    public int getLength() {
+    int getLength() {
 	    return length;
     }
 
@@ -103,8 +101,17 @@ public class Route {
 	    this.city1 = city1;
     }
 
+	boolean isClaimed() {
+		return isClaimed;
+	}
+
+	public void setClaimed(boolean claimed) {
+		isClaimed = claimed;
+	}
+
 	public void claim(String username, PlayerColor trainColor) {
 		owner = username;
 		this.trainColor = trainColor;
+		isClaimed = true;
 	}
 }

@@ -136,6 +136,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("claiming route");
+				presenter.routeCheck();
 				Toast.makeText(getContext(), "Routes can only be claimed during your turn.", Toast.LENGTH_LONG).show();
 			}
 		});
