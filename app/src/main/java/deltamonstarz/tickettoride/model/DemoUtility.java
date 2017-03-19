@@ -194,8 +194,6 @@ public class DemoUtility {
 	private static void demo7(){
 		Route route = model.getRoutes().get(1);
 		route.claim(model.getUsername(), PlayerColor.BLUE);
-		new ClientClaimRouteCommand(model.getUsername(), model.getGameID(), route).execute();
-
 		showToast("Blue player claimed route from Miami to Atlanta");
 	}
 

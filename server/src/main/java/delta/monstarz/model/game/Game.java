@@ -208,20 +208,21 @@ public class Game {
 	 */
 	public boolean claimRoute(int routeID, String username, CardColor cardsUsed) {
 		Player player = playerManager.getPlayerByUsername(username);
-		boolean isAvailable = false;
-		Route selectedRoute = null;
-		for (Route availableRoute : board.getAvailableRoutes(player)) {
-			if (availableRoute.getID() == routeID) {
-				isAvailable = true;
-				selectedRoute = availableRoute;
-				break;
-			}
-		}
-		if (isAvailable) {
-			board.claimRoute(routeID, username, player.getPlayerColor());
-			player.claimRoute(selectedRoute, cardsUsed);
-		}
-		return isAvailable;
+//		boolean isAvailable = false;
+//		Route selectedRoute = null;
+//		for (Route availableRoute : board.getAvailableRoutes(player)) {
+//			if (availableRoute.getID() == routeID) {
+//				isAvailable = true;
+//				selectedRoute = availableRoute;
+//				break;
+//			}
+//		}
+//		if (isAvailable) {
+//			board.claimRoute(routeID, username, player.getPlayerColor());
+//			player.claimRoute(selectedRoute, cardsUsed);
+//		}
+//		return isAvailable;
+		return board.claimRoute(routeID, player, cardsUsed);
 	}
 
 	/**

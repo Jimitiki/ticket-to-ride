@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Board {
 
@@ -86,39 +87,78 @@ public class Board {
 		}
     }
 
+    //Returns a list of all available routes
     public List<Route> getAvailableRoutes(Player player) {
 	    List<Route> availableRoutes = new ArrayList<>();
-		for (Route route : routes) {
-			CardColor routeColor = route.getColor();
-
-			//check that the route is unclaimed and:
-			//  1. the route is gray and the player has enough cards of a single color to claim it, or
-			//  2. the player has enough wild cards to claim it, or
-			//  3. the player has enough cards of the right color to claim it
-			if (!route.isClaimed() && (
-					routeColor == CardColor.GOLD && player.getMaxCardColorCount() > route.getLength() ||
-					player.getTrainCards().get(CardColor.GOLD) >= route.getLength() ||
-					player.getTrainCards().get(routeColor) >= route.getLength())) {
-				int doubleID = route.getDoubleID();
-
-				//if its a single route
-				if (doubleID == -1) {
-					availableRoutes.add(route);
-				} else {
-					Route doubleRoute = routes.get(doubleID);
-					//if the other route is unclaimed, or there are enough players for it to count
-					//and the other route is not already claimed by the user
-					if (!doubleRoute.isClaimed() || numPlayers > MIN_PLAYERS_DOUBLE_ROUTES &&
-							!player.getUsername().equals(doubleRoute.getOwner())) {
-						availableRoutes.add(route);
-					}
-				}
+		for (int i = 0; i < routes.size(); i++) {
+			if (isRouteAvailable(i, player)) {
+				availableRoutes.add(routes.get(i));
 			}
 		}
 		return availableRoutes;
 	}
 
-    public void claimRoute(int routeID, String username, PlayerColor color) {
-		routes.get(routeID).claim(username, color);
+	//Checks if the player could claim the given route
+	public boolean isRouteAvailable(int routeID, Player player) {
+		Route route = routes.get(routeID);
+		CardColor routeColor = route.getColor();
+
+		if (!route.isClaimed() && verifyPlayerCards(route, player.getTrainCards())) {
+			return verifyDoubleRouteClaim(route, player.getUsername());
+		}
+		return false;
+	}
+
+	//checks if the player can claim the given route with the specified card color
+    public boolean claimRoute(int routeID, Player player, CardColor color) {
+	    Route route = routes.get(routeID);
+	    if (!route.isClaimed() && verifyCardColor(route, color, player.getTrainCards().get(color))
+			    && verifyDoubleRouteClaim(route, player.getUsername())) {
+		    routes.get(routeID).claim(player.getUsername(), player.getPlayerColor());
+		    return true;
+	    }
+	    return false;
+    }
+
+    //Checks if cards and route color/length correspond
+    public boolean verifyCardColor(Route route, CardColor cardsUsed, int cardCount) {
+		CardColor routeColor = route.getColor();
+	    return (cardsUsed == CardColor.GOLD || routeColor == CardColor.GOLD ||
+			    routeColor == cardsUsed) && cardCount > route.getLength();
+    }
+
+    //enforces rules about double routes
+    private static boolean verifyPlayerCards(Route route, Map<CardColor, Integer> cards) {
+	    CardColor routeColor = route.getColor();
+	    int routeLength = route.getLength();
+	    //check if the player has enough wild cards
+	    if (cards.get(CardColor.GOLD) > routeLength) {
+		    return true;
+	    }
+	    //If the route is gray, check if the player has enough cards of any color
+	    if (routeColor == CardColor.GOLD) {
+		    int maxCardCount = 0;
+		    for (int cardCount : cards.values()) {
+			    if (cardCount > maxCardCount) {
+				    maxCardCount = cardCount;
+			    }
+		    }
+		    if (maxCardCount > routeLength ) {
+			    return true;
+		    }
+	    }
+	    //check if the player has enough cards of the routes color
+	    return cards.get(routeColor) > routeLength ;
+    }
+
+    private boolean verifyDoubleRouteClaim(Route route, String username) {
+	    if (route.getDoubleID() == -1) {
+		    return true;
+	    }
+	    Route doubleRoute = routes.get(route.getDoubleID());
+	    if (doubleRoute.isClaimed() && (numPlayers < 4 || username.equals(doubleRoute.getOwner()))) {
+		    return false;
+	    }
+	    return true;
     }
 }

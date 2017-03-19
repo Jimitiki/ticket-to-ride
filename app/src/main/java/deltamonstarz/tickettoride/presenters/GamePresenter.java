@@ -3,6 +3,7 @@ package deltamonstarz.tickettoride.presenters;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import delta.monstarz.shared.commands.ClaimRouteCommand;
 import delta.monstarz.shared.commands.StartGameCommand;
@@ -148,11 +149,18 @@ public class GamePresenter extends BasePresenter {
 
 	//TODO: delete this before merge
 	public void routeCheck() {
-		Board board = game.getBoard();
-		Route route = board.getAvailableRoutes(game.getMe()).get((int) (Math.random() * 99));
-		ClaimRouteCommand command = new ClaimRouteCommand(model.getUsername(), model.getGameID(),
-				route, CardColor.GOLD);
-		proxy.sendCommand(model.getAuthToken(), command);
+		try {
+			Board board = game.getBoard();
+			List<Route> availRoutes = board.getAvailableRoutes(game.getMe());
+			Route route = availRoutes.get((int) (Math.random() * availRoutes.size()));
+			ClaimRouteCommand command = new ClaimRouteCommand(model.getUsername(), model.getGameID(),
+					route, CardColor.GOLD);
+			proxy.sendCommand(model.getAuthToken(), command);
+		} catch (Exception e) {
+			e.printStackTrace();
+			String ex = e.toString();
+			System.out.print(ex);
+		}
 	}
 
 	//TODO: delete this when all route data is added to json

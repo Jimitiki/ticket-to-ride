@@ -20,6 +20,10 @@ public class Player {
 	public Player(String username) {
 		this.username = username;
 		trainCards = new HashMap<>();
+		CardColor[] colors = CardColor.values();
+		for (int i = 0; i < colors.length; i++) {
+			trainCards.put(colors[i], 0);
+		}
 		state = new SetupState();
 	}
 
