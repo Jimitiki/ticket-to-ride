@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ public class Board {
 	//Data Members
     private String imageID;
     private List<City> cities;
-    private List<Route> routes;
+    private Map<Integer, Route> routes;
     private String longestRouteOwner;
 	private int numPlayers;
 
@@ -22,10 +23,11 @@ public class Board {
 	public Board(JsonObject jsonMap, JsonArray jsonRoutes)
 	{
 		cities = new ArrayList<>();
-		routes = new ArrayList<>();
+		routes = new HashMap<>();
 		imageID = jsonMap.get("file").getAsString();
 		for (int i = 0; i < jsonRoutes.size(); i++) {
-			routes.add(new Route(jsonRoutes.get(i).getAsJsonObject()));
+			Route route = new Route(jsonRoutes.get(i).getAsJsonObject());
+			routes.put(route.getID(), route);
 		}
 	}
 
@@ -50,12 +52,12 @@ public class Board {
 		cities = pCities;
 	}
 
-	public List<Route> getRoutes()
+	public Map<Integer, Route> getRoutes()
 	{
 		return routes;
 	}
 
-	public void setRoutes(List<Route> pRoutes)
+	public void setRoutes(Map<Integer, Route> pRoutes)
 	{
 		routes = pRoutes;
 	}
@@ -76,7 +78,7 @@ public class Board {
 
 	//Public Methods
     public void placeRoute(String player_username, Route route, boolean hasLongest) {
-        for (Route r : routes) {
+        for (Route r : routes.values()) {
 			if (r.getID() == route.getID()) {
 				r.setOwner(player_username);
 				break;
