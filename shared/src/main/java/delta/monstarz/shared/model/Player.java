@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class Player {
+public abstract class Player {
 	private String username;
 	private PlayerColor playerColor;
 	private int score;
