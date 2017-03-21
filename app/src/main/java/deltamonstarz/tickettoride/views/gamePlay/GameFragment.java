@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.PlayerColor;
@@ -32,6 +33,7 @@ import deltamonstarz.tickettoride.model.DemoUtility;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
+import deltamonstarz.tickettoride.presenters.RoutePresenter;
 import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
 /**
@@ -40,7 +42,7 @@ import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
  * create an instance of this fragment.
  */
 public class GameFragment extends Fragment {
-	private static GamePresenter presenter;
+	private GamePresenter presenter;
 	private GameActivity activity;
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;
@@ -67,7 +69,6 @@ public class GameFragment extends Fragment {
 	 */
 	public static GameFragment newInstance() {
 		GameFragment fragment = new GameFragment();
-		presenter = GamePresenter.getInstance();
 		return fragment;
 	}
 
@@ -77,6 +78,10 @@ public class GameFragment extends Fragment {
 
 	public void setMapImagePath(String mapImagePath) {
 		this.mapImagePath = mapImagePath;
+	}
+
+	public void setPresenter(GamePresenter presenter) {
+		this.presenter = presenter;
 	}
 
 	@Override
@@ -136,7 +141,6 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("claiming route");
-				presenter.routeCheck();
 				Toast.makeText(getContext(), "Routes can only be claimed during your turn.", Toast.LENGTH_LONG).show();
 			}
 		});
@@ -166,7 +170,12 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				presenter.listCheck();
+				RoutePresenter routePresenter = new RoutePresenter();
+				Route route = routePresenter.getAvailableRoutes().get(0);
+				if (route != null) {
+					CardColor color = routePresenter.getUsableCards(route.getID()).keySet().iterator().next();
+					routePresenter.claimRoute(route.getID(), color);
+				}
 			}
 		});
 

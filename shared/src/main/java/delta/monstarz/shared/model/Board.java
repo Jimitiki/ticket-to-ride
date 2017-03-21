@@ -76,6 +76,10 @@ public class Board {
 		this.numPlayers = numPlayers;
 	}
 
+	public Route getRouteByID(int routeID) {
+		return routes.get(routeID);
+	}
+
 	//Public Methods
     public void placeRoute(String player_username, Route route, boolean hasLongest) {
         for (Route r : routes.values()) {
@@ -114,19 +118,12 @@ public class Board {
 	//checks if the player can claim the given route with the specified card color
     public boolean claimRoute(int routeID, Player player, CardColor color) {
 	    Route route = routes.get(routeID);
-	    if (!route.isClaimed() && verifyCardColor(route, color, player.getTrainCards().get(color))
+	    if (!route.isClaimed() && route.verifyCardColor(color, player.getTrainCards().get(color))
 			    && verifyDoubleRouteClaim(route, player.getUsername())) {
 		    routes.get(routeID).claim(player.getUsername(), player.getPlayerColor());
 		    return true;
 	    }
 	    return false;
-    }
-
-    //Checks if cards and route color/length correspond
-    public boolean verifyCardColor(Route route, CardColor cardsUsed, int cardCount) {
-		CardColor routeColor = route.getColor();
-	    return (cardsUsed == CardColor.GOLD || routeColor == CardColor.GOLD ||
-			    routeColor == cardsUsed) && cardCount > route.getLength();
     }
 
     //enforces rules about double routes

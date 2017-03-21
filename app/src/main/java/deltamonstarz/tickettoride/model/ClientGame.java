@@ -161,10 +161,6 @@ public class ClientGame {
 		return board.getImageID();
 	}
 
-	public List<Route> getRoutes() {
-		return board.getRoutes();
-	}
-
 	public List<TrainCard> getFaceUpCards() {
 		return faceUpCards;
 	}

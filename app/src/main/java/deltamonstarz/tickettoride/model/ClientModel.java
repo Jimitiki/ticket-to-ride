@@ -1,7 +1,9 @@
 package deltamonstarz.tickettoride.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import delta.monstarz.shared.GameInfo;
@@ -198,14 +200,10 @@ public class ClientModel extends Observable{
 		return game.getMe().getDestCards();
 	}
 
-	public List<Route> getRoutes() {
-		return game.getRoutes();
-	}
-
 	public List<Route> getClaimedRoutes() {
-		List<Route> routes = game.getRoutes();
+		Map<Integer, Route> routes = game.getBoard().getRoutes();
 		List<Route> claimedRoutes = new ArrayList<>();
-		for (Route route : routes) {
+		for (Route route : routes.values()) {
 			if (route.getOwner() != null) {
 				claimedRoutes.add(route);
 			}
@@ -216,9 +214,9 @@ public class ClientModel extends Observable{
 	//this function name rules, shut up
 	//TODO: delete this
 	public List<Route> getGoodRoutes() {
-		List<Route> routes = game.getRoutes();
+		Map<Integer, Route> routes = game.getBoard().getRoutes();
 		List<Route> goodRoutes = new ArrayList<>();
-		for (Route route : routes) {
+		for (Route route : routes.values()) {
 			if (route.getSegments() != null) {
 				goodRoutes.add(route);
 				route.setTrainColor(PlayerColor.BLACK);

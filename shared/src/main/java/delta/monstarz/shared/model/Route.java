@@ -114,4 +114,9 @@ public class Route {
 		this.trainColor = trainColor;
 		isClaimed = true;
 	}
+
+	public boolean verifyCardColor(CardColor cardColor, int cardCount) {
+		return (color == CardColor.GOLD || cardColor == CardColor.GOLD ||
+				color == cardColor) && cardCount >= length;
+	}
 }
