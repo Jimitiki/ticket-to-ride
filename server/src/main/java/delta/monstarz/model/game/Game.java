@@ -210,7 +210,11 @@ public class Game {
 	 */
 	public boolean claimRoute(int routeID, String username, CardColor cardsUsed) {
 		Player player = playerManager.getPlayerByUsername(username);
-		return board.claimRoute(routeID, player, cardsUsed);
+		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed)) {
+			player.claimRoute(board.getRouteByID(routeID), cardsUsed);
+			return true;
+		}
+		return false;
 	}
 
 	/**
