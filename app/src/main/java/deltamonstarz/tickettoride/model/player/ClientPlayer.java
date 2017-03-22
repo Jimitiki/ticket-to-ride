@@ -37,6 +37,12 @@ public class ClientPlayer extends Player {
 		}
 
 		@Override
+		public void selectDestinationCards(ArrayList<DestCard> cards) {
+			internalSelectDestinationCards(cards);
+			state = new InactiveState();
+		}
+
+		@Override
 		public boolean isTakingTurn() {
 			return false;
 		}
