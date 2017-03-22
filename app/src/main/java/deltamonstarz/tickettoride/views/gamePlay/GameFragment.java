@@ -44,8 +44,6 @@ public class GameFragment extends Fragment {
 	private GameActivity activity;
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;
-	private Canvas map;
-	private Rect canvasRect;
 
 	private MapView mapView;
 	private Button drawCard;
