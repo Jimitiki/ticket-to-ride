@@ -105,14 +105,12 @@ public class Board {
 	}
 
 	//Checks if the player could claim the given route
-	public boolean isRouteAvailable(int routeID, Player player) {
+	private boolean isRouteAvailable(int routeID, Player player) {
 		Route route = routes.get(routeID);
 		CardColor routeColor = route.getColor();
 
-		if (!route.isClaimed() && verifyPlayerCards(route, player.getTrainCards())) {
-			return verifyDoubleRouteClaim(route, player.getUsername());
-		}
-		return false;
+		return !route.isClaimed() && verifyPlayerCards(route, player.getTrainCards()) &&
+			verifyDoubleRouteClaim(route, player.getUsername());
 	}
 
 	//checks if the player can claim the given route with the specified card color
@@ -124,6 +122,16 @@ public class Board {
 		    return true;
 	    }
 	    return false;
+    }
+
+    public List<Route> getClaimedRoutes() {
+	    List<Route> claimedRoutes = new ArrayList<>();
+	    for (Route route : routes.values()) {
+		    if (route.isClaimed()) {
+			    claimedRoutes.add(route);
+		    }
+	    }
+	    return claimedRoutes;
     }
 
     //enforces rules about double routes
@@ -155,9 +163,6 @@ public class Board {
 		    return true;
 	    }
 	    Route doubleRoute = routes.get(route.getDoubleID());
-	    if (doubleRoute.isClaimed() && (numPlayers < 4 || username.equals(doubleRoute.getOwner()))) {
-		    return false;
-	    }
-	    return true;
+	    return (doubleRoute.isClaimed() && (numPlayers < 4 || username.equals(doubleRoute.getOwner())));
     }
 }

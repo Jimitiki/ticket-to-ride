@@ -147,6 +147,10 @@ public class GamePresenter extends BasePresenter {
 		return model.getDestinationCards();
 	}
 
+	public List<Route> getClaimedRoutes() {
+		return game.getBoard().getClaimedRoutes();
+	}
+
 	//TODO: delete this before merge
 	public void routeCheck() {
 		try {
@@ -154,7 +158,7 @@ public class GamePresenter extends BasePresenter {
 			List<Route> availRoutes = board.getAvailableRoutes(game.getMe());
 			Route route = availRoutes.get((int) (Math.random() * availRoutes.size()));
 			ClaimRouteCommand command = new ClaimRouteCommand(model.getUsername(), model.getGameID(),
-					route, CardColor.GOLD);
+					route.getID(), CardColor.GOLD);
 			proxy.sendCommand(model.getAuthToken(), command);
 		} catch (Exception e) {
 			e.printStackTrace();

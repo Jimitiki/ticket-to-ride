@@ -7,15 +7,15 @@ import deltamonstarz.tickettoride.model.ClientModel;
 
 public class ClientClaimRouteCommand extends ClaimRouteCommand {
 
-	public ClientClaimRouteCommand(String username, int gameID, Route route, CardColor color) {
-		super(username, gameID, route, color);
+	public ClientClaimRouteCommand(String username, int gameID, int routeID, CardColor color) {
+		super(username, gameID, routeID, color);
 	}
 
 	@Override
     public void execute() {
 		ClientModel model = ClientModel.getInstance();
 		if (model.getGameID() == gameID) {
-			model.placeRoute(username, route, hasLongest);
+			model.placeRoute(username, routeID);
 		}
 	}
 }

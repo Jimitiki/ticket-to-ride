@@ -14,10 +14,6 @@ import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.model.ClientGame;
 import deltamonstarz.tickettoride.model.UpdateType;
 
-/**
- * Created by chris on 3/20/17.
- */
-
 public class RoutePresenter extends BasePresenter {
 	private ClientGame game;
 	private Board board;
@@ -53,7 +49,7 @@ public class RoutePresenter extends BasePresenter {
 	public void claimRoute(int routeID, CardColor cardsUsed) {
 		Player player = game.getMe();
 		ClaimRouteCommand command = new ClaimRouteCommand(player.getUsername(), game.getGameID(),
-				board.getRouteByID(routeID), cardsUsed);
+				routeID, cardsUsed);
 		proxy.sendCommand(model.getAuthToken(), command);
 	}
 

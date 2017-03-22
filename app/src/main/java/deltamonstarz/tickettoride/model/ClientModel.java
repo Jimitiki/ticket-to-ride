@@ -72,8 +72,8 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.DEST_CARDS);
 	}
 
-	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {
-		game.placeRoute(player_username, route, hasLongest);
+	public synchronized void placeRoute(String player_username, int routeID) {
+		game.placeRoute(player_username, routeID);
 		notifyPresenter(UpdateType.ROUTE);
 	}
 
@@ -136,7 +136,7 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.LEAVE_GAME);
 	}
 
-	public synchronized void notifyPresenter(UpdateType updateType) {
+	synchronized void notifyPresenter(UpdateType updateType) {
 		setChanged();
 		notifyObservers(updateType);
 	}
@@ -201,17 +201,10 @@ public class ClientModel extends Observable{
 	}
 
 	public List<Route> getClaimedRoutes() {
-		Map<Integer, Route> routes = game.getBoard().getRoutes();
-		List<Route> claimedRoutes = new ArrayList<>();
-		for (Route route : routes.values()) {
-			if (route.getOwner() != null) {
-				claimedRoutes.add(route);
-			}
-		}
-		return claimedRoutes;
+		return game.getBoard().getClaimedRoutes();
 	}
 
-	//this function name rules, shut up
+	//this function name is fine
 	//TODO: delete this
 	public List<Route> getGoodRoutes() {
 		Map<Integer, Route> routes = game.getBoard().getRoutes();

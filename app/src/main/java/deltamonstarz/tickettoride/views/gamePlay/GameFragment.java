@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -68,8 +69,7 @@ public class GameFragment extends Fragment {
 	 * @return A new instance of fragment GameFragment.
 	 */
 	public static GameFragment newInstance() {
-		GameFragment fragment = new GameFragment();
-		return fragment;
+		return new GameFragment();
 	}
 
 	public void setActivity(GameActivity activity) {
@@ -190,6 +190,12 @@ public class GameFragment extends Fragment {
 		return v;
 	}
 
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mapView.setClaimedRoutes(presenter.getClaimedRoutes());
+	}
+
 	public void enableButtons(){
 		if (placeTrain != null) {
 			placeTrain.setEnabled(true);
@@ -256,7 +262,9 @@ public class GameFragment extends Fragment {
 	}
 
 	public void onRouteClaimed(List<Route> routes) {
-		mapView.setClaimedRoutes(routes);
-		mapView.redraw();
+		if (mapView != null) {
+			mapView.setClaimedRoutes(routes);
+			mapView.redraw();
+		}
 	}
 }

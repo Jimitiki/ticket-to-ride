@@ -4,19 +4,14 @@ import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.Route;
 
 public class ClaimRouteCommand extends BaseCommand {
-    protected Route route;
-	protected CardColor cardsUsed;
-    protected boolean hasLongest;
+    protected int routeID;
+    protected CardColor cardsUsed;
 
-    public ClaimRouteCommand(String username, int gameID, Route route, CardColor color) {
+    public ClaimRouteCommand(String username, int gameID, int routeID, CardColor color) {
         super(username, gameID);
-        this.route = route;
+        this.routeID = routeID;
 	    this.cardsUsed = color;
         name = "ClaimRouteCommand";
-    }
-
-    public void setHasLongest(boolean has) {
-        hasLongest = has;
     }
 
     @Override

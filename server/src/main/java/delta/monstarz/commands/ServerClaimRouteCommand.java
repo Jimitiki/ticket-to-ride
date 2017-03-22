@@ -10,14 +10,14 @@ import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Route;
 
 public class ServerClaimRouteCommand extends ClaimRouteCommand {
-	public ServerClaimRouteCommand(String username, int gameID, Route route,CardColor color) {
-		super(username, gameID, route, color);
+	public ServerClaimRouteCommand(String username, int gameID, int routeID, CardColor color) {
+		super(username, gameID, routeID, color);
 	}
 
 	@Override
 	public void execute() {
 		Game game = GameManager.getInstance().getGameByID(gameID);
-		if (!game.claimRoute(route.getID(), username, cardsUsed)) {
+		if (!game.claimRoute(routeID, username, cardsUsed)) {
 			System.out.print("could not claim route");
 		}
 		Player player = game.getPlayerByUsername(username);

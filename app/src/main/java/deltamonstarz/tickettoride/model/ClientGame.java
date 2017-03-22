@@ -8,6 +8,7 @@ import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
@@ -22,7 +23,7 @@ public class ClientGame {
 	private List<String> players;
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
-	CardColor mostRecentCardColor;
+	private CardColor mostRecentCardColor;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -121,8 +122,14 @@ public class ClientGame {
 		me.addDestCard(card);
 	}
 
-	public void placeRoute(String player_username, Route route, boolean hasLongest) {
-		board.placeRoute(player_username, route, hasLongest);
+	public void placeRoute(String username, int routeID) {
+		Route route = board.getRouteByID(routeID);
+		for (PlayerInfo player : playerInfos) {
+			if (player.getUsername().equals(username)) {
+				route.claim(username, player.getPlayerColor());
+				return;
+			}
+		}
 	}
 
 	public void addPlayer(String username) {
