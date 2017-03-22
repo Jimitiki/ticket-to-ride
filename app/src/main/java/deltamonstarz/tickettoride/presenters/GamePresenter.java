@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride.presenters;
 
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
@@ -151,6 +152,13 @@ public class GamePresenter extends BasePresenter {
 //	public PlayerInfo getPlayerInfo() {
 //		return null;
 //	}
+
+	public void handleMessage(String text){
+		if (gameFragment != null){
+			Message message = gameFragment.handler.obtainMessage(-1, text);
+			message.sendToTarget();
+		}
+	}
 
 	public List<DestCard> getDestinationCards() {
 		return model.getDestinationCards();

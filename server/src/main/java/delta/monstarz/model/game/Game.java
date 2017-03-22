@@ -13,6 +13,7 @@ import delta.monstarz.model.CommandManager;
 import delta.monstarz.model.game.manager.DestinationCardManager;
 import delta.monstarz.model.game.manager.PlayerManager;
 import delta.monstarz.model.game.manager.TrainCardManager;
+import delta.monstarz.model.player.ServerPlayer;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
@@ -182,7 +183,7 @@ public class Game {
 	 */
 	public void addPlayer(String username){
 		if (playerManager.size() < PlayerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
-			Player player = new Player(username);
+			Player player = new ServerPlayer(username);
 			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
 			player.setPlayerColor(color);
 			playerManager.add(player);

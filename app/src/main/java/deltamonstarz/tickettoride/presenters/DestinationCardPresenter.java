@@ -56,7 +56,7 @@ public class DestinationCardPresenter extends BasePresenter {
 		proxy.sendCommand(model.getAuthToken(),command );
 	}
 
-	public void reportSelection(List<DestCard> keptCards, List<DestCard> returnedCards) {
+	public void reportSelection(ArrayList<DestCard> keptCards, ArrayList<DestCard> returnedCards) {
 		SelectDestCardsCommand command = new SelectDestCardsCommand(
 				model.getUsername(),
 				model.getGameID(),
