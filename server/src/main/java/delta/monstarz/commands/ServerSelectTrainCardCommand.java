@@ -14,7 +14,6 @@ public class ServerSelectTrainCardCommand extends SelectTrainCardCommand {
 
 	@Override
 	public void execute() {
-		expires = true;
 		Game game = GameManager.getInstance().getGameByID(gameID);
 		Player player = game.getPlayerByUsername(username);
 		TrainCard card = game.getFaceUpCardByPosition(cardSpot);

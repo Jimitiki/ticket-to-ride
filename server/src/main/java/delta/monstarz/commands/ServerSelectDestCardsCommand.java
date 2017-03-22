@@ -22,12 +22,6 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 		super(username, gameID, selection, discard);
 	}
 
-	//Object Methods
-
-	//Getters and Setters
-
-	//Public Methods
-
 	@Override
 	public void execute() //throws InvalidCommandException
 	{
@@ -39,9 +33,8 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 		player.setDestCardChoices(null);
 		game.getDestDeck().returnCards(discard);
 		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
+
+		// Save this command
+		game.addCommand(this);
 	}
-
-
-	//Internal Methods
-
 }
