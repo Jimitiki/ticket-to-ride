@@ -61,6 +61,7 @@ public class Game {
 		board = new Board(jsonGame.getAsJsonObject("Map"),
 				jsonGame.getAsJsonArray("RouteList"));
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
+		trainDeck.initialize();
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
 	}
 
@@ -153,8 +154,8 @@ public class Game {
 	 */
 	public void start(){
 		if (playerManager.size() > 1){
-			trainDeck.initialize();
-			destDeck.shuffle();
+			//trainDeck.initialize();
+			//destDeck.shuffle();
 
 			for(Player p : playerManager.getPlayers())
 			{

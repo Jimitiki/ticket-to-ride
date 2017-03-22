@@ -50,6 +50,7 @@ public class TrainCardManager
 	}
 
 	public void assignFaceUpCards(){
+		// Todo: I think there is a bug here, we are losing 5 cards into the void...
 		int numGoldCards = 0;
 		do {
 			for (int i = 0; i < FACE_UP_COUNT; i++) {
@@ -77,9 +78,6 @@ public class TrainCardManager
 		deck.add(card);
 	}
 
-	/**
-	 * Places the faceup cards back in the deck, shuffles the deck, and then draws 5 new face cards
-	 */
 	public void shuffle()
 	{
 		Collections.shuffle(deck);
