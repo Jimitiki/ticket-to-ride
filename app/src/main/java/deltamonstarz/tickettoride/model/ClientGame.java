@@ -117,8 +117,8 @@ public class ClientGame {
 		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
 	}
 
-	public void addDestCard(DestCard card) {
-		me.addDestCard(card);
+	public void addDestCards(ArrayList<DestCard> cards) {
+		me.selectDestinationCards(cards);
 	}
 
 	public void placeRoute(String player_username, Route route, boolean hasLongest) {
@@ -131,7 +131,9 @@ public class ClientGame {
 		}
 	}
 
-	public void setDestCardChoices(ArrayList<DestCard> choices) { me.setDestCardChoices(choices);}
+	public void setDestCardChoices(ArrayList<DestCard> choices) {
+		me.setDestCardChoices(choices);
+	}
 
 	public ArrayList<DestCard> getDestCardChoices() {
 		return me.getDestCardChoices();

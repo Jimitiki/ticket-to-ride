@@ -1,5 +1,6 @@
 package delta.monstarz.shared.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.model.DestCard;
@@ -9,17 +10,17 @@ import delta.monstarz.shared.model.DestCard;
  */
 
 public class SelectDestCardsCommand extends BaseCommand {
-	protected List<DestCard> selection;
-	protected List<DestCard> discard;
+	protected ArrayList<DestCard> selection;
+	protected ArrayList<DestCard> discard;
 
 	public List<DestCard> getChoices() {
 		return selection;
 	}
-	public void setChoices(List<DestCard> choices) {
+	public void setChoices(ArrayList<DestCard> choices) {
 		this.selection = choices;
 	}
 
-	public SelectDestCardsCommand(String username, int gameID, List<DestCard> selection, List<DestCard> discard) {
+	public SelectDestCardsCommand(String username, int gameID, ArrayList<DestCard> selection, ArrayList<DestCard> discard) {
 		super(username, gameID);
 		this.selection = selection;
 		this.discard = discard;

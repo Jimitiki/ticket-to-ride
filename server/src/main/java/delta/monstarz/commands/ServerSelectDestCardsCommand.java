@@ -1,5 +1,6 @@
 package delta.monstarz.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.exceptions.InvalidCommandException;
@@ -16,7 +17,7 @@ import delta.monstarz.shared.model.Player;
 public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 {
 	//Constructors
-	public ServerSelectDestCardsCommand(String username, int gameID, List<DestCard> selection, List<DestCard> discard)
+	public ServerSelectDestCardsCommand(String username, int gameID, ArrayList<DestCard> selection, ArrayList<DestCard> discard)
 	{
 		super(username, gameID, selection, discard);
 	}
@@ -32,12 +33,7 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 	{
 		Game game = GameManager.getInstance().getGameByID(gameID);
 		Player player = game.getPlayerByUsername(username);
-		for (DestCard card : selection) {
-			//if (! player.getDestCardChoices().contains(card)) {
-				//throw new InvalidCommandException();
-			//}
-			player.addDestCard(card);
-		}
+		player.selectDestinationCards(selection);
 		// This is set to null because the server caches the destination cards the player has committed to choose from
 		// Once they have made a decision the player no longer is restricted to choosing from the cached cards
 		player.setDestCardChoices(null);
