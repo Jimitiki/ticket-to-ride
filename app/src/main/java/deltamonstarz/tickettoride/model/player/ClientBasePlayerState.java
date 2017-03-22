@@ -44,6 +44,28 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 	}
 
 	@Override
+	public boolean canDrawTrainCard() {
+		GamePresenter.getInstance().handleMessage("You can't draw a train card when it is not your turn");
+		return false;
+	}
+
+	@Override
+	public boolean canSelectTrainCard(TrainCard card) {
+		GamePresenter.getInstance().handleMessage("You can't select a train card when it is not your turn");
+		return false;
+	}
+
+	@Override
+	public boolean canDrawDestinationCards() {
+		return false;
+	}
+
+	@Override
+	public boolean canPlaceRoute() {
+		return false;
+	}
+
+	@Override
 	public boolean isTakingTurn() {
 		return true;
 	}

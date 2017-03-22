@@ -19,5 +19,13 @@ public interface IPlayerState {
 
 	void claimRoute(Route route);
 
+	boolean canDrawTrainCard();
+
+	boolean canSelectTrainCard(TrainCard card);
+
+	boolean canDrawDestinationCards();
+
+	boolean canPlaceRoute();
+
 	boolean isTakingTurn();
 }

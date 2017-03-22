@@ -55,15 +55,19 @@ public class ChooseCardPresenter extends BasePresenter {
 	}
 
 	public void drawDeckCard(){
-		// Todo: We should only send a command if it is allowed by the current player state, should we have the player state send the command? player.state.sendDrawTrainCardCommand(command) ???
-		DrawTrainCardCommand command = new DrawTrainCardCommand(model.getUsername(), model.getGame().getGameID());
-		ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+			if (model.getGame().getMe().canDrawTrainCard()) {
+			DrawTrainCardCommand command = new DrawTrainCardCommand(model.getUsername(), model.getGame().getGameID());
+			ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+		}
 	}
 
 	public void drawFaceUpCard(int index){
-		// Todo: We should only send a command if it is allowed by the current player state, should we have the player state send the command? player.state.sendSelectTrainCardCommand(command) ???
-		SelectTrainCardCommand command = new SelectTrainCardCommand(model.getUsername(), model.getGameID(), index);
-		ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+		TrainCard trainCard = new TrainCard(model.getGame().getFaceUpCards().get(index).getColor());
+
+		if (model.getGame().getMe().canSelectTrainCard(trainCard)) {
+			SelectTrainCardCommand command = new SelectTrainCardCommand(model.getUsername(), model.getGameID(), index);
+			ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+		}
 	}
 
 	public void setChooseCardDialog(ChooseCardDialog chooseCardDialog) {

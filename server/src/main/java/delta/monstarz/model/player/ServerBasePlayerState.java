@@ -43,6 +43,26 @@ public abstract class ServerBasePlayerState implements IPlayerState {
 	}
 
 	@Override
+	public boolean canDrawTrainCard() {
+		return false;
+	}
+
+	@Override
+	public boolean canSelectTrainCard(TrainCard card) {
+		return false;
+	}
+
+	@Override
+	public boolean canDrawDestinationCards() {
+		return false;
+	}
+
+	@Override
+	public boolean canPlaceRoute() {
+		return false;
+	}
+
+	@Override
 	public boolean isTakingTurn() {
 		return true;
 	}

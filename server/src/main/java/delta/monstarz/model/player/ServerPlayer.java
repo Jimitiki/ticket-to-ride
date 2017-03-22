@@ -41,6 +41,11 @@ public class ServerPlayer extends Player {
 		}
 
 		@Override
+		public boolean canDrawTrainCard() {
+			return true;
+		}
+
+		@Override
 		public boolean isTakingTurn() {
 			return false;
 		}
@@ -93,6 +98,16 @@ public class ServerPlayer extends Player {
 			// Todo: Add functionality here
 			state = new InactiveState();
 		}
+
+		@Override
+		public boolean canDrawTrainCard() {
+			return true;
+		}
+
+		@Override
+		public boolean canSelectTrainCard(TrainCard card) {
+			return true;
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -110,6 +125,15 @@ public class ServerPlayer extends Player {
 			if (card.getColor() != CardColor.GOLD){
 				internalDrawTrainCard(card);
 				state = new InactiveState();
+			}
+		}
+
+		@Override
+		public boolean canSelectTrainCard(TrainCard card) {
+			if (card.getColor() == CardColor.GOLD) {
+				return false;
+			} else {
+				return true;
 			}
 		}
 	}

@@ -26,12 +26,21 @@ public class ServerDrawTrainCardCommand extends DrawTrainCardCommand
 	@Override
 	public void execute()
 	{
+		expires = true;
+
 		Game game = GameManager.getInstance().getGameByID(gameID);
-		TrainCard card = game.getTrainDeck().drawCard();
 		Player player = game.getPlayerByUsername(username);
-		player.drawTrainCard(card);
-		this.setCardDrawn(card);
-		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
+
+		if (player.canDrawTrainCard()) {
+
+			TrainCard card = game.getTrainDeck().drawCard();
+			player.drawTrainCard(card);
+			this.setCardDrawn(card);
+
+			// Make/Add new commands
+			game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()));
+			game.addCommand(this);
+		}
 	}
 
 

@@ -131,6 +131,14 @@ public abstract class Player {
 
 	}
 
+	public boolean canDrawTrainCard(){
+		return state.canDrawTrainCard();
+	}
+
+	public boolean canSelectTrainCard(TrainCard card){
+		return state.canSelectTrainCard(card);
+	}
+
 	public PlayerInfo playerInfo() {
 		Collection<Integer> card_nums = trainCards.values();
 		int numTrainsCards = 0;

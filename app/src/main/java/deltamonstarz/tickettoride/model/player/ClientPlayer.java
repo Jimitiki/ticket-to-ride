@@ -8,6 +8,7 @@ import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
+import deltamonstarz.tickettoride.presenters.GamePresenter;
 
 /**
  * Created by Trevor on 3/20/2017.
@@ -40,6 +41,11 @@ public class ClientPlayer extends Player {
 		public void selectDestinationCards(ArrayList<DestCard> cards) {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
+		}
+
+		@Override
+		public boolean canDrawTrainCard() {
+			return true;
 		}
 
 		@Override
@@ -95,6 +101,16 @@ public class ClientPlayer extends Player {
 			// Todo: Add functionality here
 			state = new InactiveState();
 		}
+
+		@Override
+		public boolean canDrawTrainCard() {
+			return true;
+		}
+
+		@Override
+		public boolean canSelectTrainCard(TrainCard card) {
+			return true;
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -112,6 +128,17 @@ public class ClientPlayer extends Player {
 			if (card.getColor() != CardColor.GOLD){
 				internalDrawTrainCard(card);
 				state = new InactiveState();
+			}
+		}
+
+		@Override
+		public boolean canSelectTrainCard(TrainCard card) {
+			if (card.getColor() == CardColor.GOLD){
+				GamePresenter.getInstance().handleMessage("You can't draw a golden train card as your second card");
+				return false;
+			}
+			else {
+				return true;
 			}
 		}
 	}
