@@ -48,7 +48,6 @@ public class GameFragment extends Fragment {
 	public Handler handler;
 
 	private GamePresenter presenter;
-	private GamePresenter presenter;
 	private GameActivity activity;
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;

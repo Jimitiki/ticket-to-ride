@@ -127,17 +127,7 @@ public abstract class Player {
 		destCards.addAll(cards);
 	}
 
-	int getMaxCardColorCount() {
-		int maxCount = 0;
-		for (int count : trainCards.values()) {
-			if (count > maxCount) {
-				maxCount = count;
-			}
-		}
-		return maxCount;
-	}
-
-	public void claimRoute(Route route) {
+	public void claimRoute(Route route, CardColor cardsUsed) {
 		state.claimRoute(route);
 	}
 
