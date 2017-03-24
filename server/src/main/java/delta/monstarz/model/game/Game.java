@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.jar.JarEntry;
 
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
 import delta.monstarz.model.CommandManager;
@@ -39,6 +38,7 @@ public class Game {
 	private String ownerName;
 	private Date startTime;
 	private boolean gameStarted = false;
+	private boolean playHasStarted = false;
 
 	private PlayerManager playerManager;
 	private TrainCardManager trainDeck;
@@ -49,20 +49,30 @@ public class Game {
 	private List<BaseCommand> oneTimeUseCommands = new ArrayList<>();
 
 	//Constructor
-	public Game(JsonObject jsonGame, String name, String ownerName) {
+	private Game(JsonObject jsonGame, String name, String ownerName) {
 		playerManager = new PlayerManager();
 		this.name = name;
 		this.ownerName = ownerName;
 		this.gameID = nextNewGameID;
 		nextNewGameID++;
 
-		playerManager.setStartTrains(jsonGame.get("TrainCount").getAsInt());
+		playerManager.setStartingNumberOfTrains(jsonGame.get("TrainCount").getAsInt());
 
 		board = new Board(jsonGame.getAsJsonObject("Map"),
 				jsonGame.getAsJsonArray("RouteList"));
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
 		trainDeck.initialize();
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
+	}
+
+	/**
+	 * Pseudo-constuctor needed to pass a 'this' reference to an instance object.
+	 */
+	public static Game init(JsonObject jsonGame, String name, String ownerName)
+	{
+		Game g = new Game(jsonGame, name, ownerName);
+		g.playerManager.setGame(g);
+		return g;
 	}
 
 	//Getters and Setters
@@ -88,6 +98,10 @@ public class Game {
 
 	public boolean isGameStarted() {
 		return gameStarted;
+	}
+
+	public boolean isPlayHasStarted() {
+		return playHasStarted;
 	}
 
 	public DestinationCardManager getDestDeck()
@@ -145,14 +159,14 @@ public class Game {
 	}
 
 	public Player getPlayerByUsername(String username) {
-		return playerManager.getPlayerByUsername(username);
+		return playerManager.getPlayerByName(username);
 	}
 
 	/**
 	 * Starts the game
 	 * New players can no longer join the game
 	 */
-	public void start(){
+	public void initGame(){
 		if (playerManager.size() > 1){
 			//trainDeck.initialize();
 			//destDeck.shuffle();
@@ -174,7 +188,7 @@ public class Game {
 			}
 
 			gameStarted = true;
-			startTime = new Date(); // All new dates start with the current time
+			startTime = new Date(); // All new dates initGame with the current time
 		}
 	}
 
@@ -184,7 +198,7 @@ public class Game {
 	 */
 	public void addPlayer(String username){
 		if (playerManager.size() < PlayerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
-			Player player = new ServerPlayer(username);
+			Player player = new ServerPlayer(username, gameID);
 			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
 			player.setPlayerColor(color);
 			playerManager.add(player);
@@ -197,7 +211,31 @@ public class Game {
 	 * @return A boolean value representing if the player is in the game
 	 */
 	public boolean hasPlayer(String username){
-		return playerManager.getPlayerNames().contains(username);
+		return playerManager.getPlayerByName(username) != null;
+	}
+
+	public boolean gameReadyToStart(){
+
+		for (Player player: playerManager.getPlayers()){
+			if (player.getDestCards().size() < 2){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public void startFirstTurn(){
+		if (!playHasStarted) {
+			playerManager.advanceTurn();
+		}
+		playHasStarted = true;
+	}
+
+	public void startNextPlayersTurn(){
+		if (playHasStarted) {
+			playerManager.advanceTurn();
+		}
 	}
 
 	/**
@@ -205,8 +243,11 @@ public class Game {
 	 * @return Returns a GameInfo object that represents the game
 	 */
 	public GameInfo getGameInfo(){
-
-		TreeSet<String> playersNames = playerManager.getPlayerNames();
+		TreeSet<String> playersNames = new TreeSet<>();
+		for(Player p : playerManager.getPlayers())
+		{
+			playersNames.add(p.getUsername());
+		}
 
 		return new GameInfo(
 				name,

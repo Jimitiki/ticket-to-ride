@@ -11,6 +11,7 @@ public abstract class Player {
 	private int score;
 	private int numTrains;
 	private int minSelection;
+	private int gameId;
 	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
