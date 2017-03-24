@@ -20,14 +20,36 @@ public class Board {
 	private static final int MIN_PLAYERS_DOUBLE_ROUTES = 3;
 
 	//Constructor
-	public Board(JsonObject jsonMap, JsonArray jsonRoutes)
+	public Board(JsonObject jsonMap, JsonArray jsonRoutes, JsonArray jsonCities)
 	{
 		cities = new ArrayList<>();
 		routes = new HashMap<>();
 		imageID = jsonMap.get("file").getAsString();
+		for (int i = 0; i < jsonCities.size(); i++) {
+			City city = new City(jsonCities.get(i).getAsString(), i);
+			cities.add(city);
+		}
 		for (int i = 0; i < jsonRoutes.size(); i++) {
-			Route route = new Route(jsonRoutes.get(i).getAsJsonObject());
+			JsonObject jsonRoute = jsonRoutes.get(i).getAsJsonObject();
+			JsonArray endpointArray = jsonRoute.get("endpoints").getAsJsonArray();
+			String cityName1 = endpointArray.get(0).getAsString();
+			String cityName2 = endpointArray.get(1).getAsString();
+
+			Route route = new Route(jsonRoute);
+
 			routes.put(route.getID(), route);
+			for (City city : cities) {
+				String cityName = city.getName();
+				if (cityName1.equals(cityName) || cityName2.equals(cityName)) {
+					if (cityName1.equals(cityName)) {
+						route.setCity1(city);
+					}
+					else {
+						route.setCity2(city);
+					}
+					city.addRoute(route);
+				}
+			}
 		}
 	}
 
@@ -150,7 +172,7 @@ public class Board {
 				    maxCardCount = cardCount;
 			    }
 		    }
-		    if (maxCardCount > routeLength ) {
+		    if (maxCardCount >= routeLength) {
 			    return true;
 		    }
 	    }
@@ -163,6 +185,6 @@ public class Board {
 		    return true;
 	    }
 	    Route doubleRoute = routes.get(route.getDoubleID());
-	    return (doubleRoute.isClaimed() && (numPlayers < 4 || username.equals(doubleRoute.getOwner())));
+	    return (!doubleRoute.isClaimed() || (numPlayers > 3  && !username.equals(doubleRoute.getOwner())));
     }
 }

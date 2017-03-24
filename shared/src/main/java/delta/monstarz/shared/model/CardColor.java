@@ -39,13 +39,8 @@ public enum CardColor
 			case "gray":
 			case "gold":
 				return GOLD;
-
-
-
 			default:
 				return UNKNOWN;
-
-
 		}
 	}
 

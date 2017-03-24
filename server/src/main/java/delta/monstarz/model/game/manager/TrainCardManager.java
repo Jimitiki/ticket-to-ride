@@ -49,7 +49,7 @@ public class TrainCardManager
 		assignFaceUpCards();
 	}
 
-	public void assignFaceUpCards(){
+	private void assignFaceUpCards(){
 		int numGoldCards = 0;
 		do {
 			for (int i = 0; i < FACE_UP_COUNT; i++) {
@@ -72,15 +72,12 @@ public class TrainCardManager
 	/**
 	 * Adds a card to the deck.
 	 */
-	public void addCard(TrainCard card)
-	{
+	public void addCard(TrainCard card) {
 		deck.add(card);
+		shuffle();
 	}
 
-	/**
-	 * Places the faceup cards back in the deck, shuffles the deck, and then draws 5 new face cards
-	 */
-	public void shuffle()
+	private void shuffle()
 	{
 		Collections.shuffle(deck);
 	}

@@ -37,7 +37,6 @@ public class GamePresenter extends BasePresenter {
 
 	private GamePresenter() {
 		super();
-		game = model.getGame();
 	}
 
 	public static GamePresenter getInstance() {
@@ -74,6 +73,7 @@ public class GamePresenter extends BasePresenter {
 				lobbyFragment.onPlayerJoin(model.getPlayers());
 				break;
 			case START_GAME:
+				game = model.getGame();
 				activity.onGameStart(model.getMapImagePath());
 				break;
 			case DEST_CARDS:

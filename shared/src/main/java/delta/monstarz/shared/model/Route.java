@@ -9,8 +9,8 @@ import java.util.List;
 public class Route {
 	private int id;
 	private int doubleID;
-    private String city1;
-    private String city2;
+    private City city1;
+    private City city2;
     private int length;
     private CardColor color;
     private String owner;
@@ -21,10 +21,6 @@ public class Route {
     public Route(JsonObject jsonRoute) {
 	    id = jsonRoute.get("id").getAsInt();
 	    doubleID = jsonRoute.get("doubleID").getAsInt();
-        //Parse the Endpoints
-        JsonArray endpointArray = jsonRoute.get("endpoints").getAsJsonArray();
-        city1 = endpointArray.get(0).getAsString();
-        city2 = endpointArray.get(1).getAsString();
 
         //Parse the Segments
         // TODO: get rid of condition when all segments are added to json
@@ -77,36 +73,32 @@ public class Route {
 	    this.color = color;
     }
 
-    int getLength() {
+    public int getLength() {
 	    return length;
     }
 
-    public void setLength(int length) {
-	    this.length = length;
-    }
+	public City getCity1() {
+		return city1;
+	}
 
-    public String getCity2() {
-	    return city2;
-    }
+	void setCity1(City city) {
+		city1 = city;
+	}
 
-    public void setCity2(String city2) {
-	    this.city2 = city2;
-    }
+	public City getCity2() {
+		return city2;
+	}
 
-    public String getCity1() {
-	    return city1;
-    }
-
-    public void setCity1(String city1) {
-	    this.city1 = city1;
-    }
+	void setCity2(City city) {
+		city2 = city;
+	}
 
 	boolean isClaimed() {
 		return isClaimed;
 	}
 
-	public void setClaimed(boolean claimed) {
-		isClaimed = claimed;
+	public City getOtherCity(City city) {
+		return city.equals(city1) ? city2 : city1;
 	}
 
 	public void claim(String username, PlayerColor trainColor) {
@@ -118,5 +110,10 @@ public class Route {
 	public boolean verifyCardColor(CardColor cardColor, int cardCount) {
 		return (color == CardColor.GOLD || cardColor == CardColor.GOLD ||
 				color == cardColor) && cardCount >= length;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o != null && o instanceof Route && ((Route) o).getID() == id;
 	}
 }

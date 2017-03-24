@@ -139,7 +139,14 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.println("claiming route");
-				Toast.makeText(getContext(), "Routes can only be claimed during your turn.", Toast.LENGTH_LONG).show();
+				FragmentManager fragmentManager = activity.getSupportFragmentManager();
+				RouteSelectionFragment dialog = new RouteSelectionFragment();
+				dialog.setPresenter(new RoutePresenter());
+				try {
+					dialog.show(fragmentManager, "claim_route_dialog");
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 

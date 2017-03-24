@@ -59,8 +59,9 @@ public class Game {
 
 		playerManager.setStartTrains(jsonGame.get("TrainCount").getAsInt());
 
-		board = new Board(jsonGame.getAsJsonObject("Map"),
-				jsonGame.getAsJsonArray("RouteList"));
+		board = new Board( jsonGame.getAsJsonObject("Map"), jsonGame.getAsJsonArray("RouteList"),
+				jsonGame.getAsJsonArray("Cities"));
+
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
 	}
@@ -152,15 +153,13 @@ public class Game {
 	 * Starts the game
 	 * New players can no longer join the game
 	 */
-	public void start(){
-		if (playerManager.size() > 1){
+	public void start() {
+		if (playerManager.size() > 1) {
 			trainDeck.initialize();
 			destDeck.shuffle();
 
-			for(Player p : playerManager.getPlayers())
-			{
-				for(int i = 0; i < 4; i++)
-				{
+			for (Player p : playerManager.getPlayers()) {
+				for (int i = 0; i < 4; i++) {
 					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p.getUsername(), gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
@@ -211,6 +210,10 @@ public class Game {
 	public boolean claimRoute(int routeID, String username, CardColor cardsUsed) {
 		Player player = playerManager.getPlayerByUsername(username);
 		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed)) {
+			Route route = board.getRouteByID(routeID);
+			for (int i = 0; i < route.getLength(); i++) {
+				trainDeck.addCard(new TrainCard(cardsUsed));
+			}
 			player.claimRoute(board.getRouteByID(routeID), cardsUsed);
 			return true;
 		}

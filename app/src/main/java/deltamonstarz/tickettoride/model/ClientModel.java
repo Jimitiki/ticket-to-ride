@@ -77,10 +77,6 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.ROUTE);
 	}
 
-	public synchronized void setBoard(Board board) {
-		game.setBoard(board);
-	}
-
 	public synchronized void setAvailableGames(List<GameInfo> availableGames) {
 		this.availableGames = availableGames;
 	}
@@ -89,9 +85,8 @@ public class ClientModel extends Observable{
 
 	public synchronized void startGame(Board board) {
 		game.setStarted(true);
-		setBoard(board);
+		game.setBoard(board);
 		notifyPresenter(UpdateType.START_GAME);
-		//DummyData.doTest();
 	}
 
 	public synchronized void addPlayer(String username) {
@@ -111,7 +106,7 @@ public class ClientModel extends Observable{
 	}
 
 	public synchronized void joinGame(int gameID) {
-		newGame(gameID);
+		game = new ClientGame(gameID);
 		notifyPresenter(UpdateType.JOIN_GAME);
 	}
 
@@ -149,19 +144,12 @@ public class ClientModel extends Observable{
 		return game;
 	}
 
-	public synchronized void newGame(int gameID) {
-		game = new ClientGame(gameID);
-	}
-
 	public void drawDestinationCards(ArrayList<DestCard> choices, int minSelection) {
-		setDestCardChoices(choices);
-		setMinSelection(minSelection);
+		game.setDestCardChoices(choices);
+		game.setMinSelection(minSelection);
 		notifyPresenter(UpdateType.DRAW_DEST_CARDS);
 	}
 
-	public void setDestCardChoices(ArrayList<DestCard> choices) {
-		game.setDestCardChoices(choices);
-	}
 	public ArrayList<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
 
 	public List<Message> getChatHistory() {
@@ -170,10 +158,6 @@ public class ClientModel extends Observable{
 
 	public int getMinSelection() {
 		return game.getMinSelection();
-	}
-
-	public void setMinSelection(int minSelection) {
-		game.setMinSelection(minSelection);
 	}
 
 	public Message getLastMessage() {
