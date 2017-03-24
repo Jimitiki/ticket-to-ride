@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,9 @@ public class RouteSelectionFragment extends DialogFragment {
 	View sourceListItem;
 	View destinationListItem;
 	View cardListItem;
+	LinearLayoutManager sourceLayoutManager;
+	LinearLayoutManager destinationLayoutManager;
+	LinearLayoutManager cardLayoutManager;
 
 	private List<Route> availableRoutes;
 	private List<City> sources;
@@ -81,6 +85,17 @@ public class RouteSelectionFragment extends DialogFragment {
 		destinationCities = (RecyclerView) view.findViewById(R.id.destinationCities);
 		cardColors = (RecyclerView) view.findViewById(R.id.cardColorList);
 
+		sourceCities.setHasFixedSize(true);
+		destinationCities.setHasFixedSize(true);
+		cardColors.setHasFixedSize(true);
+
+		sourceLayoutManager = new LinearLayoutManager(getContext());
+		destinationLayoutManager = new LinearLayoutManager(getContext());
+		cardLayoutManager = new LinearLayoutManager(getContext());
+		sourceCities.setLayoutManager(sourceLayoutManager);
+		destinationCities.setLayoutManager(destinationLayoutManager);
+		cardColors.setLayoutManager(cardLayoutManager);
+
 		confirm.setEnabled(false);
 		confirm.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -88,15 +103,6 @@ public class RouteSelectionFragment extends DialogFragment {
 				onConfirmSelection();
 			}
 		});
-
-		sourceAdapter = new SourceCitiesAdapter();
-		destinationAdapter = new DestinationCitiesAdapter();
-		cardColorAdapter = new CardColorAdapter();
-
-		sourceCities.setAdapter(sourceAdapter);
-		destinationCities.setAdapter(destinationAdapter);
-		cardColors.setAdapter(cardColorAdapter);
-
 
 		cancel.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -191,6 +197,10 @@ public class RouteSelectionFragment extends DialogFragment {
 				sources.add(route.getCity2());
 			}
 		}
+		if (sourceAdapter == null) {
+			sourceAdapter = new SourceCitiesAdapter();
+			sourceCities.setAdapter(sourceAdapter);
+		}
 		sourceAdapter.setSourceCities(sources);
 	}
 
@@ -203,12 +213,20 @@ public class RouteSelectionFragment extends DialogFragment {
 				}
 			}
 		}
+		if (destinationAdapter == null) {
+			destinationAdapter = new DestinationCitiesAdapter();
+			destinationCities.setAdapter(destinationAdapter);
+		}
 		destinationAdapter.setDestinationCities(sourceRoutes);
 	}
 
 	private void getCardColors() {
 		for (CardColor color : availableCards) {
 
+		}
+		if (cardColorAdapter == null) {
+			cardColorAdapter = new CardColorAdapter();
+			cardColors.setAdapter(cardColorAdapter);
 		}
 	}
 
@@ -230,8 +248,12 @@ public class RouteSelectionFragment extends DialogFragment {
 
 		@Override
 		public void onBindViewHolder(SourceCityHolder holder, int position) {
-			holder.city = cities.get(position);
-			holder.cityName.setText(holder.city.getName());
+			try {
+				holder.city = cities.get(position);
+				holder.cityName.setText(holder.city.getName());
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 		}
 
 		@Override
