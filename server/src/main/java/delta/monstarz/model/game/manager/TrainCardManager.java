@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
@@ -50,15 +51,15 @@ public class TrainCardManager
 	}
 
 	public void assignFaceUpCards(){
-		// Todo: I think there is a bug here, we are losing 5 cards into the void...
-		int numGoldCards = 0;
+		int numGoldCards;
 		do {
+			numGoldCards = 0;
 			for (int i = 0; i < FACE_UP_COUNT; i++) {
 				TrainCard card = drawCard();
 				if (card.getColor() == CardColor.GOLD) {
 					numGoldCards++;
 				}
-				faceUpCards.set(i, drawCard());
+				faceUpCards.set(i, card);
 
 			}
 			if (numGoldCards >= 3) {
