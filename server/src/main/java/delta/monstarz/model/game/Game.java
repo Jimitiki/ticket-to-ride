@@ -13,6 +13,7 @@ import delta.monstarz.model.CommandManager;
 import delta.monstarz.model.game.manager.DestinationCardManager;
 import delta.monstarz.model.game.manager.PlayerManager;
 import delta.monstarz.model.game.manager.TrainCardManager;
+import delta.monstarz.model.player.ServerPlayer;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
@@ -63,6 +64,7 @@ public class Game {
 				jsonGame.getAsJsonArray("Cities"));
 
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
+		trainDeck.initialize();
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
 	}
 
@@ -153,10 +155,10 @@ public class Game {
 	 * Starts the game
 	 * New players can no longer join the game
 	 */
-	public void start() {
-		if (playerManager.size() > 1) {
-			trainDeck.initialize();
-			destDeck.shuffle();
+	public void start(){
+		if (playerManager.size() > 1){
+			//trainDeck.initialize();
+			//destDeck.shuffle();
 
 			for (Player p : playerManager.getPlayers()) {
 				for (int i = 0; i < 4; i++) {
@@ -185,7 +187,7 @@ public class Game {
 	 */
 	public void addPlayer(String username){
 		if (playerManager.size() < PlayerManager.MAX_PLAYERS && !gameStarted && !hasPlayer(username)){
-			Player player = new Player(username);
+			Player player = new ServerPlayer(username);
 			PlayerColor color = PlayerColor.getColorByValue(playerManager.size());
 			player.setPlayerColor(color);
 			playerManager.add(player);

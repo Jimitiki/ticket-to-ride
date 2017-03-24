@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.commands.SelectDestCardsCommand;
@@ -11,7 +12,7 @@ import deltamonstarz.tickettoride.model.ClientModel;
  */
 
 public class ClientSelectDestCardsCommand extends SelectDestCardsCommand {
-	public ClientSelectDestCardsCommand(String username, int gameID, List<DestCard> selection, List<DestCard> discard) {
+	public ClientSelectDestCardsCommand(String username, int gameID, ArrayList<DestCard> selection, ArrayList<DestCard> discard) {
 		super(username, gameID, selection, discard);
 	}
 
@@ -19,9 +20,7 @@ public class ClientSelectDestCardsCommand extends SelectDestCardsCommand {
 	public void execute() {
 		ClientModel model = ClientModel.getInstance();
 		if (model.getGameID() == gameID) {
-			for (DestCard card : selection) {
-				model.addDestCard(card);
-			}
+			model.addDestinationCards(selection);
 		}
 	}
 }

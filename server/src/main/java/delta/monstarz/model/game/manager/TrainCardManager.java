@@ -49,7 +49,8 @@ public class TrainCardManager
 		assignFaceUpCards();
 	}
 
-	private void assignFaceUpCards(){
+	public void assignFaceUpCards(){
+		// Todo: I think there is a bug here, we are losing 5 cards into the void...
 		int numGoldCards = 0;
 		do {
 			for (int i = 0; i < FACE_UP_COUNT; i++) {

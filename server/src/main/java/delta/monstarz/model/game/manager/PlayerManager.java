@@ -67,12 +67,15 @@ public class PlayerManager
 
 	public void add(Player player)
 	{
+		// Todo: Set the starting player somewhere else....
+		/*
 		if (players.size() == 0) {
 			current = player;
 			player.setTakingTurn(true);
 		} else {
 			player.setTakingTurn(false);
 		}
+		*/
 		player.setNumTrains(startTrains);
 		players.add(player);
 	}

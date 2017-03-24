@@ -14,7 +14,7 @@ import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChooseCardDialog;
 
 /**
- * Created by lyman126 on 3/18/17.
+ * Created by lyman on 3/18/17.
  */
 
 public class ChooseCardPresenter extends BasePresenter {
@@ -55,13 +55,19 @@ public class ChooseCardPresenter extends BasePresenter {
 	}
 
 	public void drawDeckCard(){
-		DrawTrainCardCommand command = new DrawTrainCardCommand(model.getUsername(), model.getGame().getGameID());
-		ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+			if (model.getGame().getMe().canDrawTrainCard()) {
+			DrawTrainCardCommand command = new DrawTrainCardCommand(model.getUsername(), model.getGame().getGameID());
+			ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+		}
 	}
 
 	public void drawFaceUpCard(int index){
-		SelectTrainCardCommand command = new SelectTrainCardCommand(model.getUsername(), model.getGameID(), index);
-		ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+		TrainCard trainCard = new TrainCard(model.getGame().getFaceUpCards().get(index).getColor());
+
+		if (model.getGame().getMe().canSelectTrainCard(trainCard)) {
+			SelectTrainCardCommand command = new SelectTrainCardCommand(model.getUsername(), model.getGameID(), index);
+			ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
+		}
 	}
 
 	public void setChooseCardDialog(ChooseCardDialog chooseCardDialog) {

@@ -6,16 +6,16 @@ import java.util.List;
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
-import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
+import deltamonstarz.tickettoride.model.player.ClientPlayer;
 
 public class ClientGame {
     private Board board;
-    private Player me;
+    private ClientPlayer me;
     private List<PlayerInfo> playerInfos = new ArrayList<>();
     private boolean started;
     private int lastCommandID;
@@ -28,7 +28,7 @@ public class ClientGame {
 	public ClientGame(int id) {
 		gameID = id;
 		players = new ArrayList<>();
-		me = new Player(ClientModel.getInstance().getUsername());
+		me = new ClientPlayer(ClientModel.getInstance().getUsername());
 		lastCommandID = -1;
 		faceUpCards = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
@@ -88,11 +88,11 @@ public class ClientGame {
 		playerInfos.add(player_info);
 	}
 
-	public Player getMe() {
+	public ClientPlayer getMe() {
 		return me;
 	}
 
-	public void setMe(Player me) {
+	public void setMe(ClientPlayer me) {
 		this.me = me;
 	}
 
@@ -118,8 +118,8 @@ public class ClientGame {
 		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
 	}
 
-	public void addDestCard(DestCard card) {
-		me.addDestCard(card);
+	public void addDestCards(ArrayList<DestCard> cards) {
+		me.selectDestinationCards(cards);
 	}
 
 	public void placeRoute(String username, int routeID) {
@@ -138,7 +138,9 @@ public class ClientGame {
 		}
 	}
 
-	public void setDestCardChoices(ArrayList<DestCard> choices) { me.setDestCardChoices(choices);}
+	public void setDestCardChoices(ArrayList<DestCard> choices) {
+		me.setDestCardChoices(choices);
+	}
 
 	public ArrayList<DestCard> getDestCardChoices() {
 		return me.getDestCardChoices();

@@ -1,9 +1,9 @@
 package deltamonstarz.tickettoride.presenters;
 
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import delta.monstarz.shared.commands.ClaimRouteCommand;
 import delta.monstarz.shared.commands.StartGameCommand;
@@ -141,6 +141,13 @@ public class GamePresenter extends BasePresenter {
 	 */
 	public void onPause() {
 		poller.endPoll();
+	}
+
+	public void handleMessage(String text){
+		if (gameFragment != null){
+			Message message = gameFragment.handler.obtainMessage(-1, text);
+			message.sendToTarget();
+		}
 	}
 
 	public List<DestCard> getDestinationCards() {
