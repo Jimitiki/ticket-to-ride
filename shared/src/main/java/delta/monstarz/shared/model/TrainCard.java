@@ -15,4 +15,9 @@ public class TrainCard {
 	public CardColor getColor() {
 		return color;
 	}
+
+	@Override
+	public String toString() {
+		return color.toString() + " Card";
+	}
 }

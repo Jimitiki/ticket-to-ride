@@ -67,7 +67,7 @@ public class GameManager
 	{
 		if (PersonManager.getInstance().isValidUsername(ownerName)) {
 			JsonObject jsonGame = JSONReader.readJSON("server/src/main/assets/preferences.json");
-			Game game = new Game(jsonGame, ownerName, gameName);
+			Game game = Game.init(jsonGame, ownerName, gameName);
 			games.put(game.getGameID(), game);
 			game.addPlayer(ownerName);
 
@@ -136,14 +136,14 @@ public class GameManager
 
 	/**
 	 * Start a game
-	 * A game can only start if it has at least two people
-	 * A game can't start if it has already started
+	 * A game can only initGame if it has at least two people
+	 * A game can't initGame if it has already started
 	 * @pre gameID of a existing game that has not yet started, the game should have at least two people
-	 * @post the game with gameID will start
+	 * @post the game with gameID will initGame
 	 * @param gameID
 	 */
 	public void startGame(int gameID){
-		games.get(gameID).start();
+		games.get(gameID).initGame();
 	}
 
 	/**

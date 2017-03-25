@@ -5,22 +5,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class Player {
+public abstract class Player {
 	private String username;
 	private PlayerColor playerColor;
 	private int score;
 	private int numTrains;
 	private int minSelection;
-	private boolean isTakingTurn;
+	private int gameId;
 	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
-	private PlayerState state;
+	protected IPlayerState state;
 
 	public Player(String username) {
 		this.username = username;
 		trainCards = new HashMap<>();
-		state = new SetupState();
 	}
 
 	public String getUsername() {
@@ -68,11 +67,7 @@ public class Player {
 	}
 
 	public boolean isTakingTurn() {
-		return isTakingTurn;
-	}
-
-	public void setTakingTurn(boolean hasTurn) {
-		this.isTakingTurn = hasTurn;
+		return state.isTakingTurn();
 	}
 
 	public HashMap<CardColor, Integer> getTrainCards() {
@@ -84,19 +79,29 @@ public class Player {
 	}
 
 	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
-		this.destCardChoices = destCardChoices;
+		state.drawDestinationCards(destCardChoices);
+		//this.destCardChoices = destCardChoices;
 	}
 
-	public void addDestCard(DestCard card) {
-		destCards.add(card);
-	}
 
 	public void startTurn() {
 		state.startTurn();
 	}
 
+	protected void internalStartTurn() {
+
+	}
+
 	public void drawTrainCard(TrainCard card) {
 		state.drawTrainCard(card);
+	}
+
+	protected void internalDrawTrainCard(TrainCard card) {
+		CardColor cardColor = card.getColor();
+		if (! trainCards.containsKey(cardColor)) {
+			trainCards.put(cardColor, 0);
+		}
+		trainCards.put(cardColor, trainCards.get(cardColor) + 1);
 	}
 
 	public void selectTrainCard(TrainCard card) {
@@ -107,12 +112,32 @@ public class Player {
 		state.drawDestinationCards(cards);
 	}
 
+	protected void internalDrawDestinationCards(ArrayList<DestCard> cards) {
+		destCardChoices = cards;
+	}
+
 	public void selectDestinationCards(ArrayList<DestCard> cards) {
 		state.selectDestinationCards(cards);
 	}
 
+	protected void internalSelectDestinationCards(ArrayList<DestCard> cards) {
+		destCards.addAll(cards);
+	}
+
 	public void claimRoute(Route route) {
 		state.claimRoute(route);
+	}
+
+	protected void internalClaimRoute(Route route) {
+
+	}
+
+	public boolean canDrawTrainCard(){
+		return state.canDrawTrainCard();
+	}
+
+	public boolean canSelectTrainCard(TrainCard card){
+		return state.canSelectTrainCard(card);
 	}
 
 	public PlayerInfo playerInfo() {
@@ -122,111 +147,7 @@ public class Player {
 			numTrainsCards += n;
 		}
 
-		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn);
+		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn());
 	}
 
-	private class SetupState extends PlayerState {
-		@Override
-		void drawTrainCard(TrainCard card) {
-			CardColor cardColor = card.getColor();
-			if (! trainCards.containsKey(cardColor)) {
-				trainCards.put(cardColor, 0);
-			}
-			trainCards.put(cardColor, trainCards.get(cardColor) + 1);
-		}
-
-		@Override
-		void drawDestinationCards(ArrayList<DestCard> cards) {
-			destCardChoices = cards;
-			state = new DestinationCardState();
-		}
-
-
-	}
-
-	private class InactiveState extends PlayerState {
-		@Override
-		public void startTurn() {
-			state = new PlayerTurnState();
-			isTakingTurn = true;
-		}
-
-		@Override
-		void drawDestinationCards(ArrayList<DestCard> cards) {
-			destCardChoices = cards;
-			state = new DestinationCardState();
-		}
-	}
-
-	private class PlayerTurnState extends PlayerState {
-		@Override
-		void drawTrainCard(TrainCard card) {
-			CardColor cardColor = card.getColor();
-			if (! trainCards.containsKey(cardColor)) {
-				trainCards.put(cardColor, 0);
-			}
-			trainCards.put(cardColor, trainCards.get(cardColor) + 1);
-			state = new TrainCardState();
-		}
-
-		@Override
-		void selectTrainCard(TrainCard card) {
-			CardColor cardColor = card.getColor();
-			if (!trainCards.containsKey(cardColor)) {
-				trainCards.put(cardColor, 0);
-			}
-			trainCards.put(cardColor, trainCards.get(cardColor) + 1);
-			if (cardColor == CardColor.GOLD) {
-				state = new InactiveState();
-				isTakingTurn = false;
-			} else {
-				state = new TrainCardState();
-			}
-		}
-
-		@Override
-		void drawDestinationCards(ArrayList<DestCard> cards) {
-			destCardChoices = cards;
-			state = new DestinationCardState();
-		}
-
-		@Override
-		void claimRoute(Route route) {
-			isTakingTurn = false;
-			state = new InactiveState();
-		}
-	}
-
-	private class TrainCardState extends PlayerState {
-		@Override
-		void drawTrainCard(TrainCard card) {
-			CardColor cardColor = card.getColor();
-			if (!trainCards.containsKey(cardColor)) {
-				trainCards.put(cardColor, 0);
-			}
-			trainCards.put(cardColor, trainCards.get(cardColor) + 1);
-		}
-
-
-		@Override
-		void selectTrainCard(TrainCard card) {
-			if (card.getColor() != CardColor.GOLD) {
-				CardColor cardColor = card.getColor();
-				if (!trainCards.containsKey(cardColor)) {
-					trainCards.put(cardColor, 0);
-				}
-				trainCards.put(cardColor, trainCards.get(cardColor) + 1);
-			}
-			state = new InactiveState();
-			isTakingTurn = false;
-		}
-	}
-
-	private class DestinationCardState extends PlayerState {
-		@Override
-		void selectDestinationCards(ArrayList<DestCard> cards) {
-			destCards.addAll(cards);
-			state = new InactiveState();
-		}
-	}
 }

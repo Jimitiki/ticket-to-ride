@@ -65,8 +65,13 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.TRAIN_CARD);
 	}
 
-	public synchronized void addDestCard(DestCard card) {
-		game.addDestCard(card);
+	public synchronized void selectTrainCard(TrainCard cardDrawn) {
+		game.selectTrainCard(cardDrawn);
+		notifyPresenter(UpdateType.TRAIN_CARD);
+	}
+
+	public synchronized void addDestinationCards(ArrayList<DestCard> cards) {
+		game.addDestCards(cards);
 		notifyPresenter(UpdateType.DEST_CARDS);
 	}
 

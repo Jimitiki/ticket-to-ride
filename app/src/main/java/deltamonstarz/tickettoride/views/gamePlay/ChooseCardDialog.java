@@ -210,10 +210,6 @@ public class ChooseCardDialog extends DialogFragment {
 		dismiss(); // Close dialog
 	}
 
-	private void reportSelection(){
-		// Todo: Send info back to presenter
-	}
-
 	private void setTrainCard(int card, CardColor color){
 		switch (card){
 			case 0:

@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
@@ -50,14 +51,15 @@ public class TrainCardManager
 	}
 
 	public void assignFaceUpCards(){
-		int numGoldCards = 0;
+		int numGoldCards;
 		do {
+			numGoldCards = 0;
 			for (int i = 0; i < FACE_UP_COUNT; i++) {
 				TrainCard card = drawCard();
 				if (card.getColor() == CardColor.GOLD) {
 					numGoldCards++;
 				}
-				faceUpCards.set(i, drawCard());
+				faceUpCards.set(i, card);
 
 			}
 			if (numGoldCards >= 3) {
@@ -77,9 +79,6 @@ public class TrainCardManager
 		deck.add(card);
 	}
 
-	/**
-	 * Places the faceup cards back in the deck, shuffles the deck, and then draws 5 new face cards
-	 */
 	public void shuffle()
 	{
 		Collections.shuffle(deck);
@@ -95,11 +94,10 @@ public class TrainCardManager
 		return faceUpCards;
 	}
 
-	public TrainCard drawFaceUpCard(int index)
+	// This function does not return what the new card is, use the getter like a man (╯°□°）╯︵ ┻━┻
+	public void faceUpDestoryAndReplace (int index)
 	{
-		TrainCard card = faceUpCards.get(index);
-		faceUpCards.add(index, drawCard());
-		return card;
+		faceUpCards.set(index, drawCard());
 	}
 
 	public TrainCard getFaceUpCardByPosition(int index) {
