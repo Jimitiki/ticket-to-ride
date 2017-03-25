@@ -165,6 +165,11 @@ public class ServerPlayer extends Player {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
 		}
+
+		@Override
+		public boolean mustDrawDestinationCard() {
+			return true;
+		}
 	}
 
 

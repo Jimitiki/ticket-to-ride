@@ -67,6 +67,11 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 	}
 
 	@Override
+	public boolean mustDrawDestinationCard() {
+		return false;
+	}
+
+	@Override
 	public boolean isTakingTurn() {
 		return true;
 	}

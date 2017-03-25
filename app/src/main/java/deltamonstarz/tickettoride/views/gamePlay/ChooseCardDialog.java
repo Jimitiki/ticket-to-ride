@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.model.ClientModel;
@@ -197,7 +198,8 @@ public class ChooseCardDialog extends DialogFragment {
 	}
 
 	private void processDestinationCardClick(){
-		if (ClientModel.getInstance().getGame().getMe().canDrawDestinationCard()) {
+		Player player = ClientModel.getInstance().getGame().getMe();
+		if (player.canDrawDestinationCard()) {
 			GamePresenter.getInstance().chooseMoreDestinationCards();
 			dismiss();
 		}

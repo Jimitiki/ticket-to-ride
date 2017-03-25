@@ -146,6 +146,10 @@ public abstract class Player {
 		return state.canDrawDestinationCards();
 	}
 
+	public boolean mustDrawDestinationCard(){
+		return state.mustDrawDestinationCard();
+	}
+
 	public PlayerInfo playerInfo() {
 		Collection<Integer> card_nums = trainCards.values();
 		int numTrainsCards = 0;
