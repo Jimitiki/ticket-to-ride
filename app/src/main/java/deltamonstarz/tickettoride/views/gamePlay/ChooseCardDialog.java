@@ -196,7 +196,7 @@ public class ChooseCardDialog extends DialogFragment {
 	}
 
 	private void processDestinationCardClick(){
-		// Todo: Swap out to the destination selection dialog
+		// Todo: Swap out to the destination selection dialog today
 	}
 
 	private void processCardClick(View view, boolean selected){
