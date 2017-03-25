@@ -2,6 +2,8 @@ package delta.monstarz.model.player;
 
 import java.util.ArrayList;
 
+import delta.monstarz.model.GameManager;
+import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
@@ -14,9 +16,17 @@ import delta.monstarz.shared.model.TrainCard;
 
 public class ServerPlayer extends Player {
 
-	public ServerPlayer(String username) {
+	private int gameId;
+
+	public ServerPlayer(String username, int gameId) {
 		super(username);
+		this.gameId = gameId;
 		state = new SetupState();
+	}
+
+	private void endTurn(){
+		Game game = GameManager.getInstance().getGameByID(gameId);
+		game.startNextPlayersTurn();
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -38,6 +48,7 @@ public class ServerPlayer extends Player {
 		public void selectDestinationCards(ArrayList<DestCard> cards) {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
+
 		}
 
 		@Override
@@ -53,6 +64,10 @@ public class ServerPlayer extends Player {
 
 	//-----------------------------------------------------------------------------------
 	private class InactiveState extends ServerBasePlayerState {
+		public InactiveState() {
+			endTurn();
+		}
+
 		@Override
 		public void startTurn() {
 			internalStartTurn();
@@ -83,7 +98,7 @@ public class ServerPlayer extends Player {
 				state = new InactiveState();
 			}
 			else {
-				state = new InactiveState();
+				state = new TrainCardState();
 			}
 		}
 
@@ -129,6 +144,11 @@ public class ServerPlayer extends Player {
 		}
 
 		@Override
+		public boolean canDrawTrainCard() {
+			return true;
+		}
+
+		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
 			if (card.getColor() == CardColor.GOLD) {
 				return false;
@@ -136,6 +156,7 @@ public class ServerPlayer extends Player {
 				return true;
 			}
 		}
+
 	}
 
 	//-----------------------------------------------------------------------------------

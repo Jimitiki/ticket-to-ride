@@ -1,14 +1,17 @@
 package delta.monstarz.model.game.manager;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
+import delta.monstarz.model.game.Game;
+import delta.monstarz.shared.commands.StartTurnCommand;
+import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Player;
+import delta.monstarz.shared.model.PlayerInfo;
 
 /**
+ * This class manages the players for a game. It also keeps track of whose turn it is.
+ *
  * @author bradcarter
  */
 public class PlayerManager
@@ -17,40 +20,41 @@ public class PlayerManager
 	public static final int MAX_PLAYERS = 5;
 
 	//Instance Variables
-	List<Player> players;
-	Player owner;
-	Player current;
-	private int startTrains;
+	/**
+	 * An ordered collection of players. Used to implement turn switching.
+	 */
+	private List<Player> players;
+
+	/**
+	 * The index of the currentPlayerIndex player. Defaults to -1.
+	 */
+	private int currentPlayerIndex;
+
+	/**
+	 * The number of trains that each player starts with.
+	 */
+	private int startingNumberOfTrains;
+
+	private Game mGame;
 
 	//Constructors
 
 	public PlayerManager()
 	{
 		players = new ArrayList<>();
+		currentPlayerIndex = -1;
 	}
 
-
-	//Object Methods
-
 	//Getters and Setter
-
-
 	public List<Player> getPlayers()
 	{
 		return players;
 	}
 
-	public TreeSet<String> getPlayerNames()
-	{
-		TreeSet<String> names = new TreeSet<>();
-		for(Player p : players)
-		{
-			names.add(p.getUsername());
-		}
-		return names;
-	}
-
-	public Player getPlayerByUsername(String username) {
+	/**
+	 * Returns the player with the given username or null if it is not present.
+	 */
+	public Player getPlayerByName(String username) {
 		for (Player p : players) {
 			if (p.getUsername().equals(username)) {
 				return p;
@@ -59,35 +63,60 @@ public class PlayerManager
 		return null;
 	}
 
-	//Public Methods
+	public void setGame(Game pGame)
+	{
+		mGame = pGame;
+	}
+
+	/**
+	 * Returns the number of players in the game.
+	 */
 	public int size()
 	{
 		return players.size();
 	}
 
+	//Public Methods
+	/**
+	 * Adds a player to the game if the game is not full, or does nothing if the game is full.
+	 */
 	public void add(Player player)
 	{
-		// Todo: Set the starting player somewhere else....
-		/*
-		if (players.size() == 0) {
-			current = player;
-			player.setTakingTurn(true);
-		} else {
-			player.setTakingTurn(false);
+		//If the game is full, do nothing.
+		if(players.size() == MAX_PLAYERS)
+		{
+			return;
 		}
-		*/
-		player.setNumTrains(startTrains);
-		players.add(player);
+		//Otherwise, add the player and set their starting trains.
+		else
+		{
+			player.setNumTrains(startingNumberOfTrains);
+			players.add(player);
+		}
 	}
 
-	public void setStartTrains(int startTrains) {
-		this.startTrains = startTrains;
+	/**
+	 * Advances the currentPlayerIndex turn.
+	 * Sets the currentPlayerIndex player if unset.
+	 */
+	public void advanceTurn()
+	{
+		//Increment the currentPlayerIndex player index
+		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+
+		//Notify the players of the change.
+		Player nextPlayer = players.get(currentPlayerIndex);
+		nextPlayer.startTurn();
+		PlayerInfo info = nextPlayer.playerInfo();
+		UpdatePlayerInfoCommand command = new UpdatePlayerInfoCommand(nextPlayer.getUsername(), mGame.getGameID(), info);
+		StartTurnCommand command2 = new StartTurnCommand(nextPlayer.getUsername(), mGame.getGameID());
+
+		mGame.addCommand(command);
+		mGame.addCommand(command2);
 	}
 
-	//Internal Methods
-
-	//Sub Class Methods-------------------------------------------------------
-	//Protected Methods
-
-	//Abstract Methods
+	//TODO I don't feel like this data belongs to the player manager.
+	public void setStartingNumberOfTrains(int startTrains) {
+		this.startingNumberOfTrains = startTrains;
+	}
 }

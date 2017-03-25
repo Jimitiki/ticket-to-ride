@@ -1,5 +1,8 @@
 package delta.monstarz.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
@@ -21,7 +24,9 @@ public class ServerSelectTrainCardCommand extends SelectTrainCardCommand {
 		if (player.canSelectTrainCard(card)) {
 
 			player.selectTrainCard(card);
-			replacementCard = game.replaceFaceUpCard(cardSpot);
+			game.replaceFaceUpCard(cardSpot);
+			replacementCard = game.getFaceUpCardByPosition(cardSpot);
+
 			game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()));
 			game.addCommand(this);
 		}

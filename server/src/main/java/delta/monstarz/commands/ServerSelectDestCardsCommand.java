@@ -36,5 +36,12 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 
 		// Save this command
 		game.addCommand(this);
+
+		// Check if game is ready to initGame
+		if (!game.isPlayHasStarted() && game.gameReadyToStart()){
+			game.startFirstTurn();
+		}
+
+
 	}
 }
