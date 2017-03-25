@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
-import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
+import deltamonstarz.tickettoride.model.player.ClientPlayer;
 
 public class ClientGame {
     private Board board;
-    private Player me;
+    private ClientPlayer me;
     private List<PlayerInfo> playerInfos = new ArrayList<>();
     private boolean started;
     private int lastCommandID;
@@ -21,24 +22,23 @@ public class ClientGame {
 	private List<String> players;
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
-	private ClientModel model;
+	CardColor mostRecentCardColor;
 
 	public ClientGame(int id) {
 		gameID = id;
 		players = new ArrayList<>();
-		me = new Player(ClientModel.getInstance().getUsername());
+		me = new ClientPlayer(ClientModel.getInstance().getUsername());
 		lastCommandID = -1;
 		faceUpCards = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
 			faceUpCards.add(null);
 		}
-		model = ClientModel.getInstance();
 	}
 
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
 		TrainCard cardDrawn = faceUpCards.get(cardSpot);
 		faceUpCards.set(cardSpot, replacementCard);
-		model.notifyPresenter(UpdateType.TRAIN_CARD);
+		ClientModel.getInstance().notifyPresenter(UpdateType.FACE_UP_CARD);
 		return cardDrawn;
 	}
 
@@ -87,11 +87,11 @@ public class ClientGame {
 		playerInfos.add(player_info);
 	}
 
-	public Player getMe() {
+	public ClientPlayer getMe() {
 		return me;
 	}
 
-	public void setMe(Player me) {
+	public void setMe(ClientPlayer me) {
 		this.me = me;
 	}
 
@@ -113,10 +113,18 @@ public class ClientGame {
 
 	public void drawTrainCard(TrainCard cardDrawn) {
 		me.drawTrainCard(cardDrawn);
+		mostRecentCardColor = cardDrawn.getColor();
+		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
 	}
 
-	public void addDestCard(DestCard card) {
-		me.addDestCard(card);
+	public void selectTrainCard(TrainCard cardDrawn) {
+		me.selectTrainCard(cardDrawn);
+		mostRecentCardColor = cardDrawn.getColor();
+		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
+	}
+
+	public void addDestCards(ArrayList<DestCard> cards) {
+		me.selectDestinationCards(cards);
 	}
 
 	public void placeRoute(String player_username, Route route, boolean hasLongest) {
@@ -129,7 +137,9 @@ public class ClientGame {
 		}
 	}
 
-	public void setDestCardChoices(ArrayList<DestCard> choices) { me.setDestCardChoices(choices);}
+	public void setDestCardChoices(ArrayList<DestCard> choices) {
+		me.setDestCardChoices(choices);
+	}
 
 	public ArrayList<DestCard> getDestCardChoices() {
 		return me.getDestCardChoices();
@@ -161,5 +171,13 @@ public class ClientGame {
 
 	public List<Route> getRoutes() {
 		return board.getRoutes();
+	}
+
+	public List<TrainCard> getFaceUpCards() {
+		return faceUpCards;
+	}
+
+	public CardColor getMostRecentCardColor() {
+		return mostRecentCardColor;
 	}
 }

@@ -18,14 +18,7 @@ public class CommandManager {
 	 */
 	public static void execute(BaseCommand command) {
 		if (validate(command)) {
-			Game game = GameManager.getInstance().getGameByID(command.getGameID());
-
 			command.execute();
-
-			if (command.expires() == false) {
-				game.addCommand(command);
-			}
-
 		}
 	}
 

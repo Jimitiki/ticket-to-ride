@@ -1,5 +1,7 @@
 package delta.monstarz.model;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import delta.monstarz.model.account.PersonManager;
 import delta.monstarz.model.game.Game;
+import delta.monstarz.JSONReader;
 import delta.monstarz.shared.GameInfo;
 
 /**
@@ -63,7 +66,8 @@ public class GameManager
 	public int createGame(String ownerName, String gameName)
 	{
 		if (PersonManager.getInstance().isValidUsername(ownerName)) {
-			Game game = new Game(gameName, ownerName);
+			JsonObject jsonGame = JSONReader.readJSON("server/src/main/assets/preferences.json");
+			Game game = Game.init(jsonGame, ownerName, gameName);
 			games.put(game.getGameID(), game);
 			game.addPlayer(ownerName);
 
@@ -132,14 +136,14 @@ public class GameManager
 
 	/**
 	 * Start a game
-	 * A game can only start if it has at least two people
-	 * A game can't start if it has already started
+	 * A game can only initGame if it has at least two people
+	 * A game can't initGame if it has already started
 	 * @pre gameID of a existing game that has not yet started, the game should have at least two people
-	 * @post the game with gameID will start
+	 * @post the game with gameID will initGame
 	 * @param gameID
 	 */
 	public void startGame(int gameID){
-		games.get(gameID).start();
+		games.get(gameID).initGame();
 	}
 
 	/**

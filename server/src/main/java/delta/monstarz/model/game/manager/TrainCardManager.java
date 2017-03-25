@@ -1,32 +1,45 @@
 package delta.monstarz.model.game.manager;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.TrainCard;
 
-/**
- * @author bradcarter
- */
 public class TrainCardManager
 {
-	static final int FACE_UP_COUNT = 5;
+	private static final int FACE_UP_COUNT = 5;
 
 
 	//Data Members
-	LinkedList<TrainCard> deck;
-	ArrayList<TrainCard> faceUpCards;
+	private LinkedList<TrainCard> deck;
+	private ArrayList<TrainCard> faceUpCards;
 
 	//Constructor
-	public TrainCardManager()
+	public TrainCardManager(JsonArray jsonTrainCards)
 	{
 		deck = new LinkedList<>();
 		faceUpCards = new ArrayList<>();
+		for(int i = 0; i < jsonTrainCards.size(); i++)
+		{
+			JsonObject card = jsonTrainCards.get(i).getAsJsonObject();
+			String color = card.get("color").getAsString();
+			CardColor c = CardColor.fromString(color);
+			int count = card.get("count").getAsInt();
+			for(int j = 0; j < count; j++)
+			{
+				TrainCard trainCard = new TrainCard(c);
+				deck.add(trainCard);
+			}
+		}
 	}
 
 	public void initialize(){
@@ -38,14 +51,15 @@ public class TrainCardManager
 	}
 
 	public void assignFaceUpCards(){
-		int numGoldCards = 0;
+		int numGoldCards;
 		do {
+			numGoldCards = 0;
 			for (int i = 0; i < FACE_UP_COUNT; i++) {
 				TrainCard card = drawCard();
 				if (card.getColor() == CardColor.GOLD) {
 					numGoldCards++;
 				}
-				faceUpCards.set(i, drawCard());
+				faceUpCards.set(i, card);
 
 			}
 			if (numGoldCards >= 3) {
@@ -58,16 +72,13 @@ public class TrainCardManager
 	}
 
 	/**
-	 * Adds a card to the face up selection, or the deck if that is full.
+	 * Adds a card to the deck.
 	 */
 	public void addCard(TrainCard card)
 	{
 		deck.add(card);
 	}
 
-	/**
-	 * Places the faceup cards back in the deck, shuffles the deck, and then draws 5 new face cards
-	 */
 	public void shuffle()
 	{
 		Collections.shuffle(deck);
@@ -83,11 +94,10 @@ public class TrainCardManager
 		return faceUpCards;
 	}
 
-	public TrainCard drawFaceUpCard(int index)
+	// This function does not return what the new card is, use the getter like a man (╯°□°）╯︵ ┻━┻
+	public void faceUpDestoryAndReplace (int index)
 	{
-		TrainCard card = faceUpCards.get(index);
-		faceUpCards.add(index, drawCard());
-		return card;
+		faceUpCards.set(index, drawCard());
 	}
 
 	public TrainCard getFaceUpCardByPosition(int index) {

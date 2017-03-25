@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -40,12 +42,12 @@ import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
  * create an instance of this fragment.
  */
 public class GameFragment extends Fragment {
+	public Handler handler;
+
 	private static GamePresenter presenter;
 	private GameActivity activity;
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;
-	private Canvas map;
-	private Rect canvasRect;
 
 	private MapView mapView;
 	private Button drawCard;
@@ -173,6 +175,14 @@ public class GameFragment extends Fragment {
 			disableButtons();
 		}
 
+		handler = new Handler(Looper.getMainLooper()){
+			@Override
+			public void handleMessage(android.os.Message msg) {
+				String text = (String) msg.obj;
+				Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+			}
+		};
+
 		DemoUtility.index = 0;
 
 
@@ -239,7 +249,9 @@ public class GameFragment extends Fragment {
 	}
 
 	public void updateCardCounts() {
-		playerCardsFragment.update();
+		if (playerCardsFragment != null) {
+			playerCardsFragment.update();
+		}
 	}
 
 	public void onRouteClaimed(List<Route> routes) {

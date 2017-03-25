@@ -12,28 +12,27 @@ import delta.monstarz.shared.model.TrainCard;
  */
 public class ServerDrawTrainCardCommand extends DrawTrainCardCommand
 {
-	//Constructors
+
 	public ServerDrawTrainCardCommand(String username, int gameID, int drawPileID)
 	{
 		super(username, gameID);
 	}
 
-	//Object Methods
-
-	//Getters and Setters
-
-	//Public Methods
 	@Override
 	public void execute()
 	{
 		Game game = GameManager.getInstance().getGameByID(gameID);
-		TrainCard card = game.getTrainDeck().drawCard();
 		Player player = game.getPlayerByUsername(username);
-		player.drawTrainCard(card);
-		this.setCardDrawn(card);
-		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
+
+		if (player.canDrawTrainCard()) {
+
+			TrainCard card = game.getTrainDeck().drawCard();
+			player.drawTrainCard(card);
+			this.setCardDrawn(card);
+
+			// Make/Add new commands
+			game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()));
+			game.addCommand(this);
+		}
 	}
-
-
-	//Internal Methods
 }

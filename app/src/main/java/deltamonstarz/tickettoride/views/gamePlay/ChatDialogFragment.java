@@ -78,9 +78,11 @@ public class ChatDialogFragment extends DialogFragment {
 		@Override
 		public void onClick(View v) {
 			String message = messageText.getText().toString();
-			System.out.println(message);
-			presenter.sendMessage(message);
-			messageText.setText("");
+			if (!message.equals("")) {
+				System.out.println(message);
+				presenter.sendMessage(message);
+				messageText.setText("");
+			}
 		}
 	}
 
@@ -89,7 +91,7 @@ public class ChatDialogFragment extends DialogFragment {
 		private TextView messageText;
 		private View view;
 
-		public MessageContainer(View itemView) {
+		MessageContainer(View itemView) {
 			super(itemView);
 			view = itemView;
 

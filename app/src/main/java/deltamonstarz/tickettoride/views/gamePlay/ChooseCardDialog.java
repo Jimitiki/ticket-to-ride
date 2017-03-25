@@ -14,12 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.model.ClientModel;
+import deltamonstarz.tickettoride.model.UpdateType;
+import deltamonstarz.tickettoride.presenters.ChooseCardPresenter;
+import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +35,8 @@ public class ChooseCardDialog extends DialogFragment {
 	static final String TITLE = "Card Selection";
 	static final String BASE_PATH_TRAIN = "card_images/train_card_";
 	static final String BASE_PATH = "card_images/";
+
+	private ChooseCardPresenter presenter;
 
 	Button cancel;
 	Button accept;
@@ -149,14 +158,8 @@ public class ChooseCardDialog extends DialogFragment {
 			}
 		});
 
-
-		// Todo: Use the real card images based on what it is holding
-
-		setTrainCard(0, CardColor.WHITE);
-		setTrainCard(1, CardColor.BLACK);
-		setTrainCard(2, CardColor.BLUE);
-		setTrainCard(3, CardColor.GOLD);
-		setTrainCard(4, CardColor.ORANGE);
+		List<TrainCard> cards = ClientModel.getInstance().getGame().getFaceUpCards();
+		setCards(cards);
 
 
 		setImage(deckCardImage, BASE_PATH_TRAIN + "back.PNG");
@@ -165,12 +168,31 @@ public class ChooseCardDialog extends DialogFragment {
 		return view;
 	}
 
-	private void processTrainCardClick(int cardIndex){
+	public void setCards(List<TrainCard> cards){
+		for (int i = 0; i < cards.size(); i++){
+			setTrainCard(i, cards.get(i).getColor());
+		}
+	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		presenter = ChooseCardPresenter.getInstance();
+		presenter.setChooseCardDialog(this);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		presenter.setChooseCardDialog(null);
+	}
+
+	private void processTrainCardClick(int cardIndex){
+		presenter.drawFaceUpCard(cardIndex);
 	}
 
 	private void processDeckCardClick(){
-
+		presenter.drawDeckCard();
 	}
 
 	private void processDestinationCardClick(){
@@ -186,10 +208,6 @@ public class ChooseCardDialog extends DialogFragment {
 
 	private void cancelClick(){
 		dismiss(); // Close dialog
-	}
-
-	private void reportSelection(){
-		// Todo: Send info back to presenter
 	}
 
 	private void setTrainCard(int card, CardColor color){
@@ -237,6 +255,8 @@ public class ChooseCardDialog extends DialogFragment {
 				return BASE_PATH_TRAIN + "white.PNG";
 			case GOLD:
 				return BASE_PATH_TRAIN + "gold.PNG";
+			case PINK:
+				return BASE_PATH_TRAIN + "pink.PNG";
 			case UNKNOWN:
 			default:
 				return BASE_PATH_TRAIN + "back.PNG";
@@ -248,19 +268,17 @@ public class ChooseCardDialog extends DialogFragment {
 			InputStream is = getActivity().getAssets().open(filePath);
 			Bitmap bm = BitmapFactory.decodeStream(is);
 			imageView.setImageBitmap(bm);
-
 			imageView.setRotation(90);
-
-
-
 		}
 		catch (IOException e){
 
 		}
+	}
 
-
-
-
+	public void reportCardType(CardColor color){
+		String text;
+		text = "You drew a " + color.toString() + " card.";
+		Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
 	}
 
 }

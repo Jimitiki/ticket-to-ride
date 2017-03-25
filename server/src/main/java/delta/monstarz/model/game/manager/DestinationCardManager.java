@@ -1,5 +1,8 @@
 package delta.monstarz.model.game.manager;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -16,8 +19,14 @@ public class DestinationCardManager
 	private LinkedList<DestCard> deck;
 
 	//Constructor
-	public DestinationCardManager() {
+	public DestinationCardManager(JsonArray jsonDestinationCards) {
 		deck = new LinkedList<>();
+		for (int i = 0; i < jsonDestinationCards.size(); i++) {
+			JsonObject destCard = jsonDestinationCards.get(i).getAsJsonObject();
+
+			DestCard card = new DestCard(destCard);
+			deck.add(card);
+		}
 	}
 
 	public void addCard(DestCard card) {

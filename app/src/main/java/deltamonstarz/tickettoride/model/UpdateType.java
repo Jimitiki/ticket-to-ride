@@ -17,5 +17,7 @@ public enum UpdateType {
 	TRAIN_CARD,
 	CHAT,
 	ROUTE,
-	PLAYER_INFO
+	PLAYER_INFO,
+	FACE_UP_CARD,
+	REPORT_DRAWN_CARD
 }

@@ -1,19 +1,16 @@
 package delta.monstarz.shared.model;
 
-import java.awt.Point;
+import com.google.gson.JsonObject;
 
-/**
- * @author bradcarter
- */
 public class Segment {
 	private int x;
 	private int y;
 	private int rotation;
 
-	public Segment(int x, int y, int pRotation) {
-		this.x = x;
-		this.y = y;
-		rotation = pRotation;
+	Segment(JsonObject jsonSegment) {
+		x = jsonSegment.get("x").getAsInt();
+		y = jsonSegment.get("y").getAsInt();
+		rotation = jsonSegment.get("rotation").getAsInt();
 	}
 
 	public int getX() {
