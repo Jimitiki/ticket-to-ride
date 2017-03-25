@@ -40,7 +40,7 @@
     "Toronto",
     "Vancouver",
     "Washington",
-    "Winnepeg"
+    "Winnipeg"
   ],
   "RouteList":[
     {
@@ -679,7 +679,7 @@
       "doubleID": -1,
       "endpoints":["Toronto", "Sault Ste. Marie"],
       "length":2,
-      "color": "Toronto",
+      "color": "gray",
       "segments": [
         {
           "x": 1273,
