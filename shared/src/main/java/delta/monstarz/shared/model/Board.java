@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sun.rmi.runtime.Log;
+
 public class Board {
 
 	//Data Members
@@ -103,17 +105,6 @@ public class Board {
 	}
 
 	//Public Methods
-    public void placeRoute(String player_username, Route route, boolean hasLongest) {
-        for (Route r : routes.values()) {
-			if (r.getID() == route.getID()) {
-				r.setOwner(player_username);
-				break;
-			}
-		}
-		if (hasLongest) {
-			longestRouteOwner = player_username;
-		}
-    }
 
     //Returns a list of all available routes
     public List<Route> getAvailableRoutes(Player player) {
@@ -134,19 +125,21 @@ public class Board {
 		return connectedRoutes;
 	}
 
-	//Checks if the player could claim the given route
-	private boolean isRouteAvailable(int routeID, Player player) {
-		Route route = routes.get(routeID);
-		CardColor routeColor = route.getColor();
-
-		return !route.isClaimed() && verifyPlayerCards(route, player.getTrainCards()) &&
-			verifyDoubleRouteClaim(route, player.getUsername());
+	public List<Route> getAvailableRoutesForCity(City city, Player player) {
+		List<Route> connectedRoutes = getRoutesByCity(city);
+		List<Route> availableDestinations = new ArrayList<>();
+		for (Route route : connectedRoutes) {
+			if (isRouteAvailable(route.getID(), player)) {
+				availableDestinations.add(route);
+			}
+		}
+		return availableDestinations;
 	}
 
 	//checks if the player can claim the given route with the specified card color
     public boolean claimRoute(int routeID, Player player, CardColor color) {
 	    Route route = routes.get(routeID);
-	    if (!route.isClaimed() && route.verifyCardColor(color, player.getTrainCards().get(color))
+	    if (!route.isClaimed() && route.verifyCardColorByCount(color, player.getTrainCards().get(color))
 			    && verifyDoubleRouteClaim(route, player.getUsername())) {
 		    routes.get(routeID).claim(player.getUsername(), player.getPlayerColor());
 		    return true;
@@ -164,28 +157,35 @@ public class Board {
 	    return claimedRoutes;
     }
 
+	//Checks if the player could claim the given route
+	private boolean isRouteAvailable(int routeID, Player player) {
+		Route route = routes.get(routeID);
+		return !route.isClaimed() && verifyPlayerCards(route, player.getTrainCards()) &&
+				verifyDoubleRouteClaim(route, player.getUsername());
+	}
+
     //enforces rules about double routes
     private static boolean verifyPlayerCards(Route route, Map<CardColor, Integer> cards) {
 	    CardColor routeColor = route.getColor();
-	    int routeLength = route.getLength();
-	    //check if the player has enough wild cards
-	    if (cards.get(CardColor.GOLD) > routeLength) {
-		    return true;
-	    }
+	    int goldCardCount = cards.get(CardColor.GOLD);
 	    //If the route is gray, check if the player has enough cards of any color
 	    if (routeColor == CardColor.GOLD) {
-		    int maxCardCount = 0;
-		    for (int cardCount : cards.values()) {
-			    if (cardCount > maxCardCount) {
-				    maxCardCount = cardCount;
+		    for (CardColor color : CardColor.values()) {
+			    int cardCount = color == CardColor.GOLD ? goldCardCount : goldCardCount + cards.get(color);
+
+			    if (route.verifyCardColorByCount(color, cardCount)) {
+				    return true;
 			    }
 		    }
-		    if (maxCardCount >= routeLength) {
-			    return true;
-		    }
 	    }
-	    //check if the player has enough cards of the routes color
-	    return cards.get(routeColor) > routeLength ;
+	    try {
+		    //check if the player has enough cards of the routes color
+		    return route.verifyCardColorByCount(routeColor, cards.get(routeColor) + goldCardCount);
+	    } catch (NullPointerException e) {
+		    e.printStackTrace();
+		    return false;
+	    }
+
     }
 
     private boolean verifyDoubleRouteClaim(Route route, String username) {

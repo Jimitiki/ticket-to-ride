@@ -107,7 +107,7 @@ public class Route {
 		isClaimed = true;
 	}
 
-	public boolean verifyCardColor(CardColor cardColor, int cardCount) {
+	public boolean verifyCardColorByCount(CardColor cardColor, int cardCount) {
 		return (color == CardColor.GOLD || cardColor == CardColor.GOLD ||
 				color == cardColor) && cardCount >= length;
 	}
