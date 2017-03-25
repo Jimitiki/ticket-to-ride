@@ -15,8 +15,7 @@ public enum CardColor
 	PINK,
 	RED,
 	WHITE,
-	YELLOW,
-	UNKNOWN;
+	YELLOW;
 
 	public static CardColor fromString(String s) {
 		switch(s) {
@@ -40,7 +39,7 @@ public enum CardColor
 			case "gold":
 				return GOLD;
 			default:
-				return UNKNOWN;
+				return null;
 		}
 	}
 

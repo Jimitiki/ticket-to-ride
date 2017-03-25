@@ -257,9 +257,8 @@ public class ChooseCardDialog extends DialogFragment {
 				return BASE_PATH_TRAIN + "gold.PNG";
 			case PINK:
 				return BASE_PATH_TRAIN + "pink.PNG";
-			case UNKNOWN:
 			default:
-				return BASE_PATH_TRAIN + "back.PNG";
+				return null;
 		}
 	}
 
@@ -271,7 +270,7 @@ public class ChooseCardDialog extends DialogFragment {
 			imageView.setRotation(90);
 		}
 		catch (IOException e){
-
+			e.printStackTrace();
 		}
 	}
 
