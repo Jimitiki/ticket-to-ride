@@ -86,7 +86,7 @@ public class ClientPlayer extends Player {
 				state = new InactiveState();
 			}
 			else {
-				state = new InactiveState();
+				state = new TrainCardState();
 			}
 		}
 
@@ -129,6 +129,11 @@ public class ClientPlayer extends Player {
 				internalDrawTrainCard(card);
 				state = new InactiveState();
 			}
+		}
+
+		@Override
+		public boolean canDrawTrainCard() {
+			return true;
 		}
 
 		@Override

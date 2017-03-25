@@ -126,12 +126,12 @@ public class Game {
 		return oneTimeUseCommands;
 	}
 
-	public TrainCard replaceFaceUpCard(int position) {
-		return trainDeck.drawFaceUpCard(position);
+	public void replaceFaceUpCard(int position) {
+		trainDeck.faceUpDestoryAndReplace(position);
 	}
 
 	public TrainCard getFaceUpCardByPosition(int position) {
-		return trainDeck.drawFaceUpCard(position);
+		return trainDeck.getFaceUpCardByPosition(position);
 	}
 
 	public void setBoard(Board board) {

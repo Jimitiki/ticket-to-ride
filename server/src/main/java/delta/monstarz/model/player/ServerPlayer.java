@@ -98,7 +98,7 @@ public class ServerPlayer extends Player {
 				state = new InactiveState();
 			}
 			else {
-				state = new InactiveState();
+				state = new TrainCardState();
 			}
 		}
 
@@ -144,6 +144,11 @@ public class ServerPlayer extends Player {
 		}
 
 		@Override
+		public boolean canDrawTrainCard() {
+			return true;
+		}
+
+		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
 			if (card.getColor() == CardColor.GOLD) {
 				return false;
@@ -151,6 +156,7 @@ public class ServerPlayer extends Player {
 				return true;
 			}
 		}
+
 	}
 
 	//-----------------------------------------------------------------------------------
