@@ -117,6 +117,12 @@ public class ClientGame {
 		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
 	}
 
+	public void selectTrainCard(TrainCard cardDrawn) {
+		me.selectTrainCard(cardDrawn);
+		mostRecentCardColor = cardDrawn.getColor();
+		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
+	}
+
 	public void addDestCards(ArrayList<DestCard> cards) {
 		me.selectDestinationCards(cards);
 	}

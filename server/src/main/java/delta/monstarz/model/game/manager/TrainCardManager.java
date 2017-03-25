@@ -94,11 +94,10 @@ public class TrainCardManager
 		return faceUpCards;
 	}
 
-	public TrainCard drawFaceUpCard(int index)
+	// This function does not return what the new card is, use the getter like a man (╯°□°）╯︵ ┻━┻
+	public void faceUpDestoryAndReplace (int index)
 	{
-		TrainCard card = faceUpCards.get(index);
-		faceUpCards.add(index, drawCard());
-		return card;
+		faceUpCards.set(index, drawCard());
 	}
 
 	public TrainCard getFaceUpCardByPosition(int index) {
