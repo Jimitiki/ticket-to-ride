@@ -2,13 +2,11 @@ package deltamonstarz.tickettoride.views.gamePlay;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.City;
@@ -40,7 +36,7 @@ public class RouteSelectionFragment extends DialogFragment {
 	private RecyclerView cardColors;
 
 	private City sourceCity;
-	private Route route;
+	private Route selectedRoute;
 	private CardColor cardColor;
 	private boolean sourceSelected;
 	private boolean destinationSelected;
@@ -153,9 +149,9 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private void onToggleDestinationCity(Route route, View view) {
-		if (route.equals(this.route)) {
+		if (route.equals(selectedRoute)) {
 			destinationSelected = false;
-			this.route = null;
+			selectedRoute = null;
 			view.setBackgroundColor(getResources().getColor(R.color.grayButton));
 			cardColorAdapter.clear();
 		} else {
@@ -164,7 +160,7 @@ public class RouteSelectionFragment extends DialogFragment {
 			} else {
 				destinationSelected = true;
 			}
-			this.route = route;
+			selectedRoute = route;
 			getCardColors();
 			destinationListItem = view;
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
@@ -219,11 +215,11 @@ public class RouteSelectionFragment extends DialogFragment {
 			destinationAdapter = new DestinationCitiesAdapter();
 			destinationCities.setAdapter(destinationAdapter);
 		}
-		destinationAdapter.setDestinationCities(presenter.getConnectedRoutes(sourceCity));
+		destinationAdapter.setDestinationCities(presenter.getAvailableDestinations(sourceCity));
 	}
 
 	private void getCardColors() {
-		Map<CardColor, Integer> cardCounts = presenter.getUsableCards(route.getID());
+		Map<CardColor, Integer> cardCounts = presenter.getUsableCards(selectedRoute.getID());
 
 		if (cardColorAdapter == null) {
 			cardColorAdapter = new CardColorAdapter();
@@ -233,7 +229,7 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private void onConfirmSelection() {
-		presenter.claimRoute(route.getID(), cardColor);
+		presenter.claimRoute(selectedRoute.getID(), cardColor);
 		dismiss();
 	}
 
@@ -251,7 +247,15 @@ public class RouteSelectionFragment extends DialogFragment {
 		@Override
 		public void onBindViewHolder(SourceCityHolder holder, int position) {
 			try {
-				holder.city = cities.get(position);
+				City city = cities.get(position);
+				
+				holder.city = city;
+				if (city.equals(sourceCity)) {
+					holder.cityName.setBackgroundColor(getResources().getColor(R.color.greenButton));
+				} else {
+					holder.cityName.setBackgroundColor(getResources().getColor(R.color.grayButton));
+				}
+				
 				holder.cityName.setText(holder.city.getName());
 			} catch (NullPointerException e) {
 				e.printStackTrace();
@@ -298,10 +302,19 @@ public class RouteSelectionFragment extends DialogFragment {
 
 		@Override
 		public void onBindViewHolder(DestinationCityHolder holder, int position) {
-			Route route = sourceRoutes.get(position);
-			holder.cityName.setText(route.getOtherCity(sourceCity).getName());
-			holder.route = route;
-			holder.colorIndicator.setBackgroundColor(getResources().getColor(R.color.player_green));
+			try {
+				Route route = sourceRoutes.get(position);
+				holder.cityName.setText(route.getOtherCity(sourceCity).getName());
+				holder.route = route;
+				holder.colorIndicator.setBackgroundColor(getResources().getColor(R.color.player_green));
+				if (route.equals(selectedRoute)) {
+					holder.cityName.setBackgroundColor(getResources().getColor(R.color.greenButton));
+				} else {
+					holder.cityName.setBackgroundColor(getResources().getColor(R.color.grayButton));
+				}
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 		}
 
 		@Override

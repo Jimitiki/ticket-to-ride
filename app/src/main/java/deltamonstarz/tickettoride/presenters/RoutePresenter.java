@@ -34,8 +34,8 @@ public class RoutePresenter extends BasePresenter {
 		return board.getAvailableRoutes(game.getMe());
 	}
 
-	public List<Route> getConnectedRoutes(City city) {
-		return board.getRoutesByCity(city);
+	public List<Route> getAvailableDestinations(City city) {
+		return board.getAvailableRoutesForCity(city, game.getMe());
 	}
 
 	public Map<CardColor, Integer> getUsableCards(int routeID) {
@@ -43,7 +43,7 @@ public class RoutePresenter extends BasePresenter {
 		Map<CardColor, Integer> usableCards = new HashMap<>();
 		Route route = board.getRouteByID(routeID);
 		for (Map.Entry<CardColor, Integer> cardCount : player.getTrainCards().entrySet()) {
-			if (route.verifyCardColor(cardCount.getKey(), cardCount.getValue())) {
+			if (route.verifyCardColorByCount(cardCount.getKey(), cardCount.getValue())) {
 				usableCards.put(cardCount.getKey(), cardCount.getValue());
 			}
 		}
