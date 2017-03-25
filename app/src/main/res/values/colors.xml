@@ -10,5 +10,14 @@
     <color name="player_red">#b71c1c</color>
     <color name="player_yellow">#d4b202</color>
     <color name="player_black">#616161</color>
+    <color name="route_black">#24292d</color>
+    <color name="route_blue">#00a2e1</color>
+    <color name="route_gray">#b3b0b0</color>
+    <color name="route_green">#79b827</color>
+    <color name="route_orange">#de922e</color>
+    <color name="route_pink">#d17cab</color>
+    <color name="route_red">#d22a2b</color>
+    <color name="route_yellow">#e6e313</color>
+    <color name="route_white">#ffffff</color>
 
 </resources>

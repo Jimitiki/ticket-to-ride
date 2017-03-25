@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +36,13 @@ public class RouteSelectionFragment extends DialogFragment {
 	private RecyclerView destinationCities;
 	private RecyclerView cardColors;
 
+	Map<CardColor, Integer> routeColorToColorID;
+
 	private City sourceCity;
 	private Route selectedRoute;
 	private CardColor cardColor;
+	int selectedCardCount;
+	int goldCardCount;
 	private boolean sourceSelected;
 	private boolean destinationSelected;
 	private boolean colorSelected;
@@ -55,7 +60,18 @@ public class RouteSelectionFragment extends DialogFragment {
 	private DestinationCitiesAdapter destinationAdapter;
 	private CardColorAdapter cardColorAdapter;
 
-	public RouteSelectionFragment() {}
+	public RouteSelectionFragment() {
+		routeColorToColorID = new HashMap<>();
+		routeColorToColorID.put(CardColor.BLACK, R.color.route_black);
+		routeColorToColorID.put(CardColor.BLUE, R.color.route_blue);
+		routeColorToColorID.put(CardColor.GOLD, R.color.route_gray);
+		routeColorToColorID.put(CardColor.GREEN, R.color.route_green);
+		routeColorToColorID.put(CardColor.ORANGE, R.color.route_orange);
+		routeColorToColorID.put(CardColor.PINK, R.color.route_pink);
+		routeColorToColorID.put(CardColor.RED, R.color.route_red);
+		routeColorToColorID.put(CardColor.YELLOW, R.color.route_yellow);
+		routeColorToColorID.put(CardColor.WHITE, R.color.route_white);
+	}
 
 	@Override
 	@NonNull
@@ -141,6 +157,9 @@ public class RouteSelectionFragment extends DialogFragment {
 			getDestinationCities();
 			sourceListItem = view;
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+		}
+		if (selectedRoute != null) {
+			selectedRoute = null;
 		}
 		confirm.setEnabled(false);
 		if (cardColorAdapter != null) {
@@ -302,18 +321,15 @@ public class RouteSelectionFragment extends DialogFragment {
 
 		@Override
 		public void onBindViewHolder(DestinationCityHolder holder, int position) {
-			try {
-				Route route = sourceRoutes.get(position);
-				holder.cityName.setText(route.getOtherCity(sourceCity).getName());
-				holder.route = route;
-				holder.colorIndicator.setBackgroundColor(getResources().getColor(R.color.player_green));
-				if (route.equals(selectedRoute)) {
-					holder.cityName.setBackgroundColor(getResources().getColor(R.color.greenButton));
-				} else {
-					holder.cityName.setBackgroundColor(getResources().getColor(R.color.grayButton));
-				}
-			} catch (NullPointerException e) {
-				e.printStackTrace();
+			Route route = sourceRoutes.get(position);
+			holder.cityName.setText("  (" + Integer.toString(route.getLength())
+					+ ")" + route.getOtherCity(sourceCity).getName());
+			holder.route = route;
+			holder.colorIndicator.setBackgroundColor(getResources().getColor(routeColorToColorID.get(route.getColor())));
+			if (route.equals(selectedRoute)) {
+				holder.cityName.setBackgroundColor(getResources().getColor(R.color.greenButton));
+			} else {
+				holder.cityName.setBackgroundColor(getResources().getColor(R.color.grayButton));
 			}
 		}
 
@@ -348,7 +364,7 @@ public class RouteSelectionFragment extends DialogFragment {
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					onToggleDestinationCity(route, view);
+					onToggleDestinationCity(route, cityName);
 				}
 			});
 		}
@@ -371,6 +387,7 @@ public class RouteSelectionFragment extends DialogFragment {
 			try {
 				CardColor cardColor = availableCards.get(position);
 				holder.color = cardColor;
+				holder.setCardCount(cardCounts.get(cardColor));
 				holder.colorText.setText(cardColor.toString().toUpperCase() +
 						" - (" + cardCounts.get(cardColor) + ")");
 			} catch (NullPointerException e) {
@@ -383,12 +400,12 @@ public class RouteSelectionFragment extends DialogFragment {
 			return availableCards.size();
 		}
 
-		public void clear() {
+		private void clear() {
 			availableCards = new ArrayList<>();
 			notifyDataSetChanged();
 		}
 
-		public void setAvailableCards(Map<CardColor, Integer> cardCounts) {
+		private void setAvailableCards(Map<CardColor, Integer> cardCounts) {
 			availableCards = new ArrayList<>();
 			for (Map.Entry<CardColor, Integer> cardEntry: cardCounts.entrySet()) {
 				availableCards.add(cardEntry.getKey());
@@ -404,13 +421,19 @@ public class RouteSelectionFragment extends DialogFragment {
 		}
 	}
 
-	private class CardColorHolder extends RecyclerView.ViewHolder {
+	private class CardColorHolder extends RecyclerView.ViewHolder implements NumberInputView.OnValueChangedListener {
 		CardColor color;
+		int cardCount;
+
 		TextView colorText;
-		public CardColorHolder(final View itemView) {
+		NumberInputView cardCountInput;
+
+		private CardColorHolder(final View itemView) {
 			super(itemView);
 
 			colorText = (TextView) itemView.findViewById(R.id.CardColorText);
+			cardCountInput = (NumberInputView) itemView.findViewById(R.id.cardCountInput);
+			cardCountInput.setMinValue(0);
 
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -418,6 +441,20 @@ public class RouteSelectionFragment extends DialogFragment {
 					onToggleCardColor(color, itemView);
 				}
 			});
+		}
+
+		private void setCardCount(int count) {
+			cardCount = count;
+			cardCountInput.setMaxValue(cardCount);
+		}
+
+		@Override
+		public void onValueChanged() {
+			if (color == CardColor.GOLD) {
+				goldCardCount = cardCountInput.getValue();
+			} else {
+				selectedCardCount = cardCountInput.getValue();
+			}
 		}
 	}
 }
