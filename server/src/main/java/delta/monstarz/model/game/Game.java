@@ -248,7 +248,7 @@ public class Game {
 	 * @return true if successful, else false
 	 */
 	public boolean claimRoute(int routeID, String username, CardColor cardsUsed) {
-		Player player = playerManager.getPlayerByUsername(username);
+		Player player = playerManager.getPlayerByName(username);
 		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed)) {
 			Route route = board.getRouteByID(routeID);
 			for (int i = 0; i < route.getLength(); i++) {

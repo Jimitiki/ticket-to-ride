@@ -368,10 +368,14 @@ public class RouteSelectionFragment extends DialogFragment {
 
 		@Override
 		public void onBindViewHolder(CardColorHolder holder, int position) {
-			CardColor cardColor = availableCards.get(position);
-			holder.color = cardColor;
-			holder.colorText.setText(cardColor.toString().toUpperCase() +
-					" - (" + cardCounts.get(cardColor) + ")");
+			try {
+				CardColor cardColor = availableCards.get(position);
+				holder.color = cardColor;
+				holder.colorText.setText(cardColor.toString().toUpperCase() +
+						" - (" + cardCounts.get(cardColor) + ")");
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 		}
 
 		@Override
