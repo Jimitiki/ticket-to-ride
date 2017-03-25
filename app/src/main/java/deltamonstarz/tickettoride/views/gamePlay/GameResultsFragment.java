@@ -30,6 +30,7 @@ public class GameResultsFragment extends Fragment {
 	private static GamePresenter presenter;
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
+	private GameResultsRecyclerAdapter myAdapter;
 	private List<PlayerResult> results;
 
 	public GameResultsFragment() {
@@ -63,6 +64,8 @@ public class GameResultsFragment extends Fragment {
 		// use a linear layout manager
 		mLayoutManager = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManager);
+		myAdapter = new GameResultsRecyclerAdapter(results);
+		mRecyclerView.setAdapter(myAdapter);
 		return v;
 	}
 

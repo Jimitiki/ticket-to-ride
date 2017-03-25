@@ -7,6 +7,7 @@ import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.PlayerResult;
 import delta.monstarz.shared.model.Route;
@@ -35,6 +36,9 @@ public class ClientGame {
 		for (int i = 0; i < 5; i++) {
 			faceUpCards.add(null);
 		}
+		gameResults = new ArrayList<>();
+		gameResults.add(new PlayerResult(me.getUsername(), PlayerColor.GREEN, 200, 100, 150, -50, true));
+		gameResults.add(new PlayerResult("Brad", PlayerColor.BLACK, 140, 30, 112, -2, false));
 	}
 
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {

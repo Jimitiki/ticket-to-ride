@@ -22,7 +22,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"/>
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 
         </LinearLayout>
 
@@ -38,28 +38,28 @@
                 android:text="Player"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:text="Final Score"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:text="Routes"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:text="Finished Destinations"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Material.Small"/>
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -89,14 +89,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/playersText"/>
-
-        <Button
-            android:text="Start Game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startGame"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"/>
 
     </RelativeLayout>
 
