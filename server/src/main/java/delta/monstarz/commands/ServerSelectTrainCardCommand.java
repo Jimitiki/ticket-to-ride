@@ -22,13 +22,13 @@ public class ServerSelectTrainCardCommand extends SelectTrainCardCommand {
 		TrainCard card = game.getFaceUpCardByPosition(cardSpot);
 
 		if (player.canSelectTrainCard(card)) {
-
+			game.addCommand(this);
 			player.selectTrainCard(card);
 			game.replaceFaceUpCard(cardSpot);
 			replacementCard = game.getFaceUpCardByPosition(cardSpot);
 
 			game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()));
-			game.addCommand(this);
+
 		}
 	}
 }

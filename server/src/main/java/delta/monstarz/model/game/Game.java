@@ -127,7 +127,7 @@ public class Game {
 	}
 
 	public void replaceFaceUpCard(int position) {
-		trainDeck.faceUpDestoryAndReplace(position);
+		trainDeck.faceUpDestroyAndReplace(position);
 	}
 
 	public TrainCard getFaceUpCardByPosition(int position) {
