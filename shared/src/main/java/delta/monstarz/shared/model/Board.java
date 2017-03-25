@@ -126,6 +126,14 @@ public class Board {
 		return availableRoutes;
 	}
 
+	public List<Route> getRoutesByCity(City city) {
+		List<Route> connectedRoutes = new ArrayList<>();
+		for (int routeID : city.getRoutes()) {
+			connectedRoutes.add(routes.get(routeID));
+		}
+		return connectedRoutes;
+	}
+
 	//Checks if the player could claim the given route
 	private boolean isRouteAvailable(int routeID, Player player) {
 		Route route = routes.get(routeID);

@@ -16,8 +16,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.City;
@@ -50,8 +54,6 @@ public class RouteSelectionFragment extends DialogFragment {
 
 	private List<Route> availableRoutes;
 	private List<City> sources;
-	private List<CardColor> availableCards;
-	private Map<CardColor, Integer> cardCounts;
 
 	private SourceCitiesAdapter sourceAdapter;
 	private DestinationCitiesAdapter destinationAdapter;
@@ -145,7 +147,9 @@ public class RouteSelectionFragment extends DialogFragment {
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
 		}
 		confirm.setEnabled(false);
-		cardColorAdapter.clear();
+		if (cardColorAdapter != null) {
+			cardColorAdapter.clear();
+		}
 	}
 
 	private void onToggleDestinationCity(Route route, View view) {
@@ -201,33 +205,31 @@ public class RouteSelectionFragment extends DialogFragment {
 			sourceAdapter = new SourceCitiesAdapter();
 			sourceCities.setAdapter(sourceAdapter);
 		}
+		Collections.sort(sources, new Comparator<City>() {
+			@Override
+			public int compare(City city1, City city2) {
+				return city1.getName().compareTo(city2.getName());
+			}
+		});
 		sourceAdapter.setSourceCities(sources);
 	}
 
 	private void getDestinationCities() {
-		List<Route> sourceRoutes = new ArrayList<>();
-		for (int routeID : sourceCity.getRoutes()) {
-			for (Route route : availableRoutes) {
-				if (routeID == route.getID()) {
-					sourceRoutes.add(route);
-				}
-			}
-		}
 		if (destinationAdapter == null) {
 			destinationAdapter = new DestinationCitiesAdapter();
 			destinationCities.setAdapter(destinationAdapter);
 		}
-		destinationAdapter.setDestinationCities(sourceRoutes);
+		destinationAdapter.setDestinationCities(presenter.getConnectedRoutes(sourceCity));
 	}
 
 	private void getCardColors() {
-		for (CardColor color : availableCards) {
+		Map<CardColor, Integer> cardCounts = presenter.getUsableCards(route.getID());
 
-		}
 		if (cardColorAdapter == null) {
 			cardColorAdapter = new CardColorAdapter();
 			cardColors.setAdapter(cardColorAdapter);
 		}
+		cardColorAdapter.setAvailableCards(cardCounts);
 	}
 
 	private void onConfirmSelection() {
@@ -340,7 +342,8 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private class CardColorAdapter extends RecyclerView.Adapter<CardColorHolder> {
-		List<CardColor> availableCards;
+		private List<CardColor> availableCards;
+		private Map<CardColor, Integer> cardCounts;
 
 		@Override
 		public CardColorHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -368,8 +371,18 @@ public class RouteSelectionFragment extends DialogFragment {
 			notifyDataSetChanged();
 		}
 
-		public void setAvailableCards(List<CardColor> availableCards) {
-			this.availableCards = availableCards;
+		public void setAvailableCards(Map<CardColor, Integer> cardCounts) {
+			availableCards = new ArrayList<>();
+			for (Map.Entry<CardColor, Integer> cardEntry: cardCounts.entrySet()) {
+				availableCards.add(cardEntry.getKey());
+			}
+
+			Collections.sort(availableCards, new Comparator<CardColor>() {
+				@Override
+				public int compare(CardColor color1, CardColor color2) {
+					return color1.compareTo(color2);
+				}
+			});
 			notifyDataSetChanged();
 		}
 	}

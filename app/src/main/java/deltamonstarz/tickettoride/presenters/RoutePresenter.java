@@ -9,6 +9,7 @@ import java.util.Map;
 import delta.monstarz.shared.commands.ClaimRouteCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.model.ClientGame;
@@ -33,6 +34,10 @@ public class RoutePresenter extends BasePresenter {
 		return board.getAvailableRoutes(game.getMe());
 	}
 
+	public List<Route> getConnectedRoutes(City city) {
+		return board.getRoutesByCity(city);
+	}
+
 	public Map<CardColor, Integer> getUsableCards(int routeID) {
 		Player player = game.getMe();
 		Map<CardColor, Integer> usableCards = new HashMap<>();
@@ -42,7 +47,6 @@ public class RoutePresenter extends BasePresenter {
 				usableCards.put(cardCount.getKey(), cardCount.getValue());
 			}
 		}
-
 		return usableCards;
 	}
 
