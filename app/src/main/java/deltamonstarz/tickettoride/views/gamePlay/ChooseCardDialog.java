@@ -27,6 +27,7 @@ import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.presenters.ChooseCardPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
+import deltamonstarz.tickettoride.presenters.GamePresenter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -196,10 +197,10 @@ public class ChooseCardDialog extends DialogFragment {
 	}
 
 	private void processDestinationCardClick(){
-		// Todo: Swap out to the destination selection dialog today
-	}
-
-	private void processCardClick(View view, boolean selected){
+		if (ClientModel.getInstance().getGame().getMe().canDrawDestinationCard()) {
+			GamePresenter.getInstance().chooseMoreDestinationCards();
+			dismiss();
+		}
 	}
 
 	private void acceptClick(){

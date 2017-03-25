@@ -123,6 +123,11 @@ public class ServerPlayer extends Player {
 		public boolean canSelectTrainCard(TrainCard card) {
 			return true;
 		}
+
+		@Override
+		public boolean canDrawDestinationCards() {
+			return true;
+		}
 	}
 
 	//-----------------------------------------------------------------------------------

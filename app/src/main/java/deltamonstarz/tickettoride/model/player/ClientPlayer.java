@@ -111,6 +111,11 @@ public class ClientPlayer extends Player {
 		public boolean canSelectTrainCard(TrainCard card) {
 			return true;
 		}
+
+		@Override
+		public boolean canDrawDestinationCards() {
+			return true;
+		}
 	}
 
 	//-----------------------------------------------------------------------------------

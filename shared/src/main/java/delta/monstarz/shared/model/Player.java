@@ -80,9 +80,11 @@ public abstract class Player {
 
 	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
 		state.drawDestinationCards(destCardChoices);
-		//this.destCardChoices = destCardChoices;
 	}
 
+	public void clearDestCardChoices(){
+		destCardChoices = null;
+	}
 
 	public void startTurn() {
 		state.startTurn();
@@ -138,6 +140,10 @@ public abstract class Player {
 
 	public boolean canSelectTrainCard(TrainCard card){
 		return state.canSelectTrainCard(card);
+	}
+
+	public boolean canDrawDestinationCard(){
+		return state.canDrawDestinationCards();
 	}
 
 	public PlayerInfo playerInfo() {
