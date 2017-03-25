@@ -3,6 +3,8 @@
           android:id="@+id/sourceCityName"
           android:layout_width="match_parent"
           android:layout_height="40dp"
-          android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large">
+          android:layout_margin="1dp"
+          android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+          android:background="@color/grayButton">
 
 </TextView>
