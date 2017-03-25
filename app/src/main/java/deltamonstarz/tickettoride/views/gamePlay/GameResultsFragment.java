@@ -27,8 +27,6 @@ import deltamonstarz.tickettoride.views.GameSelectorActivity;
  * create an instance of this fragment.
  */
 public class GameResultsFragment extends Fragment {
-	private TextView playerText;
-	private Button startGameButton;
 	private static GamePresenter presenter;
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
@@ -38,39 +36,17 @@ public class GameResultsFragment extends Fragment {
 		// Required empty public constructor
 	}
 
-	public void setResults(List<PlayerResult> results) {
-		this.results = results;
-	}
-
 	public static GameResultsFragment newInstance() {
 		GameResultsFragment fragment = new GameResultsFragment();
 		presenter = GamePresenter.getInstance();
+		fragment.results = ClientModel.getInstance().getGame().getGameResults();
 		return fragment;
 	}
-
-//	@Override
-//	public void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_game_results);
-
-		presenter = GamePresenter.getInstance();
-		presenter.setActivity(this);
-
-		mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-		// use this setting to improve performance if you know that changes
-		// in content do not change the layout size of the RecyclerView
-		mRecyclerView.setHasFixedSize(true);
-
-		// use a linear layout manager
-		mLayoutManager = new LinearLayoutManager(this);
-		mRecyclerView.setLayoutManager(mLayoutManager);
 	}
 
 	@Override
@@ -78,9 +54,15 @@ public class GameResultsFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View v = inflater.inflate(R.layout.fragment_game_results, container, false);
-		playerText = (TextView) v.findViewById(R.id.playersText);
-		startGameButton = (Button) v.findViewById(R.id.startGame);
-		startGameButton.setEnabled(false);
+		mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+
+		// use this setting to improve performance if you know that changes
+		// in content do not change the layout size of the RecyclerView
+		mRecyclerView.setHasFixedSize(true);
+
+		// use a linear layout manager
+		mLayoutManager = new LinearLayoutManager(getContext());
+		mRecyclerView.setLayoutManager(mLayoutManager);
 		return v;
 	}
 
@@ -95,11 +77,6 @@ public class GameResultsFragment extends Fragment {
 
 		private View view;
 
-		/**
-		 * Initializes a result holder.
-		 *
-		 * @param v The view that belongs the recycler view.
-		 */
 		ResultHolder(View v) {
 			super(v);
 			view = v;

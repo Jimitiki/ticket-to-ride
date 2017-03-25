@@ -8,6 +8,7 @@ import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.PlayerInfo;
+import delta.monstarz.shared.model.PlayerResult;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.model.player.ClientPlayer;
@@ -23,6 +24,7 @@ public class ClientGame {
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
 	CardColor mostRecentCardColor;
+	private List<PlayerResult> gameResults;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -179,5 +181,14 @@ public class ClientGame {
 
 	public CardColor getMostRecentCardColor() {
 		return mostRecentCardColor;
+	}
+
+	public void endGame(List<PlayerResult> results) {
+		gameResults = results;
+		ClientModel.getInstance().notifyPresenter(UpdateType.END_GAME);
+	}
+
+	public List<PlayerResult> getGameResults() {
+		return gameResults;
 	}
 }
