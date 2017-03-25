@@ -84,10 +84,6 @@ public class ShowDestinationCardsDialog extends DialogFragment {
 		mLayoutManger = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManger);
 
-
-
-
-
 		myAdapter = new ShowDestination(list);
 		mRecyclerView.setAdapter(myAdapter);
 
