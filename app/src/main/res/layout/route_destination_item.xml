@@ -8,12 +8,14 @@
     <View
         android:id="@+id/routeColor"
         android:layout_width="40dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/destinationCityName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+        android:paddingStart="10dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
 </LinearLayout>

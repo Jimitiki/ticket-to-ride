@@ -184,7 +184,6 @@ public class GameFragment extends Fragment {
 				Route route = routes.get(routes.size() - 1);
 				if (route != null) {
 					CardColor color = routePresenter.getUsableCards(route.getID()).keySet().iterator().next();
-					routePresenter.claimRoute(route.getID(), color);
 				}
 			}
 		});

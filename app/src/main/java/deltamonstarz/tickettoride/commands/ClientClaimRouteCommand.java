@@ -7,8 +7,8 @@ import deltamonstarz.tickettoride.model.ClientModel;
 
 public class ClientClaimRouteCommand extends ClaimRouteCommand {
 
-	public ClientClaimRouteCommand(String username, int gameID, int routeID, CardColor color) {
-		super(username, gameID, routeID, color);
+	public ClientClaimRouteCommand(String username, int gameID, int routeID, CardColor color, int goldCardCount) {
+		super(username, gameID, routeID, color, goldCardCount);
 	}
 
 	@Override

@@ -50,10 +50,10 @@ public class RoutePresenter extends BasePresenter {
 		return usableCards;
 	}
 
-	public void claimRoute(int routeID, CardColor cardsUsed) {
+	public void claimRoute(int routeID, CardColor cardsUsed, int goldCardCount) {
 		Player player = game.getMe();
 		ClaimRouteCommand command = new ClaimRouteCommand(player.getUsername(), game.getGameID(),
-				routeID, cardsUsed);
+				routeID, cardsUsed, goldCardCount);
 		proxy.sendCommand(model.getAuthToken(), command);
 	}
 

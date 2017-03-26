@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class RouteSelectionFragment extends DialogFragment {
 
 	private City sourceCity;
 	private Route selectedRoute;
-	private CardColor cardColor;
+	private CardColor selectedColor;
 	int selectedCardCount;
 	int goldCardCount;
 	private boolean sourceSelected;
@@ -55,6 +56,7 @@ public class RouteSelectionFragment extends DialogFragment {
 
 	private List<Route> availableRoutes;
 	private List<City> sources;
+	private Map<CardColor, Integer> cardCounts;
 
 	private SourceCitiesAdapter sourceAdapter;
 	private DestinationCitiesAdapter destinationAdapter;
@@ -187,22 +189,29 @@ public class RouteSelectionFragment extends DialogFragment {
 		confirm.setEnabled(false);
 	}
 
-	private void onToggleCardColor(CardColor cardColor, View view) {
-		if (this.cardColor == cardColor) {
-			colorSelected = false;
-			this.cardColor = null;
-			view.setBackgroundColor(getResources().getColor(R.color.grayButton));
-			confirm.setEnabled(false);
+	private void updateCardCount(CardColor color, int cardCount) {
+		int cardCountTotal;
+		if (color == CardColor.GOLD) {
+			goldCardCount = cardCount;
+			cardCountTotal = cardCount;
 		} else {
-			if (colorSelected) {
-				cardListItem.setBackgroundColor(getResources().getColor(R.color.grayButton));
-			} else {
-				colorSelected = true;
-			}
-			this.cardColor = cardColor;
-			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
-			confirm.setEnabled(true);
+			selectedCardCount = cardCount;
+			cardCountTotal = cardCount + goldCardCount;
 		}
+		if (selectedColor == null && color != CardColor.GOLD) {
+			selectedColor = color;
+
+		} else if (cardCount == 0 && color != CardColor.GOLD) {
+			selectedColor = null;
+		}
+		CardColor colorUsed = selectedColor == null ? CardColor.GOLD : selectedColor;
+		if (selectedRoute.verifyCardColorByCount(colorUsed, cardCountTotal)
+				&& cardCountTotal == selectedRoute.getLength()) {
+			confirm.setEnabled(true);
+		} else {
+			confirm.setEnabled(false);
+		}
+		cardColorAdapter.updateEnableHolder();
 	}
 
 	private void getSourceCities() {
@@ -238,17 +247,17 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private void getCardColors() {
-		Map<CardColor, Integer> cardCounts = presenter.getUsableCards(selectedRoute.getID());
+		cardCounts = presenter.getUsableCards(selectedRoute.getID());
 
 		if (cardColorAdapter == null) {
 			cardColorAdapter = new CardColorAdapter();
 			cardColors.setAdapter(cardColorAdapter);
 		}
-		cardColorAdapter.setAvailableCards(cardCounts);
+		cardColorAdapter.setAvailableCards();
 	}
 
 	private void onConfirmSelection() {
-		presenter.claimRoute(selectedRoute.getID(), cardColor);
+		presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
 		dismiss();
 	}
 
@@ -372,7 +381,7 @@ public class RouteSelectionFragment extends DialogFragment {
 
 	private class CardColorAdapter extends RecyclerView.Adapter<CardColorHolder> {
 		private List<CardColor> availableCards;
-		private Map<CardColor, Integer> cardCounts;
+		private List<CardColorHolder> visibleHolders = new ArrayList<>();
 
 		@Override
 		public CardColorHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -387,9 +396,20 @@ public class RouteSelectionFragment extends DialogFragment {
 			try {
 				CardColor cardColor = availableCards.get(position);
 				holder.color = cardColor;
-				holder.setCardCount(cardCounts.get(cardColor));
-				holder.colorText.setText(cardColor.toString().toUpperCase() +
-						" - (" + cardCounts.get(cardColor) + ")");
+				holder.maxValue = selectedRoute.getLength() < cardCounts.get(cardColor) ?
+						selectedRoute.getLength() : cardCounts.get(cardColor);
+				holder.value = 0;
+				holder.numInput.setText("0");
+				String colorName = cardColor.toString();
+				colorName = colorName.substring(0, 1).toUpperCase() + colorName.substring(1);
+				holder.colorText.setText(colorName + " - (" + cardCounts.get(cardColor) + ")");
+
+				if (position == visibleHolders.size()) {
+					visibleHolders.add(holder);
+				} else {
+					visibleHolders.set(position, holder);
+				}
+				handleDisableHolder(holder);
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
@@ -405,7 +425,7 @@ public class RouteSelectionFragment extends DialogFragment {
 			notifyDataSetChanged();
 		}
 
-		private void setAvailableCards(Map<CardColor, Integer> cardCounts) {
+		private void setAvailableCards() {
 			availableCards = new ArrayList<>();
 			for (Map.Entry<CardColor, Integer> cardEntry: cardCounts.entrySet()) {
 				availableCards.add(cardEntry.getKey());
@@ -419,42 +439,101 @@ public class RouteSelectionFragment extends DialogFragment {
 			});
 			notifyDataSetChanged();
 		}
+
+		private void updateEnableHolder() {
+			for (CardColorHolder holder : visibleHolders) {
+				handleDisableHolder(holder);
+			}
+		}
+
+		private void handleDisableHolder(CardColorHolder holder) {
+			CardColor cardColor = holder.color;
+			if (selectedColor != null && cardColor != selectedColor && cardColor != CardColor.GOLD) {
+				holder.disable();
+			} else {
+				holder.enable();
+			}
+		}
 	}
 
-	private class CardColorHolder extends RecyclerView.ViewHolder implements NumberInputView.OnValueChangedListener {
+	private class CardColorHolder extends RecyclerView.ViewHolder {
 		CardColor color;
-		int cardCount;
+
+		int value;
+		int maxValue;
+		int minValue;
 
 		TextView colorText;
-		NumberInputView cardCountInput;
+		Button incr;
+		Button decr;
+		EditText numInput;
 
 		private CardColorHolder(final View itemView) {
 			super(itemView);
 
 			colorText = (TextView) itemView.findViewById(R.id.CardColorText);
-			cardCountInput = (NumberInputView) itemView.findViewById(R.id.cardCountInput);
-			cardCountInput.setMinValue(0);
 
-			itemView.setOnClickListener(new View.OnClickListener() {
+			incr = (Button) itemView.findViewById(R.id.incr);
+			decr = (Button) itemView.findViewById(R.id.decr);
+			numInput = (EditText) itemView.findViewById(R.id.numInput);
+
+			incr.setOnClickListener(new View.OnClickListener() {
 				@Override
-				public void onClick(View view) {
-					onToggleCardColor(color, itemView);
+				public void onClick(View v) {
+					if (value < maxValue) {
+						value++;
+						updateValue();
+					}
+				}
+			});
+
+			decr.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (value > minValue) {
+						value--;
+						updateValue();
+					}
+				}
+			});
+
+			numInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					int inputValue = Integer.parseInt(numInput.getText().toString());
+					if (inputValue > maxValue) {
+						inputValue = maxValue;
+					}
+					if (inputValue < maxValue) {
+						inputValue = minValue;
+					}
+					value = inputValue;
+					updateValue();
 				}
 			});
 		}
 
-		private void setCardCount(int count) {
-			cardCount = count;
-			cardCountInput.setMaxValue(cardCount);
+		private void setCardCount(int max) {
+			value = 0;
+			maxValue = max;
+			updateValue();
 		}
 
-		@Override
-		public void onValueChanged() {
-			if (color == CardColor.GOLD) {
-				goldCardCount = cardCountInput.getValue();
-			} else {
-				selectedCardCount = cardCountInput.getValue();
-			}
+		private void updateValue() {
+			numInput.setText(Integer.toString(value));
+			updateCardCount(color, value);
+		}
+
+		private void disable() {
+			incr.setEnabled(false);
+			decr.setEnabled(false);
+			numInput.setEnabled(false);
+		}
+
+		private void enable() {
+			incr.setEnabled(true);
+			decr.setEnabled(true);
+			numInput.setEnabled(true);
 		}
 	}
 }
