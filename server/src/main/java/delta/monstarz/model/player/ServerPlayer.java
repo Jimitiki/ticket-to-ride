@@ -15,6 +15,7 @@ import delta.monstarz.shared.model.TrainCard;
  */
 
 public class ServerPlayer extends Player {
+	private int gameId;
 
 	public ServerPlayer(String username, int gameId) {
 		super(username);
@@ -108,16 +109,7 @@ public class ServerPlayer extends Player {
 
 		@Override
 		public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
-			int routeLength = route.getLength();
-			int routeValue = (int) (.5 * routeLength * routeLength - 0.6 * routeLength + 1.4);
-			score += routeValue;
-
-			if (cardsUsed != CardColor.GOLD) {
-				int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
-				trainCards.put(CardColor.GOLD, numGoldCards);
-			}
-			int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
-			trainCards.put(cardsUsed, numCardsUsed);
+			internalClaimRoute(route, cardsUsed, goldCardCount);
 			state = new InactiveState();
 		}
 
