@@ -94,7 +94,7 @@ public class ClientPlayer extends Player {
 
 		@Override
 		public void claimRoute(Route route, CardColor cardsUsed, int goldCardsUsed) {
-			// Todo: Add functionality here
+			internalClaimRoute(route, cardsUsed, goldCardsUsed);
 			state = new InactiveState();
 		}
 
@@ -110,6 +110,11 @@ public class ClientPlayer extends Player {
 
 		@Override
 		public boolean canDrawDestinationCards() {
+			return true;
+		}
+
+		@Override
+		public boolean canPlaceRoute() {
 			return true;
 		}
 	}

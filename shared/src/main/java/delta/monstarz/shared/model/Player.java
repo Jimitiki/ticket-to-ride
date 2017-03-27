@@ -147,6 +147,7 @@ public abstract class Player {
 	protected void internalClaimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
 		int routeLength = route.getLength();
 		int routeValue = (int) (.5 * routeLength * routeLength - 0.6 * routeLength + 1.4);
+		numTrains -= routeLength;
 		routeScore += routeValue;
 
 		if (cardsUsed != CardColor.GOLD) {

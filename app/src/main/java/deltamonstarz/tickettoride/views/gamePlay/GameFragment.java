@@ -53,7 +53,7 @@ public class GameFragment extends Fragment {
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;
 
-	private MapView mapView;
+	private static MapView mapView;
 	private Button drawCard;
 	private Button placeTrain;
 	private Button viewCards;
@@ -144,7 +144,6 @@ public class GameFragment extends Fragment {
 		placeTrain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.println("claiming route");
 				FragmentManager fragmentManager = activity.getSupportFragmentManager();
 				RouteSelectionFragment dialog = new RouteSelectionFragment();
 				dialog.setPresenter(new RoutePresenter());
