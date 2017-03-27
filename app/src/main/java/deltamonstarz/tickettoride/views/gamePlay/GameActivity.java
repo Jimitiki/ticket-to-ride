@@ -71,6 +71,7 @@ public class GameActivity extends AppCompatActivity
 				.commit();
 		presenter.setGameFragment(gameFragment);
 		gameFragment.setActivity(this);
+		gameFragment.setPresenter(presenter);
 	}
 
 	public void onGameEnd() {

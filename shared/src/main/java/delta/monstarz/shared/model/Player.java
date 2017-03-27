@@ -20,6 +20,10 @@ public abstract class Player {
 	public Player(String username) {
 		this.username = username;
 		trainCards = new HashMap<>();
+		CardColor[] colors = CardColor.values();
+		for (CardColor color : colors) {
+			trainCards.put(color, 0);
+		}
 	}
 
 	public PlayerResult getBasePlayerResult() {
@@ -130,12 +134,21 @@ public abstract class Player {
 		destCards.addAll(cards);
 	}
 
-	public void claimRoute(Route route) {
-		state.claimRoute(route);
+	public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+		state.claimRoute(route, cardsUsed, goldCardCount);
 	}
 
-	protected void internalClaimRoute(Route route) {
+	protected void internalClaimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+		int routeLength = route.getLength();
+		int routeValue = (int) (.5 * routeLength * routeLength - 0.6 * routeLength + 1.4);
+		score += routeValue;
 
+		if (cardsUsed != CardColor.GOLD) {
+			int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
+			trainCards.put(CardColor.GOLD, numGoldCards);
+		}
+		int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
+		trainCards.put(cardsUsed, numCardsUsed);
 	}
 
 	public boolean canDrawTrainCard(){
@@ -144,6 +157,10 @@ public abstract class Player {
 
 	public boolean canSelectTrainCard(TrainCard card){
 		return state.canSelectTrainCard(card);
+	}
+
+	public int getGoldCardCount() {
+		return trainCards.get(CardColor.GOLD);
 	}
 
 	public boolean canDrawDestinationCard(){

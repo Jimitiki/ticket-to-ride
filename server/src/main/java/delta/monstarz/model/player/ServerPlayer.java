@@ -15,7 +15,6 @@ import delta.monstarz.shared.model.TrainCard;
  */
 
 public class ServerPlayer extends Player {
-
 	private int gameId;
 
 	public ServerPlayer(String username, int gameId) {
@@ -109,8 +108,8 @@ public class ServerPlayer extends Player {
 		}
 
 		@Override
-		public void claimRoute(Route route) {
-			// Todo: Add functionality here
+		public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+			internalClaimRoute(route, cardsUsed, goldCardCount);
 			state = new InactiveState();
 		}
 

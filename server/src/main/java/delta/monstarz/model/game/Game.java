@@ -18,8 +18,10 @@ import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.PlayerResult;
 import delta.monstarz.shared.model.TrainCard;
 
@@ -59,8 +61,9 @@ public class Game {
 
 		playerManager.setStartingNumberOfTrains(jsonGame.get("TrainCount").getAsInt());
 
-		board = new Board(jsonGame.getAsJsonObject("Map"),
-				jsonGame.getAsJsonArray("RouteList"));
+		board = new Board( jsonGame.getAsJsonObject("Map"), jsonGame.getAsJsonArray("RouteList"),
+				jsonGame.getAsJsonArray("Cities"));
+
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
 		trainDeck.initialize();
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
@@ -172,10 +175,8 @@ public class Game {
 			//trainDeck.initialize();
 			//destDeck.shuffle();
 
-			for(Player p : playerManager.getPlayers())
-			{
-				for(int i = 0; i < 4; i++)
-				{
+			for (Player p : playerManager.getPlayers()) {
+				for (int i = 0; i < 4; i++) {
 					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p.getUsername(), gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
@@ -187,6 +188,8 @@ public class Game {
 				command.setReplacementCard(faceUpCards.get(i));
 				addCommand(command);
 			}
+
+			board.setNumPlayers(playerManager.size());
 
 			gameStarted = true;
 			startTime = new Date(); // All new dates initGame with the current time
@@ -237,6 +240,30 @@ public class Game {
 		if (playHasStarted) {
 			playerManager.advanceTurn();
 		}
+	}
+
+	/**
+	 * Checks the claimed route against the list of routes the player can claim
+	 * If the route is available, claims it for the player, removing the cards used
+	 * from the player's hand, and adding them to the deck
+	 * @return true if successful, else false
+	 */
+	public boolean claimRoute(int routeID, String username, CardColor cardsUsed, int goldCardCount) {
+		Player player = playerManager.getPlayerByName(username);
+
+		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed, goldCardCount)) {
+			Route route = board.getRouteByID(routeID);
+			for (int i = 0; i < route.getLength(); i++) {
+				if (i < goldCardCount) {
+					trainDeck.addCard(new TrainCard(CardColor.GOLD));
+				} else {
+					trainDeck.addCard(new TrainCard(cardsUsed));
+				}
+			}
+			player.claimRoute(board.getRouteByID(routeID), cardsUsed, goldCardCount);
+			return true;
+		}
+		return false;
 	}
 
 	/**

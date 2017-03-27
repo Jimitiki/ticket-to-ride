@@ -7,16 +7,15 @@ package delta.monstarz.shared.model;
 
 public enum CardColor
 {
+	BLACK,
 	BLUE,
+	GOLD,
 	GREEN,
+	ORANGE,
 	PINK,
 	RED,
-	YELLOW,
-	BLACK,
-	ORANGE,
 	WHITE,
-	GOLD,
-	UNKNOWN;
+	YELLOW;
 
 	public static CardColor fromString(String s) {
 		switch(s) {
@@ -36,15 +35,11 @@ public enum CardColor
 				return ORANGE;
 			case "white":
 				return WHITE;
+			case "gray":
 			case "gold":
 				return GOLD;
-
-
-
 			default:
-				return UNKNOWN;
-
-
+				return null;
 		}
 	}
 

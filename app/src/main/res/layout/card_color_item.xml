@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="1dp"
+                android:background="@color/grayButton">
+
+
+    <TextView
+        android:id="@+id/CardColorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:paddingStart="10dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
+
+    <Button
+        android:id="@+id/decr"
+        android:layout_width="45dp"
+        android:layout_height="38dp"
+        android:layout_toStartOf="@+id/numInput"
+        android:text="@string/decrement"/>
+
+
+    <EditText
+        android:id="@+id/numInput"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/incr"
+        android:inputType="number"/>
+
+    <Button
+        android:id="@+id/incr"
+        android:layout_width="45dp"
+        android:layout_height="38dp"
+        android:paddingBottom="2dp"
+        android:layout_alignParentEnd="true"
+        android:text="@string/increment"/>
+</RelativeLayout>

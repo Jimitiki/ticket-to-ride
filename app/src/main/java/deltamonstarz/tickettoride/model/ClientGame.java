@@ -24,8 +24,8 @@ public class ClientGame {
 	private List<String> players;
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
-	CardColor mostRecentCardColor;
 	private List<PlayerResult> gameResults;
+	private CardColor mostRecentCardColor;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -133,8 +133,14 @@ public class ClientGame {
 		me.selectDestinationCards(cards);
 	}
 
-	public void placeRoute(String player_username, Route route, boolean hasLongest) {
-		board.placeRoute(player_username, route, hasLongest);
+	public void placeRoute(String username, int routeID) {
+		Route route = board.getRouteByID(routeID);
+		for (PlayerInfo player : playerInfos) {
+			if (player.getUsername().equals(username)) {
+				route.claim(username, player.getPlayerColor());
+				return;
+			}
+		}
 	}
 
 	public void addPlayer(String username) {
@@ -173,10 +179,6 @@ public class ClientGame {
 
 	public String getMapImagePath() {
 		return board.getImageID();
-	}
-
-	public List<Route> getRoutes() {
-		return board.getRoutes();
 	}
 
 	public List<TrainCard> getFaceUpCards() {
