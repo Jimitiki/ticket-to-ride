@@ -191,14 +191,12 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private void updateCardCount(CardColor color, int cardCount) {
-		int cardCountTotal;
 		if (color == CardColor.GOLD) {
 			goldCardCount = cardCount;
-			cardCountTotal = cardCount;
 		} else {
 			selectedCardCount = cardCount;
-			cardCountTotal = cardCount + goldCardCount;
 		}
+		int cardCountTotal = cardCount + goldCardCount;
 		if (selectedColor == null && color != CardColor.GOLD) {
 			selectedColor = color;
 
