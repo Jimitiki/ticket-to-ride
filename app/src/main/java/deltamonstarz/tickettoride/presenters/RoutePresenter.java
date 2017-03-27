@@ -43,8 +43,12 @@ public class RoutePresenter extends BasePresenter {
 		Map<CardColor, Integer> usableCards = new HashMap<>();
 		Route route = board.getRouteByID(routeID);
 		for (Map.Entry<CardColor, Integer> cardCount : player.getTrainCards().entrySet()) {
-			if (route.verifyCardColorByCount(cardCount.getKey(), cardCount.getValue())) {
+			int cardTotal = cardCount.getKey() == CardColor.GOLD ? cardCount.getValue() : cardCount.getValue() + player.getGoldCardCount();
+			if (cardCount.getValue() > 0 && route.verifyCardColorByCount(cardCount.getKey(), cardCount.getValue() + cardTotal)) {
 				usableCards.put(cardCount.getKey(), cardCount.getValue());
+				if (cardCount.getValue() < route.getLength()) {
+					usableCards.put(CardColor.GOLD, player.getGoldCardCount());
+				}
 			}
 		}
 		return usableCards;

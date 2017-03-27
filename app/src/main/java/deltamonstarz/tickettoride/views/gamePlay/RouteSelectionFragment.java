@@ -451,7 +451,9 @@ public class RouteSelectionFragment extends DialogFragment {
 
 		private void handleDisableHolder(CardColorHolder holder) {
 			CardColor cardColor = holder.color;
-			if (selectedColor != null && cardColor != selectedColor && cardColor != CardColor.GOLD) {
+			if ((selectedColor != null || goldCardCount == selectedRoute.getLength())
+					&& cardColor != selectedColor && (cardColor != CardColor.GOLD
+					|| selectedCardCount == selectedRoute.getLength())) {
 				holder.disable();
 			} else {
 				holder.enable();
@@ -505,15 +507,17 @@ public class RouteSelectionFragment extends DialogFragment {
 			numInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 				@Override
 				public void onFocusChange(View v, boolean hasFocus) {
-					int inputValue = Integer.parseInt(numInput.getText().toString());
-					if (inputValue > maxValue) {
-						inputValue = maxValue;
+					if (!hasFocus) {
+						int inputValue = Integer.parseInt(numInput.getText().toString());
+						if (inputValue > maxValue) {
+							inputValue = maxValue;
+						}
+						if (inputValue < maxValue) {
+							inputValue = minValue;
+						}
+						value = inputValue;
+						updateValue();
 					}
-					if (inputValue < maxValue) {
-						inputValue = minValue;
-					}
-					value = inputValue;
-					updateValue();
 				}
 			});
 		}

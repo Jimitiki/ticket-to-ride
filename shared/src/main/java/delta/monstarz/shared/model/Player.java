@@ -144,6 +144,10 @@ public abstract class Player {
 		return state.canSelectTrainCard(card);
 	}
 
+	public int getGoldCardCount() {
+		return trainCards.get(CardColor.GOLD);
+	}
+
 	public PlayerInfo playerInfo() {
 		Collection<Integer> card_nums = trainCards.values();
 		int numTrainsCards = 0;
