@@ -144,7 +144,6 @@ public class GameFragment extends Fragment {
 		placeTrain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.println("claiming route");
 				FragmentManager fragmentManager = activity.getSupportFragmentManager();
 				RouteSelectionFragment dialog = new RouteSelectionFragment();
 				dialog.setPresenter(new RoutePresenter());
