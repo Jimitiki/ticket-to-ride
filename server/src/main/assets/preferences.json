@@ -329,266 +329,892 @@
       "doubleID": -1,
       "endpoints":["Phoenix", "El Paso"],
       "length":3,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 442,
+          "y": 895,
+          "rotation": 16
+        },
+        {
+          "x": 506,
+          "y": 914,
+          "rotation": 16
+        },
+        {
+          "x": 571,
+          "y": 932,
+          "rotation": 16
+        }
+      ]
     },
     {
       "id": 38,
       "doubleID": -1,
       "endpoints":["Santa Fe", "El Paso"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 635,
+          "y": 938,
+          "rotation": -87
+        },
+        {
+          "x": 639,
+          "y": 871,
+          "rotation": -87
+        }
+      ]
     },
     {
       "id": 39,
       "doubleID": -1,
       "endpoints":["Omaha", "Helena"],
       "length":5,
-      "color": "red"
+      "color": "red",
+      "segments": [
+        {
+          "x": 604,
+          "y": 353,
+          "rotation": 23
+        },
+        {
+          "x": 667,
+          "y": 378,
+          "rotation": 23
+        },
+        {
+          "x": 729,
+          "y": 404,
+          "rotation": 23
+        },
+        {
+          "x": 791,
+          "y": 430,
+          "rotation": 23
+        },
+        {
+          "x": 854,
+          "y": 454,
+          "rotation": 23
+        }
+      ]
     },
     {
       "id": 40,
       "doubleID": -1,
       "endpoints":["Salt Lake City", "Helena"],
       "length":3,
-      "color": "pink"
+      "color": "pink",
+      "segments": [
+        {
+          "x": 436,
+          "y": 520,
+          "rotation": -59
+        },
+        {
+          "x": 471,
+          "y": 462,
+          "rotation": -59
+        },
+        {
+          "x": 505,
+          "y": 405,
+          "rotation": -59
+        }
+      ]
     },
     {
       "id": 41,
       "doubleID": -1,
       "endpoints":["Seattle", "Helena"],
       "length":6,
-      "color": "yellow"
+      "color": "yellow",
+      "segments": [
+        {
+          "x": 143,
+          "y": 241,
+          "rotation": 14
+        },
+        {
+          "x": 209,
+          "y": 257,
+          "rotation": 14
+        },
+        {
+          "x": 276,
+          "y": 272,
+          "rotation": 14
+        },
+        {
+          "x": 342,
+          "y": 286,
+          "rotation": 14
+        },
+        {
+          "x": 407,
+          "y": 301,
+          "rotation": 14
+        },
+        {
+          "x": 473,
+          "y": 315,
+          "rotation": 14
+        }
+      ]
     },
     {
       "id": 42,
       "doubleID": -1,
       "endpoints":["Winnipeg", "Helena"],
       "length":4,
-      "color": "blue"
+      "color": "blue",
+      "segments": [
+        {
+          "x": 578,
+          "y": 302,
+          "rotation": -45
+        },
+        {
+          "x": 625,
+          "y": 254,
+          "rotation": -45
+        },
+        {
+          "x": 672,
+          "y": 206,
+          "rotation": -45
+        },
+        {
+          "x": 720,
+          "y": 158,
+          "rotation": -45
+        }
+      ]
     },
     {
       "id": 43,
       "doubleID": -1,
       "endpoints":["New Orleans", "Houston"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1083,
+          "y": 982,
+          "rotation": -9
+        },
+        {
+          "x": 1149,
+          "y": 971,
+          "rotation": -9
+        }
+      ]
     },
     {
       "id": 44,
       "doubleID": 45,
       "endpoints":["Oklahoma City", "Kansas City"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 935,
+          "y": 727,
+          "rotation": -73
+        },
+        {
+          "x": 954,
+          "y": 663,
+          "rotation": -73
+        }
+      ]
     },
     {
       "id": 45,
       "doubleID": 44,
       "endpoints":["Oklahoma City", "Kansas City"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 957,
+          "y": 734,
+          "rotation": -73
+        },
+        {
+          "x": 976,
+          "y": 669,
+          "rotation": -73
+        }
+      ]
     },
     {
       "id": 46,
       "doubleID": 47,
       "endpoints":["Omaha", "Kansas City"],
       "length":1,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 973,
+          "y": 510,
+          "rotation": 62
+        }
+      ]
     },
     {
       "id": 47,
       "doubleID": 46,
       "endpoints":["Omaha", "Kansas City"],
       "length":1,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 951,
+          "y": 520,
+          "rotation": 62
+        }
+      ]
     },
     {
       "id": 48,
       "doubleID": 49,
       "endpoints":["Saint Louis", "Kansas City"],
       "length":2,
-      "color": "blue"
+      "color": "blue",
+      "segments": [
+        {
+          "x": 1003,
+          "y": 570,
+          "rotation": -1
+        },
+        {
+          "x": 1070,
+          "y": 569,
+          "rotation": -1
+        }
+      ]
     },
     {
       "id": 49,
       "doubleID": 48,
       "endpoints":["Saint Louis", "Kansas City"],
       "length":2,
-      "color": "pink"
+      "color": "pink",
+      "segments": [
+        {
+          "x": 1004,
+          "y": 594,
+          "rotation": -1
+        },
+        {
+          "x": 1071,
+          "y": 592,
+          "rotation": -1
+        }
+      ]
     },
     {
       "id": 50,
       "doubleID": -1,
       "endpoints":["Los Angeles", "Las Vegas"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 194,
+          "y": 845,
+          "rotation": -63
+        },
+        {
+          "x": 236,
+          "y": 778,
+          "rotation": -12
+        }
+      ]
     },
     {
       "id": 51,
       "doubleID": -1,
       "endpoints":["Salt Lake City", "Las Vegas"],
       "length":3,
-      "color": "orange"
+      "color": "orange",
+      "segments": [
+        {
+          "x": 335,
+          "y": 758,
+          "rotation": -44
+        },
+        {
+          "x": 381,
+          "y": 709,
+          "rotation": -65
+        },
+        {
+          "x": 406,
+          "y": 648,
+          "rotation": -82
+        }
+      ]
     },
     {
       "id": 52,
       "doubleID": -1,
       "endpoints":["Nashville", "Little Rock"],
       "length":3,
-      "color": "white"
+      "color": "white",
+      "segments": [
+        {
+          "x": 1134,
+          "y": 750,
+          "rotation": -6
+        },
+        {
+          "x": 1201,
+          "y": 743,
+          "rotation": -25
+        },
+        {
+          "x": 1261,
+          "y": 714,
+          "rotation": -41
+        }
+      ]
     },
     {
       "id": 53,
       "doubleID": -1,
       "endpoints":["New Orleans", "Little Rock"],
       "length":3,
-      "color": "green"
+      "color": "green",
+      "segments": [
+        {
+          "x": 1132,
+          "y": 777,
+          "rotation": 63
+        },
+        {
+          "x": 1164,
+          "y": 836,
+          "rotation": 63
+        },
+        {
+          "x": 1196,
+          "y": 896,
+          "rotation": 63
+        }
+      ]
     },
     {
       "id": 54,
       "doubleID": -1,
       "endpoints":["Oklahoma City", "Little Rock"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 971,
+          "y": 748,
+          "rotation": -1
+        },
+        {
+          "x": 1037,
+          "y": 746,
+          "rotation": -1
+        }
+      ]
     },
     {
       "id": 55,
       "doubleID": -1,
       "endpoints":["Saint Louis", "Little Rock"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1108,
+          "y": 732,
+          "rotation": -76
+        },
+        {
+          "x": 1124,
+          "y": 667,
+          "rotation": -76
+        }
+      ]
     },
     {
       "id": 56,
       "doubleID": -1,
       "endpoints":["Phoenix", "Los Angeles"],
       "length":3,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 214,
+          "y": 862,
+          "rotation": -9
+        },
+        {
+          "x": 282,
+          "y": 854,
+          "rotation": 0
+        },
+        {
+          "x": 351,
+          "y": 856,
+          "rotation": 14
+        }
+      ]
     },
     {
       "id": 57,
       "doubleID": -1,
       "endpoints":["New Orleans", "Miami"],
       "length":6,
-      "color": "red"
+      "color": "red",
+      "segments": [
+        {
+          "x": 1276,
+          "y": 967,
+          "rotation": -31
+        },
+        {
+          "x": 1337,
+          "y": 933,
+          "rotation": -15
+        },
+        {
+          "x": 1404,
+          "y": 917,
+          "rotation": 0
+        },
+        {
+          "x": 1477,
+          "y": 921,
+          "rotation": 29
+        },
+        {
+          "x": 1537,
+          "y": 956,
+          "rotation": 39
+        },
+        {
+          "x": 1588,
+          "y": 1001,
+          "rotation": 49
+        }
+      ]
     },
     {
       "id": 58,
       "doubleID": -1,
       "endpoints":["New York", "Montreal"],
       "length":3,
-      "color": "blue"
+      "color": "blue",
+      "segments": [
+        {
+          "x": 1594,
+          "y": 111,
+          "rotation": 80
+        },
+        {
+          "x": 1604,
+          "y": 178,
+          "rotation": 80
+        },
+        {
+          "x": 1615,
+          "y": 245,
+          "rotation": 80
+        }
+      ]
     },
     {
       "id": 59,
       "doubleID": -1,
       "endpoints":["Sault Ste. Marie", "Montreal"],
       "length":5,
-      "color": "black"
+      "color": "black",
+      "segments": [
+        {
+          "x": 1255,
+          "y": 175,
+          "rotation": -41
+        },
+        {
+          "x": 1309,
+          "y": 131,
+          "rotation": -29
+        },
+        {
+          "x": 1370,
+          "y": 100,
+          "rotation": -20
+        },
+        {
+          "x": 1435,
+          "y": 78,
+          "rotation": -13
+        },
+        {
+          "x": 1503,
+          "y": 64,
+          "rotation": 0
+        }
+      ]
     },
     {
       "id": 60,
       "doubleID": -1,
       "endpoints":["Toronto", "Montreal"],
       "length":3,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1428,
+          "y": 212,
+          "rotation": -59
+        },
+        {
+          "x": 1466,
+          "y": 151,
+          "rotation": -42
+        },
+        {
+          "x": 1520,
+          "y": 106,
+          "rotation": -25
+        }
+      ]
     },
     {
       "id": 61,
       "doubleID": -1,
       "endpoints":["Pittsburgh", "Nashville"],
       "length":4,
-      "color": "yellow"
+      "color": "yellow",
+      "segments": [
+        {
+          "x": 1295,
+          "y": 645,
+          "rotation": -62
+        },
+        {
+          "x": 1328,
+          "y": 583,
+          "rotation": -50
+        },
+        {
+          "x": 1375,
+          "y": 530,
+          "rotation": -33
+        },
+        {
+          "x": 1429,
+          "y": 493,
+          "rotation": -55
+        }
+      ]
     },
     {
       "id": 62,
       "doubleID": -1,
       "endpoints":["Raleigh", "Nashville"],
       "length":3,
-      "color": "black"
+      "color": "black",
+      "segments": [
+        {
+          "x": 1334,
+          "y": 643,
+          "rotation": -31
+        },
+        {
+          "x": 1397,
+          "y": 608,
+          "rotation": -13
+        },
+        {
+          "x": 1465,
+          "y": 594,
+          "rotation": 4
+        }
+      ]
     },
     {
       "id": 63,
       "doubleID": -1,
       "endpoints":["Saint Louis", "Nashville"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1168,
+          "y": 618,
+          "rotation": 17
+        },
+        {
+          "x": 1232,
+          "y": 638,
+          "rotation": 17
+        }
+      ]
     },
     {
       "id": 64,
       "doubleID": 65,
       "endpoints":["Pittsburgh", "New York"],
       "length":2,
-      "color": "green"
+      "color": "green",
+      "segments": [
+        {
+          "x": 1500,
+          "y": 397,
+          "rotation": -31
+        },
+        {
+          "x": 1558,
+          "y": 363,
+          "rotation": -31
+        }
+      ]
     },
     {
       "id": 65,
       "doubleID": 64,
       "endpoints":["Pittsburgh", "New York"],
       "length":2,
-      "color": "white"
+      "color": "white",
+      "segments": [
+        {
+          "x": 1488,
+          "y": 377,
+          "rotation": -31
+        },
+        {
+          "x": 1545,
+          "y": 342,
+          "rotation": -31
+        }
+      ]
     },
     {
       "id": 66,
       "doubleID": 67,
       "endpoints":["Washington", "New York"],
       "length":2,
-      "color": "black"
+      "color": "black",
+      "segments": [
+        {
+          "x": 1663,
+          "y": 350,
+          "rotation": 87
+        },
+        {
+          "x": 1667,
+          "y": 418,
+          "rotation": 87
+        }
+      ]
     },
     {
       "id": 67,
       "doubleID": 66,
       "endpoints":["Washington", "New York"],
       "length":2,
-      "color": "orange"
+      "color": "orange",
+      "segments": [
+        {
+          "x": 1638,
+          "y": 351,
+          "rotation": 87
+        },
+        {
+          "x": 1642,
+          "y": 417,
+          "rotation": 87
+        }
+      ]
     },
     {
       "id": 68,
       "doubleID": -1,
       "endpoints":["Santa Fe", "Oklahoma City"],
       "length":3,
-      "color": "blue"
+      "color": "blue",
+      "segments": [
+        {
+          "x": 679,
+          "y": 787,
+          "rotation": -7
+        },
+        {
+          "x": 746,
+          "y": 780,
+          "rotation": -7
+        },
+        {
+          "x": 813,
+          "y": 771,
+          "rotation": -7
+        }
+      ]
     },
     {
       "id": 69,
       "doubleID": -1,
       "endpoints":["Santa Fe", "Phoenix"],
       "length":3,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 451,
+          "y": 871,
+          "rotation": -24
+        },
+        {
+          "x": 513,
+          "y": 844,
+          "rotation": -24
+        },
+        {
+          "x": 574,
+          "y": 816,
+          "rotation": -24
+        }
+      ]
     },
     {
       "id": 70,
       "doubleID": -1,
       "endpoints":["Raleigh", "Pittsburgh"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1501,
+          "y": 454,
+          "rotation": 78
+        },
+        {
+          "x": 1517,
+          "y": 520,
+          "rotation": 78
+        }
+      ]
     },
     {
       "id": 71,
       "doubleID": -1,
       "endpoints":["Saint Louis", "Pittsburgh"],
       "length":5,
-      "color": "green"
+      "color": "green",
+      "segments": [
+        {
+          "x": 1165,
+          "y": 591,
+          "rotation": -30
+        },
+        {
+          "x": 1223,
+          "y": 557,
+          "rotation": -30
+        },
+        {
+          "x": 1283,
+          "y": 524,
+          "rotation": -30
+        },
+        {
+          "x": 1341,
+          "y": 490,
+          "rotation": -30
+        },
+        {
+          "x": 1400,
+          "y": 456,
+          "rotation": -30
+        }
+      ]
     },
     {
       "id": 72,
       "doubleID": -1,
       "endpoints":["Toronto", "Pittsburgh"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1466,
+          "y": 260,
+          "rotation": 87
+        },
+        {
+          "x": 1470,
+          "y": 328,
+          "rotation": 87
+        }
+      ]
     },
     {
       "id": 73,
       "doubleID": -1,
       "endpoints":["Washington", "Pittsburgh"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments": [
+        {
+          "x": 1509,
+          "y": 423,
+          "rotation": 27
+        },
+        {
+          "x": 1569,
+          "y": 454,
+          "rotation": 27
+        }
+      ]
     },
     {
       "id": 74,
       "doubleID": -1,
       "endpoints":["Salt Lake City", "Portland"],
       "length":6,
-      "color": "blue"
+      "color": "blue",
+      "segments": [
+        {
+          "x": 105,
+          "y": 315,
+          "rotation": 11
+        },
+        {
+          "x": 172,
+          "y": 330,
+          "rotation": 18
+        },
+        {
+          "x": 236,
+          "y": 355,
+          "rotation": 25
+        },
+        {
+          "x": 293,
+          "y": 393,
+          "rotation": 37
+        },
+        {
+          "x": 346,
+          "y": 437,
+          "rotation": 46
+        },
+        {
+          "x": 391,
+          "y": 489,
+          "rotation": 59
+        }
+      ]
     },
     {
       "id": 75,
@@ -984,7 +1610,19 @@
       "doubleID": -1,
       "endpoints":["Charleston", "Atlanta"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments":[
+        {
+          "x": 1445,
+          "y": 744,
+          "rotation": 4
+        },
+        {
+          "x": 1513,
+          "y": 747,
+          "rotation": 4
+        }
+      ]
     },
     {
       "id": 92,
