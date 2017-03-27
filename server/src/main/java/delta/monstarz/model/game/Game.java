@@ -294,12 +294,12 @@ public class Game {
 		for (Player player : players) {
 			PlayerResult result = player.getBasePlayerResult();
 			int score = player.getScore();
-			int finished_dest_score = getPlayerFinishedDestScore(player.getUsername());
+//			int finished_dest_score = getPlayerFinishedDestScore(player.getUsername());
 //			int unfinished_dest_score = ...
-			score += finished_dest_score + unfinished_dest_score;
+//			score += finished_dest_score + unfinished_dest_score;
 			result.setScore(score);
-			result.setFinished_dests_score(finished_dest_score);
-			result.setUnfinished_dests_score(unfinished_dest_score);
+//			result.setFinished_dests_score(finished_dest_score);
+//			result.setUnfinished_dests_score(unfinished_dest_score);
 			results.add(result);
 		}
 		return results;

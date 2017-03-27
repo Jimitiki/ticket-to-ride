@@ -210,8 +210,9 @@ public class Board {
 			City node = iter.next();
 			iter.remove();
 			doneSet.add(node);
-			for (City connected : City.getConnected()) {
-				if (connected == dest.getCity2()) {
+			for (int routeID : node.getRoutes()) {
+				City connected = routes.get(routeID).getOtherCity(node);
+				if ( connected.equals(dest.getCity2()) ) {
 					return true;
 				}
 				if (!doneSet.contains(connected)) {
@@ -220,5 +221,29 @@ public class Board {
 			}
 		}
 		return false;
+	}
+
+	public String findLongestRouteOwner(List<Player> players) {
+		//TODO deal with players tying. They should each get the bonus in that case. No one has it for 0 length at the beginning
+		int longestSoFar = 0;
+		for (Player player : players) {
+			Set<City> ownedCities = new HashSet<>();
+			for (Route route : routes.values()) {
+				if (route.getOwner().equals(player.getUsername())) {
+					ownedCities.add(route.getCity1());
+					ownedCities.add(route.getCity2());
+				}
+			}
+			for (City ownedCity : ownedCities) {
+				for (int routeID : ownedCity.getRoutes()) {
+					Route route = routes.get(routeID);
+					int longest = recLongest(username, new ArrayList<Route>(), route.getLength(), ownedCity, route);
+				}
+			}
+		}
+	}
+
+	private int recLongest(String username, List<Route> used, int length, City fromCity, Route route) {
+		City city = route.getOtherCity(fromCity);
 	}
 }
