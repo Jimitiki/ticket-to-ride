@@ -8,7 +8,7 @@ public class City {
     private String name;
 	private List<Integer> routeIDs;
 
-	City(String name, int ID) {
+	public City(String name, int ID) {
 		this.name = name;
 		this.ID = ID;
 		routeIDs = new ArrayList<>();

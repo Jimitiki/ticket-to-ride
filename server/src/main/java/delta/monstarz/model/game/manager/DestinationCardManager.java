@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 
 /**
@@ -19,12 +20,25 @@ public class DestinationCardManager
 	private LinkedList<DestCard> deck;
 
 	//Constructor
-	public DestinationCardManager(JsonArray jsonDestinationCards) {
+	public DestinationCardManager(JsonArray jsonDestinationCards, List<City> cities) {
 		deck = new LinkedList<>();
 		for (int i = 0; i < jsonDestinationCards.size(); i++) {
 			JsonObject destCard = jsonDestinationCards.get(i).getAsJsonObject();
+			JsonArray endpointArray = destCard.get("endpoints").getAsJsonArray();
+			String cityName1 = endpointArray.get(0).getAsString();
+			String cityName2 = endpointArray.get(1).getAsString();
+
+			City city2 = null;
 
 			DestCard card = new DestCard(destCard);
+			for (City city : cities) {
+				if (city.getName().equals(cityName1)) {
+					card.setCity1(city);
+				}
+				else if (city.getName().equals(cityName2)) {
+					card.setCity2(city);
+				}
+			}
 			deck.add(card);
 		}
 	}

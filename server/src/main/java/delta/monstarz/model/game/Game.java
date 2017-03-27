@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
@@ -19,6 +20,7 @@ import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.Route;
@@ -66,7 +68,7 @@ public class Game {
 
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
 		trainDeck.initialize();
-		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
+		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"), board.getCities());
 	}
 
 	/**
