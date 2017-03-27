@@ -20,6 +20,7 @@ import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.PlayerResult;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
@@ -258,5 +259,22 @@ public class Game {
 				gameStarted,
 				playersNames
 		);
+	}
+
+	public List<PlayerResult> getGameResults() {
+		List<PlayerResult> results = new ArrayList<>();
+		List<Player> players = playerManager.getPlayers();
+		for (Player player : players) {
+			PlayerResult result = player.getBasePlayerResult();
+			int score = player.getScore();
+			int finished_dest_score = getPlayerFinishedDestScore(player.getUsername());
+//			int unfinished_dest_score = ...
+			score += finished_dest_score + unfinished_dest_score;
+			result.setScore(score);
+			result.setFinished_dests_score(finished_dest_score);
+			result.setUnfinished_dests_score(unfinished_dest_score);
+			results.add(result);
+		}
+		return results;
 	}
 }

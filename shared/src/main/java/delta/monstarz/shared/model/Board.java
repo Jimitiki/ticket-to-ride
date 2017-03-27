@@ -4,7 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class Board {
 
@@ -78,4 +81,25 @@ public class Board {
 			longestRouteOwner = player_username;
 		}
     }
+
+	public boolean isDestDone(DestCard dest, String username) {
+		Set<City> todoSet = new HashSet<>();
+		Set<City> doneSet = new HashSet<>();
+		todoSet.add( dest.getCity1() );
+		while (!todoSet.isEmpty()) {
+			Iterator<City> iter = todoSet.iterator();
+			City node = iter.next();
+			iter.remove();
+			doneSet.add(node);
+			for (City connected : City.getConnected()) {
+				if (connected == dest.getCity2()) {
+					return true;
+				}
+				if (!doneSet.contains(connected)) {
+					todoSet.add(connected);
+				}
+			}
+		}
+		return false;
+	}
 }

@@ -22,6 +22,10 @@ public abstract class Player {
 		trainCards = new HashMap<>();
 	}
 
+	public PlayerResult getBasePlayerResult() {
+		return new PlayerResult(username, playerColor, 0, score, 0, 0, false); //score only contains the routeScore
+	}
+
 	public String getUsername() {
 		return username;
 	}
