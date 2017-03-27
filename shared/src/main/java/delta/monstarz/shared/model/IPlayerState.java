@@ -23,5 +23,7 @@ public interface IPlayerState {
 
 	boolean canPlaceRoute();
 
+	boolean mustDrawDestinationCard();
+
 	boolean isTakingTurn();
 }

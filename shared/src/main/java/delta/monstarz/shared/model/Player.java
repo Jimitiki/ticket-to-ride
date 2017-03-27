@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class Player {
-	protected String username;
-	protected PlayerColor playerColor;
-	protected int score;
-	protected int numTrains;
-	protected int minSelection;
-	protected int gameId;
-	protected HashMap<CardColor, Integer> trainCards;
-	protected List<DestCard> destCards = new ArrayList<>();
-	protected ArrayList<DestCard> destCardChoices;
+	private String username;
+	private PlayerColor playerColor;
+	private int score;
+	private int numTrains;
+	private int minSelection;
+	private int gameId;
+	private HashMap<CardColor, Integer> trainCards;
+	private List<DestCard> destCards = new ArrayList<>();
+	private ArrayList<DestCard> destCardChoices;
 	protected IPlayerState state;
 
 	public Player(String username) {
@@ -84,9 +84,11 @@ public abstract class Player {
 
 	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
 		state.drawDestinationCards(destCardChoices);
-		//this.destCardChoices = destCardChoices;
 	}
 
+	public void clearDestCardChoices(){
+		destCardChoices = null;
+	}
 
 	public void startTurn() {
 		state.startTurn();
@@ -146,6 +148,14 @@ public abstract class Player {
 
 	public int getGoldCardCount() {
 		return trainCards.get(CardColor.GOLD);
+	}
+
+	public boolean canDrawDestinationCard(){
+		return state.canDrawDestinationCards();
+	}
+
+	public boolean mustDrawDestinationCard(){
+		return state.mustDrawDestinationCard();
 	}
 
 	public PlayerInfo playerInfo() {

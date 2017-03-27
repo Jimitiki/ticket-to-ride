@@ -54,11 +54,17 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 
 	@Override
 	public boolean canDrawDestinationCards() {
+		GamePresenter.getInstance().handleMessage("You can't draw more destination cards right now");
 		return false;
 	}
 
 	@Override
 	public boolean canPlaceRoute() {
+		return false;
+	}
+
+	@Override
+	public boolean mustDrawDestinationCard() {
 		return false;
 	}
 
