@@ -53,7 +53,7 @@ public class GameFragment extends Fragment {
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;
 
-	private MapView mapView;
+	private static MapView mapView;
 	private Button drawCard;
 	private Button placeTrain;
 	private Button viewCards;
