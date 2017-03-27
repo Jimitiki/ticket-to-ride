@@ -138,7 +138,7 @@ public class Board {
     public boolean claimRoute(int routeID, Player player, CardColor color, int goldCardCount) {
 	    Route route = routes.get(routeID);
 	    int cardCount = player.getTrainCards().get(color);
-	    if (color == CardColor.GOLD) {
+	    if (color != CardColor.GOLD) {
 		    cardCount += goldCardCount;
 	    }
 	    if (!route.isClaimed() && route.verifyCardColorByCount(color, cardCount)
