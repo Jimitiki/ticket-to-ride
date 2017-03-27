@@ -229,7 +229,7 @@ public class Board {
 		for (Player player : players) {
 			Set<City> ownedCities = new HashSet<>();
 			for (Route route : routes.values()) {
-				if (route.getOwner().equals(player.getUsername())) {
+				if (route.getOwner() != null && route.getOwner().equals(player.getUsername())) {
 					ownedCities.add(route.getCity1());
 					ownedCities.add(route.getCity2());
 				}
@@ -237,7 +237,12 @@ public class Board {
 			for (City ownedCity : ownedCities) {
 				for (int routeID : ownedCity.getRoutes()) {
 					Route route = routes.get(routeID);
-					int longest = recLongest(player.getUsername(), new ArrayList<Route>(), 0, ownedCity, route);
+					if (route.getOwner() == null || !route.getOwner().equals(player.getUsername()) ) {
+						continue;
+					}
+					List<Route> used = new ArrayList<>();
+					used.add(route);
+					int longest = recLongest(player.getUsername(), used, ownedCity, route);
 					if (longest > longestSoFar) {
 						longestSoFar = longest;
 						longestOwners = new ArrayList<>();
@@ -251,22 +256,22 @@ public class Board {
 		return longestOwners;
 	}
 
-	private int recLongest(String username, List<Route> used, int length, City fromCity, Route route) {
-		length += route.getLength();
-		int longest = length;
+	private int recLongest(String username, List<Route> used, City fromCity, Route route) {
+		int length = route.getLength();
+		int longest = 0;
 		City city = route.getOtherCity(fromCity);
 		for (int routeID : city.getRoutes()) {
 			Route nextRoute = routes.get(routeID);
-			if (!nextRoute.getOwner().equals(username) || used.contains(nextRoute)) {
+			if (nextRoute.getOwner() == null || !nextRoute.getOwner().equals(username) || used.contains(nextRoute)) {
 				continue;
 			}
 			List<Route> nextRouteUsed = new ArrayList<>(used);
 			nextRouteUsed.add(nextRoute);
-			int routeLength = recLongest(username, nextRouteUsed, length, city, nextRoute);
+			int routeLength = recLongest(username, nextRouteUsed, city, nextRoute);
 			if (routeLength > longest) {
 				longest = routeLength;
 			}
 		}
-		return longest;
+		return longest + length;
 	}
 }

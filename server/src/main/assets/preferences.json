@@ -76,7 +76,29 @@
       "doubleID": -1,
       "endpoints":["Miami", "Charleston"],
       "length":4,
-      "color": "pink"
+      "color": "pink",
+      "segments": [
+        {
+          "x": 1600,
+          "y": 765,
+          "rotation": 86
+        },
+        {
+          "x": 1603,
+          "y": 833,
+          "rotation": 81
+        },
+        {
+          "x": 1613,
+          "y": 898,
+          "rotation": 75
+        },
+        {
+          "x": 1634,
+          "y": 960,
+          "rotation": 68
+        }
+      ]
     },
     {
       "id": 5,
@@ -962,29 +984,7 @@
       "doubleID": -1,
       "endpoints":["Charleston", "Atlanta"],
       "length":2,
-      "color": "gray",
-      "segments": [
-        {
-          "x": 1600,
-          "y": 765,
-          "rotation": 86
-        },
-        {
-          "x": 1603,
-          "y": 833,
-          "rotation": 81
-        },
-        {
-          "x": 1613,
-          "y": 898,
-          "rotation": 75
-        },
-        {
-          "x": 1634,
-          "y": 960,
-          "rotation": 68
-        }
-      ]
+      "color": "gray"
     },
     {
       "id": 92,
