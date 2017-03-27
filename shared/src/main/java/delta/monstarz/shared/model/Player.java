@@ -6,23 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class Player {
-	private String username;
-	private PlayerColor playerColor;
-	private int score;
-	private int numTrains;
-	private int minSelection;
-	private int gameId;
-	private HashMap<CardColor, Integer> trainCards;
-	private List<DestCard> destCards = new ArrayList<>();
-	private ArrayList<DestCard> destCardChoices;
+	protected String username;
+	protected PlayerColor playerColor;
+	protected int score;
+	protected int numTrains;
+	protected int minSelection;
+	protected int gameId;
+	protected HashMap<CardColor, Integer> trainCards;
+	protected List<DestCard> destCards = new ArrayList<>();
+	protected ArrayList<DestCard> destCardChoices;
 	protected IPlayerState state;
 
 	public Player(String username) {
 		this.username = username;
 		trainCards = new HashMap<>();
 		CardColor[] colors = CardColor.values();
-		for (int i = 0; i < colors.length; i++) {
-			trainCards.put(colors[i], 0);
+		for (CardColor color : colors) {
+			trainCards.put(color, 0);
 		}
 	}
 
@@ -128,8 +128,8 @@ public abstract class Player {
 		destCards.addAll(cards);
 	}
 
-	public void claimRoute(Route route, CardColor cardsUsed) {
-		state.claimRoute(route);
+	public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+		state.claimRoute(route, cardsUsed, goldCardCount);
 	}
 
 	protected void internalClaimRoute(Route route) {

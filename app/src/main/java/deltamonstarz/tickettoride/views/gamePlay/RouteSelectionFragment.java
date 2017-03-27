@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -308,6 +309,7 @@ public class RouteSelectionFragment extends DialogFragment {
 		SourceCityHolder(View itemView) {
 			super(itemView);
 			cityName = (TextView) itemView.findViewById(R.id.sourceCityName);
+			cityName.setGravity(Gravity.CENTER_VERTICAL);
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -331,8 +333,8 @@ public class RouteSelectionFragment extends DialogFragment {
 		@Override
 		public void onBindViewHolder(DestinationCityHolder holder, int position) {
 			Route route = sourceRoutes.get(position);
-			holder.cityName.setText("  (" + Integer.toString(route.getLength())
-					+ ")" + route.getOtherCity(sourceCity).getName());
+			holder.cityName.setText("(" + Integer.toString(route.getLength())
+					+ ")  " + route.getOtherCity(sourceCity).getName());
 			holder.route = route;
 			holder.colorIndicator.setBackgroundColor(getResources().getColor(routeColorToColorID.get(route.getColor())));
 			if (route.equals(selectedRoute)) {
@@ -369,6 +371,7 @@ public class RouteSelectionFragment extends DialogFragment {
 
 			colorIndicator = itemView.findViewById(R.id.routeColor);
 			cityName = (TextView) itemView.findViewById(R.id.destinationCityName);
+			cityName.setGravity(Gravity.CENTER_VERTICAL);
 
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -472,10 +475,12 @@ public class RouteSelectionFragment extends DialogFragment {
 			super(itemView);
 
 			colorText = (TextView) itemView.findViewById(R.id.CardColorText);
+			colorText.setGravity(Gravity.CENTER_VERTICAL);
 
 			incr = (Button) itemView.findViewById(R.id.incr);
 			decr = (Button) itemView.findViewById(R.id.decr);
 			numInput = (EditText) itemView.findViewById(R.id.numInput);
+			numInput.setGravity(Gravity.CENTER_HORIZONTAL);
 
 			incr.setOnClickListener(new View.OnClickListener() {
 				@Override

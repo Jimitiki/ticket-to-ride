@@ -17,7 +17,7 @@ public class ServerClaimRouteCommand extends ClaimRouteCommand {
 	@Override
 	public void execute() {
 		Game game = GameManager.getInstance().getGameByID(gameID);
-		if (!game.claimRoute(routeID, username, cardsUsed)) {
+		if (!game.claimRoute(routeID, username, cardsUsed, goldCardCount)) {
 			System.out.print("could not claim route");
 		}
 		Player player = game.getPlayerByUsername(username);

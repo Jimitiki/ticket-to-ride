@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import sun.rmi.runtime.Log;
-
 public class Board {
 
 	//Data Members
@@ -137,9 +135,13 @@ public class Board {
 	}
 
 	//checks if the player can claim the given route with the specified card color
-    public boolean claimRoute(int routeID, Player player, CardColor color) {
+    public boolean claimRoute(int routeID, Player player, CardColor color, int goldCardCount) {
 	    Route route = routes.get(routeID);
-	    if (!route.isClaimed() && route.verifyCardColorByCount(color, player.getTrainCards().get(color))
+	    int cardCount = player.getTrainCards().get(color);
+	    if (color == CardColor.GOLD) {
+		    cardCount += goldCardCount;
+	    }
+	    if (!route.isClaimed() && route.verifyCardColorByCount(color, cardCount)
 			    && verifyDoubleRouteClaim(route, player.getUsername())) {
 		    routes.get(routeID).claim(player.getUsername(), player.getPlayerColor());
 		    return true;

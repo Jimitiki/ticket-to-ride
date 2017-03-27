@@ -247,14 +247,19 @@ public class Game {
 	 * from the player's hand, and adding them to the deck
 	 * @return true if successful, else false
 	 */
-	public boolean claimRoute(int routeID, String username, CardColor cardsUsed) {
+	public boolean claimRoute(int routeID, String username, CardColor cardsUsed, int goldCardCount) {
 		Player player = playerManager.getPlayerByName(username);
-		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed)) {
+
+		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed, goldCardCount)) {
 			Route route = board.getRouteByID(routeID);
 			for (int i = 0; i < route.getLength(); i++) {
-				trainDeck.addCard(new TrainCard(cardsUsed));
+				if (i < goldCardCount) {
+					trainDeck.addCard(new TrainCard(CardColor.GOLD));
+				} else {
+					trainDeck.addCard(new TrainCard(cardsUsed));
+				}
 			}
-			player.claimRoute(board.getRouteByID(routeID), cardsUsed);
+			player.claimRoute(board.getRouteByID(routeID), cardsUsed, goldCardCount);
 			return true;
 		}
 		return false;
