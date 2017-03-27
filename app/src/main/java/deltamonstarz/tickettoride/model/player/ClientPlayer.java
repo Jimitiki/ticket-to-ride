@@ -111,6 +111,11 @@ public class ClientPlayer extends Player {
 		public boolean canSelectTrainCard(TrainCard card) {
 			return true;
 		}
+
+		@Override
+		public boolean canDrawDestinationCards() {
+			return true;
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -154,6 +159,11 @@ public class ClientPlayer extends Player {
 		public void selectDestinationCards(ArrayList<DestCard> cards) {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
+		}
+
+		@Override
+		public boolean mustDrawDestinationCard() {
+			return true;
 		}
 	}
 

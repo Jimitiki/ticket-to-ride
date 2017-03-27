@@ -24,6 +24,7 @@ import java.util.List;
 import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
@@ -123,12 +124,13 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
+				Player player = ClientModel.getInstance().getGame().getMe();
 
-				if (ClientModel.getInstance().getGame().getMe().getDestCards().size() >= 2){
-					launchChooseCardDialog();
+				if (player.getDestCards().size() < 2 || player.mustDrawDestinationCard()){
+					launchDestinationChooserDialog();
 				}
 				else{
-					launchDestinationChooserDialog();
+					launchChooseCardDialog();
 				}
 
 			}

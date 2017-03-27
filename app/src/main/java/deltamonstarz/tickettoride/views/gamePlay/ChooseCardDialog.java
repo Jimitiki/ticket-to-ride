@@ -21,12 +21,14 @@ import java.io.InputStream;
 import java.util.List;
 
 import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.presenters.ChooseCardPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
+import deltamonstarz.tickettoride.presenters.GamePresenter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -196,10 +198,11 @@ public class ChooseCardDialog extends DialogFragment {
 	}
 
 	private void processDestinationCardClick(){
-		// Todo: Swap out to the destination selection dialog
-	}
-
-	private void processCardClick(View view, boolean selected){
+		Player player = ClientModel.getInstance().getGame().getMe();
+		if (player.canDrawDestinationCard()) {
+			GamePresenter.getInstance().chooseMoreDestinationCards();
+			dismiss();
+		}
 	}
 
 	private void acceptClick(){
