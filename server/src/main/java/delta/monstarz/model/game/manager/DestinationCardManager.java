@@ -25,12 +25,20 @@ public class DestinationCardManager
 		for (int i = 0; i < jsonDestinationCards.size(); i++) {
 			JsonObject destCard = jsonDestinationCards.get(i).getAsJsonObject();
 			JsonArray endpointArray = destCard.get("endpoints").getAsJsonArray();
-			String city1 = endpointArray.get(0).getAsString();
-			String city2 = endpointArray.get(1).getAsString();
+			String cityName1 = endpointArray.get(0).getAsString();
+			String cityName2 = endpointArray.get(1).getAsString();
+
+			City city2 = null;
 
 			DestCard card = new DestCard(destCard);
-			card.setCity1(new City(city1, 0));
-			card.setCity2(new City(city2, 0));
+			for (City city : cities) {
+				if (city.getName().equals(cityName1)) {
+					card.setCity1(city);
+				}
+				else if (city.getName().equals(cityName2)) {
+					card.setCity2(city);
+				}
+			}
 			deck.add(card);
 		}
 	}

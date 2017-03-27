@@ -1181,7 +1181,7 @@
   ],
   "DestinationCards":[
     {
-      "endpoints":["Los Angeles", "New York City"],
+      "endpoints":["Los Angeles", "New York"],
       "points": 21
     },
     {
@@ -1189,7 +1189,7 @@
       "points": 8
     },
     {
-      "endpoints":["Sault Ste Marie", "Nashville"],
+      "endpoints":["Sault Ste. Marie", "Nashville"],
       "points": 8
     },
     {
@@ -1201,7 +1201,7 @@
       "points": 17
     },
     {
-      "endpoints":["Vancouver", "Montréal"],
+      "endpoints":["Vancouver", "Montreal"],
       "points": 20
     },
     {
