@@ -223,9 +223,9 @@ public class Board {
 		return false;
 	}
 
-	public String findLongestRouteOwner(List<Player> players) {
-		//TODO deal with players tying. They should each get the bonus in that case. No one has it for 0 length at the beginning
-		int longestSoFar = 0;
+	public List<Player> findLongestRouteOwners(List<Player> players) { //return a list in case people tie...
+		int longestSoFar = 1; //to prevent anyone qualifying as longest with no trains at beginning
+		List<Player> longestOwners = new ArrayList<>();
 		for (Player player : players) {
 			Set<City> ownedCities = new HashSet<>();
 			for (Route route : routes.values()) {
@@ -237,13 +237,36 @@ public class Board {
 			for (City ownedCity : ownedCities) {
 				for (int routeID : ownedCity.getRoutes()) {
 					Route route = routes.get(routeID);
-					int longest = recLongest(username, new ArrayList<Route>(), route.getLength(), ownedCity, route);
+					int longest = recLongest(player.getUsername(), new ArrayList<Route>(), 0, ownedCity, route);
+					if (longest > longestSoFar) {
+						longestSoFar = longest;
+						longestOwners = new ArrayList<>();
+					}
+					if (longest == longestSoFar && !longestOwners.contains(player)) {
+						longestOwners.add(player);
+					}
 				}
 			}
 		}
+		return longestOwners;
 	}
 
 	private int recLongest(String username, List<Route> used, int length, City fromCity, Route route) {
+		length += route.getLength();
+		int longest = length;
 		City city = route.getOtherCity(fromCity);
+		for (int routeID : city.getRoutes()) {
+			Route nextRoute = routes.get(routeID);
+			if (!nextRoute.getOwner().equals(username) || used.contains(nextRoute)) {
+				continue;
+			}
+			List<Route> nextRouteUsed = new ArrayList<>(used);
+			nextRouteUsed.add(nextRoute);
+			int routeLength = recLongest(username, nextRouteUsed, length, city, nextRoute);
+			if (routeLength > longest) {
+				longest = routeLength;
+			}
+		}
+		return longest;
 	}
 }
