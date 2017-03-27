@@ -119,4 +119,14 @@ public class PlayerManager
 	public void setStartingNumberOfTrains(int startTrains) {
 		this.startingNumberOfTrains = startTrains;
 	}
+
+	public void updateLongest(List<Player> longestRouteOwners) {
+		for (Player player : players) {
+			if (longestRouteOwners.contains(player)) {
+				player.setHasLongest(true);
+			} else {
+				player.setHasLongest(false);
+			}
+		}
+	}
 }

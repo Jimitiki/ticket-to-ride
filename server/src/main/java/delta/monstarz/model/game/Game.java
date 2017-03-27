@@ -18,6 +18,7 @@ import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
+import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.City;
@@ -263,6 +264,8 @@ public class Game {
 				}
 			}
 			player.claimRoute(board.getRouteByID(routeID), cardsUsed, goldCardCount);
+			List<Player> longestRouteOwners = board.findLongestRouteOwners(playerManager.getPlayers());
+			playerManager.updateLongest(longestRouteOwners);
 			return true;
 		}
 		return false;
@@ -305,5 +308,11 @@ public class Game {
 			results.add(result);
 		}
 		return results;
+	}
+
+	public void addPlayerInfoCommands() {
+		for (Player player : playerManager.getPlayers()) {
+			addCommand(new UpdatePlayerInfoCommand(player.getUsername(), gameID, player.playerInfo()));
+		}
 	}
 }
