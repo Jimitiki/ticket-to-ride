@@ -29,8 +29,8 @@ public class MapView extends View {
 	private List<Route> claimedRoutes = new ArrayList<>();
 
 	private final float TRAIN_SCALE = (float) 0.18;
-	private final int TRAIN_OFFSET_X = -2;
-	private final int TRAIN_OFFSET_Y = -3;
+	private final int TRAIN_OFFSET_X = 200;
+	private final int TRAIN_OFFSET_Y = 45;
 
 	private final static String[] TRAIN_IMAGES = {
 			"Blue.png",
@@ -115,8 +115,9 @@ public class MapView extends View {
 
 			Matrix matrix = new Matrix();
 			matrix.postRotate(segment.getRotation());
-			matrix.postTranslate(segment.getX() + TRAIN_OFFSET_X, segment.getY() + TRAIN_OFFSET_Y);
+			matrix.postTranslate(segment.getX(), segment.getY());
 			matrix.postScale(mapScaleX, mapScaleY);
+			matrix.postTranslate(TRAIN_OFFSET_X, TRAIN_OFFSET_Y);
 
 			canvas.save();
 			canvas.setMatrix(matrix);
