@@ -211,7 +211,11 @@ public class Board {
 			iter.remove();
 			doneSet.add(node);
 			for (int routeID : node.getRoutes()) {
-				City connected = routes.get(routeID).getOtherCity(node);
+				Route route = routes.get(routeID);
+				if (route.getOwner() == null || !route.getOwner().equals(username)) {
+					continue;
+				}
+				City connected = route.getOtherCity(node);
 				if ( connected.equals(dest.getCity2()) ) {
 					return true;
 				}

@@ -75,6 +75,7 @@ public class GameResultsFragment extends Fragment {
 		private TextView routes;
 		private TextView finished_destinations;
 		private TextView unfinished_destinations;
+		private TextView longest_route;
 
 		private PlayerResult result;
 
@@ -89,6 +90,7 @@ public class GameResultsFragment extends Fragment {
 			routes = (TextView) v.findViewById(R.id.routes);
 			finished_destinations = (TextView) v.findViewById(R.id.finished_destinations);
 			unfinished_destinations = (TextView) v.findViewById(R.id.unfinished_destinations);
+			longest_route = (TextView) v.findViewById(R.id.longest_route);
 		}
 	}
 
@@ -118,7 +120,7 @@ public class GameResultsFragment extends Fragment {
 			holder.routes.setText(String.valueOf(holder.result.getRoute_score()));
 			holder.finished_destinations.setText(String.valueOf(holder.result.getFinished_dests_score()));
 			holder.unfinished_destinations.setText(String.valueOf(holder.result.getUnfinished_dests_score()));
-
+			holder.longest_route.setText(String.valueOf(holder.result.getLongestRoute()));
 		}
 
 		@Override

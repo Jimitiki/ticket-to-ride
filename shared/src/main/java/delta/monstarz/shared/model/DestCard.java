@@ -34,4 +34,8 @@ public class DestCard {
 	public void setCity2(City city2) {
 		this.city2 = city2;
 	}
+
+	public int getValue() {
+		return value;
+	}
 }

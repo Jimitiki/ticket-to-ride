@@ -79,4 +79,12 @@ public class PlayerResult {
 	public void setHasLongestRoute(boolean hasLongestRoute) {
 		this.hasLongestRoute = hasLongestRoute;
 	}
+
+	public String getLongestRoute() {
+		if (hasLongestRoute) {
+			return "10";
+		} else {
+			return "0";
+		}
+	}
 }
