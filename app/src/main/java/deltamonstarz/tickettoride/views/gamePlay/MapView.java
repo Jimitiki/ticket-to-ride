@@ -30,7 +30,7 @@ public class MapView extends View {
 
 	private final float TRAIN_SCALE = (float) 0.18;
 	private final int TRAIN_OFFSET_X = 200;
-	private final int TRAIN_OFFSET_Y = 45;
+	private final int TRAIN_OFFSET_Y = 48;
 
 	private final static String[] TRAIN_IMAGES = {
 			"Blue.png",

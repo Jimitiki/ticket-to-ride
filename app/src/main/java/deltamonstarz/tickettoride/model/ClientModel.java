@@ -201,7 +201,7 @@ public class ClientModel extends Observable{
 		for (Route route : routes.values()) {
 			if (route.getSegments() != null) {
 				goodRoutes.add(route);
-				route.setTrainColor(PlayerColor.BLACK);
+				route.setTrainColor(PlayerColor.YELLOW);
 			}
 		}
 		return goodRoutes;

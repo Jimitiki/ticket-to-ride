@@ -23,12 +23,14 @@ public class Route {
 	    doubleID = jsonRoute.get("doubleID").getAsInt();
 
         //Parse the Segments
-        // TODO: get rid of condition when all segments are added to json
         segments = new ArrayList<>();
         if (jsonRoute.has("segments")) {
             JsonArray jsonSegments = jsonRoute.get("segments").getAsJsonArray();
             for (int i = 0; i < jsonSegments.size(); i++) {
-                segments.add(new Segment(jsonSegments.get(i).getAsJsonObject()));
+	            // TODO: get rid of try-catch when all segments are added to json
+	            try {
+		            segments.add(new Segment(jsonSegments.get(i).getAsJsonObject()));
+	            } catch (Exception e) {}
             }
         }
 
