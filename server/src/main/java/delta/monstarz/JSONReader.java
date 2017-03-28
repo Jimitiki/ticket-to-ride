@@ -15,8 +15,7 @@ public class JSONReader {
 //		{
 //			String contents = new String(Files.readAllBytes(Paths.get(fileLocation)));
 			String contents = jsonString;
-//			InputStream stream = JSONReader.class.getClassLoader().getResourceAsStream("/server/src/main/assets/preferences.json");
-//			String contents = convertStreamToString(stream);
+
 			//Parse JSON
 			JsonParser parser = new JsonParser();
 			json = parser.parse(contents).getAsJsonObject();
@@ -27,10 +26,6 @@ public class JSONReader {
 //		}
 		return json;
 	}
-//	static String convertStreamToString(java.io.InputStream is) {
-//		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-//		return s.hasNext() ? s.next() : "";
-//	}
 
 	private static String jsonString = "{" +
 			"  \"TrainCount\": 45," +
