@@ -34,4 +34,5 @@ public class City {
 	public boolean equals(Object o) {
 		return o != null && o instanceof City && ((City) o).getID() == ID;
 	}
+
 }

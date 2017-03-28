@@ -22,7 +22,7 @@ public class ServerClaimRouteCommand extends ClaimRouteCommand {
 		} else {
 			Player player = game.getPlayerByUsername(username);
 			game.addCommand(this);
-			game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()));
+			game.addPlayerInfoCommands();
 		}
 	}
 }

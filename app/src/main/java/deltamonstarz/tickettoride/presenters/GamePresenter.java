@@ -92,6 +92,9 @@ public class GamePresenter extends BasePresenter {
 			case ROUTE:
 				gameFragment.onRouteClaimed(model.getClaimedRoutes());
 				gameFragment.updateCardCounts();
+				break;
+			case END_GAME:
+				activity.onGameEnd();
 		}
 	}
 

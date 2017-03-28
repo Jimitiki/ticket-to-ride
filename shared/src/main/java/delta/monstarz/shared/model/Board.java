@@ -4,8 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 
 public class Board {
@@ -197,4 +200,82 @@ public class Board {
 	    Route doubleRoute = routes.get(route.getDoubleID());
 	    return (!doubleRoute.isClaimed() || (numPlayers > 3  && !username.equals(doubleRoute.getOwner())));
     }
+
+	public boolean isDestDone(DestCard dest, String username) {
+		Set<City> todoSet = new HashSet<>();
+		Set<City> doneSet = new HashSet<>();
+		todoSet.add( dest.getCity1() );
+		while (!todoSet.isEmpty()) {
+			Iterator<City> iter = todoSet.iterator();
+			City node = iter.next();
+			iter.remove();
+			doneSet.add(node);
+			for (int routeID : node.getRoutes()) {
+				Route route = routes.get(routeID);
+				if (route.getOwner() == null || !route.getOwner().equals(username)) {
+					continue;
+				}
+				City connected = route.getOtherCity(node);
+				if ( connected.equals(dest.getCity2()) ) {
+					return true;
+				}
+				if (!doneSet.contains(connected)) {
+					todoSet.add(connected);
+				}
+			}
+		}
+		return false;
+	}
+
+	public List<Player> findLongestRouteOwners(List<Player> players) { //return a list in case people tie...
+		int longestSoFar = 1; //to prevent anyone qualifying as longest with no trains at beginning
+		List<Player> longestOwners = new ArrayList<>();
+		for (Player player : players) {
+			Set<City> ownedCities = new HashSet<>();
+			for (Route route : routes.values()) {
+				if (route.getOwner() != null && route.getOwner().equals(player.getUsername())) {
+					ownedCities.add(route.getCity1());
+					ownedCities.add(route.getCity2());
+				}
+			}
+			for (City ownedCity : ownedCities) {
+				for (int routeID : ownedCity.getRoutes()) {
+					Route route = routes.get(routeID);
+					if (route.getOwner() == null || !route.getOwner().equals(player.getUsername()) ) {
+						continue;
+					}
+					List<Route> used = new ArrayList<>();
+					used.add(route);
+					int longest = recLongest(player.getUsername(), used, ownedCity, route);
+					if (longest > longestSoFar) {
+						longestSoFar = longest;
+						longestOwners = new ArrayList<>();
+					}
+					if (longest == longestSoFar && !longestOwners.contains(player)) {
+						longestOwners.add(player);
+					}
+				}
+			}
+		}
+		return longestOwners;
+	}
+
+	private int recLongest(String username, List<Route> used, City fromCity, Route route) {
+		int length = route.getLength();
+		int longest = 0;
+		City city = route.getOtherCity(fromCity);
+		for (int routeID : city.getRoutes()) {
+			Route nextRoute = routes.get(routeID);
+			if (nextRoute.getOwner() == null || !nextRoute.getOwner().equals(username) || used.contains(nextRoute)) {
+				continue;
+			}
+			List<Route> nextRouteUsed = new ArrayList<>(used);
+			nextRouteUsed.add(nextRoute);
+			int routeLength = recLongest(username, nextRouteUsed, city, nextRoute);
+			if (routeLength > longest) {
+				longest = routeLength;
+			}
+		}
+		return longest + length;
+	}
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class Player {
 	private String username;
 	private PlayerColor playerColor;
-	private int score;
+	private int routeScore;
 	private int numTrains;
 	private int minSelection;
 	private int gameId;
@@ -16,6 +16,7 @@ public abstract class Player {
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
 	protected IPlayerState state;
+	private boolean hasLongest;
 
 	public Player(String username) {
 		this.username = username;
@@ -24,6 +25,11 @@ public abstract class Player {
 		for (CardColor color : colors) {
 			trainCards.put(color, 0);
 		}
+		hasLongest = false;
+	}
+
+	public PlayerResult getBasePlayerResult() {
+		return new PlayerResult(username, playerColor, getScore(), routeScore, 0, 0, hasLongest); //score only contains the routeScore
 	}
 
 	public String getUsername() {
@@ -43,11 +49,15 @@ public abstract class Player {
 	}
 
 	public int getScore() {
-		return score;
+		int scorePlusLongest = routeScore;
+		if (hasLongest) {
+			scorePlusLongest += 10;
+		}
+		return scorePlusLongest;
 	}
 
 	public void setScore(int score) {
-		this.score = score;
+		this.routeScore = score;
 	}
 
 	public int getNumTrains() {
@@ -138,7 +148,7 @@ public abstract class Player {
 		int routeLength = route.getLength();
 		int routeValue = (int) (.5 * routeLength * routeLength - 0.6 * routeLength + 1.4);
 		numTrains -= routeLength;
-		score += routeValue;
+		routeScore += routeValue;
 
 		if (cardsUsed != CardColor.GOLD) {
 			int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
@@ -174,8 +184,10 @@ public abstract class Player {
 		for (int n : card_nums) {
 			numTrainsCards += n;
 		}
-
-		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn());
+		return new PlayerInfo(username, playerColor, getScore(), numTrainsCards, destCards.size(), numTrains, hasLongest, isTakingTurn());
 	}
 
+	public void setHasLongest(boolean hasLongest) {
+		this.hasLongest = hasLongest;
+	}
 }
