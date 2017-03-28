@@ -10,10 +10,6 @@ import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
 
-/**
- * Created by Trevor on 3/20/2017.
- */
-
 public class ClientPlayer extends Player {
 
 	public ClientPlayer(String username) {
@@ -97,8 +93,8 @@ public class ClientPlayer extends Player {
 		}
 
 		@Override
-		public void claimRoute(Route route) {
-			// Todo: Add functionality here
+		public void claimRoute(Route route, CardColor cardsUsed, int goldCardsUsed) {
+			internalClaimRoute(route, cardsUsed, goldCardsUsed);
 			state = new InactiveState();
 		}
 
@@ -109,6 +105,16 @@ public class ClientPlayer extends Player {
 
 		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
+			return true;
+		}
+
+		@Override
+		public boolean canDrawDestinationCards() {
+			return true;
+		}
+
+		@Override
+		public boolean canPlaceRoute() {
 			return true;
 		}
 	}
@@ -154,6 +160,11 @@ public class ClientPlayer extends Player {
 		public void selectDestinationCards(ArrayList<DestCard> cards) {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
+		}
+
+		@Override
+		public boolean mustDrawDestinationCard() {
+			return true;
 		}
 	}
 

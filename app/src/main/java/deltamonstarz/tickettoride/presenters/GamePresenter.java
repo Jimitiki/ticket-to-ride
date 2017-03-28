@@ -5,10 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import delta.monstarz.shared.commands.ClaimRouteCommand;
 import delta.monstarz.shared.commands.StartGameCommand;
+import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.Poller;
+import deltamonstarz.tickettoride.model.ClientGame;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.GameActivity;
 import deltamonstarz.tickettoride.views.gamePlay.GameFragment;
@@ -29,6 +33,7 @@ public class GamePresenter extends BasePresenter {
 	private GameFragment gameFragment;
 	private Poller poller;
 	private static GamePresenter presenter;
+	private ClientGame game;
 
 	private GamePresenter() {
 		super();
@@ -68,6 +73,7 @@ public class GamePresenter extends BasePresenter {
 				lobbyFragment.onPlayerJoin(model.getPlayers());
 				break;
 			case START_GAME:
+				game = model.getGame();
 				activity.onGameStart(model.getMapImagePath());
 				break;
 			case DEST_CARDS:
@@ -85,6 +91,10 @@ public class GamePresenter extends BasePresenter {
 				break;
 			case ROUTE:
 				gameFragment.onRouteClaimed(model.getClaimedRoutes());
+				gameFragment.updateCardCounts();
+				break;
+			case END_GAME:
+				activity.onGameEnd();
 		}
 	}
 
@@ -137,22 +147,6 @@ public class GamePresenter extends BasePresenter {
 		poller.endPoll();
 	}
 
-	/**
-	 * retrieves a summary of the other players' states from the model to be displayed by the view.
-	 * @return collection of PlayerInfo objects
-	 */
-//	public List<PlayerInfo> getOpponentInfo() {
-//		return null;
-//	}
-
-	/**
-	 * retrieves the game information of the user from the client model to be displayed by the view.
-	 * @return PlayerInfo object
-	 */
-//	public PlayerInfo getPlayerInfo() {
-//		return null;
-//	}
-
 	public void handleMessage(String text){
 		if (gameFragment != null){
 			Message message = gameFragment.handler.obtainMessage(-1, text);
@@ -160,8 +154,32 @@ public class GamePresenter extends BasePresenter {
 		}
 	}
 
+	public void chooseMoreDestinationCards(){
+		gameFragment.launchDestinationChooserDialog();
+	}
+
 	public List<DestCard> getDestinationCards() {
 		return model.getDestinationCards();
+	}
+
+	public List<Route> getClaimedRoutes() {
+		return game.getBoard().getClaimedRoutes();
+	}
+
+	//TODO: delete this before merge
+	public void routeCheck() {
+		try {
+			Board board = game.getBoard();
+			List<Route> availRoutes = board.getAvailableRoutes(game.getMe());
+			Route route = availRoutes.get((int) (Math.random() * availRoutes.size()));
+			ClaimRouteCommand command = new ClaimRouteCommand(model.getUsername(), model.getGameID(),
+					route.getID(), CardColor.GOLD, 10);
+			proxy.sendCommand(model.getAuthToken(), command);
+		} catch (Exception e) {
+			e.printStackTrace();
+			String ex = e.toString();
+			System.out.print(ex);
+		}
 	}
 
 	//TODO: delete this when all route data is added to json

@@ -74,12 +74,12 @@ public class TrainCardManager
 	/**
 	 * Adds a card to the deck.
 	 */
-	public void addCard(TrainCard card)
-	{
+	public void addCard(TrainCard card) {
 		deck.add(card);
+		shuffle();
 	}
 
-	public void shuffle()
+	private void shuffle()
 	{
 		Collections.shuffle(deck);
 	}

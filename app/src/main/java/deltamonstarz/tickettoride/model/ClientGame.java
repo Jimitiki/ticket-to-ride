@@ -7,7 +7,9 @@ import delta.monstarz.shared.Message;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
+import delta.monstarz.shared.model.PlayerResult;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.model.player.ClientPlayer;
@@ -22,7 +24,8 @@ public class ClientGame {
 	private List<String> players;
 	private List<Message> chatHistory;
 	private List<TrainCard> faceUpCards;
-	CardColor mostRecentCardColor;
+	private List<PlayerResult> gameResults;
+	private CardColor mostRecentCardColor;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -33,6 +36,9 @@ public class ClientGame {
 		for (int i = 0; i < 5; i++) {
 			faceUpCards.add(null);
 		}
+		gameResults = new ArrayList<>();
+		gameResults.add(new PlayerResult(me.getUsername(), PlayerColor.GREEN, 200, 100, 150, -50, true));
+		gameResults.add(new PlayerResult("Brad", PlayerColor.BLACK, 140, 30, 112, -2, false));
 	}
 
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
@@ -127,8 +133,14 @@ public class ClientGame {
 		me.selectDestinationCards(cards);
 	}
 
-	public void placeRoute(String player_username, Route route, boolean hasLongest) {
-		board.placeRoute(player_username, route, hasLongest);
+	public void placeRoute(String username, int routeID) {
+		Route route = board.getRouteByID(routeID);
+		for (PlayerInfo player : playerInfos) {
+			if (player.getUsername().equals(username)) {
+				route.claim(username, player.getPlayerColor());
+				return;
+			}
+		}
 	}
 
 	public void addPlayer(String username) {
@@ -169,15 +181,20 @@ public class ClientGame {
 		return board.getImageID();
 	}
 
-	public List<Route> getRoutes() {
-		return board.getRoutes();
-	}
-
 	public List<TrainCard> getFaceUpCards() {
 		return faceUpCards;
 	}
 
 	public CardColor getMostRecentCardColor() {
 		return mostRecentCardColor;
+	}
+
+	public void endGame(List<PlayerResult> results) {
+		gameResults = results;
+		ClientModel.getInstance().notifyPresenter(UpdateType.END_GAME);
+	}
+
+	public List<PlayerResult> getGameResults() {
+		return gameResults;
 	}
 }

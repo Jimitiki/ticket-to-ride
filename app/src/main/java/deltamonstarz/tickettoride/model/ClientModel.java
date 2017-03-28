@@ -1,7 +1,9 @@
 package deltamonstarz.tickettoride.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import delta.monstarz.shared.GameInfo;
@@ -75,13 +77,9 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.DEST_CARDS);
 	}
 
-	public synchronized void placeRoute(String player_username, Route route, boolean hasLongest) {
-		game.placeRoute(player_username, route, hasLongest);
+	public synchronized void placeRoute(String player_username, int routeID) {
+		game.placeRoute(player_username, routeID);
 		notifyPresenter(UpdateType.ROUTE);
-	}
-
-	public synchronized void setBoard(Board board) {
-		game.setBoard(board);
 	}
 
 	public synchronized void setAvailableGames(List<GameInfo> availableGames) {
@@ -92,9 +90,8 @@ public class ClientModel extends Observable{
 
 	public synchronized void startGame(Board board) {
 		game.setStarted(true);
-		setBoard(board);
+		game.setBoard(board);
 		notifyPresenter(UpdateType.START_GAME);
-		//DummyData.doTest();
 	}
 
 	public synchronized void addPlayer(String username) {
@@ -114,7 +111,7 @@ public class ClientModel extends Observable{
 	}
 
 	public synchronized void joinGame(int gameID) {
-		newGame(gameID);
+		game = new ClientGame(gameID);
 		notifyPresenter(UpdateType.JOIN_GAME);
 	}
 
@@ -139,7 +136,7 @@ public class ClientModel extends Observable{
 		notifyPresenter(UpdateType.LEAVE_GAME);
 	}
 
-	public synchronized void notifyPresenter(UpdateType updateType) {
+	synchronized void notifyPresenter(UpdateType updateType) {
 		setChanged();
 		notifyObservers(updateType);
 	}
@@ -152,19 +149,12 @@ public class ClientModel extends Observable{
 		return game;
 	}
 
-	public synchronized void newGame(int gameID) {
-		game = new ClientGame(gameID);
-	}
-
 	public void drawDestinationCards(ArrayList<DestCard> choices, int minSelection) {
-		setDestCardChoices(choices);
-		setMinSelection(minSelection);
+		game.setDestCardChoices(choices);
+		game.setMinSelection(minSelection);
 		notifyPresenter(UpdateType.DRAW_DEST_CARDS);
 	}
 
-	public void setDestCardChoices(ArrayList<DestCard> choices) {
-		game.setDestCardChoices(choices);
-	}
 	public ArrayList<DestCard> getDestCardChoices() {return game.getDestCardChoices();}
 
 	public List<Message> getChatHistory() {
@@ -173,10 +163,6 @@ public class ClientModel extends Observable{
 
 	public int getMinSelection() {
 		return game.getMinSelection();
-	}
-
-	public void setMinSelection(int minSelection) {
-		game.setMinSelection(minSelection);
 	}
 
 	public Message getLastMessage() {
@@ -203,27 +189,16 @@ public class ClientModel extends Observable{
 		return game.getMe().getDestCards();
 	}
 
-	public List<Route> getRoutes() {
-		return game.getRoutes();
-	}
-
 	public List<Route> getClaimedRoutes() {
-		List<Route> routes = game.getRoutes();
-		List<Route> claimedRoutes = new ArrayList<>();
-		for (Route route : routes) {
-			if (route.getOwner() != null) {
-				claimedRoutes.add(route);
-			}
-		}
-		return claimedRoutes;
+		return game.getBoard().getClaimedRoutes();
 	}
 
-	//this function name rules, shut up
+	//this function name is fine
 	//TODO: delete this
 	public List<Route> getGoodRoutes() {
-		List<Route> routes = game.getRoutes();
+		Map<Integer, Route> routes = game.getBoard().getRoutes();
 		List<Route> goodRoutes = new ArrayList<>();
-		for (Route route : routes) {
+		for (Route route : routes.values()) {
 			if (route.getSegments() != null) {
 				goodRoutes.add(route);
 				route.setTrainColor(PlayerColor.BLACK);

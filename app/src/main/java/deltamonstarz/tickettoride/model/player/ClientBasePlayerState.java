@@ -2,15 +2,12 @@ package deltamonstarz.tickettoride.model.player;
 
 import java.util.ArrayList;
 
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.IPlayerState;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
-
-/**
- * Created by Trevor on 3/21/2017.
- */
 
 public abstract class ClientBasePlayerState implements IPlayerState {
 	@Override
@@ -39,7 +36,7 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 	}
 
 	@Override
-	public void claimRoute(Route route) {
+	public void claimRoute(Route route, CardColor cardsUsed, int goldCardsUsed) {
 		//GamePresenter.getInstance().handleMessage("You can't claim a route when it is not your turn");
 	}
 
@@ -57,11 +54,17 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 
 	@Override
 	public boolean canDrawDestinationCards() {
+		GamePresenter.getInstance().handleMessage("You can't draw more destination cards right now");
 		return false;
 	}
 
 	@Override
 	public boolean canPlaceRoute() {
+		return false;
+	}
+
+	@Override
+	public boolean mustDrawDestinationCard() {
 		return false;
 	}
 

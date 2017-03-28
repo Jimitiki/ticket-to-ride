@@ -30,7 +30,7 @@ public class ServerSelectDestCardsCommand extends SelectDestCardsCommand
 		player.selectDestinationCards(selection);
 		// This is set to null because the server caches the destination cards the player has committed to choose from
 		// Once they have made a decision the player no longer is restricted to choosing from the cached cards
-		player.setDestCardChoices(null);
+		player.clearDestCardChoices();
 		game.getDestDeck().returnCards(discard);
 		game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()) );
 

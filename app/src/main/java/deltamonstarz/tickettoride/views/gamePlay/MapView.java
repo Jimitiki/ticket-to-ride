@@ -26,7 +26,7 @@ public class MapView extends View {
 	private static RectF destRect;
 	private static float mapScaleX;
 	private static float mapScaleY;
-	private static List<Route> claimedRoutes = new ArrayList<>();
+	private List<Route> claimedRoutes = new ArrayList<>();
 
 	private final float TRAIN_SCALE = (float) 0.18;
 	private final int TRAIN_OFFSET_X = -2;

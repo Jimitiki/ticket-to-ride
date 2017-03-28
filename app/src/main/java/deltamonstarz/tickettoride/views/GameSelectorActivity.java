@@ -323,25 +323,4 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

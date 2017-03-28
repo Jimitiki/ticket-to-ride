@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class Player {
 	private String username;
 	private PlayerColor playerColor;
-	private int score;
+	private int routeScore;
 	private int numTrains;
 	private int minSelection;
 	private int gameId;
@@ -16,10 +16,20 @@ public abstract class Player {
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
 	protected IPlayerState state;
+	private boolean hasLongest;
 
 	public Player(String username) {
 		this.username = username;
 		trainCards = new HashMap<>();
+		CardColor[] colors = CardColor.values();
+		for (CardColor color : colors) {
+			trainCards.put(color, 0);
+		}
+		hasLongest = false;
+	}
+
+	public PlayerResult getBasePlayerResult() {
+		return new PlayerResult(username, playerColor, getScore(), routeScore, 0, 0, hasLongest); //score only contains the routeScore
 	}
 
 	public String getUsername() {
@@ -39,11 +49,15 @@ public abstract class Player {
 	}
 
 	public int getScore() {
-		return score;
+		int scorePlusLongest = routeScore;
+		if (hasLongest) {
+			scorePlusLongest += 10;
+		}
+		return scorePlusLongest;
 	}
 
 	public void setScore(int score) {
-		this.score = score;
+		this.routeScore = score;
 	}
 
 	public int getNumTrains() {
@@ -80,9 +94,11 @@ public abstract class Player {
 
 	public void setDestCardChoices(ArrayList<DestCard> destCardChoices) {
 		state.drawDestinationCards(destCardChoices);
-		//this.destCardChoices = destCardChoices;
 	}
 
+	public void clearDestCardChoices(){
+		destCardChoices = null;
+	}
 
 	public void startTurn() {
 		state.startTurn();
@@ -124,12 +140,22 @@ public abstract class Player {
 		destCards.addAll(cards);
 	}
 
-	public void claimRoute(Route route) {
-		state.claimRoute(route);
+	public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+		state.claimRoute(route, cardsUsed, goldCardCount);
 	}
 
-	protected void internalClaimRoute(Route route) {
+	protected void internalClaimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+		int routeLength = route.getLength();
+		int routeValue = (int) (.5 * routeLength * routeLength - 0.6 * routeLength + 1.4);
+		numTrains -= routeLength;
+		routeScore += routeValue;
 
+		if (cardsUsed != CardColor.GOLD) {
+			int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
+			trainCards.put(CardColor.GOLD, numGoldCards);
+		}
+		int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
+		trainCards.put(cardsUsed, numCardsUsed);
 	}
 
 	public boolean canDrawTrainCard(){
@@ -140,14 +166,28 @@ public abstract class Player {
 		return state.canSelectTrainCard(card);
 	}
 
+	public int getGoldCardCount() {
+		return trainCards.get(CardColor.GOLD);
+	}
+
+	public boolean canDrawDestinationCard(){
+		return state.canDrawDestinationCards();
+	}
+
+	public boolean mustDrawDestinationCard(){
+		return state.mustDrawDestinationCard();
+	}
+
 	public PlayerInfo playerInfo() {
 		Collection<Integer> card_nums = trainCards.values();
 		int numTrainsCards = 0;
 		for (int n : card_nums) {
 			numTrainsCards += n;
 		}
-
-		return new PlayerInfo(username, playerColor, score, numTrainsCards, destCards.size(), numTrains, false, isTakingTurn());
+		return new PlayerInfo(username, playerColor, getScore(), numTrainsCards, destCards.size(), numTrains, hasLongest, isTakingTurn());
 	}
 
+	public void setHasLongest(boolean hasLongest) {
+		this.hasLongest = hasLongest;
+	}
 }

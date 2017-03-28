@@ -38,8 +38,6 @@ public class GameInfoFragment extends Fragment {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_game_info, container, false);
 
-
-
 		return view;
 	}
 

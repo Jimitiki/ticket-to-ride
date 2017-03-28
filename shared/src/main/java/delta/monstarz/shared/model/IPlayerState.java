@@ -2,10 +2,6 @@ package delta.monstarz.shared.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by Trevor on 3/21/2017.
- */
-
 public interface IPlayerState {
 	void startTurn();
 
@@ -17,7 +13,7 @@ public interface IPlayerState {
 
 	void selectDestinationCards(ArrayList<DestCard> cards);
 
-	void claimRoute(Route route);
+	void claimRoute(Route route, CardColor cardsUsed, int goldCardCount);
 
 	boolean canDrawTrainCard();
 
@@ -26,6 +22,8 @@ public interface IPlayerState {
 	boolean canDrawDestinationCards();
 
 	boolean canPlaceRoute();
+
+	boolean mustDrawDestinationCard();
 
 	boolean isTakingTurn();
 }

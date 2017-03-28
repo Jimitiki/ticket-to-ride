@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
@@ -16,10 +17,17 @@ import delta.monstarz.model.player.ServerPlayer;
 import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
+import delta.monstarz.shared.commands.EndGameCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
+import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Board;
+import delta.monstarz.shared.model.CardColor;
+import delta.monstarz.shared.model.City;
+import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
+import delta.monstarz.shared.model.Route;
+import delta.monstarz.shared.model.PlayerResult;
 import delta.monstarz.shared.model.TrainCard;
 
 /**
@@ -58,11 +66,12 @@ public class Game {
 
 		playerManager.setStartingNumberOfTrains(jsonGame.get("TrainCount").getAsInt());
 
-		board = new Board(jsonGame.getAsJsonObject("Map"),
-				jsonGame.getAsJsonArray("RouteList"));
+		board = new Board( jsonGame.getAsJsonObject("Map"), jsonGame.getAsJsonArray("RouteList"),
+				jsonGame.getAsJsonArray("Cities"));
+
 		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
 		trainDeck.initialize();
-		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"));
+		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"), board.getCities());
 	}
 
 	/**
@@ -171,10 +180,8 @@ public class Game {
 			//trainDeck.initialize();
 			//destDeck.shuffle();
 
-			for(Player p : playerManager.getPlayers())
-			{
-				for(int i = 0; i < 4; i++)
-				{
+			for (Player p : playerManager.getPlayers()) {
+				for (int i = 0; i < 4; i++) {
 					ServerDrawTrainCardCommand trainCommand = new ServerDrawTrainCardCommand(p.getUsername(), gameID, -1);
 					CommandManager.execute(trainCommand);
 				}
@@ -186,6 +193,8 @@ public class Game {
 				command.setReplacementCard(faceUpCards.get(i));
 				addCommand(command);
 			}
+
+			board.setNumPlayers(playerManager.size());
 
 			gameStarted = true;
 			startTime = new Date(); // All new dates initGame with the current time
@@ -239,6 +248,35 @@ public class Game {
 	}
 
 	/**
+	 * Checks the claimed route against the list of routes the player can claim
+	 * If the route is available, claims it for the player, removing the cards used
+	 * from the player's hand, and adding them to the deck
+	 * @return true if successful, else false
+	 */
+	public boolean claimRoute(int routeID, String username, CardColor cardsUsed, int goldCardCount) {
+		Player player = playerManager.getPlayerByName(username);
+
+		if (player.isTakingTurn() && board.claimRoute(routeID, player, cardsUsed, goldCardCount)) {
+			Route route = board.getRouteByID(routeID);
+			for (int i = 0; i < route.getLength(); i++) {
+				if (i < goldCardCount) {
+					trainDeck.addCard(new TrainCard(CardColor.GOLD));
+				} else {
+					trainDeck.addCard(new TrainCard(cardsUsed));
+				}
+			}
+			player.claimRoute(board.getRouteByID(routeID), cardsUsed, goldCardCount);
+			if (player.getNumTrains() <= 2) {
+				playerManager.oneTurnLeftEach();
+			}
+			List<Player> longestRouteOwners = board.findLongestRouteOwners(playerManager.getPlayers());
+			playerManager.updateLongest(longestRouteOwners);
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 *
 	 * @return Returns a GameInfo object that represents the game
 	 */
@@ -258,5 +296,41 @@ public class Game {
 				gameStarted,
 				playersNames
 		);
+	}
+
+	public List<PlayerResult> getGameResults() {
+		List<PlayerResult> results = new ArrayList<>();
+		List<Player> players = playerManager.getPlayers();
+		for (Player player : players) {
+			PlayerResult result = player.getBasePlayerResult();
+			int score = player.getScore();
+			int finished_dest_score = 0;
+			int unfinished_dest_score = 0;
+			for (DestCard dest : player.getDestCards()) {
+				if (board.isDestDone(dest, player.getUsername())) {
+					finished_dest_score += dest.getValue();
+				} else {
+					unfinished_dest_score -= dest.getValue();
+				}
+			}
+			score += finished_dest_score + unfinished_dest_score;
+			result.setScore(score);
+			result.setFinished_dests_score(finished_dest_score);
+			result.setUnfinished_dests_score(unfinished_dest_score);
+			results.add(result);
+		}
+		return results;
+	}
+
+	public void addPlayerInfoCommands() {
+		for (Player player : playerManager.getPlayers()) {
+			addCommand(new UpdatePlayerInfoCommand(player.getUsername(), gameID, player.playerInfo()));
+		}
+	}
+
+	public void endGame() {
+		List<PlayerResult> results = getGameResults();
+		EndGameCommand command = new EndGameCommand(null, gameID, results);
+		addCommand(command);
 	}
 }
