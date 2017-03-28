@@ -165,8 +165,8 @@ public class RouteSelectionFragment extends DialogFragment {
 			selectedRoute = null;
 		}
 		confirm.setEnabled(false);
-		if (cardColorAdapter != null) {
-			cardColorAdapter.clear();
+		if (selectedColor != null) {
+			onCloseCardList();
 		}
 	}
 
@@ -187,7 +187,9 @@ public class RouteSelectionFragment extends DialogFragment {
 			destinationListItem = view;
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
 		}
-		confirm.setEnabled(false);
+		if (selectedColor != null) {
+			onCloseCardList();
+		}
 	}
 
 	private void updateCardCount(CardColor color, int cardCount) {
@@ -211,6 +213,20 @@ public class RouteSelectionFragment extends DialogFragment {
 			confirm.setEnabled(false);
 		}
 		cardColorAdapter.updateEnableHolder();
+	}
+
+	private void onConfirmSelection() {
+		presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
+		dismiss();
+	}
+
+	private void onCloseCardList() {
+		goldCardCount = 0;
+		selectedCardCount = 0;
+		selectedColor = null;
+		confirm.setEnabled(false);
+
+		cardColorAdapter.clear();
 	}
 
 	private void getSourceCities() {
@@ -253,11 +269,6 @@ public class RouteSelectionFragment extends DialogFragment {
 			cardColors.setAdapter(cardColorAdapter);
 		}
 		cardColorAdapter.setAvailableCards();
-	}
-
-	private void onConfirmSelection() {
-		presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
-		dismiss();
 	}
 
 	private class SourceCitiesAdapter extends RecyclerView.Adapter<SourceCityHolder>{
@@ -527,6 +538,10 @@ public class RouteSelectionFragment extends DialogFragment {
 		}
 
 		private void updateValue() {
+			int cardTotal = color == CardColor.GOLD ? value + selectedCardCount : value + goldCardCount;
+			if (cardTotal > selectedRoute.getLength()) {
+				value = selectedRoute.getLength() - goldCardCount;
+			}
 			numInput.setText(Integer.toString(value));
 			updateCardCount(color, value);
 		}
