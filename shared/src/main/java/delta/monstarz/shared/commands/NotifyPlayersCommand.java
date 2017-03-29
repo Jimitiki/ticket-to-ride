@@ -11,5 +11,7 @@ public class NotifyPlayersCommand extends BaseCommand {
     public NotifyPlayersCommand(String username, int gameID, String message) {
         super(username, gameID);
         this.message = message;
+        isGlobal = true;
+        name = "NotifyPlayersCommand";
     }
 }
