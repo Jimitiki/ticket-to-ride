@@ -180,7 +180,13 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				presenter.listCheck();
+				RoutePresenter routePresenter = new RoutePresenter();
+				List<Route> routes = routePresenter.getAvailableRoutes();
+				Route route = routes.get(routes.size() - 1);
+				if (route != null) {
+					CardColor color = routePresenter.getUsableCards(route.getID()).keySet().iterator().next();
+				}
+				activity.onGameEnd();
 			}
 		});
 

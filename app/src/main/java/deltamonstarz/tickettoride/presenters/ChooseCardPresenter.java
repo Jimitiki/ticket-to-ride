@@ -9,6 +9,7 @@ import delta.monstarz.shared.commands.DrawTrainCardCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.ServerProxy;
+import deltamonstarz.tickettoride.model.ClientGame;
 import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.model.UpdateType;
 import deltamonstarz.tickettoride.views.gamePlay.ChooseCardDialog;
@@ -44,7 +45,8 @@ public class ChooseCardPresenter extends BasePresenter {
 		switch(updateType){
 			case FACE_UP_CARD:
 				List<TrainCard> cards = model.getGame().getFaceUpCards();
-				chooseCardDialog.setCards(cards);
+				boolean deckHasCards = model.getGame().isTrainCardsInDeck();
+				chooseCardDialog.setCards(cards, deckHasCards);
 				break;
 
 			case REPORT_DRAWN_CARD:
@@ -55,14 +57,25 @@ public class ChooseCardPresenter extends BasePresenter {
 	}
 
 	public void drawDeckCard(){
-			if (model.getGame().getMe().canDrawTrainCard()) {
+
+		// Todo: Check a bool in the game to see if the deck card is valid.
+		ClientGame game = model.getGame();
+
+
+
+
+		if (game.isTrainCardsInDeck() && game.getMe().canDrawTrainCard()) {
 			DrawTrainCardCommand command = new DrawTrainCardCommand(model.getUsername(), model.getGame().getGameID());
 			ServerProxy.getInstance().sendCommand(model.getAuthToken(), command);
 		}
 	}
 
 	public void drawFaceUpCard(int index){
-		TrainCard trainCard = new TrainCard(model.getGame().getFaceUpCards().get(index).getColor());
+		TrainCard trainCard = model.getGame().getFaceUpCards().get(index);
+
+		if (trainCard == null){
+			return;
+		}
 
 		if (model.getGame().getMe().canSelectTrainCard(trainCard)) {
 			SelectTrainCardCommand command = new SelectTrainCardCommand(model.getUsername(), model.getGameID(), index);

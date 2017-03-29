@@ -26,6 +26,7 @@ public class ClientGame {
 	private List<TrainCard> faceUpCards;
 	private List<PlayerResult> gameResults;
 	private CardColor mostRecentCardColor;
+	private boolean trainCardsInDeck = true;
 
 	public ClientGame(int id) {
 		gameID = id;
@@ -64,7 +65,15 @@ public class ClientGame {
 		return started;
 	}
 
-    public void setStarted(boolean started) {
+	public boolean isTrainCardsInDeck() {
+		return trainCardsInDeck;
+	}
+
+	public void setTrainCardsInDeck(boolean trainCardsInDeck) {
+		this.trainCardsInDeck = trainCardsInDeck;
+	}
+
+	public void setStarted(boolean started) {
 		this.started = started;
 //		opps = new ArrayList<>();
 	    chatHistory = new ArrayList<>();

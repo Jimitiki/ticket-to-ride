@@ -37,8 +37,10 @@ public class ChooseCardDialog extends DialogFragment {
 	static final String TITLE = "Card Selection";
 	static final String BASE_PATH_TRAIN = "card_images/train_card_";
 	static final String BASE_PATH = "card_images/";
+	static final String CARD_BACK = BASE_PATH_TRAIN + "back.PNG";
 
 	private ChooseCardPresenter presenter;
+	private boolean drawPileShown = true;
 
 	Button cancel;
 	Button accept;
@@ -161,19 +163,34 @@ public class ChooseCardDialog extends DialogFragment {
 		});
 
 		List<TrainCard> cards = ClientModel.getInstance().getGame().getFaceUpCards();
-		setCards(cards);
+		boolean deckHasCards = ClientModel.getInstance().getGame().isTrainCardsInDeck();
+		setCards(cards, deckHasCards);
 
 
-		setImage(deckCardImage, BASE_PATH_TRAIN + "back.PNG");
+
 		setImage(destinationCardsImage, BASE_PATH + "destination_card_back_multiple.PNG");
 
 		return view;
 	}
 
-	public void setCards(List<TrainCard> cards){
+	public void setCards(List<TrainCard> cards, boolean deckHasCards){
 		for (int i = 0; i < cards.size(); i++){
-			setTrainCard(i, cards.get(i).getColor());
+			TrainCard card = cards.get(i);
+			if (card != null) {
+				setTrainCard(i, cards.get(i).getColor());
+			}
+			else {
+				clearTrainCard(i);
+			}
 		}
+
+		if (deckHasCards){
+			setImage(deckCardImage, CARD_BACK);
+		}
+		else {
+			clearImage(deckCardImage);
+		}
+
 	}
 
 	@Override
@@ -235,6 +252,39 @@ public class ChooseCardDialog extends DialogFragment {
 				card4Color = color;
 				setImage(card4Image, getFilePath(color));
 				break;
+			case -1:
+				drawPileShown = true;
+				setImage(deckCardImage,CARD_BACK);
+			default:
+
+		}
+	}
+
+	private void clearTrainCard(int card){
+		switch (card){
+			case 0:
+				card0Color = null;
+				clearImage(card0Image);
+				break;
+			case 1:
+				card1Color = null;
+				clearImage(card1Image);
+				break;
+			case 2:
+				card2Color = null;
+				clearImage(card2Image);
+				break;
+			case 3:
+				card3Color = null;
+				clearImage(card3Image);
+				break;
+			case 4:
+				card4Color = null;
+				clearImage(card4Image);
+				break;
+			case -1:    // Deck face down
+				drawPileShown = false;
+				clearImage(deckCardImage);
 			default:
 
 		}
@@ -275,6 +325,10 @@ public class ChooseCardDialog extends DialogFragment {
 		catch (IOException e){
 			e.printStackTrace();
 		}
+	}
+
+	private void clearImage(ImageView imageView){
+		imageView.setImageResource(0);
 	}
 
 	public void reportCardType(CardColor color){

@@ -113,6 +113,11 @@ public abstract class Player {
 	}
 
 	protected void internalDrawTrainCard(TrainCard card) {
+
+		if (card == null){
+			return;
+		}
+
 		CardColor cardColor = card.getColor();
 		if (! trainCards.containsKey(cardColor)) {
 			trainCards.put(cardColor, 0);
