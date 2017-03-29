@@ -156,6 +156,11 @@ public class ServerPlayer extends Player {
 		public boolean canDrawDestinationCards() {
 			return true;
 		}
+
+		@Override
+		public boolean canPlaceRoute() {
+			return true;
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -183,7 +188,7 @@ public class ServerPlayer extends Player {
 
 		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
-			if (card.getColor() == CardColor.GOLD) {
+			if (card != null && card.getColor() == CardColor.GOLD) {
 				return false;
 			} else {
 				return true;

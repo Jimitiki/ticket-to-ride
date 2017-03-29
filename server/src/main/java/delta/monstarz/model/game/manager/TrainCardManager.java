@@ -60,24 +60,11 @@ public class TrainCardManager
 
 
 	public void assignFaceUpCards(){
-		int numGoldCards;
-		do {
-			numGoldCards = 0;
-			for (int i = 0; i < FACE_UP_COUNT; i++) {
-				TrainCard card = drawCard();
-				if (card != null && card.getColor() == CardColor.GOLD) {
-					numGoldCards++;
-				}
-				faceUpCards.set(i, card);
+		resetFaceUpCards();
 
-			}
-			if (numGoldCards >= 3) {
-				for (TrainCard card : faceUpCards) {
-					deck.add(card);
-				}
-				shuffle();
-			}
-		} while (numGoldCards >= 3);
+		if (!isFaceUpCardsValid()) {
+			fixFaceUpCards();
+		}
 	}
 
 	public void returnCard(TrainCard card)
@@ -107,6 +94,11 @@ public class TrainCardManager
 		}
 		deck.add(card);
 		shuffle();
+
+		if (!isFaceUpCardsValid()) {
+			fixFaceUpCards();
+		}
+
 	}
 
 	public void shuffle()
@@ -190,12 +182,14 @@ public class TrainCardManager
 
 	private void resetFaceUpCards(){
 		for (TrainCard card: faceUpCards){
-			deck.add(card);
+			if (card != null) {
+				deck.add(card);
+			}
 		}
 		shuffle();
 		faceUpCards.clear();
 
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < FACE_UP_COUNT; i++){
 			faceUpCards.add(drawCard());
 		}
 	}
@@ -209,7 +203,7 @@ public class TrainCardManager
 		}
 
 		for (TrainCard card: faceUpCards){
-			if (card.getColor() != CardColor.GOLD){
+			if (card != null && card.getColor() != CardColor.GOLD){
 				count++;
 			}
 		}
