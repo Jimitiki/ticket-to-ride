@@ -18,6 +18,7 @@ import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.EndGameCommand;
+import delta.monstarz.shared.commands.NotifyPlayersCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Board;
@@ -268,6 +269,9 @@ public class Game {
 			player.claimRoute(board.getRouteByID(routeID), cardsUsed, goldCardCount);
 			if (player.getNumTrains() <= 2) {
 				playerManager.oneTurnLeftEach();
+				String message = "The game is ending soon. Everyone gets one more turn.";
+				NotifyPlayersCommand command = new NotifyPlayersCommand("It doesn't matter", gameID, message);
+				addCommand(command);
 			}
 			List<Player> longestRouteOwners = board.findLongestRouteOwners(playerManager.getPlayers());
 			playerManager.updateLongest(longestRouteOwners);
