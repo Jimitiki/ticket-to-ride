@@ -118,7 +118,7 @@ public class Board {
 		return availableRoutes;
 	}
 
-	public List<Route> getRoutesByCity(City city) {
+	private List<Route> getRoutesByCity(City city) {
 		List<Route> connectedRoutes = new ArrayList<>();
 		for (int routeID : city.getRoutes()) {
 			connectedRoutes.add(routes.get(routeID));
@@ -182,15 +182,10 @@ public class Board {
 				    return true;
 			    }
 		    }
-	    }
-	    try {
-		    //check if the player has enough cards of the routes color
-		    return route.verifyCardColorByCount(routeColor, cards.get(routeColor) + goldCardCount);
-	    } catch (NullPointerException e) {
-		    e.printStackTrace();
 		    return false;
 	    }
-
+	    //check if the player has enough cards of the routes color
+	    return route.verifyCardColorByCount(routeColor, cards.get(routeColor) + goldCardCount);
     }
 
     private boolean verifyDoubleRouteClaim(Route route, String username) {

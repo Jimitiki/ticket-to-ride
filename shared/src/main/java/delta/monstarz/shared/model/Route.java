@@ -27,10 +27,7 @@ public class Route {
         if (jsonRoute.has("segments")) {
             JsonArray jsonSegments = jsonRoute.get("segments").getAsJsonArray();
             for (int i = 0; i < jsonSegments.size(); i++) {
-	            // TODO: get rid of try-catch when all segments are added to json
-	            try {
-		            segments.add(new Segment(jsonSegments.get(i).getAsJsonObject()));
-	            } catch (Exception e) {}
+	            segments.add(new Segment(jsonSegments.get(i).getAsJsonObject()));
             }
         }
 
@@ -51,7 +48,7 @@ public class Route {
 	    return segments;
     }
 
-    public String getOwner() {
+    String getOwner() {
 	    return owner;
     }
 
