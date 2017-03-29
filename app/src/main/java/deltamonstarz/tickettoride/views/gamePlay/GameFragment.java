@@ -30,7 +30,9 @@ import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
+import delta.monstarz.shared.model.TrainCard;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.commands.ClientSelectTrainCardCommand;
 import deltamonstarz.tickettoride.commands.ClientUpdatePlayerInfoCommand;
 import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.model.DemoUtility;
@@ -180,6 +182,7 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				/*
 				RoutePresenter routePresenter = new RoutePresenter();
 				List<Route> routes = routePresenter.getAvailableRoutes();
 				Route route = routes.get(routes.size() - 1);
@@ -187,6 +190,14 @@ public class GameFragment extends Fragment {
 					CardColor color = routePresenter.getUsableCards(route.getID()).keySet().iterator().next();
 				}
 				activity.onGameEnd();
+				*/
+
+				ClientSelectTrainCardCommand command0 = new ClientSelectTrainCardCommand(null, 0, 2);
+				command0.execute();
+
+				command0.setReplacementCard(new TrainCard(CardColor.BLACK));
+				command0.execute();
+
 			}
 		});
 
