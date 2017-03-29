@@ -10,6 +10,7 @@ public class ClaimRouteCommand extends BaseCommand {
 
     public ClaimRouteCommand(String username, int gameID, int routeID, CardColor color, int goldCardCount) {
         super(username, gameID);
+        isGlobal = true;
         this.routeID = routeID;
 	    this.cardsUsed = color;
 	    this.goldCardCount = goldCardCount;
