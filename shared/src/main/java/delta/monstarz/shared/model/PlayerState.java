@@ -13,5 +13,5 @@ abstract class PlayerState {
 
 	void selectDestinationCards(ArrayList<DestCard> cards) {}
 
-	void claimRoute(Route route) {}
+	void claimRoute(Route route, CardColor color) {}
 }

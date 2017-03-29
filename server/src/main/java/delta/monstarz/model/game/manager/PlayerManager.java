@@ -36,6 +36,7 @@ public class PlayerManager
 	private int startingNumberOfTrains;
 
 	private Game mGame;
+	private int turnsUntilEnd;
 
 	//Constructors
 
@@ -43,6 +44,7 @@ public class PlayerManager
 	{
 		players = new ArrayList<>();
 		currentPlayerIndex = -1;
+		turnsUntilEnd = -1;
 	}
 
 	//Getters and Setter
@@ -101,6 +103,12 @@ public class PlayerManager
 	 */
 	public void advanceTurn()
 	{
+		if (turnsUntilEnd > 0) {
+			turnsUntilEnd--;
+		} else if (turnsUntilEnd == 0) {
+			mGame.endGame();
+			return;
+		}
 		//Increment the currentPlayerIndex player index
 		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
@@ -118,5 +126,21 @@ public class PlayerManager
 	//TODO I don't feel like this data belongs to the player manager.
 	public void setStartingNumberOfTrains(int startTrains) {
 		this.startingNumberOfTrains = startTrains;
+	}
+
+	public void updateLongest(List<Player> longestRouteOwners) {
+		for (Player player : players) {
+			if (longestRouteOwners.contains(player)) {
+				player.setHasLongest(true);
+			} else {
+				player.setHasLongest(false);
+			}
+		}
+	}
+
+	public void oneTurnLeftEach() {
+		if (turnsUntilEnd < 0) {
+			turnsUntilEnd = size() -1;
+		}
 	}
 }

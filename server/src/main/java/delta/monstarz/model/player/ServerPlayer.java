@@ -1,6 +1,7 @@
 package delta.monstarz.model.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
@@ -15,13 +16,33 @@ import delta.monstarz.shared.model.TrainCard;
  */
 
 public class ServerPlayer extends Player {
-
 	private int gameId;
 
 	public ServerPlayer(String username, int gameId) {
 		super(username);
 		this.gameId = gameId;
 		state = new SetupState();
+	}
+
+	private boolean canDrawSecondCard(){
+
+		// Change 1 is bad zone
+		int count = 0;
+		Game game = GameManager.getInstance().getGameByID(gameId);
+		List<TrainCard> faceUpCards = game.getTrainDeck().getFaceUpCards();
+
+		for (TrainCard card: faceUpCards){
+			if (card != null && card.getColor() != CardColor.GOLD){
+				count++;
+			}
+		}
+
+		if (count <= 1){
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 
 	private void endTurn(){
@@ -87,14 +108,19 @@ public class ServerPlayer extends Player {
 		@Override
 		public void drawTrainCard(TrainCard card) {
 			internalDrawTrainCard(card);
-			state = new TrainCardState();
+			if (canDrawSecondCard()) {
+				state = new TrainCardState();
+			}
+			else {
+				state = new InactiveState();
+			}
 		}
 
 		@Override
 		public void selectTrainCard(TrainCard card) {
 			internalDrawTrainCard(card);
 
-			if (card.getColor() == CardColor.GOLD){
+			if (card.getColor() == CardColor.GOLD || !canDrawSecondCard()){
 				state = new InactiveState();
 			}
 			else {
@@ -109,8 +135,8 @@ public class ServerPlayer extends Player {
 		}
 
 		@Override
-		public void claimRoute(Route route) {
-			// Todo: Add functionality here
+		public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
+			internalClaimRoute(route, cardsUsed, goldCardCount);
 			state = new InactiveState();
 		}
 
@@ -121,6 +147,11 @@ public class ServerPlayer extends Player {
 
 		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
+			return true;
+		}
+
+		@Override
+		public boolean canDrawDestinationCards() {
 			return true;
 		}
 	}
@@ -165,6 +196,11 @@ public class ServerPlayer extends Player {
 		public void selectDestinationCards(ArrayList<DestCard> cards) {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
+		}
+
+		@Override
+		public boolean mustDrawDestinationCard() {
+			return true;
 		}
 	}
 

@@ -4,22 +4,38 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class DestCard {
-    private String city1;
-    private String city2;
+    private City city1;
+    private City city2;
     private int value;
 
 	public DestCard(JsonObject jsonDestinationCard) {
-		JsonArray endpointArray = jsonDestinationCard.get("endpoints").getAsJsonArray();
-		city1 = endpointArray.get(0).getAsString();
-		city2 = endpointArray.get(1).getAsString();
 		value = jsonDestinationCard.get("points").getAsInt();
 	}
 
 	@Override
     public String toString() {
 	    String string;
-	    string = "(" + String.valueOf(value) + ") " + city1 + " - " + city2;
+	    string = "(" + String.valueOf(value) + ") " + city1.getName() + " - " + city2.getName();
 	    return string;
     }
 
+	public City getCity1() {
+		return city1;
+	}
+
+	public void setCity1(City city1) {
+		this.city1 = city1;
+	}
+
+	public City getCity2() {
+		return city2;
+	}
+
+	public void setCity2(City city2) {
+		this.city2 = city2;
+	}
+
+	public int getValue() {
+		return value;
+	}
 }

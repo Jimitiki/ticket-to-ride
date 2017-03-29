@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
@@ -22,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.Message;
+import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
 import delta.monstarz.shared.model.PlayerInfo;
 import delta.monstarz.shared.model.Route;
@@ -34,6 +37,7 @@ import deltamonstarz.tickettoride.model.DemoUtility;
 import deltamonstarz.tickettoride.presenters.ChatPresenter;
 import deltamonstarz.tickettoride.presenters.DestinationCardPresenter;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
+import deltamonstarz.tickettoride.presenters.RoutePresenter;
 import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 
 /**
@@ -44,12 +48,12 @@ import deltamonstarz.tickettoride.views.GameNameChoiceDialogFragment;
 public class GameFragment extends Fragment {
 	public Handler handler;
 
-	private static GamePresenter presenter;
+	private GamePresenter presenter;
 	private GameActivity activity;
 	private PlayerCardsFragment playerCardsFragment;
 	private GameInfoFragment gameInfoFragment;
 
-	private MapView mapView;
+	private static MapView mapView;
 	private Button drawCard;
 	private Button placeTrain;
 	private Button viewCards;
@@ -68,9 +72,7 @@ public class GameFragment extends Fragment {
 	 * @return A new instance of fragment GameFragment.
 	 */
 	public static GameFragment newInstance() {
-		GameFragment fragment = new GameFragment();
-		presenter = GamePresenter.getInstance();
-		return fragment;
+		return new GameFragment();
 	}
 
 	public void setActivity(GameActivity activity) {
@@ -79,6 +81,10 @@ public class GameFragment extends Fragment {
 
 	public void setMapImagePath(String mapImagePath) {
 		this.mapImagePath = mapImagePath;
+	}
+
+	public void setPresenter(GamePresenter presenter) {
+		this.presenter = presenter;
 	}
 
 	@Override
@@ -123,12 +129,13 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				System.out.print("drawing card");
+				Player player = ClientModel.getInstance().getGame().getMe();
 
-				if (ClientModel.getInstance().getGame().getMe().getDestCards().size() >= 2){
-					launchChooseCardDialog();
+				if (player.getDestCards().size() < 2 || player.mustDrawDestinationCard()){
+					launchDestinationChooserDialog();
 				}
 				else{
-					launchDestinationChooserDialog();
+					launchChooseCardDialog();
 				}
 
 			}
@@ -137,8 +144,14 @@ public class GameFragment extends Fragment {
 		placeTrain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.println("claiming route");
-				Toast.makeText(getContext(), "Routes can only be claimed during your turn.", Toast.LENGTH_LONG).show();
+				FragmentManager fragmentManager = activity.getSupportFragmentManager();
+				RouteSelectionFragment dialog = new RouteSelectionFragment();
+				dialog.setPresenter(new RoutePresenter());
+				try {
+					dialog.show(fragmentManager, "claim_route_dialog");
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -167,6 +180,13 @@ public class GameFragment extends Fragment {
 		demo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+//				RoutePresenter routePresenter = new RoutePresenter();
+//				List<Route> routes = routePresenter.getAvailableRoutes();
+//				Route route = routes.get(routes.size() - 1);
+//				if (route != null) {
+//					CardColor color = routePresenter.getUsableCards(route.getID()).keySet().iterator().next();
+//				}
+//				activity.onGameEnd();
 				presenter.listCheck();
 			}
 		});
@@ -187,6 +207,12 @@ public class GameFragment extends Fragment {
 
 
 		return v;
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mapView.setClaimedRoutes(presenter.getClaimedRoutes());
 	}
 
 	public void enableButtons(){
@@ -255,7 +281,9 @@ public class GameFragment extends Fragment {
 	}
 
 	public void onRouteClaimed(List<Route> routes) {
-		mapView.setClaimedRoutes(routes);
-		mapView.redraw();
+		if (mapView != null) {
+			mapView.setClaimedRoutes(routes);
+			mapView.redraw();
+		}
 	}
 }

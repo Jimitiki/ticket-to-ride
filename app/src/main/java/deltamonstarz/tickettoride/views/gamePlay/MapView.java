@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -23,14 +24,15 @@ public class MapView extends View {
 	private Bitmap mapImage;
 	private GameActivity activity;
 	private static Rect sourceRect;
-	private static RectF destRect;
+	private static Rect destRect;
+	private static Rect clipRect;
 	private static float mapScaleX;
 	private static float mapScaleY;
-	private static List<Route> claimedRoutes = new ArrayList<>();
+	private List<Route> claimedRoutes = new ArrayList<>();
 
 	private final float TRAIN_SCALE = (float) 0.18;
-	private final int TRAIN_OFFSET_X = -2;
-	private final int TRAIN_OFFSET_Y = -3;
+	private final int TRAIN_OFFSET_X = 200;
+	private final int TRAIN_OFFSET_Y = 48;
 
 	private final static String[] TRAIN_IMAGES = {
 			"Blue.png",
@@ -85,11 +87,14 @@ public class MapView extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if (destRect == null) {
-			destRect = new RectF(0, 0, getWidth(), getHeight());
+			destRect = new Rect();
+			canvas.getClipBounds(destRect);
+			clipRect = new Rect(0, 0, destRect.right + TRAIN_OFFSET_X, destRect.bottom + TRAIN_OFFSET_Y);
 			mapScaleX = getWidth() / (float) mapImage.getWidth();
 			mapScaleY = getHeight() / (float) mapImage.getHeight();
 		}
 		canvas.drawBitmap(mapImage, sourceRect, destRect, null);
+		canvas.clipRect(clipRect, Region.Op.REPLACE);
 		drawRoutes(canvas);
 	}
 
@@ -104,7 +109,6 @@ public class MapView extends View {
 
 	private void drawTrain(Segment segment, PlayerColor color, Canvas canvas)
 	{
-
 		try {
 			if (trainImages[color.getValue()] == null) {
 					InputStream is = activity.getAssets().open(TRAIN_PATH_PREFIX + TRAIN_IMAGES[color.getValue()]);
@@ -115,8 +119,9 @@ public class MapView extends View {
 
 			Matrix matrix = new Matrix();
 			matrix.postRotate(segment.getRotation());
-			matrix.postTranslate(segment.getX() + TRAIN_OFFSET_X, segment.getY() + TRAIN_OFFSET_Y);
+			matrix.postTranslate(segment.getX(), segment.getY());
 			matrix.postScale(mapScaleX, mapScaleY);
+			matrix.postTranslate(TRAIN_OFFSET_X, TRAIN_OFFSET_Y);
 
 			canvas.save();
 			canvas.setMatrix(matrix);

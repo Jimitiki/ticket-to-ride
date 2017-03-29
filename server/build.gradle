@@ -8,5 +8,32 @@ dependencies {
     compile 'junit:junit:4.12'
 }
 
+
+
+
+jar {
+    manifest {
+        attributes "Main-Class": "delta.monstarz.Server"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+task deleteJar(type:Delete) {
+    delete "libs/server.jar"
+}
+
+task createJar(type: Copy) {
+    from('build/libs/bundles/release/')
+    into('libs/')
+    include('classes.jar')
+    rename('classes.jar', 'myServer.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
+
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"

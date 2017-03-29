@@ -2,17 +2,16 @@ package deltamonstarz.tickettoride.model.player;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.Route;
 import delta.monstarz.shared.model.TrainCard;
+import deltamonstarz.tickettoride.model.ClientGame;
+import deltamonstarz.tickettoride.model.ClientModel;
 import deltamonstarz.tickettoride.presenters.GamePresenter;
-
-/**
- * Created by Trevor on 3/20/2017.
- */
 
 public class ClientPlayer extends Player {
 
@@ -21,6 +20,17 @@ public class ClientPlayer extends Player {
 		state = new SetupState();
 	}
 
+	private boolean canDrawSecondCard(){
+		ClientGame game = ClientModel.getInstance().getGame();
+		List<TrainCard> faceUpCards = game.getFaceUpCards();
+
+		for (TrainCard card: faceUpCards){
+			if (card != null && card.getColor() != CardColor.GOLD){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	//-----------------------------------------------------------------------------------
 	private class SetupState extends ClientBasePlayerState {
@@ -75,14 +85,19 @@ public class ClientPlayer extends Player {
 		@Override
 		public void drawTrainCard(TrainCard card) {
 			internalDrawTrainCard(card);
-			state = new TrainCardState();
+			if (canDrawSecondCard()) {
+				state = new TrainCardState();
+			}
+			else {
+				state = new InactiveState();
+			}
 		}
 
 		@Override
 		public void selectTrainCard(TrainCard card) {
 			internalDrawTrainCard(card);
 
-			if (card.getColor() == CardColor.GOLD){
+			if (card.getColor() == CardColor.GOLD || !canDrawSecondCard()){
 				state = new InactiveState();
 			}
 			else {
@@ -97,8 +112,8 @@ public class ClientPlayer extends Player {
 		}
 
 		@Override
-		public void claimRoute(Route route) {
-			// Todo: Add functionality here
+		public void claimRoute(Route route, CardColor cardsUsed, int goldCardsUsed) {
+			internalClaimRoute(route, cardsUsed, goldCardsUsed);
 			state = new InactiveState();
 		}
 
@@ -109,6 +124,16 @@ public class ClientPlayer extends Player {
 
 		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
+			return true;
+		}
+
+		@Override
+		public boolean canDrawDestinationCards() {
+			return true;
+		}
+
+		@Override
+		public boolean canPlaceRoute() {
 			return true;
 		}
 	}
@@ -154,6 +179,11 @@ public class ClientPlayer extends Player {
 		public void selectDestinationCards(ArrayList<DestCard> cards) {
 			internalSelectDestinationCards(cards);
 			state = new InactiveState();
+		}
+
+		@Override
+		public boolean mustDrawDestinationCard() {
+			return true;
 		}
 	}
 
