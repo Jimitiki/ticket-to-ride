@@ -167,7 +167,7 @@ public class ChooseCardDialog extends DialogFragment {
 		setCards(cards, deckHasCards);
 
 
-		setImage(deckCardImage, CARD_BACK);
+
 		setImage(destinationCardsImage, BASE_PATH + "destination_card_back_multiple.PNG");
 
 		return view;
@@ -184,7 +184,10 @@ public class ChooseCardDialog extends DialogFragment {
 			}
 		}
 
-		if (!deckHasCards){
+		if (deckHasCards){
+			setImage(deckCardImage, CARD_BACK);
+		}
+		else {
 			clearImage(deckCardImage);
 		}
 
@@ -325,7 +328,7 @@ public class ChooseCardDialog extends DialogFragment {
 	}
 
 	private void clearImage(ImageView imageView){
-		imageView.setImageAlpha(0);
+		imageView.setImageResource(0);
 	}
 
 	public void reportCardType(CardColor color){

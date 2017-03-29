@@ -69,7 +69,7 @@ public class Game {
 		board = new Board( jsonGame.getAsJsonObject("Map"), jsonGame.getAsJsonArray("RouteList"),
 				jsonGame.getAsJsonArray("Cities"));
 
-		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"));
+		trainDeck = new TrainCardManager(jsonGame.getAsJsonArray("TrainCards"), this.gameID);
 		trainDeck.initialize();
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"), board.getCities());
 	}
@@ -260,9 +260,9 @@ public class Game {
 			Route route = board.getRouteByID(routeID);
 			for (int i = 0; i < route.getLength(); i++) {
 				if (i < goldCardCount) {
-					trainDeck.addCard(new TrainCard(CardColor.GOLD));
+					trainDeck.returnCard(new TrainCard(CardColor.GOLD));
 				} else {
-					trainDeck.addCard(new TrainCard(cardsUsed));
+					trainDeck.returnCard(new TrainCard(cardsUsed));
 				}
 			}
 			player.claimRoute(board.getRouteByID(routeID), cardsUsed, goldCardCount);

@@ -8,21 +8,25 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import delta.monstarz.model.GameManager;
+import delta.monstarz.model.game.Game;
+import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.TrainCard;
 
 public class TrainCardManager
 {
 	private static final int FACE_UP_COUNT = 5;
-
+	private int gameId;
 
 	//Data Members
 	private LinkedList<TrainCard> deck;
 	private ArrayList<TrainCard> faceUpCards;
 
 	//Constructor
-	public TrainCardManager(JsonArray jsonTrainCards)
+	public TrainCardManager(JsonArray jsonTrainCards, int gameId)
 	{
+		this.gameId = gameId;
 		deck = new LinkedList<>();
 		faceUpCards = new ArrayList<>();
 		for(int i = 0; i < jsonTrainCards.size(); i++)
@@ -47,13 +51,21 @@ public class TrainCardManager
 		assignFaceUpCards();
 	}
 
+	/*
+		Don't use this function in the constructor or the initialize function!!! Game will be null!!!
+	 */
+	private Game getGame() {
+		return GameManager.getInstance().getGameByID(gameId);
+	}
+
+
 	public void assignFaceUpCards(){
 		int numGoldCards;
 		do {
 			numGoldCards = 0;
 			for (int i = 0; i < FACE_UP_COUNT; i++) {
 				TrainCard card = drawCard();
-				if (card.getColor() == CardColor.GOLD) {
+				if (card != null && card.getColor() == CardColor.GOLD) {
 					numGoldCards++;
 				}
 				faceUpCards.set(i, card);
@@ -61,7 +73,7 @@ public class TrainCardManager
 			}
 			if (numGoldCards >= 3) {
 				for (TrainCard card : faceUpCards) {
-					addCard(card);
+					deck.add(card);
 				}
 				shuffle();
 			}
@@ -70,6 +82,29 @@ public class TrainCardManager
 
 	public void returnCard(TrainCard card)
 	{
+
+		// If the deck is empty we need to do some extra work
+		if (deck.size() == 0){
+
+			// First fill up any empty face up card slots
+			for (int i = 0; i < faceUpCards.size(); i++){
+				if (faceUpCards.get(i) == null){
+					faceUpCards.set(i, card);
+
+					// Let the clients know
+					SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameId, i);
+					command.setReplacementCard(card);
+					getGame().addCommand(command);
+					return;
+
+				}
+			}
+
+			// Start filling the deck back up
+			SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameId, -1);
+			command.setReplacementCard(new TrainCard(CardColor.GOLD)); // Color does not matter only that it is not null
+			getGame().addCommand(command);
+		}
 		deck.add(card);
 		shuffle();
 	}
@@ -81,7 +116,22 @@ public class TrainCardManager
 
 	public TrainCard drawCard()
 	{
-		return deck.removeFirst();
+		TrainCard card = null;
+
+
+		if (deck.size() > 0 ){
+			card = deck.removeFirst();
+		}
+
+		// If there are no more card in the deck we need to let the client know.
+		if (deck.size() == 0){
+			// Let the clients know that there are no cards left in the deck
+			SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameId, -1);
+			getGame().addCommand(command);
+		}
+
+		return card;
+
 	}
 
 	public List<TrainCard> getFaceUpCards()
@@ -90,17 +140,29 @@ public class TrainCardManager
 	}
 
 	// This function does not return what the new card is, use the getter like a man
-	public void faceUpDestoryAndReplace (int index)
+	public void faceUpDestroyAndReplace(int index)
 	{
-		faceUpCards.set(index, drawCard());
+		TrainCard replacementCard = drawCard();
 
-		if (isFaceUpCardsValid()) {
+		// If we don't have any cards in the deck then the face up card location should now be null
+		if (replacementCard == null){
+			SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameId, index);
+			getGame().addCommand(command);
+		}
+
+
+		faceUpCards.set(index, replacementCard);
+
+		if (!isFaceUpCardsValid()) {
 			fixFaceUpCards();
 		}
 
 	}
 
 	private boolean isFaceUpCardsValid(){
+
+		return true;
+		/*
 		if (faceUpGoldCount() <= 2){
 			return true;
 		}
@@ -111,6 +173,8 @@ public class TrainCardManager
 		}
 
 		return false;
+
+		*/
 	}
 
 	private void fixFaceUpCards(){
@@ -160,7 +224,7 @@ public class TrainCardManager
 	private int faceUpGoldCount(){
 		int count = 0;
 		for (TrainCard card: faceUpCards){
-			if (card.getColor() == CardColor.GOLD){
+			if (card != null && card.getColor() == CardColor.GOLD){
 				count++;
 			}
 		}

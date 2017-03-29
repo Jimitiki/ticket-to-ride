@@ -74,7 +74,7 @@ public class ClientModel extends Observable{
 
 	public synchronized void setTrainCardsInDeck(boolean value){
 		game.setTrainCardsInDeck(value);
-		notifyPresenter(UpdateType.TRAIN_CARD);
+		notifyPresenter(UpdateType.FACE_UP_CARD);
 	}
 
 	public synchronized void addDestinationCards(ArrayList<DestCard> cards) {

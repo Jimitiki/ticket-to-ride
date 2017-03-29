@@ -1,6 +1,7 @@
 package delta.monstarz.model.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
@@ -21,6 +22,27 @@ public class ServerPlayer extends Player {
 		super(username);
 		this.gameId = gameId;
 		state = new SetupState();
+	}
+
+	private boolean canDrawSecondCard(){
+
+		// Change 1 is bad zone
+		int count = 0;
+		Game game = GameManager.getInstance().getGameByID(gameId);
+		List<TrainCard> faceUpCards = game.getTrainDeck().getFaceUpCards();
+
+		for (TrainCard card: faceUpCards){
+			if (card != null){
+				count++;
+			}
+		}
+
+		if (count <= 1){
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 
 	private void endTurn(){
@@ -86,14 +108,19 @@ public class ServerPlayer extends Player {
 		@Override
 		public void drawTrainCard(TrainCard card) {
 			internalDrawTrainCard(card);
-			state = new TrainCardState();
+			if (canDrawSecondCard()) {
+				state = new TrainCardState();
+			}
+			else {
+				state = new InactiveState();
+			}
 		}
 
 		@Override
 		public void selectTrainCard(TrainCard card) {
 			internalDrawTrainCard(card);
 
-			if (card.getColor() == CardColor.GOLD){
+			if (card.getColor() == CardColor.GOLD || !canDrawSecondCard()){
 				state = new InactiveState();
 			}
 			else {
