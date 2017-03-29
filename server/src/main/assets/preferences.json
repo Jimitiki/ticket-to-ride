@@ -51,7 +51,14 @@
       "color": "red",
       "segments":[
         {
-
+          "x": 1659,
+          "y": 317,
+          "rotation": -58
+        },
+        {
+          "x": 1695,
+          "y": 260,
+          "rotation": -58
         }
       ]
     },
@@ -63,7 +70,14 @@
       "color": "yellow",
       "segments":[
         {
-
+          "x": 1640,
+          "y": 305,
+          "rotation": -58
+        },
+        {
+          "x": 1675,
+          "y": 248,
+          "rotation": -58
         }
       ]
     },
@@ -75,7 +89,24 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 392,
+          "y": 104,
+          "rotation": 49
+        },
+        {
+          "x": 435,
+          "y": 156,
+          "rotation": 49
+        },
+        {
+          "x": 478,
+          "y": 207,
+          "rotation": 49
+        },
+        {
+          "x": 522,
+          "y": 259,
+          "rotation": 49
         }
       ]
     },
@@ -87,7 +118,34 @@
       "color": "white",
       "segments":[
         {
-
+          "x": 389,
+          "y": 74,
+          "rotation": -24
+        },
+        {
+          "x": 453,
+          "y": 47,
+          "rotation": -12
+        },
+        {
+          "x": 521,
+          "y": 33,
+          "rotation": -4
+        },
+        {
+          "x": 589,
+          "y": 31,
+          "rotation": 3
+        },
+        {
+          "x": 659,
+          "y": 37,
+          "rotation": 15
+        },
+        {
+          "x": 725,
+          "y": 57,
+          "rotation": 24
         }
       ]
     },
@@ -128,7 +186,14 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 1558,
+          "y": 631,
+          "rotation": 32
+        },
+        {
+          "x": 1629,
+          "y": 678,
+          "rotation": 115
         }
       ]
     },
@@ -140,7 +205,19 @@
       "color": "red",
       "segments":[
         {
-
+          "x": 1021,
+          "y": 336,
+          "rotation": 30
+        },
+        {
+          "x": 1079,
+          "y": 368,
+          "rotation": 23
+        },
+        {
+          "x": 1142,
+          "y": 390,
+          "rotation": 15
         }
       ]
     },
@@ -152,7 +229,24 @@
       "color": "blue",
       "segments":[
         {
-
+          "x": 964,
+          "y": 487,
+          "rotation": -36
+        },
+        {
+          "x": 1018,
+          "y": 449,
+          "rotation": -36
+        },
+        {
+          "x": 1085,
+          "y": 412,
+          "rotation": 11
+        },
+        {
+          "x": 1149,
+          "y": 422,
+          "rotation": 11
         }
       ]
     },
@@ -164,7 +258,19 @@
       "color": "black",
       "segments":[
         {
-
+          "x": 1255,
+          "y": 427,
+          "rotation": -15
+        },
+        {
+          "x": 1321,
+          "y": 410,
+          "rotation": -8
+        },
+        {
+          "x": 1390,
+          "y": 400,
+          "rotation": 5
         }
       ]
     },
@@ -176,7 +282,19 @@
       "color": "orange",
       "segments":[
         {
-
+          "x": 1245,
+          "y": 403,
+          "rotation": -15
+        },
+        {
+          "x": 1312,
+          "y": 386,
+          "rotation": -8
+        },
+        {
+          "x": 1381,
+          "y": 376,
+          "rotation": 5
         }
       ]
     },
@@ -185,10 +303,17 @@
       "doubleID": 11,
       "endpoints":["Saint Louis", "Chicago"],
       "length":2,
-      "color": "green",
+      "color": "white",
       "segments":[
         {
-
+          "x": 1148,
+          "y": 569,
+          "rotation": -57
+        },
+        {
+          "x": 1184,
+          "y": 513,
+          "rotation": -57
         }
       ]
     },
@@ -197,10 +322,17 @@
       "doubleID": 10,
       "endpoints":["Saint Louis", "Chicago"],
       "length":2,
-      "color": "white",
+      "color": "green",
       "segments":[
         {
-
+          "x": 1128,
+          "y": 557,
+          "rotation": -57
+        },
+        {
+          "x": 1165,
+          "y": 500,
+          "rotation": -57
         }
       ]
     },
@@ -212,7 +344,24 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 1214,
+          "y": 399,
+          "rotation": -45
+        },
+        {
+          "x": 1262,
+          "y": 350,
+          "rotation": -35
+        },
+        {
+          "x": 1322,
+          "y": 311,
+          "rotation": -17
+        },
+        {
+          "x": 1385,
+          "y": 291,
+          "rotation": -39
         }
       ]
     },
@@ -224,7 +373,24 @@
       "color": "red",
       "segments":[
         {
-
+          "x": 699,
+          "y": 960,
+          "rotation": -10
+        },
+        {
+          "x": 765,
+          "y": 950,
+          "rotation": -10
+        },
+        {
+          "x": 832,
+          "y": 940,
+          "rotation": -10
+        },
+        {
+          "x": 899,
+          "y": 930,
+          "rotation": -10
         }
       ]
     },
@@ -236,7 +402,9 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 1015,
+          "y": 918,
+          "rotation": 47
         }
       ]
     },
@@ -245,7 +413,14 @@
       "doubleID": 14,
       "endpoints":["Houston", "Dallas"],
       "length":1,
-      "color": "gray"
+      "color": "gray",
+      "segments":[
+        {
+          "x": 998,
+          "y": 933,
+          "rotation": 47
+        }
+      ]
     },
     {
       "id": 16,
@@ -255,7 +430,14 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 1010,
+          "y": 875,
+          "rotation": -56
+        },
+        {
+          "x": 1049,
+          "y": 821,
+          "rotation": -56
         }
       ]
     },
@@ -264,7 +446,19 @@
       "doubleID": 18,
       "endpoints":["Oklahoma City", "Dallas"],
       "length":2,
-      "color": "gray"
+      "color": "gray",
+      "segments":[
+        {
+          "x": 982,
+          "y": 771,
+          "rotation": 81
+        },
+        {
+          "x": 991,
+          "y": 837,
+          "rotation": 81
+        }
+      ]
     },
     {
       "id": 18,
@@ -274,7 +468,14 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 960,
+          "y": 773,
+          "rotation": 81
+        },
+        {
+          "x": 967,
+          "y": 840,
+          "rotation": 81
         }
       ]
     },
@@ -283,10 +484,27 @@
       "doubleID": -1,
       "endpoints":["Helena", "Denver"],
       "length":4,
-      "color": "pink",
+      "color": "green",
       "segments":[
         {
-
+          "x": 574,
+          "y": 353,
+          "rotation": 69
+        },
+        {
+          "x": 600,
+          "y": 414,
+          "rotation": 69
+        },
+        {
+          "x": 623,
+          "y": 476,
+          "rotation": 69
+        },
+        {
+          "x": 649,
+          "y": 538,
+          "rotation": 69
         }
       ]
     },
@@ -298,7 +516,24 @@
       "color": "black",
       "segments":[
         {
-
+          "x": 703,
+          "y": 615,
+          "rotation": 5
+        },
+        {
+          "x": 769,
+          "y": 620,
+          "rotation": -6
+        },
+        {
+          "x": 836,
+          "y": 614,
+          "rotation": -12
+        },
+        {
+          "x": 901,
+          "y": 600,
+          "rotation": -24
         }
       ]
     },
@@ -310,7 +545,24 @@
       "color": "orange",
       "segments":[
         {
-
+          "x": 703,
+          "y": 640,
+          "rotation": 5
+        },
+        {
+          "x": 768,
+          "y": 645,
+          "rotation": -6
+        },
+        {
+          "x": 835,
+          "y": 639,
+          "rotation": -12
+        },
+        {
+          "x": 900,
+          "y": 625,
+          "rotation": -24
         }
       ]
     },
@@ -322,7 +574,24 @@
       "color": "red",
       "segments":[
         {
-
+          "x": 683,
+          "y": 654,
+          "rotation": 45
+        },
+        {
+          "x": 732,
+          "y": 700,
+          "rotation": 23
+        },
+        {
+          "x": 793,
+          "y": 725,
+          "rotation": 9
+        },
+        {
+          "x": 858,
+          "y": 735,
+          "rotation": 4
         }
       ]
     },
@@ -334,7 +603,24 @@
       "color": "pink",
       "segments":[
         {
-
+          "x": 678,
+          "y": 597,
+          "rotation": -38
+        },
+        {
+          "x": 734,
+          "y": 555,
+          "rotation": -26
+        },
+        {
+          "x": 796,
+          "y": 526,
+          "rotation": -16
+        },
+        {
+          "x": 862,
+          "y": 508,
+          "rotation": -11
         }
       ]
     },
@@ -346,7 +632,29 @@
       "color": "white",
       "segments":[
         {
-
+          "x": 423,
+          "y": 870,
+          "rotation": -67
+        },
+        {
+          "x": 449,
+          "y": 808,
+          "rotation": -60
+        },
+        {
+          "x": 482,
+          "y": 749,
+          "rotation": -53
+        },
+        {
+          "x": 523,
+          "y": 692,
+          "rotation": -36
+        },
+        {
+          "x": 579,
+          "y": 648,
+          "rotation": -21
         }
       ]
     },
@@ -358,7 +666,19 @@
       "color": "red",
       "segments":[
         {
-
+          "x": 450,
+          "y": 548,
+          "rotation": 12
+        },
+        {
+          "x": 515,
+          "y": 561,
+          "rotation": 12
+        },
+        {
+          "x": 581,
+          "y": 573,
+          "rotation": 12
         }
       ]
     },
@@ -370,7 +690,19 @@
       "color": "yellow",
       "segments":[
         {
-
+          "x": 445,
+          "y": 571,
+          "rotation": 12
+        },
+        {
+          "x": 511,
+          "y": 584,
+          "rotation": 12
+        },
+        {
+          "x": 577,
+          "y": 596,
+          "rotation": 12
         }
       ]
     },
@@ -382,7 +714,14 @@
       "color": "gray",
       "segments":[
         {
-
+          "x": 642,
+          "y": 772,
+          "rotation": -86
+        },
+        {
+          "x": 647,
+          "y": 706,
+          "rotation": -86
         }
       ]
     },
@@ -394,7 +733,34 @@
       "color": "orange",
       "segments":[
         {
-
+          "x": 583,
+          "y": 325,
+          "rotation": -2
+        },
+        {
+          "x": 651,
+          "y": 324,
+          "rotation": -2
+        },
+        {
+          "x": 718,
+          "y": 323,
+          "rotation": -2
+        },
+        {
+          "x": 786,
+          "y": 322,
+          "rotation": -2
+        },
+        {
+          "x": 854,
+          "y": 321,
+          "rotation": -2
+        },
+        {
+          "x": 921,
+          "y": 320,
+          "rotation": -2
         }
       ]
     },
@@ -563,7 +929,7 @@
         {
           "x": 980,
           "y": 1023,
-          "rotation": 21
+          "rotation": -21
         }
       ]
     },
@@ -601,7 +967,7 @@
         },
         {
           "x": 537,
-          "y": 936,
+          "y": 976,
           "rotation": -14
         }
       ]
@@ -1985,7 +2351,7 @@
         {
           "x": 1343,
           "y": 673,
-          "rotation": 25
+          "rotation": 29
         }
       ]
     },
