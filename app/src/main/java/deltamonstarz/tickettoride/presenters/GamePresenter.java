@@ -98,15 +98,6 @@ public class GamePresenter extends BasePresenter {
 		}
 	}
 
-//	/**
-//	 * Removes user from the current game stored in the client model
-//	 * Switches to GameSelectView
-//	 */
-//	public void quitGame() {
-//		QuitGameCommand command = new QuitGameCommand(model.getUsername(), model.getGameID());
-//		proxy.sendCommand(model.getAuthToken(), command);
-//	}
-
 	/**
 	 * Indicates to the proxy that the game should be started
 	 * @pre There are between 2 and 5 players in the game
@@ -164,22 +155,6 @@ public class GamePresenter extends BasePresenter {
 
 	public List<Route> getClaimedRoutes() {
 		return game.getBoard().getClaimedRoutes();
-	}
-
-	//TODO: delete this before merge
-	public void routeCheck() {
-		try {
-			Board board = game.getBoard();
-			List<Route> availRoutes = board.getAvailableRoutes(game.getMe());
-			Route route = availRoutes.get((int) (Math.random() * availRoutes.size()));
-			ClaimRouteCommand command = new ClaimRouteCommand(model.getUsername(), model.getGameID(),
-					route.getID(), CardColor.GOLD, 10);
-			proxy.sendCommand(model.getAuthToken(), command);
-		} catch (Exception e) {
-			e.printStackTrace();
-			String ex = e.toString();
-			System.out.print(ex);
-		}
 	}
 
 	//TODO: delete this when all route data is added to json
