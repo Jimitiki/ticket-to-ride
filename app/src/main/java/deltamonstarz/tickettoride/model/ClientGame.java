@@ -38,8 +38,6 @@ public class ClientGame {
 			faceUpCards.add(null);
 		}
 		gameResults = new ArrayList<>();
-		gameResults.add(new PlayerResult(me.getUsername(), PlayerColor.GREEN, 200, 100, 150, -50, true));
-		gameResults.add(new PlayerResult("Brad", PlayerColor.BLACK, 140, 30, 112, -2, false));
 	}
 
 	public TrainCard drawFaceupTrainCard(int cardSpot, TrainCard replacementCard) {
