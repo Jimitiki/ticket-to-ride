@@ -17,6 +17,9 @@ import delta.monstarz.shared.GameInfo;
  */
 public class GameManager
 {
+
+	public static String jsonGameData = "server/src/main/assets/preferences.json";
+
 	//Instance Variables
 	/**
 	 * A map relating game IDs to their corresponding games.
@@ -66,7 +69,7 @@ public class GameManager
 	public int createGame(String ownerName, String gameName)
 	{
 		if (PersonManager.getInstance().isValidUsername(ownerName)) {
-			JsonObject jsonGame = JSONReader.readJSON("server/src/main/assets/preferences.json");
+			JsonObject jsonGame = JSONReader.readJSON(jsonGameData);
 			Game game = Game.init(jsonGame, ownerName, gameName);
 			games.put(game.getGameID(), game);
 			game.addPlayer(ownerName);

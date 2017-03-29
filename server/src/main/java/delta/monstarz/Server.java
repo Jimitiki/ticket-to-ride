@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.*;
 import com.sun.net.httpserver.*;
 
+import delta.monstarz.model.GameManager;
 import delta.monstarz.web.handler.HandleCommand;
 import delta.monstarz.web.handler.HandleCreateGame;
 import delta.monstarz.web.handler.HandleJoin;
@@ -44,11 +45,15 @@ public class Server {
 
 	public static void main(String[] args) {
 		String portNumber;
-		if(args.length == 0) {
-			portNumber = "8080";
-		} else {
-			portNumber = args[0];
+
+		if (args.length != 2){
+			System.out.println("Usage is: <port> <FILE.json>");
+			return;
 		}
+
+		portNumber = args[0];
+		GameManager.jsonGameData = args[1];
+
 
 		new Server().run(portNumber);
 	}
