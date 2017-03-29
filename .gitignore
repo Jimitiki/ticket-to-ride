@@ -1,16 +1,5 @@
 # User-specific configurations
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
-.idea/datasources.xml
+.idea/
 *.iml
 
 # Local configuration file (sdk path, etc)
@@ -24,7 +13,9 @@ local.properties
 
 # Gradle generated files
 .gradle/
+gradle/
 .gradle
+gradle.properties
 
 # OS-specific files
 .DS_Store
