@@ -241,10 +241,6 @@ public class GameFragment extends Fragment {
 		dialog.show(manager, "chat_dialog");
 	}
 
-	private void advanceDemo() {
-		//DemoUtility.nextDemo(getContext());
-	}
-
 	private void launchChooseCardDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		ChooseCardDialog dialog = new ChooseCardDialog();

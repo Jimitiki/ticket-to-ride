@@ -25,14 +25,13 @@ public class MapView extends View {
 	private GameActivity activity;
 	private static Rect sourceRect;
 	private static Rect destRect;
-	private static Rect clipRect;
 	private static float mapScaleX;
 	private static float mapScaleY;
 	private List<Route> claimedRoutes = new ArrayList<>();
 
 	private final float TRAIN_SCALE = (float) 0.18;
-	private final int TRAIN_OFFSET_X = 200;
-	private final int TRAIN_OFFSET_Y = 48;
+	private final int TRAIN_OFFSET_X = 2;
+	private final int TRAIN_OFFSET_Y = -2;
 
 	private final static String[] TRAIN_IMAGES = {
 			"Blue.png",
@@ -89,12 +88,10 @@ public class MapView extends View {
 		if (destRect == null) {
 			destRect = new Rect();
 			canvas.getClipBounds(destRect);
-			clipRect = new Rect(0, 0, destRect.right + TRAIN_OFFSET_X, destRect.bottom + TRAIN_OFFSET_Y);
 			mapScaleX = getWidth() / (float) mapImage.getWidth();
 			mapScaleY = getHeight() / (float) mapImage.getHeight();
 		}
 		canvas.drawBitmap(mapImage, sourceRect, destRect, null);
-		canvas.clipRect(clipRect, Region.Op.REPLACE);
 		drawRoutes(canvas);
 	}
 
@@ -119,9 +116,8 @@ public class MapView extends View {
 
 			Matrix matrix = new Matrix();
 			matrix.postRotate(segment.getRotation());
-			matrix.postTranslate(segment.getX(), segment.getY());
+			matrix.postTranslate(segment.getX() + TRAIN_OFFSET_X, segment.getY() + TRAIN_OFFSET_Y);
 			matrix.postScale(mapScaleX, mapScaleY);
-			matrix.postTranslate(TRAIN_OFFSET_X, TRAIN_OFFSET_Y);
 
 			canvas.save();
 			canvas.setMatrix(matrix);
