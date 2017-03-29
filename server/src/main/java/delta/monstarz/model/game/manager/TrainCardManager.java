@@ -164,10 +164,16 @@ public class TrainCardManager
 			return true;
 		}
 
-		int nonGoldCount = getNonGoldCountInManager();
-		if ( nonGoldCount <= 2 ) {
-			//TODO limited non-golds in deck situation
-			return true;
+
+		int totalNonGoldCountInExistence = getNonGoldCountInManager();
+
+		if ( totalNonGoldCountInExistence <= 2 ) {
+			if (nonFaceUpGoldCount() != totalNonGoldCountInExistence){
+				return false;
+			}
+			else {
+				return true;
+			}
 		}
 
 		return false;
@@ -189,7 +195,6 @@ public class TrainCardManager
 		shuffle();
 		faceUpCards.clear();
 
-		// Todo: Remove bug here
 		for (int i = 0; i < 5; i++){
 			faceUpCards.add(drawCard());
 		}
@@ -224,6 +229,16 @@ public class TrainCardManager
 		int count = 0;
 		for (TrainCard card: faceUpCards){
 			if (card != null && card.getColor() == CardColor.GOLD){
+				count++;
+			}
+		}
+		return count;
+	}
+
+	private int nonFaceUpGoldCount(){
+		int count = 0;
+		for (TrainCard card: faceUpCards){
+			if (card != null && card.getColor() != CardColor.GOLD){
 				count++;
 			}
 		}
