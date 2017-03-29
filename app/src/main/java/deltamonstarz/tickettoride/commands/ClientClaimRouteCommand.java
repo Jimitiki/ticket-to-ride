@@ -18,7 +18,9 @@ public class ClientClaimRouteCommand extends ClaimRouteCommand {
 		if (model.getGameID() == gameID) {
 			ClientGame game = model.getGame();
 			Route route = game.getBoard().getRouteByID(routeID);
-			model.getGame().getMe().claimRoute(route, cardsUsed, goldCardCount);
+			if (model.getUsername().equals(username)) {
+				model.getGame().getMe().claimRoute(route, cardsUsed, goldCardCount);
+			}
 			model.placeRoute(username, routeID);
 		}
 	}
