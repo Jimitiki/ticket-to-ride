@@ -25,7 +25,7 @@ public class ClientPlayer extends Player {
 		List<TrainCard> faceUpCards = game.getFaceUpCards();
 
 		for (TrainCard card: faceUpCards){
-			if (card != null){
+			if (card != null && card.getColor() != CardColor.GOLD){
 				return true;
 			}
 		}
