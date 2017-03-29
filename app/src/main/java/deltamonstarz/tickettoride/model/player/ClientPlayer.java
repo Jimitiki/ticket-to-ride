@@ -108,7 +108,9 @@ public class ClientPlayer extends Player {
 		@Override
 		public void drawDestinationCards(ArrayList<DestCard> cards) {
 			internalDrawDestinationCards(cards);
-			state = new DestinationCardState();
+			if (cards.size() > 0) {
+				state = new DestinationCardState();
+			}
 		}
 
 		@Override

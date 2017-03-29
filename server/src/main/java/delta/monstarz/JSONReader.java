@@ -11,19 +11,19 @@ import java.nio.file.Paths;
 public class JSONReader {
 	public static JsonObject readJSON(String fileLocation) {
 		JsonObject json = null;
-//		try
-//		{
-//			String contents = new String(Files.readAllBytes(Paths.get(fileLocation)));
-			String contents = jsonString;
+		try
+		{
+			String contents = new String(Files.readAllBytes(Paths.get(fileLocation)));
+//			String contents = jsonString;
 
 			//Parse JSON
 			JsonParser parser = new JsonParser();
 			json = parser.parse(contents).getAsJsonObject();
-//		}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		return json;
 	}
 

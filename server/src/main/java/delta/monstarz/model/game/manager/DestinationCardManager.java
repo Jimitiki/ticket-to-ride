@@ -41,6 +41,7 @@ public class DestinationCardManager
 			}
 			deck.add(card);
 		}
+		shuffle();
 	}
 
 	public void addCard(DestCard card) {
@@ -61,7 +62,8 @@ public class DestinationCardManager
 	 */
 	public ArrayList<DestCard> drawCards() {
 		ArrayList<DestCard> cards = new ArrayList<>();
-		for(int i = 0; i < 3; i++) {
+		int drawCardCount = deck.size() < 3 ? deck.size() : 3;
+		for(int i = 0; i < drawCardCount; i++) {
 			cards.add(deck.removeFirst());
 		}
 		return cards;
