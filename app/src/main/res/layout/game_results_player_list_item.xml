@@ -7,7 +7,7 @@
               android:layout_height="wrap_content">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="6dp"
@@ -15,35 +15,35 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/final_score"
         android:layout_weight="1"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/routes"
         android:layout_weight="1"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/finished_destinations"
         android:layout_weight="1"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/unfinished_destinations"
         android:layout_weight="1"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/longest_route"
         android:layout_weight="1"
