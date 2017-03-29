@@ -26,6 +26,8 @@ import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.Route;
 import deltamonstarz.tickettoride.R;
+import deltamonstarz.tickettoride.model.ClientModel;
+import deltamonstarz.tickettoride.presenters.GamePresenter;
 import deltamonstarz.tickettoride.presenters.RoutePresenter;
 
 public class RouteSelectionFragment extends DialogFragment {
@@ -214,8 +216,12 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private void onConfirmSelection() {
-		presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
-		dismiss();
+		if (ClientModel.getInstance().getGame().getMe().canPlaceRoute()) {
+			presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
+			dismiss();
+		} else {
+			GamePresenter.getInstance().handleMessage("You can't claim a route right now");
+		}
 	}
 
 	private void onCloseCardList() {

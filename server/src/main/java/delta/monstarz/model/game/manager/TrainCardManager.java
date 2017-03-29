@@ -160,29 +160,24 @@ public class TrainCardManager
 	}
 
 	private boolean isFaceUpCardsValid(){
-
-		return true;
-		/*
 		if (faceUpGoldCount() <= 2){
 			return true;
 		}
 
 		int nonGoldCount = getNonGoldCountInManager();
 		if ( nonGoldCount <= 2 ) {
-			// Todo: Fix this
+			//TODO limited non-golds in deck situation
+			return true;
 		}
 
 		return false;
-
-		*/
 	}
 
 	private void fixFaceUpCards(){
-		// Todo: Make this loop
 		do {
 			resetFaceUpCards();
 
-		} while (isFaceUpCardsValid());
+		} while (!isFaceUpCardsValid());
 
 		generateNewFaceUpCardCommands();
 	}
@@ -218,7 +213,11 @@ public class TrainCardManager
 	}
 
 	private void generateNewFaceUpCardCommands(){
-
+		for (int i = 0; i < faceUpCards.size(); i++) {
+			SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameId, i);
+			command.setReplacementCard(faceUpCards.get(i));
+			getGame().addCommand(command);
+		}
 	}
 
 	private int faceUpGoldCount(){
