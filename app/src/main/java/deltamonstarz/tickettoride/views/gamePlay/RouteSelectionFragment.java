@@ -162,22 +162,21 @@ public class RouteSelectionFragment extends DialogFragment {
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
 		}
 		if (selectedRoute != null) {
-			selectedRoute = null;
-		}
-		confirm.setEnabled(false);
-		if (selectedColor != null) {
 			onCloseCardList();
 		}
+		confirm.setEnabled(false);
 	}
 
 	private void onToggleDestinationCity(Route route, View view) {
 		if (route.equals(selectedRoute)) {
+			onCloseCardList();
 			destinationSelected = false;
 			selectedRoute = null;
 			view.setBackgroundColor(getResources().getColor(R.color.grayButton));
 			cardColorAdapter.clear();
 		} else {
 			if (destinationSelected) {
+				onCloseCardList();
 				destinationListItem.setBackgroundColor(getResources().getColor(R.color.grayButton));
 			} else {
 				destinationSelected = true;
@@ -186,10 +185,9 @@ public class RouteSelectionFragment extends DialogFragment {
 			getCardColors();
 			destinationListItem = view;
 			view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+			cardColorAdapter.updateEnableHolder();
 		}
-		if (selectedColor != null) {
-			onCloseCardList();
-		}
+		confirm.setEnabled(false);
 	}
 
 	private void updateCardCount(CardColor color, int cardCount) {
@@ -198,7 +196,7 @@ public class RouteSelectionFragment extends DialogFragment {
 		} else {
 			selectedCardCount = cardCount;
 		}
-		int cardCountTotal = cardCount + goldCardCount;
+		int cardCountTotal = selectedCardCount + goldCardCount;
 		if (selectedColor == null && color != CardColor.GOLD) {
 			selectedColor = color;
 

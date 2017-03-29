@@ -44,7 +44,7 @@ public class RoutePresenter extends BasePresenter {
 		Route route = board.getRouteByID(routeID);
 		for (Map.Entry<CardColor, Integer> cardCount : player.getTrainCards().entrySet()) {
 			int cardTotal = cardCount.getKey() == CardColor.GOLD ? cardCount.getValue() : cardCount.getValue() + player.getGoldCardCount();
-			if (cardCount.getValue() > 0 && route.verifyCardColorByCount(cardCount.getKey(), cardCount.getValue() + cardTotal)) {
+			if (cardCount.getValue() > 0 && route.verifyCardColorByCount(cardCount.getKey(), cardTotal)) {
 				usableCards.put(cardCount.getKey(), cardCount.getValue());
 				if (cardCount.getValue() < route.getLength()) {
 					usableCards.put(CardColor.GOLD, player.getGoldCardCount());
@@ -55,6 +55,9 @@ public class RoutePresenter extends BasePresenter {
 	}
 
 	public void claimRoute(int routeID, CardColor cardsUsed, int goldCardCount) {
+		if (cardsUsed == null) {
+			cardsUsed = CardColor.GOLD;
+		}
 		Player player = game.getMe();
 		ClaimRouteCommand command = new ClaimRouteCommand(player.getUsername(), game.getGameID(),
 				routeID, cardsUsed, goldCardCount);
