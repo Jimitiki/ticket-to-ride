@@ -5,15 +5,15 @@
     "file": "mapNA.png"
   },
   "TrainCards":[
-    {"color": "blue", "count": 1},
-    {"color": "green", "count": 1},
-    {"color": "pink", "count": 1},
-    {"color": "red", "count": 1},
-    {"color": "yellow", "count": 1},
-    {"color": "black", "count": 1},
-    {"color": "orange", "count": 1},
-    {"color": "white", "count": 1},
-    {"color": "gold", "count": 7}
+    {"color": "blue", "count": 12},
+    {"color": "green", "count": 12},
+    {"color": "pink", "count": 12},
+    {"color": "red", "count": 12},
+    {"color": "yellow", "count": 12},
+    {"color": "black", "count": 12},
+    {"color": "orange", "count": 12},
+    {"color": "white", "count": 12},
+    {"color": "gold", "count": 14}
   ],
   "Cities": [
     "Atlanta",
