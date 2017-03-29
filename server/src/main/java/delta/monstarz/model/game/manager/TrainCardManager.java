@@ -8,9 +8,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import delta.monstarz.model.GameManager;
-import delta.monstarz.model.game.Game;
-import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.TrainCard;
 
@@ -71,15 +68,13 @@ public class TrainCardManager
 		} while (numGoldCards >= 3);
 	}
 
-	/**
-	 * Adds a card to the deck.
-	 */
-	public void addCard(TrainCard card) {
+	public void returnCard(TrainCard card)
+	{
 		deck.add(card);
 		shuffle();
 	}
 
-	private void shuffle()
+	public void shuffle()
 	{
 		Collections.shuffle(deck);
 	}
@@ -98,6 +93,78 @@ public class TrainCardManager
 	public void faceUpDestoryAndReplace (int index)
 	{
 		faceUpCards.set(index, drawCard());
+
+		if (isFaceUpCardsValid()) {
+			fixFaceUpCards();
+		}
+
+	}
+
+	private boolean isFaceUpCardsValid(){
+		if (faceUpGoldCount() <= 2){
+			return true;
+		}
+
+		int nonGoldCount = getNonGoldCountInManager();
+		if ( nonGoldCount <= 2 ) {
+			// Todo: Fix this
+		}
+
+		return false;
+	}
+
+	private void fixFaceUpCards(){
+		// Todo: Make this loop
+		do {
+			resetFaceUpCards();
+
+		} while (isFaceUpCardsValid());
+
+		generateNewFaceUpCardCommands();
+	}
+
+	private void resetFaceUpCards(){
+		for (TrainCard card: faceUpCards){
+			deck.add(card);
+		}
+		shuffle();
+		faceUpCards.clear();
+
+		// Todo: Remove bug here
+		for (int i = 0; i < 5; i++){
+			faceUpCards.add(drawCard());
+		}
+	}
+
+	private int getNonGoldCountInManager(){
+		int count = 0;
+		for (TrainCard card: deck){
+			if (card.getColor() != CardColor.GOLD){
+				count++;
+			}
+		}
+
+		for (TrainCard card: faceUpCards){
+			if (card.getColor() != CardColor.GOLD){
+				count++;
+			}
+		}
+
+		return count;
+	}
+
+	private void generateNewFaceUpCardCommands(){
+
+	}
+
+	private int faceUpGoldCount(){
+		int count = 0;
+		for (TrainCard card: faceUpCards){
+			if (card.getColor() == CardColor.GOLD){
+				count++;
+			}
+		}
+		return count;
 	}
 
 	public TrainCard getFaceUpCardByPosition(int index) {
