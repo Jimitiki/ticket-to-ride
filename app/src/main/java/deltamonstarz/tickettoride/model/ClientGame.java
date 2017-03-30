@@ -90,6 +90,9 @@ public class ClientGame {
 	// Iterate through current playerInfos and replace the one with a matching username
 	// else just add the player_info to the end.
 	public void updatePlayerInfo(PlayerInfo player_info) {
+		if (player_info.getUsername().equals(me.getUsername())) {
+			me.setNumTrains(player_info.getNumTrains());
+		}
 		for (int i = 0; i < playerInfos.size(); i++) {
 			if (playerInfos.get(i).getUsername().equals(player_info.getUsername()) ) {
 				playerInfos.set(i, player_info);

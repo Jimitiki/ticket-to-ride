@@ -144,7 +144,8 @@ public class Board {
 	    if (color != CardColor.GOLD) {
 		    cardCount += goldCardCount;
 	    }
-	    if (!route.isClaimed() && route.verifyCardColorByCount(color, cardCount)
+	    if (!route.isClaimed() && player.getNumTrains() >= route.getLength() &&
+			    route.verifyCardColorByCount(color, cardCount)
 			    && verifyDoubleRouteClaim(route, player.getUsername())) {
 		    routes.get(routeID).claim(player.getUsername(), player.getPlayerColor());
 		    return true;
@@ -165,7 +166,8 @@ public class Board {
 	//Checks if the player could claim the given route
 	private boolean isRouteAvailable(int routeID, Player player) {
 		Route route = routes.get(routeID);
-		return !route.isClaimed() && verifyPlayerCards(route, player.getTrainCards()) &&
+		return !route.isClaimed() && player.getNumTrains() >= route.getLength()
+				&& verifyPlayerCards(route, player.getTrainCards()) &&
 				verifyDoubleRouteClaim(route, player.getUsername());
 	}
 
