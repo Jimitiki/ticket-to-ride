@@ -1,6 +1,8 @@
 package deltamonstarz.tickettoride.model.player;
 
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,7 +168,7 @@ public class ClientPlayer extends Player {
 		@Override
 		public boolean canSelectTrainCard(TrainCard card) {
 			if (card.getColor() == CardColor.GOLD){
-				GamePresenter.getInstance().handleMessage("You can't draw a golden train card as your second card");
+				GamePresenter.getInstance().handleMessage(Toast.LENGTH_SHORT, "You can't draw a golden train card as your second card");
 				return false;
 			}
 			else {

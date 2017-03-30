@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -220,7 +221,7 @@ public class RouteSelectionFragment extends DialogFragment {
 			presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
 			dismiss();
 		} else {
-			GamePresenter.getInstance().handleMessage("You can't claim a route right now");
+			GamePresenter.getInstance().handleMessage(Toast.LENGTH_SHORT, "You can't claim a route right now");
 		}
 	}
 

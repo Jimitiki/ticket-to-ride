@@ -199,7 +199,7 @@ public class GameFragment extends Fragment {
 			@Override
 			public void handleMessage(android.os.Message msg) {
 				String text = (String) msg.obj;
-				Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), text, msg.what).show();
 			}
 		};
 

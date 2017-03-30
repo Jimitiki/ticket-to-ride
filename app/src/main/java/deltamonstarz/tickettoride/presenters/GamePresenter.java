@@ -138,9 +138,9 @@ public class GamePresenter extends BasePresenter {
 		poller.endPoll();
 	}
 
-	public void handleMessage(String text){
-		if (gameFragment != null){
-			Message message = gameFragment.handler.obtainMessage(-1, text);
+	public void handleMessage(int code, String text){
+		if (gameFragment != null && gameFragment.handler != null){
+			Message message = gameFragment.handler.obtainMessage(code, text);
 			message.sendToTarget();
 		}
 	}

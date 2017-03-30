@@ -1,5 +1,7 @@
 package deltamonstarz.tickettoride.model.player;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import delta.monstarz.shared.model.CardColor;
@@ -42,19 +44,19 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 
 	@Override
 	public boolean canDrawTrainCard() {
-		GamePresenter.getInstance().handleMessage("You can't draw a train card when it is not your turn");
+		GamePresenter.getInstance().handleMessage(Toast.LENGTH_SHORT, "You can't draw a train card when it is not your turn");
 		return false;
 	}
 
 	@Override
 	public boolean canSelectTrainCard(TrainCard card) {
-		GamePresenter.getInstance().handleMessage("You can't select a train card when it is not your turn");
+		GamePresenter.getInstance().handleMessage(Toast.LENGTH_SHORT, "You can't select a train card when it is not your turn");
 		return false;
 	}
 
 	@Override
 	public boolean canDrawDestinationCards() {
-		GamePresenter.getInstance().handleMessage("You can't draw more destination cards right now");
+		GamePresenter.getInstance().handleMessage(Toast.LENGTH_SHORT, "You can't draw more destination cards right now");
 		return false;
 	}
 

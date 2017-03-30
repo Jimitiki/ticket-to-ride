@@ -19,7 +19,7 @@ public class ClientNotifyPlayersCommand extends NotifyPlayersCommand {
     @Override
     public void execute()
     {
-        GamePresenter.getInstance().handleMessage(message);
+        GamePresenter.getInstance().handleMessage(Toast.LENGTH_LONG, message);
 
     }
 }
