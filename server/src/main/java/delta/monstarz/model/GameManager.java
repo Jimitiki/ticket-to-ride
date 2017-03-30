@@ -108,7 +108,7 @@ public class GameManager
 		ArrayList<GameInfo> list = new ArrayList<>();
 
 		for (Map.Entry<Integer, Game> entry: games.entrySet()){
-			if ( entry.getValue().hasPlayer(username) ){
+			if ( entry.getValue().hasPlayer(username) && !entry.getValue().isGameEnded() ){
 				list.add(entry.getValue().getGameInfo());
 			}
 		}

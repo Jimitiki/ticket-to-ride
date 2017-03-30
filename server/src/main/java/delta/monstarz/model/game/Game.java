@@ -48,6 +48,7 @@ public class Game {
 	private Date startTime;
 	private boolean gameStarted = false;
 	private boolean playHasStarted = false;
+	private boolean gameEnded = false;
 
 	private PlayerManager playerManager;
 	private TrainCardManager trainDeck;
@@ -154,6 +155,10 @@ public class Game {
 
 	public void setDestDeck(DestinationCardManager destDeck) {
 		this.destDeck = destDeck;
+	}
+
+	public boolean isGameEnded(){
+		return gameEnded;
 	}
 
 	//Public Methods
@@ -333,5 +338,6 @@ public class Game {
 		List<PlayerResult> results = getGameResults();
 		EndGameCommand command = new EndGameCommand(null, gameID, results);
 		addCommand(command);
+		gameEnded = true;
 	}
 }
