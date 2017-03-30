@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.model.game.Game;
+import delta.monstarz.shared.commands.NotifyPlayersCommand;
 import delta.monstarz.shared.commands.StartTurnCommand;
 import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Player;
@@ -141,6 +142,9 @@ public class PlayerManager
 	public void oneTurnLeftEach() {
 		if (turnsUntilEnd < 0) {
 			turnsUntilEnd = size() -1;
+			String message = "The game is ending soon. Everyone gets one more turn.";
+			NotifyPlayersCommand command = new NotifyPlayersCommand("It doesn't matter", mGame.getGameID(), message);
+			mGame.addCommand(command);
 		}
 	}
 }
