@@ -55,7 +55,7 @@ public abstract class ServerBasePlayerState implements IPlayerState {
 	}
 
 	@Override
-	public boolean canPlaceRoute() {
+	public boolean canPlaceRoute(Route route) {
 		return false;
 	}
 

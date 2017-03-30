@@ -21,7 +21,7 @@ public interface IPlayerState {
 
 	boolean canDrawDestinationCards();
 
-	boolean canPlaceRoute();
+	boolean canPlaceRoute(Route route);
 
 	boolean mustDrawDestinationCard();
 

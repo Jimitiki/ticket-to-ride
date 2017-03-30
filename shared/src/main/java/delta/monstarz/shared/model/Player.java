@@ -183,8 +183,8 @@ public abstract class Player {
 		return state.mustDrawDestinationCard();
 	}
 
-	public boolean canPlaceRoute() {
-		return state.canPlaceRoute();
+	public boolean canPlaceRoute(Route route) {
+		return state.canPlaceRoute(route);
 	}
 
 	public PlayerInfo playerInfo() {

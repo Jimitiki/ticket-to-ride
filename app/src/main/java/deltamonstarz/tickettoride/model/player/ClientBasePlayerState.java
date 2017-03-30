@@ -61,7 +61,7 @@ public abstract class ClientBasePlayerState implements IPlayerState {
 	}
 
 	@Override
-	public boolean canPlaceRoute() {
+	public boolean canPlaceRoute(Route route) {
 		return false;
 	}
 

@@ -257,8 +257,8 @@ public class Game {
 	public boolean claimRoute(int routeID, String username, CardColor cardsUsed, int goldCardCount) {
 		Player player = playerManager.getPlayerByName(username);
 
-		if (player.isTakingTurn() && player.canPlaceRoute() && board.claimRoute(routeID, player, cardsUsed, goldCardCount)) {
-			Route route = board.getRouteByID(routeID);
+		Route route = board.getRouteByID(routeID);
+		if (player.isTakingTurn() && player.canPlaceRoute(route) && board.claimRoute(routeID, player, cardsUsed, goldCardCount)) {
 			for (int i = 0; i < route.getLength(); i++) {
 				if (i < goldCardCount) {
 					trainDeck.returnCard(new TrainCard(CardColor.GOLD));

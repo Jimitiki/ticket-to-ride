@@ -217,7 +217,7 @@ public class RouteSelectionFragment extends DialogFragment {
 	}
 
 	private void onConfirmSelection() {
-		if (ClientModel.getInstance().getGame().getMe().canPlaceRoute()) {
+		if (ClientModel.getInstance().getGame().getMe().canPlaceRoute(selectedRoute)) {
 			presenter.claimRoute(selectedRoute.getID(), selectedColor, goldCardCount);
 			dismiss();
 		} else {

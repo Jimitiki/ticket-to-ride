@@ -117,10 +117,8 @@ public class ClientPlayer extends Player {
 
 		@Override
 		public void claimRoute(Route route, CardColor cardsUsed, int goldCardsUsed) {
-			if (getNumTrains() >= route.getLength()) {
-				internalClaimRoute(route, cardsUsed, goldCardsUsed);
-				state = new InactiveState();
-			}
+			internalClaimRoute(route, cardsUsed, goldCardsUsed);
+			state = new InactiveState();
 		}
 
 		@Override
@@ -139,8 +137,8 @@ public class ClientPlayer extends Player {
 		}
 
 		@Override
-		public boolean canPlaceRoute() {
-			return true;
+		public boolean canPlaceRoute(Route route) {
+			return getNumTrains() >= route.getLength();
 		}
 	}
 
