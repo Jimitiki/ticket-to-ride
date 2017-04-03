@@ -155,10 +155,10 @@ public class GameFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				FragmentManager fragmentManager = activity.getSupportFragmentManager();
-				RouteSelectionFragment dialog = new RouteSelectionFragment();
-				dialog.setPresenter(new RoutePresenter());
+				routeSelectionDialog = new RouteSelectionFragment();
+				routeSelectionDialog.setPresenter(new RoutePresenter());
 				try {
-					dialog.show(fragmentManager, "claim_route_dialog");
+					routeSelectionDialog.show(fragmentManager, "claim_route_dialog");
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -232,6 +232,7 @@ public class GameFragment extends Fragment {
 		if (destinationCardsDialog != null) destinationCardsDialog.dismiss();
 		if (chatDialog != null) chatDialog.dismiss();
 		if (routeSelectionDialog != null) routeSelectionDialog.dismiss();
+		if (trainCardSelectionDialog != null) trainCardSelectionDialog.dismiss();
 	}
 
 	public void enableButtons(){
@@ -255,35 +256,31 @@ public class GameFragment extends Fragment {
 	private void openChat() {
 		System.out.println("opening chat");
 		FragmentManager manager = activity.getSupportFragmentManager();
-		ChatDialogFragment dialog = new ChatDialogFragment();
-		dialog.setActivity(activity);
-		chatDialog = dialog;
+		chatDialog = new ChatDialogFragment();
+		chatDialog.setActivity(activity);
 
-		dialog.show(manager, "chat_dialog");
+		chatDialog.show(manager, "chat_dialog");
 	}
 
 	private void launchChooseCardDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
-		ChooseCardDialog dialog = new ChooseCardDialog();
-		trainCardSelectionDialog = dialog;
+		trainCardSelectionDialog = new ChooseCardDialog();
 
-		dialog.show(manager, "choose_card_dialog");
+		trainCardSelectionDialog.show(manager, "choose_card_dialog");
 	}
 
 	public void launchDestinationChooserDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
-		ChooseDestinationDialog dialog = new ChooseDestinationDialog();
-		destinationCardSelectionDialog = dialog;
+		destinationCardSelectionDialog = new ChooseDestinationDialog();
 
-		dialog.show(manager, "choose_destination_dialog");
+		destinationCardSelectionDialog.show(manager, "choose_destination_dialog");
 	}
 
 	private void launchShowDestinationCardsDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
-		ShowDestinationCardsDialog dialog = new ShowDestinationCardsDialog();
-		dialog.setDestCardList(presenter.getDestinationCards());
-		destinationCardsDialog = dialog;
-		dialog.show(manager, "show_destination_cards_dialog");
+		destinationCardsDialog = new ShowDestinationCardsDialog();
+		destinationCardsDialog.setDestCardList(presenter.getDestinationCards());
+		destinationCardsDialog.show(manager, "show_destination_cards_dialog");
 	}
 
 	public void updatePlayerInfo(){
