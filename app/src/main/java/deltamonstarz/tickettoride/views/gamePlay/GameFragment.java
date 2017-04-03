@@ -265,7 +265,7 @@ public class GameFragment extends Fragment {
 	private void launchChooseCardDialog(){
 		FragmentManager manager = activity.getSupportFragmentManager();
 		trainCardSelectionDialog = new ChooseCardDialog();
-
+		trainCardSelectionDialog.setGameFragment(this);
 		trainCardSelectionDialog.show(manager, "choose_card_dialog");
 	}
 
