@@ -118,11 +118,6 @@ public class GameResultsFragment extends Fragment {
 			finished_destinations = (TextView) v.findViewById(R.id.finished_destinations);
 			unfinished_destinations = (TextView) v.findViewById(R.id.unfinished_destinations);
 			longest_route = (TextView) v.findViewById(R.id.longest_route);
-
-			if(getWinners().contains(result))
-			{
-				view.setBackgroundColor(getResources().getColor(R.color.greenButton));
-			}
 		}
 	}
 
@@ -153,6 +148,9 @@ public class GameResultsFragment extends Fragment {
 			holder.finished_destinations.setText(String.valueOf(holder.result.getFinished_dests_score()));
 			holder.unfinished_destinations.setText(String.valueOf(holder.result.getUnfinished_dests_score()));
 			holder.longest_route.setText(String.valueOf(holder.result.getLongestRoute()));
+			if (getWinners().contains(holder.result)) {
+				holder.view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+			}
 		}
 
 		@Override
