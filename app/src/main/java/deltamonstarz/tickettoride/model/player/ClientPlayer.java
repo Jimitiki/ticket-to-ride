@@ -25,20 +25,20 @@ public class ClientPlayer extends Player {
 	// This checks for deadlocks that can occur when running out of train cards
 	private boolean canDrawSecondCard(){
 
-		return true;
 
 		// Todo: Uncomment all of this code
-		/*
+
 		ClientGame game = ClientModel.getInstance().getGame();
 		List<TrainCard> faceUpCards = game.getFaceUpCards();
+
 
 		for (TrainCard card: faceUpCards){
 			if (card != null && card.getColor() != CardColor.GOLD){
 				return true;
 			}
 		}
-		return false;
-		*/
+		return game.isTrainCardsInDeck();
+
 	}
 
 	public boolean isInstanceOf(String className){

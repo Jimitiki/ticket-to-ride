@@ -354,4 +354,8 @@ public class Game {
 		addCommand(command);
 		gameEnded = true;
 	}
+
+	public boolean trainDeckIsEmpty() {
+		return trainDeck.isDeckEmpty();
+	}
 }

@@ -248,4 +248,8 @@ public class TrainCardManager
 		faceUpCards.clear();
 		deck.clear();
 	}
+
+	public boolean isDeckEmpty() {
+		return deck.size() == 0;
+	}
 }
