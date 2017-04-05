@@ -116,6 +116,12 @@ public class ClientPlayer extends Player {
 		}
 
 		@Override
+		public void selectDestinationCards(ArrayList<DestCard> cards) {
+			internalSelectDestinationCards(cards);
+			state = new InactiveState();
+		}
+
+		@Override
 		public void claimRoute(Route route, CardColor cardsUsed, int goldCardsUsed) {
 			internalClaimRoute(route, cardsUsed, goldCardsUsed);
 			state = new InactiveState();

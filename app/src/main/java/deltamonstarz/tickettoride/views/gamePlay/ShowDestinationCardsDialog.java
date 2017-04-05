@@ -102,7 +102,6 @@ public class ShowDestinationCardsDialog extends DialogFragment {
 			super(itemView);
 
 			text = (Button) itemView.findViewById(R.id.destination_list_item);
-			text.setBackgroundColor(getResources().getColor(R.color.grayButton));
 
 		}
 	}
@@ -130,6 +129,8 @@ public class ShowDestinationCardsDialog extends DialogFragment {
 		@Override
 		public void onBindViewHolder(final DestItemHolder holder, int position){
 			holder.text.setText(mList.get(position).toString());
+			int backgroundColor = mList.get(position).isCompleted() ? R.color.greenButton : R.color.grayButton;
+			holder.text.setBackgroundColor(getResources().getColor(backgroundColor));
 		}
 
 		@Override

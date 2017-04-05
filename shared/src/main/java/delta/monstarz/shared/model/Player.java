@@ -11,7 +11,6 @@ public abstract class Player {
 	private int routeScore;
 	private int numTrains;
 	private int minSelection;
-	private int gameId;
 	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
@@ -185,6 +184,15 @@ public abstract class Player {
 
 	public boolean canPlaceRoute(Route route) {
 		return state.canPlaceRoute(route);
+	}
+
+	public void completeDestinationCard(DestCard card)
+	{
+		for (DestCard destCard : destCards) {
+			if (destCard.equals(card)) {
+				destCard.setCompleted(true);
+			}
+		}
 	}
 
 	public PlayerInfo playerInfo() {

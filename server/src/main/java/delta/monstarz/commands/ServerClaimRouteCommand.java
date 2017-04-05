@@ -20,7 +20,7 @@ public class ServerClaimRouteCommand extends ClaimRouteCommand {
 		if (!game.claimRoute(routeID, username, cardsUsed, goldCardCount)) {
 			System.out.print("could not claim route");
 		} else {
-			Player player = game.getPlayerByUsername(username);
+			connectedDestinations = game.getConnectedDestinations(username);
 			game.addCommand(this);
 			game.addPlayerInfoCommands();
 		}

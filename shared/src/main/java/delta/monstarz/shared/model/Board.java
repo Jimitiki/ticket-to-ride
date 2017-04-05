@@ -214,6 +214,7 @@ public class Board {
 				}
 				City connected = route.getOtherCity(node);
 				if ( connected.equals(dest.getCity2()) ) {
+					dest.setCompleted(true);
 					return true;
 				}
 				if (!doneSet.contains(connected)) {
