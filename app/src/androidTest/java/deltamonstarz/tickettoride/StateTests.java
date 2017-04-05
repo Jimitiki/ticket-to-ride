@@ -251,10 +251,6 @@ public class StateTests {
 		player.startTurn();
 		assertTrue(player.isInstanceOf(PLAYER_TURN_STATE));
 
-		// Should not leave PLAYER_TURN_STATE
-		player.selectDestinationCards(threeDestCards);
-		assertTrue(player.isInstanceOf(PLAYER_TURN_STATE));
-
 
 		// Test state switching when drawing cards
 		player.selectTrainCard(blueCard);
@@ -285,7 +281,46 @@ public class StateTests {
 		player.drawTrainCard(goldCard);
 		assertTrue(player.isInstanceOf(INACTIVE_STATE));
 
-		// Todo: Test the other states
+		player.startTurn();
+
+		player.selectTrainCard(goldCard);
+		assertTrue(player.isInstanceOf(INACTIVE_STATE));
+
+		// Should not leave TRAIN_CARD_STATE
+		player.startTurn();
+
+		player.drawTrainCard(blueCard);
+		assertTrue(player.isInstanceOf(TRAIN_CARD_STATE));
+
+		player.claimRoute(route0, CardColor.BLUE, 0);
+		assertTrue(player.isInstanceOf(TRAIN_CARD_STATE));
+
+		player.selectDestinationCards(threeDestCards);
+		assertTrue(player.isInstanceOf(TRAIN_CARD_STATE));
+
+		player.drawDestinationCards(threeDestCards);
+		assertTrue(player.isInstanceOf(TRAIN_CARD_STATE));
+
+		player.selectDestinationCards(threeDestCards);
+		assertTrue(player.isInstanceOf(TRAIN_CARD_STATE));
+
+		player.selectTrainCard(greenCard);
+		assertTrue(player.isInstanceOf(INACTIVE_STATE));
+
+		// Claim a route
+		player.startTurn();
+
+		player.claimRoute(route0, CardColor.BLUE, 0);
+		assertTrue(player.isInstanceOf(INACTIVE_STATE));
+
+		// Draw Destination Card
+		player.startTurn();
+
+		player.drawDestinationCards(threeDestCards);
+		assertTrue(player.isInstanceOf(DESTINATION_CARD_STATE));
+
+		player.selectDestinationCards(threeDestCards);
+		assertTrue(player.isInstanceOf(INACTIVE_STATE));
 
 
 	}
