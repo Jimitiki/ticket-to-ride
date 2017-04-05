@@ -37,7 +37,7 @@ public class ServerPlayer extends Player {
 			}
 		}
 
-		if (count <= 1){
+		if (count <= 1 && game.trainDeckIsEmpty()) {
 			return false;
 		}
 		else {
