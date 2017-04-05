@@ -29,7 +29,7 @@ public abstract class Player {
 	}
 
 	public PlayerResult getBasePlayerResult() {
-		return new PlayerResult(username, playerColor, getScore(), routeScore, 0, 0, hasLongest); //score only contains the routeScore
+		return new PlayerResult(username, playerColor, getScore(), routeScore, 0, 0, 0, hasLongest); //score only contains the routeScore
 	}
 
 	public String getUsername() {

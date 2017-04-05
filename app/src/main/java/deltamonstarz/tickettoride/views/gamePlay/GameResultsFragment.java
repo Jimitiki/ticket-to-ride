@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerResult;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.model.ClientModel;
@@ -31,6 +33,7 @@ public class GameResultsFragment extends Fragment {
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
 	private GameResultsRecyclerAdapter myAdapter;
+	private TextView mWinnerText;
 	private List<PlayerResult> results;
 
 	public GameResultsFragment() {
@@ -66,7 +69,36 @@ public class GameResultsFragment extends Fragment {
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		myAdapter = new GameResultsRecyclerAdapter(results);
 		mRecyclerView.setAdapter(myAdapter);
+
+		//Display the winner
+		String winner = generateWinnerText();
+		mWinnerText = (TextView) v.findViewById(R.id.winnerText);
+		mWinnerText.setText(winner);
+
+
 		return v;
+	}
+
+	private String generateWinnerText()
+	{
+		List<PlayerResult> results = ClientModel.getInstance().getGame().getGameResults();
+		Collections.sort(results);
+		PlayerResult first = results.get(0);
+		List<PlayerResult> winners = new ArrayList<>();
+		winners.add(first);
+		for(int i = 1; i < results.size(); i++)
+		{
+			if(first.compareTo(results.get(i)) == 0)
+			{
+				winners.add(results.get(i));
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return "WINNER(S): " + winners.toString();
 	}
 
 	private class ResultHolder extends RecyclerView.ViewHolder {

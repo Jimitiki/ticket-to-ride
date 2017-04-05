@@ -311,10 +311,12 @@ public class Game {
 			PlayerResult result = player.getBasePlayerResult();
 			int score = player.getScore();
 			int finished_dest_score = 0;
+			int finished_count = 0;
 			int unfinished_dest_score = 0;
 			for (DestCard dest : player.getDestCards()) {
 				if (board.isDestDone(dest, player.getUsername())) {
 					finished_dest_score += dest.getValue();
+					finished_count++;
 				} else {
 					unfinished_dest_score -= dest.getValue();
 				}
@@ -323,6 +325,7 @@ public class Game {
 			result.setScore(score);
 			result.setFinished_dests_score(finished_dest_score);
 			result.setUnfinished_dests_score(unfinished_dest_score);
+			result.setCompleted_dest_cards(finished_count);
 			results.add(result);
 		}
 		return results;
