@@ -44,7 +44,7 @@ public abstract class Player {
 		playerColor = my_pcolor;
 	}
 
-	public PlayerColor getPlayerColor() {
+	PlayerColor getPlayerColor() {
 		return playerColor;
 	}
 
@@ -156,11 +156,11 @@ public abstract class Player {
 		routeScore += routeValue;
 
 		if (cardsUsed != CardColor.GOLD) {
-			int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
-			trainCards.put(CardColor.GOLD, numGoldCards);
+			int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
+			trainCards.put(cardsUsed, numCardsUsed);
 		}
-		int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
-		trainCards.put(cardsUsed, numCardsUsed);
+		int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
+		trainCards.put(CardColor.GOLD, numGoldCards);
 	}
 
 	public boolean canDrawTrainCard(){
