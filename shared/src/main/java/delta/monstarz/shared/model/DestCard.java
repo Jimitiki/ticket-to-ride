@@ -12,6 +12,10 @@ public class DestCard {
 		value = jsonDestinationCard.get("points").getAsInt();
 	}
 
+	public DestCard(int points){
+		value = points;
+	}
+
 	@Override
     public String toString() {
 	    String string;
