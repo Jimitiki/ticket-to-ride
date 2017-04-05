@@ -117,12 +117,6 @@ public class RouteSelectionFragment extends DialogFragment {
 		cardColors.setLayoutManager(cardLayoutManager);
 
 		confirm.setEnabled(false);
-		confirm.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				onConfirmSelection();
-			}
-		});
 
 		cancel.setOnClickListener(new View.OnClickListener() {
 			@Override
