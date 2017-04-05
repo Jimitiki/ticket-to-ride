@@ -11,7 +11,6 @@ public abstract class Player {
 	private int routeScore;
 	private int numTrains;
 	private int minSelection;
-	private int gameId;
 	private HashMap<CardColor, Integer> trainCards;
 	private List<DestCard> destCards = new ArrayList<>();
 	private ArrayList<DestCard> destCardChoices;
@@ -44,7 +43,7 @@ public abstract class Player {
 		playerColor = my_pcolor;
 	}
 
-	public PlayerColor getPlayerColor() {
+	PlayerColor getPlayerColor() {
 		return playerColor;
 	}
 
@@ -156,11 +155,11 @@ public abstract class Player {
 		routeScore += routeValue;
 
 		if (cardsUsed != CardColor.GOLD) {
-			int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
-			trainCards.put(CardColor.GOLD, numGoldCards);
+			int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
+			trainCards.put(cardsUsed, numCardsUsed);
 		}
-		int numCardsUsed = trainCards.get(cardsUsed) - (route.getLength() - goldCardCount);
-		trainCards.put(cardsUsed, numCardsUsed);
+		int numGoldCards = trainCards.get(CardColor.GOLD) - goldCardCount;
+		trainCards.put(CardColor.GOLD, numGoldCards);
 	}
 
 	public boolean canDrawTrainCard(){
@@ -185,6 +184,15 @@ public abstract class Player {
 
 	public boolean canPlaceRoute(Route route) {
 		return state.canPlaceRoute(route);
+	}
+
+	public void completeDestinationCard(DestCard card)
+	{
+		for (DestCard destCard : destCards) {
+			if (destCard.equals(card)) {
+				destCard.setCompleted(true);
+			}
+		}
 	}
 
 	public PlayerInfo playerInfo() {

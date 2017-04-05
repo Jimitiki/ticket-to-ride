@@ -22,7 +22,13 @@ public class ClientPlayer extends Player {
 		state = new SetupState();
 	}
 
+	// This checks for deadlocks that can occur when running out of train cards
 	private boolean canDrawSecondCard(){
+
+		return true;
+
+		// Todo: Uncomment all of this code
+		/*
 		ClientGame game = ClientModel.getInstance().getGame();
 		List<TrainCard> faceUpCards = game.getFaceUpCards();
 
@@ -32,6 +38,12 @@ public class ClientPlayer extends Player {
 			}
 		}
 		return false;
+		*/
+	}
+
+	public boolean isInstanceOf(String className){
+		String me = this.state.getClass().toString();
+		return this.state.getClass().toString().contains(className);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -113,6 +125,12 @@ public class ClientPlayer extends Player {
 			if (cards.size() > 0) {
 				state = new DestinationCardState();
 			}
+		}
+
+		@Override
+		public void selectDestinationCards(ArrayList<DestCard> cards) {
+			internalSelectDestinationCards(cards);
+			state = new InactiveState();
 		}
 
 		@Override

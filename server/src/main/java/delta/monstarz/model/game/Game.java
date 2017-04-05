@@ -282,6 +282,17 @@ public class Game {
 		return false;
 	}
 
+	public List<DestCard> getConnectedDestinations(String username) {
+		Player player = getPlayerByUsername(username);
+		List<DestCard> connectedDestinations = new ArrayList<>();
+		for (DestCard card : player.getDestCards()) {
+			if (!card.isCompleted() && board.isDestDone(card, username)) {
+				connectedDestinations.add(card);
+			}
+		}
+		return connectedDestinations;
+	}
+
 	/**
 	 *
 	 * @return Returns a GameInfo object that represents the game

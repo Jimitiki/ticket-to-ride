@@ -36,6 +36,13 @@ public class Route {
         length = jsonRoute.get("length").getAsInt();
     }
 
+    // For Unit Testing only
+    public Route(int id, CardColor color, int length){
+	    this.id = id;
+	    this.color = color;
+	    this.length = length;
+    }
+
     public int getID() {
 	    return id;
     }
