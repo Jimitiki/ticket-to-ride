@@ -145,10 +145,6 @@ public class GamePresenter extends BasePresenter {
 		}
 	}
 
-	public void chooseMoreDestinationCards(){
-		gameFragment.launchDestinationChooserDialog();
-	}
-
 	public List<DestCard> getDestinationCards() {
 		return model.getDestinationCards();
 	}

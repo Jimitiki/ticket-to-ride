@@ -41,6 +41,7 @@ public class ChooseCardDialog extends DialogFragment {
 
 	private ChooseCardPresenter presenter;
 	private boolean drawPileShown = true;
+	private GameFragment gameFragment;
 
 	Button cancel;
 	Button accept;
@@ -173,6 +174,10 @@ public class ChooseCardDialog extends DialogFragment {
 		return view;
 	}
 
+	public void setGameFragment(GameFragment gameFragment) {
+		this.gameFragment = gameFragment;
+	}
+
 	public void setCards(List<TrainCard> cards, boolean deckHasCards){
 		for (int i = 0; i < cards.size(); i++){
 			TrainCard card = cards.get(i);
@@ -217,7 +222,7 @@ public class ChooseCardDialog extends DialogFragment {
 	private void processDestinationCardClick(){
 		Player player = ClientModel.getInstance().getGame().getMe();
 		if (player.canDrawDestinationCard()) {
-			GamePresenter.getInstance().chooseMoreDestinationCards();
+			gameFragment.launchDestinationChooserDialog();
 			dismiss();
 		}
 	}
