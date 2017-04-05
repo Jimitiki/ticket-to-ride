@@ -77,7 +77,6 @@ public class GameResultsFragment extends Fragment {
 	private List<PlayerResult> getWinners()
 	{
 		List<PlayerResult> results = ClientModel.getInstance().getGame().getGameResults();
-		Collections.sort(results);
 		PlayerResult first = results.get(0);
 		List<PlayerResult> winners = new ArrayList<>();
 		winners.add(first);
