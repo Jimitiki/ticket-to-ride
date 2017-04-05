@@ -154,13 +154,17 @@ public class GameFragment extends Fragment {
 		placeTrain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FragmentManager fragmentManager = activity.getSupportFragmentManager();
-				routeSelectionDialog = new RouteSelectionFragment();
-				routeSelectionDialog.setPresenter(new RoutePresenter());
-				try {
-					routeSelectionDialog.show(fragmentManager, "claim_route_dialog");
-				} catch(Exception e) {
-					e.printStackTrace();
+				if (ClientModel.getInstance().getGame().getMe().isTakingTurn()) {
+					FragmentManager fragmentManager = activity.getSupportFragmentManager();
+					routeSelectionDialog = new RouteSelectionFragment();
+					routeSelectionDialog.setPresenter(new RoutePresenter());
+					try {
+						routeSelectionDialog.show(fragmentManager, "claim_route_dialog");
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					GamePresenter.getInstance().handleMessage(Toast.LENGTH_SHORT, "You can't claim a route right now");
 				}
 			}
 		});
