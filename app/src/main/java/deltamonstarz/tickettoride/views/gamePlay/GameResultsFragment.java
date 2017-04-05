@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import delta.monstarz.shared.GameInfo;
 import delta.monstarz.shared.model.Player;
@@ -70,16 +71,10 @@ public class GameResultsFragment extends Fragment {
 		myAdapter = new GameResultsRecyclerAdapter(results);
 		mRecyclerView.setAdapter(myAdapter);
 
-		//Display the winner
-		String winner = generateWinnerText();
-		mWinnerText = (TextView) v.findViewById(R.id.winnerText);
-		mWinnerText.setText(winner);
-
-
 		return v;
 	}
 
-	private String generateWinnerText()
+	private List<PlayerResult> getWinners()
 	{
 		List<PlayerResult> results = ClientModel.getInstance().getGame().getGameResults();
 		Collections.sort(results);
@@ -97,8 +92,7 @@ public class GameResultsFragment extends Fragment {
 				break;
 			}
 		}
-
-		return "WINNER(S): " + winners.toString();
+		return winners;
 	}
 
 	private class ResultHolder extends RecyclerView.ViewHolder {
@@ -117,12 +111,18 @@ public class GameResultsFragment extends Fragment {
 			super(v);
 			view = v;
 
+
 			player = (TextView) v.findViewById(R.id.player);
 			final_score = (TextView) v.findViewById(R.id.final_score);
 			routes = (TextView) v.findViewById(R.id.routes);
 			finished_destinations = (TextView) v.findViewById(R.id.finished_destinations);
 			unfinished_destinations = (TextView) v.findViewById(R.id.unfinished_destinations);
 			longest_route = (TextView) v.findViewById(R.id.longest_route);
+
+			if(getWinners().contains(result))
+			{
+				view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+			}
 		}
 	}
 

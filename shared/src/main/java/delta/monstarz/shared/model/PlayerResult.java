@@ -141,4 +141,29 @@ public class PlayerResult implements Comparable<PlayerResult>{
 			return 0;
 		}
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(! (o instanceof PlayerResult))
+		{
+			return false;
+		}
+		else
+		{
+			return compareTo((PlayerResult)o) == 0;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		int result = username != null ? username.hashCode() : 0;
+		result = 31 * result + (playerColor != null ? playerColor.hashCode() : 0);
+		result = 31 * result + score;
+		result = 31 * result + route_score;
+		result = 31 * result + finished_dests_score;
+		result = 31 * result + unfinished_dests_score;
+		result = 31 * result + completed_dest_cards;
+		result = 31 * result + (hasLongestRoute ? 1 : 0);
+		return result;
+	}
 }
