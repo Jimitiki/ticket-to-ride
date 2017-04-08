@@ -3,9 +3,10 @@ apply plugin: 'java'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':shared')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(path: ':shared')
     compile 'junit:junit:4.12'
+    compile project(':plugininterface')
 }
 
 

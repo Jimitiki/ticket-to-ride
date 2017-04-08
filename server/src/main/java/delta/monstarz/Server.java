@@ -1,6 +1,8 @@
 package delta.monstarz;
 import java.io.*;
 import java.net.*;
+
+import com.google.gson.JsonObject;
 import com.sun.net.httpserver.*;
 
 import delta.monstarz.model.GameManager;
@@ -10,6 +12,7 @@ import delta.monstarz.web.handler.HandleJoin;
 import delta.monstarz.web.handler.HandleLogin;
 import delta.monstarz.web.handler.HandleRegister;
 import delta.monstarz.web.handler.HandleListGames;
+import pluginInterface.IPlugin;
 
 public class Server {
 
@@ -46,7 +49,7 @@ public class Server {
 	public static void main(String[] args) {
 		String portNumber;
 
-		if (args.length != 2){
+		if (args.length != 3){
 			System.out.println("Usage is: <port> <FILE.json>");
 			return;
 		}
@@ -54,6 +57,22 @@ public class Server {
 		portNumber = args[0];
 		GameManager.jsonGameData = args[1];
 
+
+		try {
+			String pluginName = args[2];
+			JsonObject plugins = JSONReader.readJSON("server/src/main/assets/plugins.json");
+			plugins = plugins.getAsJsonObject("plugins").getAsJsonObject(pluginName);
+			String pluginLocation = plugins.get("jarLocation").getAsString();
+			String className = plugins.get("className").getAsString();
+			File f = new File(pluginLocation);
+			URL[] url = new URL[]{f.toURL()};
+			URLClassLoader urlCl = new URLClassLoader(new URL[]{f.toURL()}, System.class.getClassLoader());
+			Class log4jClass = urlCl.loadClass(className);
+			IPlugin plugin = (IPlugin) log4jClass.newInstance();
+			plugin.whoAmI();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		new Server().run(portNumber);
 	}

@@ -1,1 +1,1 @@
-include ':app', ':shared', ':server'
+include ':app', ':shared', ':server', ':plugininterface', ':sqlplugin', ':serializeplugin'
