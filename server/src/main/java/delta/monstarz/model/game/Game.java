@@ -2,6 +2,10 @@ package delta.monstarz.model.game;
 
 import com.google.gson.JsonObject;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +77,37 @@ public class Game implements Serializable {
 		trainDeck.initialize();
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"), board.getCities());
 	}
+
+//	public void serializeme() {
+//		String filename = "game.ser";
+//
+//		// save the object to file
+//		FileOutputStream fos = null;
+//		ObjectOutputStream out = null;
+//		try {
+//			fos = new FileOutputStream(filename);
+//			out = new ObjectOutputStream(fos);
+//			out.writeObject(this);
+//
+//			out.close();
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+////      return;
+//		// read the object from file
+//		// save the object to file
+//		FileInputStream fis = null;
+//		ObjectInputStream in = null;
+//		try {
+//			fis = new FileInputStream(filename);
+//			in = new ObjectInputStream(fis);
+//			game = (Game) in.readObject();
+//			in.close();
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+////		System.out.println(this);
+//	}
 
 	/**
 	 * Pseudo-constuctor needed to pass a 'this' reference to an instance object.
