@@ -12,7 +12,8 @@ import delta.monstarz.web.handler.HandleJoin;
 import delta.monstarz.web.handler.HandleLogin;
 import delta.monstarz.web.handler.HandleRegister;
 import delta.monstarz.web.handler.HandleListGames;
-import pluginInterface.IPlugin;
+import plugin.IPlugin;
+import plugin.PluginLoader;
 
 public class Server {
 
@@ -64,11 +65,15 @@ public class Server {
 			plugins = plugins.getAsJsonObject("plugins").getAsJsonObject(pluginName);
 			String pluginLocation = plugins.get("jarLocation").getAsString();
 			String className = plugins.get("className").getAsString();
-			File f = new File(pluginLocation);
-			URL[] url = new URL[]{f.toURL()};
-			URLClassLoader urlCl = new URLClassLoader(new URL[]{f.toURL()}, System.class.getClassLoader());
-			Class log4jClass = urlCl.loadClass(className);
-			IPlugin plugin = (IPlugin) log4jClass.newInstance();
+
+			IPlugin plugin = PluginLoader.loadPlugin(pluginLocation, className);
+
+
+//			File f = new File(pluginLocation);
+//			URL[] url = new URL[]{f.toURL()};
+//			URLClassLoader urlCl = new URLClassLoader(new URL[]{f.toURL()}, System.class.getClassLoader());
+//			Class log4jClass = urlCl.loadClass(className);
+//			IPlugin plugin = (IPlugin) log4jClass.newInstance();
 			plugin.whoAmI();
 		} catch (Exception e) {
 			e.printStackTrace();

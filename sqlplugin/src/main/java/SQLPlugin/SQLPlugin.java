@@ -1,6 +1,6 @@
 package SQLPlugin;
 
-import pluginInterface.IPlugin;
+import plugin.IPlugin;
 
 public class SQLPlugin implements IPlugin {
 	@Override
