@@ -1,6 +1,8 @@
 package delta.monstarz.shared.commands;
 
-public class BaseCommand {
+import java.io.Serializable;
+
+public class BaseCommand implements Serializable {
     protected String name;
     protected String username;
     protected int gameID;

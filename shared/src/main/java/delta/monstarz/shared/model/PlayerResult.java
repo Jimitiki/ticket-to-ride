@@ -1,12 +1,13 @@
 package delta.monstarz.shared.model;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * Created by oliphaun on 3/25/17.
  */
 
-public class PlayerResult implements Comparable<PlayerResult>{
+public class PlayerResult implements Comparable<PlayerResult>, Serializable {
 	private String username;
 	private PlayerColor playerColor;
 	private int score;
