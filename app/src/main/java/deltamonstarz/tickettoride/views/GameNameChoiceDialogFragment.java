@@ -35,7 +35,7 @@ public class GameNameChoiceDialogFragment extends DialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(R.string.routeSelectionTitle);
+		builder.setTitle("Game Name");
 
 		builder.setView(buildView());
 
