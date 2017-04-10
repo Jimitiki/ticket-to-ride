@@ -11,7 +11,7 @@ import java.net.URL;
  */
 
 public class HTTPRequests {
-	protected static final int TIMEOUT = 4000;
+	protected static final int TIMEOUT = 2000;
 
 	public static HttpURLConnection POST(String address, String authToken, String params) throws IOException {
 		URL url = new URL(address);

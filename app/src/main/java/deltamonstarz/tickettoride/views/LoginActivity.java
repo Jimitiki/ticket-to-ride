@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	public void onConnectionError() {
-		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_SHORT);
 		toast.show();
 	}
 

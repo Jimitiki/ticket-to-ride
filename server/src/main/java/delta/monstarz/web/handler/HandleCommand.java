@@ -8,6 +8,7 @@ import java.util.Map;
 
 import delta.monstarz.model.CommandManager;
 import delta.monstarz.shared.SerDes;
+import delta.monstarz.shared.commands.AuthBadCommand;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.CommandListCommand;
 import delta.monstarz.web.QueryParser;
@@ -15,12 +16,16 @@ import delta.monstarz.web.QueryParser;
 public class HandleCommand extends ServerHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		if (!checkAuth_sendHeader(exchange)) {
-			return;
-		}
 
-		if (exchange.getRequestMethod().toLowerCase().equals("get")) { //getting command list for a game
-			Map<String, String> query = QueryParser.parseQuery(exchange.getRequestURI().getRawQuery());
+		Map<String, String> query = QueryParser.parseQuery(exchange.getRequestURI().getRawQuery());
+
+		if (!checkAuth_sendHeader(exchange)) {
+			// Send auth bad command
+			AuthBadCommand command = new AuthBadCommand(query.get("username"));
+			response = SerDes.serialize(command);
+		}
+		else if (exchange.getRequestMethod().toLowerCase().equals("get")) { //getting command list for a game
+
 			CommandListCommand command = new CommandListCommand(query.get("username"));
 			command.setCommands(CommandManager.getCommands(Integer.parseInt(query.get("gameID")), query.get("username"),
 					Integer.parseInt(query.get("curCommand"))));
