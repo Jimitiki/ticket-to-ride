@@ -2,7 +2,9 @@ package delta.monstarz.shared.model;
 
 import com.google.gson.JsonObject;
 
-public class Segment {
+import java.io.Serializable;
+
+public class Segment implements Serializable {
 	private int x;
 	private int y;
 	private int rotation;

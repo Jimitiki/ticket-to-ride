@@ -2,10 +2,10 @@ package delta.monstarz.model.game;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeSet;
 
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
@@ -18,12 +18,10 @@ import delta.monstarz.shared.GameInfo;
 
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.shared.commands.EndGameCommand;
-import delta.monstarz.shared.commands.NotifyPlayersCommand;
 import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.commands.UpdatePlayerInfoCommand;
 import delta.monstarz.shared.model.Board;
 import delta.monstarz.shared.model.CardColor;
-import delta.monstarz.shared.model.City;
 import delta.monstarz.shared.model.DestCard;
 import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerColor;
@@ -37,7 +35,7 @@ import delta.monstarz.shared.model.TrainCard;
  * The id starts at 0 and is incremented for each additional game
  */
 
-public class Game {
+public class Game implements Serializable {
 	//Class Fields
 	private static int nextNewGameID = 0;
 

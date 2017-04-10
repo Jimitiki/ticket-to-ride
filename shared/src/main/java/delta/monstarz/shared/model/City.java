@@ -1,9 +1,10 @@
 package delta.monstarz.shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class City {
+public class City implements Serializable {
 	private int ID;
     private String name;
 	private List<Integer> routeIDs;

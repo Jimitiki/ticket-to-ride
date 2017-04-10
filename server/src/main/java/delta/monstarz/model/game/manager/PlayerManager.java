@@ -1,5 +1,6 @@
 package delta.monstarz.model.game.manager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import delta.monstarz.shared.model.PlayerInfo;
  *
  * @author bradcarter
  */
-public class PlayerManager
+public class PlayerManager implements Serializable
 {
 	//Class Fields
 	public static final int MAX_PLAYERS = 5;
