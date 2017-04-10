@@ -1,4 +1,4 @@
-import pluginInterface.IPlugin;
+import plugin.IPlugin;
 
 public class SerializePlugin implements IPlugin {
 	@Override
