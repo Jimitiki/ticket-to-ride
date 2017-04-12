@@ -6,14 +6,14 @@ import com.google.gson.JsonObject;
 import com.sun.net.httpserver.*;
 
 import delta.monstarz.model.GameManager;
+import delta.monstarz.plugin.IPlugin;
+import delta.monstarz.plugin.PluginLoader;
 import delta.monstarz.web.handler.HandleCommand;
 import delta.monstarz.web.handler.HandleCreateGame;
 import delta.monstarz.web.handler.HandleJoin;
 import delta.monstarz.web.handler.HandleLogin;
 import delta.monstarz.web.handler.HandleRegister;
 import delta.monstarz.web.handler.HandleListGames;
-import plugin.IPlugin;
-import plugin.PluginLoader;
 
 public class Server {
 

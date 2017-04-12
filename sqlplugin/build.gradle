@@ -2,7 +2,7 @@ apply plugin: 'java'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':plugin')
+    compile project(':server')
 }
 
 task deleteJar(type: Delete) {
@@ -12,7 +12,7 @@ task deleteJar(type: Delete) {
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
-    into('../../plugin/build/libs/jars/')
+    into('libs/')
     include('classes.jar')
     rename('classes.jar', 'sqlplugin.jar')
 }

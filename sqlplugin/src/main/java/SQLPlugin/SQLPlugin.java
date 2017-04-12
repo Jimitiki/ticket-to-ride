@@ -1,6 +1,6 @@
 package SQLPlugin;
 
-import plugin.IPlugin;
+import delta.monstarz.plugin.IPlugin;
 
 public class SQLPlugin implements IPlugin {
 	@Override
