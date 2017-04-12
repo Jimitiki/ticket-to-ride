@@ -2,7 +2,8 @@ package plugin;
 
 import java.util.List;
 
-import delta.monstarz.shared.model.Player;
+import delta.monstarz.model.account.Person;
+
 
 /**
  * The interface for a persistent User data structure.
@@ -11,12 +12,12 @@ import delta.monstarz.shared.model.Player;
 public interface IUserDAO
 {
     /**
-     * Adds a player to a persistent data store.
+     * Adds a person to a persistent data store.
      */
-    void addPlayer(Player p);
+    void addPerson(Person p);
 
     /**
-     * Retrieves a list of all Players in the persistent data store.
+     * Retrieves a list of all persons in the persistent data store.
      */
-    List<Player> getPlayers();
+    List<Person> getPersons();
 }
