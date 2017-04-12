@@ -1,5 +1,6 @@
-package delta.monstarz.model.account;
+package delta.monstarz.shared.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * Created by Trevor on 2/3/2017.
  */
 
-public class Person {
+public class Person implements Serializable {
 
 	private String username;
 	private String password;

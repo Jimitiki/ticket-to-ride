@@ -9,6 +9,7 @@ import delta.monstarz.Server;
 import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
 import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
+import delta.monstarz.shared.model.Person;
 
 /**
  * Manages the servers collection of user accounts.

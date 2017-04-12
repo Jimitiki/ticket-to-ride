@@ -9,13 +9,19 @@ import plugin.IUserDAO;
  */
 
 public class SerializationFactory implements IPersistenceFactory {
+
+
+	private SerializationUserDAO userDAO = new SerializationUserDAO();
+	private SerializationGameDAO gameDAO = new SerializationGameDAO();
+
+
 	@Override
 	public IUserDAO getUserDAO() {
-		return new SerializationUserDAO();
+		return userDAO;
 	}
 
 	@Override
 	public IGameDAO getGameDAO() {
-		return new SerializationGameDAO();
+		return gameDAO;
 	}
 }

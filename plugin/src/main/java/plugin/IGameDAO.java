@@ -2,7 +2,7 @@ package plugin;
 
 import java.util.List;
 
-import delta.monstarz.model.game.Game;
+
 import delta.monstarz.shared.commands.BaseCommand;
 
 /**
@@ -14,12 +14,12 @@ public interface IGameDAO
     /**
      * Adds a game to the persistent data store.
      */
-    void addGame(Game game);
+    //void addGame(Game game);
 
     /**
      * Retrieves a list of all Players in the persistent data store.
      */
-    List<Game> getGames();
+    //List<Game> getGames();
 
     /**
      * Applies a command to a particular Game.

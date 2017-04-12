@@ -2,7 +2,7 @@ package plugin;
 
 import java.util.List;
 
-import delta.monstarz.model.account.Person;
+import delta.monstarz.shared.model.Person;
 
 
 /**

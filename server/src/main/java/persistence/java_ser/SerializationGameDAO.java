@@ -11,6 +11,7 @@ import plugin.IGameDAO;
  */
 
 public class SerializationGameDAO implements IGameDAO {
+	/*
 	@Override
 	public void addGame(Game game) {
 
@@ -20,6 +21,7 @@ public class SerializationGameDAO implements IGameDAO {
 	public List<Game> getGames() {
 		return null;
 	}
+	*/
 
 	@Override
 	public void updateGame(int gameID, BaseCommand command) {

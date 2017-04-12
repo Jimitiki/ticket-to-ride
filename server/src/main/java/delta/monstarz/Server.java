@@ -57,7 +57,8 @@ public class Server {
 
 		String portNumber;
 
-		if (args.length != 3){
+		if (args.length != 2){
+		//if (args.length != 3){
 			System.out.println("Usage is: <port> <FILE.json>");
 			return;
 		}
@@ -66,6 +67,7 @@ public class Server {
 		GameManager.jsonGameData = args[1];
 
 
+		/*
 		try {
 			String pluginName = args[2];
 			JsonObject plugins = JSONReader.readJSON("server/src/main/assets/plugins.json");
@@ -85,6 +87,7 @@ public class Server {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 
 		new Server().run(portNumber);
 	}
