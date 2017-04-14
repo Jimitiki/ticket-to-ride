@@ -7,12 +7,12 @@ dependencies {
 
 task deleteJar(type: Delete) {
     delete 'libs/sqlplugin.jar'
-    delete '../../plugin/build/libs/jars/sqlplugin.jar'
+    delete './libs/jars/sqlplugin.jar'
 }
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
-    into('libs/')
+    into('libs/jars/')
     include('classes.jar')
     rename('classes.jar', 'sqlplugin.jar')
 }

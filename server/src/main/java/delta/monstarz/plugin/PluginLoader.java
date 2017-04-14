@@ -8,9 +8,10 @@ public class PluginLoader {
 	public static IPlugin loadPlugin(String jarLocation, String className) throws Exception{
 		File f = new File(jarLocation);
 		URL[] url = new URL[]{f.toURL()};
-		URLClassLoader urlCl = new URLClassLoader(new URL[]{f.toURL()}, System.class.getClassLoader());
-		Class log4jClass = urlCl.loadClass(className);
-		Object o = log4jClass.newInstance();
+		ClassLoader classLoader = PluginLoader.class.getClassLoader();
+		URLClassLoader urlCl = new URLClassLoader(new URL[]{f.toURL()}, classLoader);
+		Class pluginClass = urlCl.loadClass(className);
+		Object o = pluginClass.newInstance();
 		if (o instanceof IPlugin) {
 			return (IPlugin) o;
 		} else {
