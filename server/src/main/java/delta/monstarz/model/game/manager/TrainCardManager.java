@@ -3,6 +3,7 @@ package delta.monstarz.model.game.manager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import delta.monstarz.shared.commands.SelectTrainCardCommand;
 import delta.monstarz.shared.model.CardColor;
 import delta.monstarz.shared.model.TrainCard;
 
-public class TrainCardManager
+public class TrainCardManager implements Serializable
 {
 	private static final int FACE_UP_COUNT = 5;
 	private int gameId;

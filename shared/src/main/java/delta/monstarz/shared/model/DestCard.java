@@ -2,7 +2,9 @@ package delta.monstarz.shared.model;
 
 import com.google.gson.JsonObject;
 
-public class DestCard {
+import java.io.Serializable;
+
+public class DestCard implements Serializable {
     private City city1;
     private City city2;
     private int value;

@@ -1,8 +1,9 @@
 package delta.monstarz.shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public interface IPlayerState {
+public interface IPlayerState extends Serializable {
 	void startTurn();
 
 	void drawTrainCard(TrainCard card);

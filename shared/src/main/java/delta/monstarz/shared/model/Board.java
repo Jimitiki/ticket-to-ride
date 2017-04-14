@@ -3,6 +3,7 @@ package delta.monstarz.shared.model;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 
-public class Board {
+public class Board implements Serializable {
 
 	//Data Members
     private String imageID;

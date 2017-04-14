@@ -85,7 +85,7 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 		mLogoutButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				logout();
+				logoutAndClear();
 			}
 		});
 
@@ -150,14 +150,22 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 
 	/**
 	 * Logs the user out.
-	 *
+	 * Clears the username and password on the login activity
 	 * @pre The activity was initialized
 	 * @post The user will be taken back to the login screen
 	 * @invariant none
 	 */
-	public void logout() {
+	public void logoutAndClear() {
 		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+		finish();
+	}
+
+	// Keeps the username and password on the login activity
+	public void logout() {
+		Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		startActivity(intent);
 		finish();
 	}
@@ -195,7 +203,7 @@ public class GameSelectorActivity extends AppCompatActivity implements GameNameC
 	 * @invariant none
 	 */
 	public void onConnectionError() {
-		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(this, "Network Error: Could not connect to server", Toast.LENGTH_SHORT);
 		toast.show();
 	}
 

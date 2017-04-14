@@ -1,5 +1,6 @@
 package deltamonstarz.tickettoride.commands;
 
+import java.util.Collections;
 import java.util.List;
 
 import delta.monstarz.shared.commands.EndGameCommand;
@@ -19,6 +20,7 @@ public class ClientEndGameCommand extends EndGameCommand {
 	public void execute() {
 		ClientModel model = ClientModel.getInstance();
 		if (model.getGameID() == gameID) {
+			Collections.sort(results);
 			model.getGame().endGame(results);
 		}
 

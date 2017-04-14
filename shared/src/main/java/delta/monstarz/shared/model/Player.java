@@ -1,11 +1,12 @@
 package delta.monstarz.shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Player {
+public abstract class Player implements Serializable {
 	private String username;
 	private PlayerColor playerColor;
 	private int routeScore;
@@ -28,7 +29,7 @@ public abstract class Player {
 	}
 
 	public PlayerResult getBasePlayerResult() {
-		return new PlayerResult(username, playerColor, getScore(), routeScore, 0, 0, hasLongest); //score only contains the routeScore
+		return new PlayerResult(username, playerColor, getScore(), routeScore, 0, 0, 0, hasLongest); //score only contains the routeScore
 	}
 
 	public String getUsername() {
