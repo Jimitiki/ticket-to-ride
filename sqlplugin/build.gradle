@@ -5,6 +5,12 @@ dependencies {
     compile project(':server')
 }
 
+jar {
+    manifest {
+        attributes "Class-path": "server.jar"
+    }
+}
+
 task deleteJar(type: Delete) {
     delete 'libs/sqlplugin.jar'
     delete './libs/jars/sqlplugin.jar'
@@ -12,9 +18,9 @@ task deleteJar(type: Delete) {
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
-    into('libs/jars/')
+    into('libs/')
     include('classes.jar')
-    rename('classes.jar', 'sqlplugin.jar')
+    rename('classes.jar', 'sqlplugintest.jar')
 }
 
 createJar.dependsOn(deleteJar, build)
