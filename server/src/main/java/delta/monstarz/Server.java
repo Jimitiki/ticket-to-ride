@@ -14,10 +14,15 @@ import delta.monstarz.web.handler.HandleJoin;
 import delta.monstarz.web.handler.HandleLogin;
 import delta.monstarz.web.handler.HandleRegister;
 import delta.monstarz.web.handler.HandleListGames;
+import persistence.java_ser.SerializationFactory;
+import plugin.IPersistenceFactory;
+import plugin.IPlugin;
+import plugin.PluginLoader;
 
 public class Server {
 
 	private static final int MAX_WAITING_CONNECTIONS = 12;
+	public static IPersistenceFactory plugin;
 
 	private HttpServer server;
 
@@ -48,9 +53,14 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
+
+		// Todo: Read the command line arguments
+		plugin = new SerializationFactory();
+
 		String portNumber;
 
-		if (args.length != 3){
+		if (args.length != 2){
+		//if (args.length != 3){
 			System.out.println("Usage is: <port> <FILE.json>");
 			return;
 		}

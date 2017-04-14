@@ -27,7 +27,8 @@ public class ClientPlayer extends Player {
 
 
 		// Todo: Uncomment all of this code
-
+		return true;
+		/*
 		ClientGame game = ClientModel.getInstance().getGame();
 		List<TrainCard> faceUpCards = game.getFaceUpCards();
 
@@ -38,6 +39,7 @@ public class ClientPlayer extends Player {
 			}
 		}
 		return game.isTrainCardsInDeck();
+		*/
 
 	}
 

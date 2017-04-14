@@ -1,8 +1,10 @@
 package delta.monstarz.shared.model;
 
+import java.io.Serializable;
+
 import delta.monstarz.shared.model.PlayerColor;
 
-public class PlayerInfo {
+public class PlayerInfo implements Serializable {
 	private String username;
 	private PlayerColor playerColor;
 	private int score;

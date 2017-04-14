@@ -164,6 +164,7 @@ public class GamePresenter extends BasePresenter {
 	@Override
 	public void logOut() {
 		activity.logout();
+		model.clearUser();
 	}
 
 	@Override

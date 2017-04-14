@@ -85,7 +85,6 @@
             android:layout_weight="1"
             android:scrollbars="vertical"/>
 
-
     </LinearLayout>
 
     <RelativeLayout

@@ -3,6 +3,7 @@ package delta.monstarz.model.game.manager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import delta.monstarz.shared.model.DestCard;
 /**
  * @author bradcarter
  */
-public class DestinationCardManager
+public class DestinationCardManager implements Serializable
 {
 	//Data Members
 	private LinkedList<DestCard> deck;

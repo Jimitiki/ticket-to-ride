@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import delta.monstarz.Server;
 import delta.monstarz.exceptions.loginExceptions.InvalidCredentialsException;
 import delta.monstarz.exceptions.loginExceptions.LoginException;
 import delta.monstarz.exceptions.loginExceptions.UsernameInUseException;
+import delta.monstarz.shared.model.Person;
 
 /**
  * Manages the servers collection of user accounts.
@@ -120,6 +122,7 @@ public class PersonManager
 			person.setAuthToken(newAuthToken);
 
 			people.put(person.getUsername(), person);
+			Server.plugin.getUserDAO().addPerson(person);
 			System.out.println("Registered:" + username + ", " + password);
 			return newAuthToken;
 		}

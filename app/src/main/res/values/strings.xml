@@ -11,8 +11,8 @@
     <string name="send">Send</string>
     <string name="colon">:</string>
     <string name="close">Close</string>
-    <string name="defaultIP"></string>
-    <string name="defaultPort"></string>
+    <string name="defaultIP">10.0.2.2</string>
+    <string name="defaultPort">8080</string>
     <string name="routeSelectionTitle">Pick a Route</string>
     <string name="from">From:</string>
     <string name="to">To:</string>

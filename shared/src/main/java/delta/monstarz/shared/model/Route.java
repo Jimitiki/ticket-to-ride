@@ -3,10 +3,11 @@ package delta.monstarz.shared.model;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Route {
+public class Route implements Serializable {
 	private int id;
 	private int doubleID;
     private City city1;

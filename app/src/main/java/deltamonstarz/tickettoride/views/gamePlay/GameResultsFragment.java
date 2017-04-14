@@ -11,9 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.model.Player;
 import delta.monstarz.shared.model.PlayerResult;
 import deltamonstarz.tickettoride.R;
 import deltamonstarz.tickettoride.model.ClientModel;
@@ -31,6 +34,7 @@ public class GameResultsFragment extends Fragment {
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
 	private GameResultsRecyclerAdapter myAdapter;
+	private TextView mWinnerText;
 	private List<PlayerResult> results;
 
 	public GameResultsFragment() {
@@ -66,7 +70,28 @@ public class GameResultsFragment extends Fragment {
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		myAdapter = new GameResultsRecyclerAdapter(results);
 		mRecyclerView.setAdapter(myAdapter);
+
 		return v;
+	}
+
+	private List<PlayerResult> getWinners()
+	{
+		List<PlayerResult> results = ClientModel.getInstance().getGame().getGameResults();
+		PlayerResult first = results.get(0);
+		List<PlayerResult> winners = new ArrayList<>();
+		winners.add(first);
+		for(int i = 1; i < results.size(); i++)
+		{
+			if(first.compareTo(results.get(i)) == 0)
+			{
+				winners.add(results.get(i));
+			}
+			else
+			{
+				break;
+			}
+		}
+		return winners;
 	}
 
 	private class ResultHolder extends RecyclerView.ViewHolder {
@@ -84,6 +109,7 @@ public class GameResultsFragment extends Fragment {
 		ResultHolder(View v) {
 			super(v);
 			view = v;
+
 
 			player = (TextView) v.findViewById(R.id.player);
 			final_score = (TextView) v.findViewById(R.id.final_score);
@@ -121,6 +147,9 @@ public class GameResultsFragment extends Fragment {
 			holder.finished_destinations.setText(String.valueOf(holder.result.getFinished_dests_score()));
 			holder.unfinished_destinations.setText(String.valueOf(holder.result.getUnfinished_dests_score()));
 			holder.longest_route.setText(String.valueOf(holder.result.getLongestRoute()));
+			if (getWinners().contains(holder.result)) {
+				holder.view.setBackgroundColor(getResources().getColor(R.color.greenButton));
+			}
 		}
 
 		@Override

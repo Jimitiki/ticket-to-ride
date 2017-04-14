@@ -15,5 +15,6 @@ public class ConnectionErrorCommand extends BaseCommand {
 	@Override
 	public void execute() {
 		presenter.onConnectionError();
+		new ClientAuthBadCommand("").execute();
 	}
 }
