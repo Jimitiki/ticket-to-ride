@@ -2,7 +2,7 @@ package persistence.java_sql;
 
 import java.util.List;
 
-import delta.monstarz.model.account.Person;
+import delta.monstarz.shared.model.Person;
 import plugin.IUserDAO;
 import java.sql.*;
 
