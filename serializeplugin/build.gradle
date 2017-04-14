@@ -5,5 +5,25 @@ dependencies {
     compile project(':server')
 }
 
+jar {
+    manifest {
+        attributes "Class-path": "server.jar"
+    }
+}
+
+task deleteJar(type: Delete) {
+    delete 'libs/serializeplugin.jar'
+    delete './libs/jars/serializeplugin.jar'
+}
+
+task createJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('libs/')
+    include('classes.jar')
+    rename('classes.jar', 'serializeplugin.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
+
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"

@@ -1,4 +1,4 @@
-package persistence.java_ser;
+package serializeplugin;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 import delta.monstarz.shared.model.Person;
-import plugin.IUserDAO;
+import delta.monstarz.plugin.IUserDAO;
 
 /**
  * Created by lyman126 on 4/12/17.

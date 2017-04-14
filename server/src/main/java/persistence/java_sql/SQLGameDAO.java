@@ -4,7 +4,7 @@ import java.util.List;
 
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
-import plugin.IGameDAO;
+import delta.monstarz.plugin.IGameDAO;
 
 /**
  * Created by oliphaun on 4/12/17.

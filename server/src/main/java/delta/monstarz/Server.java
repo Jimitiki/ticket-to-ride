@@ -6,18 +6,16 @@ import com.google.gson.JsonObject;
 import com.sun.net.httpserver.*;
 
 import delta.monstarz.model.GameManager;
+import delta.monstarz.model.account.PersonManager;
 import delta.monstarz.plugin.IPlugin;
 import delta.monstarz.plugin.PluginLoader;
+import delta.monstarz.plugin.IPersistenceFactory;
 import delta.monstarz.web.handler.HandleCommand;
 import delta.monstarz.web.handler.HandleCreateGame;
 import delta.monstarz.web.handler.HandleJoin;
 import delta.monstarz.web.handler.HandleLogin;
 import delta.monstarz.web.handler.HandleRegister;
 import delta.monstarz.web.handler.HandleListGames;
-import persistence.java_ser.SerializationFactory;
-import plugin.IPersistenceFactory;
-import plugin.IPlugin;
-import plugin.PluginLoader;
 
 public class Server {
 
@@ -54,13 +52,9 @@ public class Server {
 
 	public static void main(String[] args) {
 
-		// Todo: Read the command line arguments
-		plugin = new SerializationFactory();
-
 		String portNumber;
 
-		if (args.length != 2){
-		//if (args.length != 3){
+		if (args.length != 3){
 			System.out.println("Usage is: <port> <FILE.json>");
 			return;
 		}
@@ -76,15 +70,9 @@ public class Server {
 			String pluginLocation = plugins.get("jarLocation").getAsString();
 			String className = plugins.get("className").getAsString();
 
-			IPlugin plugin = PluginLoader.loadPlugin(pluginLocation, className);
+			plugin = PluginLoader.loadPlugin(pluginLocation, className);
 
-
-//			File f = new File(pluginLocation);
-//			URL[] url = new URL[]{f.toURL()};
-//			URLClassLoader urlCl = new URLClassLoader(new URL[]{f.toURL()}, System.class.getClassLoader());
-//			Class log4jClass = urlCl.loadClass(className);
-//			IPlugin plugin = (IPlugin) log4jClass.newInstance();
-			plugin.whoAmI();
+			PersonManager.getInstance().addUsers(plugin.getUserDAO().getPersons());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package plugin;
+package delta.monstarz.plugin;
 
 /**
  * The interface used to define a persistence plugin.
