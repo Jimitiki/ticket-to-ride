@@ -1,5 +1,6 @@
 package persistence.java_sql;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.model.Person;
@@ -19,6 +20,7 @@ public class SQLUserDAO implements IUserDAO {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
 			System.out.println("Opened database successfully");
+			c.setAutoCommit(false);
 
 			stmt = c.createStatement();
 			String sql = "";
@@ -33,14 +35,14 @@ public class SQLUserDAO implements IUserDAO {
 				System.out.println("Table person created successfully");
 			}
 
-			c.setAutoCommit(false);
 
-			sql = "INSERT INTO person VALUES (" +
-					p.getUsername() + ", " +
-					p.getPassword() + ");";
+			sql = "INSERT INTO person (username, password) VALUES ('" +
+					p.getUsername() + "', '" +
+					p.getPassword() + "');";
 			stmt.executeUpdate(sql);
 
 			stmt.close();
+			c.commit();
 			c.close();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -50,7 +52,40 @@ public class SQLUserDAO implements IUserDAO {
 
 	@Override
 	public List<Person> getPersons() {
-		return null;
+		List<Person> persons = new ArrayList<>();
+
+		Connection c;
+		Statement stmt;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
+			System.out.println("Opened database successfully");
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+
+			DatabaseMetaData md = c.getMetaData();
+			ResultSet rs = md.getTables(null, null, "person", null);
+			if (!rs.next()) {
+				return persons;
+			}
+
+			rs = stmt.executeQuery( "SELECT * FROM person;" );
+			while ( rs.next() ) {
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				Person p = new Person(username, password);
+				persons.add(p);
+			}
+
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return persons;
 	}
 
 

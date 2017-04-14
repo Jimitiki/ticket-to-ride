@@ -13,6 +13,7 @@ import delta.monstarz.web.handler.HandleLogin;
 import delta.monstarz.web.handler.HandleRegister;
 import delta.monstarz.web.handler.HandleListGames;
 import persistence.java_ser.SerializationFactory;
+import persistence.java_sql.SQLFactory;
 import plugin.IPersistenceFactory;
 import plugin.IPlugin;
 import plugin.PluginLoader;
@@ -53,7 +54,8 @@ public class Server {
 	public static void main(String[] args) {
 
 		// Todo: Read the command line arguments
-		plugin = new SerializationFactory();
+//		plugin = new SerializationFactory();
+		plugin = new SQLFactory();
 
 		String portNumber;
 

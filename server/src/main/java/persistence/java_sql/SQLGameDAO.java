@@ -11,15 +11,15 @@ import plugin.IGameDAO;
  */
 
 public class SQLGameDAO implements IGameDAO {
-	@Override
-	public void addGame(Game game) {
-
-	}
-
-	@Override
-	public List<Game> getGames() {
-		return null;
-	}
+//	@Override
+//	public void addGame(Game game) {
+//
+//	}
+//
+//	@Override
+//	public List<Game> getGames() {
+//		return null;
+//	}
 
 	@Override
 	public void updateGame(int gameID, BaseCommand command) {
