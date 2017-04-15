@@ -22,6 +22,8 @@ import delta.monstarz.plugin.IGameDAO;
  */
 
 public class SQLGameDAO implements IGameDAO {
+	private int delta;
+
 	public SQLGameDAO () {
 	}
 
@@ -69,7 +71,7 @@ public class SQLGameDAO implements IGameDAO {
 				System.out.println("Table command created successfully");
 			}
 
-			if (true) {
+			if (true) { //copy map from the other plugin and use it to add commands until delta is reached.
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
 				oos.writeObject(command);
@@ -81,6 +83,7 @@ public class SQLGameDAO implements IGameDAO {
 				pstmt.setBinaryStream(1, bais, commandAsBytes.length);
 				pstmt.executeUpdate();
 			} else {
+				//reset game delta to this.delta
 				Game game = GameManager.getInstance().getGameByID(gameID);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -108,7 +111,7 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public void setDelta(int delta) {
-
+		this.delta = delta;
 	}
 
 	@Override
