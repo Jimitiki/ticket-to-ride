@@ -72,7 +72,7 @@ public class Server {
 
 			plugin = PluginLoader.loadPlugin(pluginLocation, className);
 
-			plugin.getUserDAO().clear();
+			//plugin.getUserDAO().clear();
 
 			PersonManager.getInstance().addUsers(plugin.getUserDAO().getPersons());
 		} catch (Exception e) {

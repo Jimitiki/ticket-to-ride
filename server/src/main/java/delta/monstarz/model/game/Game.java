@@ -9,9 +9,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
+import delta.monstarz.Server;
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
 import delta.monstarz.model.CommandManager;
 import delta.monstarz.model.game.manager.DestinationCardManager;
@@ -78,37 +80,6 @@ public class Game implements Serializable {
 		destDeck = new DestinationCardManager(jsonGame.getAsJsonArray("DestinationCards"), board.getCities());
 	}
 
-//	public void serializeme() {
-//		String filename = "game.ser";
-//
-//		// save the object to file
-//		FileOutputStream fos = null;
-//		ObjectOutputStream out = null;
-//		try {
-//			fos = new FileOutputStream(filename);
-//			out = new ObjectOutputStream(fos);
-//			out.writeObject(this);
-//
-//			out.close();
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		}
-////      return;
-//		// read the object from file
-//		// save the object to file
-//		FileInputStream fis = null;
-//		ObjectInputStream in = null;
-//		try {
-//			fis = new FileInputStream(filename);
-//			in = new ObjectInputStream(fis);
-//			game = (Game) in.readObject();
-//			in.close();
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		}
-////		System.out.println(this);
-//	}
-
 	/**
 	 * Pseudo-constuctor needed to pass a 'this' reference to an instance object.
 	 */
@@ -126,6 +97,10 @@ public class Game implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public BaseCommand getMostRecentCommand(){
+		return history.get(history.size() -1);
 	}
 
 	public int getNumPlayers() {
@@ -203,6 +178,7 @@ public class Game implements Serializable {
 		}
 		else{
 			history.add(command);
+			Server.plugin.getGameDAO().addGame(this);
 		}
 	}
 

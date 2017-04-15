@@ -38,13 +38,6 @@ public class SerializationUserDAO implements IUserDAO {
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(p);
 
-
-			InputStream file = new FileInputStream(USERS_FOLDER + "/" + p.getUsername());
-			InputStream buffer = new BufferedInputStream(file);
-			ObjectInput input = new ObjectInputStream(buffer);
-
-			Person personOut = (Person) input.readObject();
-
 		}
 		catch (Exception ex){
 			ex.printStackTrace();
