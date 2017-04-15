@@ -1,5 +1,6 @@
 package sqlplugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +91,7 @@ public class SQLUserDAO implements IUserDAO {
 
 	@Override
 	public void clear() {
-
+		File f = new File("ttr.db");
+		f.delete();
 	}
 }
