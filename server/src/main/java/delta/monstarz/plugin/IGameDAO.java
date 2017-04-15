@@ -33,4 +33,9 @@ public interface IGameDAO
      * Sets the number of Commands to be cached before updating the stored Game.
      */
     void setDelta(int delta);
+
+	/**
+	 * Clears stuff
+	 */
+	void clear();
 }

@@ -30,4 +30,9 @@ public class SQLGameDAO implements IGameDAO {
 	public void setDelta(int delta) {
 
 	}
+
+	@Override
+	public void clear() {
+
+	}
 }

@@ -88,5 +88,8 @@ public class SQLUserDAO implements IUserDAO {
 		return persons;
 	}
 
+	@Override
+	public void clear() {
 
+	}
 }
