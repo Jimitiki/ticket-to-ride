@@ -20,4 +20,9 @@ public interface IUserDAO
      * Retrieves a list of all persons in the persistent data store.
      */
     List<Person> getPersons();
+
+    /**
+     * Clears stuff
+     */
+    void clear();
 }
