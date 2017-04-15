@@ -1,4 +1,4 @@
-package persistence.java_sql;
+package sqlplugin;
 
 import delta.monstarz.plugin.IGameDAO;
 import delta.monstarz.plugin.IPersistenceFactory;

@@ -1,4 +1,4 @@
-package persistence.java_sql;
+package sqlplugin;
 
 import java.util.List;
 
