@@ -2,19 +2,25 @@ apply plugin: 'java'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':plugin')
+    compile project(':server')
+}
+
+jar {
+    manifest {
+        attributes "Class-path": "server.jar"
+    }
 }
 
 task deleteJar(type: Delete) {
     delete 'libs/sqlplugin.jar'
-    delete '../../plugin/build/libs/jars/sqlplugin.jar'
+    delete './libs/jars/sqlplugin.jar'
 }
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
-    into('../../plugin/build/libs/jars/')
+    into('libs/')
     include('classes.jar')
-    rename('classes.jar', 'sqlplugin.jar')
+    rename('classes.jar', 'sqlplugintest.jar')
 }
 
 createJar.dependsOn(deleteJar, build)

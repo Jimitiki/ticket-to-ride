@@ -1,17 +1,17 @@
-package persistence.java_ser;
+package serializeplugin;
 
 import java.util.List;
 
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
-import plugin.IGameDAO;
+import delta.monstarz.plugin.IGameDAO;
 
 /**
  * Created by lyman126 on 4/12/17.
  */
 
 public class SerializationGameDAO implements IGameDAO {
-	/*
+
 	@Override
 	public void addGame(Game game) {
 
@@ -21,7 +21,6 @@ public class SerializationGameDAO implements IGameDAO {
 	public List<Game> getGames() {
 		return null;
 	}
-	*/
 
 	@Override
 	public void updateGame(int gameID, BaseCommand command) {

@@ -1,8 +1,8 @@
-package persistence.java_ser;
+package serializeplugin;
 
-import plugin.IGameDAO;
-import plugin.IPersistenceFactory;
-import plugin.IUserDAO;
+import delta.monstarz.plugin.IGameDAO;
+import delta.monstarz.plugin.IPersistenceFactory;
+import delta.monstarz.plugin.IUserDAO;
 
 /**
  * Created by lyman126 on 4/12/17.

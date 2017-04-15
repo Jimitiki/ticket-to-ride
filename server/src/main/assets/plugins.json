@@ -1,9 +1,12 @@
 {
   "plugins": {
     "sqlite": {
-      "jarLocation": "/users/ugrad/c/cwjohn42/StudioProjects/TTR/plugin/build/classes/main",
-      "className": "SQLPlugin.SQLPlugin"
+      "jarLocation": "./jar/sqlplugin.jar",
+      "className": "sqlplugin.SQLFactory"
     },
-    "serialize": ""
+    "serialize": {
+      "jarLocation": "./jar/serializeplugin.jar",
+      "className": "serializeplugin.SerializationFactory"
+    }
   }
 }

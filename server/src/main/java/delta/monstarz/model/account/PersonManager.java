@@ -2,6 +2,7 @@ package delta.monstarz.model.account;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -198,6 +199,12 @@ public class PersonManager
 
 		for (Map.Entry<String,Person> entry: people.entrySet()){
 			entry.getValue().removeExpiredTokens(oldestAllowedTime);
+		}
+	}
+
+	public void addUsers(List<Person> users) {
+		for (Person user : users) {
+			people.put(user.getUsername(), user);
 		}
 	}
 

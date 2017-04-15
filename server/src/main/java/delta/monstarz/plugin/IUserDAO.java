@@ -1,4 +1,4 @@
-package plugin;
+package delta.monstarz.plugin;
 
 import java.util.List;
 

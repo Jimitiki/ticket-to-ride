@@ -1,10 +1,10 @@
-package persistence.java_sql;
+package sqlplugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.model.Person;
-import plugin.IUserDAO;
+import delta.monstarz.plugin.IUserDAO;
 import java.sql.*;
 
 /**

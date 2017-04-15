@@ -1,4 +1,6 @@
-import plugin.IPlugin;
+package serializeplugin;
+
+import delta.monstarz.plugin.IPlugin;
 
 public class SerializePlugin implements IPlugin {
 	@Override
