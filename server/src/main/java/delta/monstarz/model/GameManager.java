@@ -149,6 +149,18 @@ public class GameManager
 		games.get(gameID).initGame();
 	}
 
+	public void addGames(List<Game> games) {
+		int nextGameID = 0;
+		for (Game game : games) {
+			int gameID = game.getGameID();
+			this.games.put(gameID, game);
+			if (gameID > nextGameID) {
+				nextGameID = gameID;
+			}
+		}
+		Game.setNextNewGameID(++nextGameID);
+	}
+
 	/**
 	 * Removes all game data
 	 */
