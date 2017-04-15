@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.model.GameManager;
@@ -30,7 +31,7 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public List<Game> getGames() {
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override

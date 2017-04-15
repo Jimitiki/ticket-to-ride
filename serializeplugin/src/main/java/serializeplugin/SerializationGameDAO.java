@@ -1,5 +1,6 @@
 package serializeplugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.model.game.Game;
@@ -19,7 +20,7 @@ public class SerializationGameDAO implements IGameDAO {
 
 	@Override
 	public List<Game> getGames() {
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
