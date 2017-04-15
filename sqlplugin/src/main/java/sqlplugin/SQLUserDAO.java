@@ -53,5 +53,8 @@ public class SQLUserDAO implements IUserDAO {
 		return null;
 	}
 
+	@Override
+	public void clear() {
 
+	}
 }

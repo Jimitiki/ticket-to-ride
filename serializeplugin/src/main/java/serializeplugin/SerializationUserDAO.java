@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.monstarz.shared.model.Person;
@@ -44,18 +45,45 @@ public class SerializationUserDAO implements IUserDAO {
 
 			Person personOut = (Person) input.readObject();
 
-			int u = 2;
 		}
-		catch (IOException ex){
-			int r = 5;
-		}
-		catch (ClassNotFoundException ex){
-			int e = 42;
+		catch (Exception ex){
+			ex.printStackTrace();
 		}
 	}
 
 	@Override
 	public List<Person> getPersons() {
-		return null;
+		ArrayList<Person> people = new ArrayList<>();
+
+
+		try {
+
+			File folder = new File(USERS_FOLDER);
+			File[] listOfFiles = folder.listFiles();
+
+			for (File file : listOfFiles) {
+				InputStream inputFile = new FileInputStream(USERS_FOLDER + "/" + file.getName());
+				InputStream buffer = new BufferedInputStream(inputFile);
+				ObjectInput input = new ObjectInputStream(buffer);
+
+				Person personOut = (Person) input.readObject();
+				people.add(personOut);
+			}
+
+		}
+		catch (Exception ex){
+			ex.printStackTrace();
+		}
+
+		return people;
+	}
+
+	@Override
+	public void clear() {
+		File dir = new File(USERS_FOLDER);
+		for(File file: dir.listFiles())
+			if (!file.isDirectory()) {
+				file.delete();
+			}
 	}
 }
