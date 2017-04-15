@@ -120,6 +120,10 @@ public class Game implements Serializable {
 	}
 
 	//Getters and Setters
+	public static void setNextNewGameID(int gameID) {
+		nextNewGameID = gameID;
+	}
+
 	public int getGameID() {
 		return gameID;
 	}

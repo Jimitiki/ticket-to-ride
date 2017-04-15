@@ -20,7 +20,7 @@ task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
     into('libs/')
     include('classes.jar')
-    rename('classes.jar', 'sqlplugintest.jar')
+    rename('classes.jar', 'sqlplugin.jar')
 }
 
 createJar.dependsOn(deleteJar, build)
