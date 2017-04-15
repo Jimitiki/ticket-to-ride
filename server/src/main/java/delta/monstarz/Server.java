@@ -7,7 +7,6 @@ import com.sun.net.httpserver.*;
 
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.account.PersonManager;
-import delta.monstarz.plugin.IPlugin;
 import delta.monstarz.plugin.PluginLoader;
 import delta.monstarz.plugin.IPersistenceFactory;
 import delta.monstarz.web.handler.HandleCommand;
@@ -51,20 +50,17 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
-
-		String portNumber;
-
-		if (args.length != 3){
-			System.out.println("Usage is: <port> <FILE.json>");
+		ArgumentParser parser = new ArgumentParser(args);
+		if (!parser.validArgs()){
+			System.out.println("Usage is: -p <pluginName ('serialize' or 'sqlite')> -d <diffCount> -c (optional)");
 			return;
 		}
 
-		portNumber = args[0];
-		GameManager.jsonGameData = args[1];
-
+		String portNumber = "8080";
+		GameManager.jsonGameData = "server/src/main/assets/preferences.json";
 
 		try {
-			String pluginName = args[2];
+			String pluginName = parser.getPluginName();
 			JsonObject plugins = JSONReader.readJSON("server/src/main/assets/plugins.json");
 			plugins = plugins.getAsJsonObject("plugins").getAsJsonObject(pluginName);
 			String pluginLocation = plugins.get("jarLocation").getAsString();
@@ -73,10 +69,49 @@ public class Server {
 			plugin = PluginLoader.loadPlugin(pluginLocation, className);
 
 			PersonManager.getInstance().addUsers(plugin.getUserDAO().getPersons());
+			GameManager.getInstance().addGames(plugin.getGameDAO().getGames());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		int diffCount = parser.getDiffCount();
+		boolean clear = parser.getClear();
 		new Server().run(portNumber);
+	}
+
+	private static class ArgumentParser {
+		private boolean clear = false;
+		private String pluginName = null;
+		private int diffCount = -1;
+
+		ArgumentParser(String[] args) {
+			for (int i = 0; i < args.length; i++) {
+				switch (args[i]) {
+					case "-p":
+						pluginName = args[++i];
+						break;
+					case "-d":
+						diffCount = Integer.valueOf(args[++i]);
+						break;
+					case "-c":
+						clear = true;
+				}
+			}
+		}
+
+		boolean getClear() {
+			return clear;
+		}
+
+		String getPluginName() {
+			return pluginName;
+		}
+
+		int getDiffCount() {
+			return diffCount;
+		}
+
+		boolean validArgs() {
+			return pluginName != null && diffCount >= 0;
+		}
 	}
 }
