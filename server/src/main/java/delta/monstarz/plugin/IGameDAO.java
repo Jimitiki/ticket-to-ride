@@ -21,13 +21,7 @@ public interface IGameDAO
      */
     List<Game> getGames();
 
-    /**
-     * Applies a command to a particular Game.
-     *
-     * @param gameID The ID of the game to update.
-     * @param command The command to apply to the game.
-     */
-    void updateGame(int gameID, BaseCommand command);
+	List<BaseCommand> getDeltaCommands(int gameId);
 
     /**
      * Sets the number of Commands to be cached before updating the stored Game.

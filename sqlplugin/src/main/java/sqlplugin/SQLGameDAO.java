@@ -37,7 +37,7 @@ public class SQLGameDAO implements IGameDAO {
 		return new ArrayList<>();
 	}
 
-	@Override
+	//@Override
 	public void updateGame(int gameID, BaseCommand command) {
 		Connection c;
 		PreparedStatement pstmt;
@@ -107,6 +107,11 @@ public class SQLGameDAO implements IGameDAO {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public List<BaseCommand> getDeltaCommands(int gameId) {
+		return null;
 	}
 
 	@Override

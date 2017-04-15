@@ -2,7 +2,7 @@ package delta.monstarz.shared.commands;
 
 import java.io.Serializable;
 
-public class BaseCommand implements Serializable {
+public class BaseCommand implements Serializable, Comparable<BaseCommand> {
     protected String name;
     protected String username;
     protected int gameID;
@@ -67,5 +67,10 @@ public class BaseCommand implements Serializable {
 
 	public void setExpires(boolean expires) {
 		this.expires = expires;
+	}
+
+	@Override
+	public int compareTo(BaseCommand o) {
+		return this.id - o.getId();
 	}
 }

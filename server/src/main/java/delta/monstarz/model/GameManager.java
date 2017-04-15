@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.monstarz.Server;
 import delta.monstarz.model.account.PersonManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.JSONReader;
 import delta.monstarz.shared.GameInfo;
+import delta.monstarz.shared.commands.BaseCommand;
 
 /**
  * This class manages the servers collection of games.
@@ -151,14 +153,26 @@ public class GameManager
 
 	public void addGames(List<Game> games) {
 		int nextGameID = 0;
-		for (Game game : games) {
-			int gameID = game.getGameID();
-			this.games.put(gameID, game);
-			if (gameID > nextGameID) {
-				nextGameID = gameID;
+		if (games != null) {
+			for (Game game : games) {
+				int gameID = game.getGameID();
+				this.games.put(gameID, game);
+
+
+				List<BaseCommand> deltaCommands = Server.plugin.getGameDAO().getDeltaCommands(gameID);
+				if (deltaCommands != null) {
+					for (BaseCommand command : deltaCommands) {
+						CommandManager.execute(command);
+					}
+				}
+
+				// Id stuff
+				if (gameID > nextGameID) {
+					nextGameID = gameID;
+				}
 			}
+			Game.setNextNewGameID(++nextGameID);
 		}
-		Game.setNextNewGameID(++nextGameID);
 	}
 
 	/**

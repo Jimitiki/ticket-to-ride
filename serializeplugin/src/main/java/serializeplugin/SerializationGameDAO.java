@@ -1,13 +1,23 @@
 package serializeplugin;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.plugin.IGameDAO;
+import delta.monstarz.shared.model.Person;
 
 /**
  * Created by lyman126 on 4/12/17.
@@ -61,7 +71,7 @@ public class SerializationGameDAO implements IGameDAO {
 
 				FileOutputStream fout = new FileOutputStream(gameFolder + "/" + command.getId() + "-command");
 				ObjectOutputStream oos = new ObjectOutputStream(fout);
-				oos.writeObject(game);
+				oos.writeObject(command);
 
 			}
 
@@ -74,12 +84,64 @@ public class SerializationGameDAO implements IGameDAO {
 
 	@Override
 	public List<Game> getGames() {
-		return null;
+		ArrayList<Game> games = new ArrayList<>();
+
+		File gamesFolder = new File(GAMES_FOLDER);
+
+		try {
+
+			for (File gameFolder : gamesFolder.listFiles()) {
+				for (File file : gameFolder.listFiles()) {
+					if (file.getName().equals("game")) {
+						String gamePath = GAMES_FOLDER + "/" + gameFolder.getName() + "/game";
+						InputStream inputFile = new FileInputStream(gamePath);
+						InputStream buffer = new BufferedInputStream(inputFile);
+						ObjectInput input = new ObjectInputStream(buffer);
+
+						Game game = (Game) input.readObject();
+						games.add(game);
+					}
+				}
+			}
+		}
+		catch (Exception ex){
+			ex.printStackTrace();
+		}
+
+
+		return games;
 	}
 
 	@Override
-	public void updateGame(int gameID, BaseCommand command) {
+	public List<BaseCommand> getDeltaCommands(int gameId) {
+		ArrayList<BaseCommand> deltaCommands = new ArrayList<>();
 
+		try {
+
+			String path = GAMES_FOLDER + "/" + String.valueOf(gameId);
+			File gameFolder = new File(path);
+
+			for (File subFile : gameFolder.listFiles()) {
+				if (subFile.getName().contains("command")) {
+					InputStream inputFile = new FileInputStream(path + "/" + subFile.getName());
+					InputStream buffer = new BufferedInputStream(inputFile);
+					ObjectInput input = new ObjectInputStream(buffer);
+
+					BaseCommand commandOut = (BaseCommand) input.readObject();
+					deltaCommands.add(commandOut);
+				}
+			}
+
+			// Sort
+			Collections.sort(deltaCommands);
+
+			return deltaCommands;
+
+		}
+		catch (Exception ex){
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -91,6 +153,19 @@ public class SerializationGameDAO implements IGameDAO {
 
 	@Override
 	public void clear() {
+		File gamesFolder = new File(GAMES_FOLDER);
 
+		try {
+
+			for (File subFile : gamesFolder.listFiles()) {
+				for (File subSubFile: subFile.listFiles()){
+					subSubFile.delete();
+				}
+				subFile.delete();
+			}
+		}
+		catch (Exception ex){
+			ex.printStackTrace();
+		}
 	}
 }
