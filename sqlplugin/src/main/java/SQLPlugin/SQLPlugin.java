@@ -1,4 +1,4 @@
-package SQLPlugin;
+package sqlplugin;
 
 import delta.monstarz.plugin.IPlugin;
 
