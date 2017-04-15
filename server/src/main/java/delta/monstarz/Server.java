@@ -52,7 +52,7 @@ public class Server {
 	public static void main(String[] args) {
 		ArgumentParser parser = new ArgumentParser(args);
 		if (!parser.validArgs()){
-			System.out.println("Usage is: -p <pluginName ('serialize' or 'sqlite')> -d <diffCount> -c (optional)");
+			System.out.println("Usage is: -p <pluginName ('serialize' or 'sqlite')> -d <deltaCount> -c (optional)");
 			return;
 		}
 
@@ -68,20 +68,24 @@ public class Server {
 
 			plugin = PluginLoader.loadPlugin(pluginLocation, className);
 
-			PersonManager.getInstance().addUsers(plugin.getUserDAO().getPersons());
-			GameManager.getInstance().addGames(plugin.getGameDAO().getGames());
+			if(parser.getClear()) {
+				plugin.getGameDAO().clear();
+				plugin.getUserDAO().clear();
+			} else {
+				PersonManager.getInstance().addUsers(plugin.getUserDAO().getPersons());
+				GameManager.getInstance().addGames(plugin.getGameDAO().getGames());
+			}
+			plugin.getGameDAO().setDelta(parser.getDeltaCount());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		int diffCount = parser.getDiffCount();
-		boolean clear = parser.getClear();
 		new Server().run(portNumber);
 	}
 
 	private static class ArgumentParser {
 		private boolean clear = false;
 		private String pluginName = null;
-		private int diffCount = -1;
+		private int deltaCount = -1;
 
 		ArgumentParser(String[] args) {
 			for (int i = 0; i < args.length; i++) {
@@ -90,7 +94,7 @@ public class Server {
 						pluginName = args[++i];
 						break;
 					case "-d":
-						diffCount = Integer.valueOf(args[++i]);
+						deltaCount = Integer.valueOf(args[++i]);
 						break;
 					case "-c":
 						clear = true;
@@ -106,12 +110,12 @@ public class Server {
 			return pluginName;
 		}
 
-		int getDiffCount() {
-			return diffCount;
+		int getDeltaCount() {
+			return deltaCount;
 		}
 
 		boolean validArgs() {
-			return pluginName != null && diffCount >= 0;
+			return pluginName != null && deltaCount >= 0;
 		}
 	}
 }
