@@ -2,6 +2,7 @@ package sqlplugin;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -67,16 +68,32 @@ public class SQLGameDAO implements IGameDAO {
 				System.out.println("Table command created successfully");
 			}
 
-			Game game = GameManager.getInstance().getGameByID(gameID);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(game);
-			byte[] gameAsBytes = baos.toByteArray();
-			pstmt = c.prepareStatement("INSERT INTO game (gameid, game) VALUES (" +
-					gameID + ", ?)");
-			ByteArrayInputStream bais = new ByteArrayInputStream(gameAsBytes);
-			pstmt.setBinaryStream(1, bais, gameAsBytes.length);
-			pstmt.executeUpdate();
+			if (true) {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = new ObjectOutputStream(baos);
+				oos.writeObject(command);
+				byte[] commandAsBytes = baos.toByteArray();
+				pstmt = c.prepareStatement("INSERT INTO command (gameid, commandid, command) VALUES (" +
+						gameID + ", " +
+						command.getId() + ", ?)");
+				ByteArrayInputStream bais = new ByteArrayInputStream(commandAsBytes);
+				pstmt.setBinaryStream(1, bais, commandAsBytes.length);
+				pstmt.executeUpdate();
+			} else {
+				Game game = GameManager.getInstance().getGameByID(gameID);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = new ObjectOutputStream(baos);
+				oos.writeObject(game);
+				byte[] gameAsBytes = baos.toByteArray();
+				pstmt = c.prepareStatement("REPLACE INTO game (gameid, game) VALUES (" +
+						gameID + ", ?)");
+				ByteArrayInputStream bais = new ByteArrayInputStream(gameAsBytes);
+				pstmt.setBinaryStream(1, bais, gameAsBytes.length);
+				pstmt.executeUpdate();
+
+				sql = "DELETE FROM command where gameid = " + gameID;
+				stmt.executeUpdate(sql);
+			}
 
 			pstmt.close();
 			stmt.close();
@@ -95,6 +112,7 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public void clear() {
-
+		File f = new File("ttr.db");
+		f.delete();
 	}
 }
