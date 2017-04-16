@@ -1,8 +1,14 @@
 package sqlplugin;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -25,24 +31,15 @@ public class SQLGameDAO implements IGameDAO {
 	private int delta;
 
 	public SQLGameDAO () {
+		delta = 10;
 	}
 
 	@Override
 	public void addGame(Game game) {
-
-	}
-
-	@Override
-	public List<Game> getGames() {
-		return new ArrayList<>();
-	}
-
-	//@Override
-	public void updateGame(int gameID, BaseCommand command) {
-		Connection c;
-		PreparedStatement pstmt;
-		Statement stmt;
 		try {
+			PreparedStatement pstmt;
+			Statement stmt;
+			Connection c;
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
 			System.out.println("Opened database successfully");
@@ -71,31 +68,40 @@ public class SQLGameDAO implements IGameDAO {
 				System.out.println("Table command created successfully");
 			}
 
-			if (true) { //copy map from the other plugin and use it to add commands until delta is reached.
+			rs = stmt.executeQuery( "SELECT * FROM game where gameid = "+ game.getGameID() +";" );
+//			if (!rs.next()) {
+			boolean game_exists = rs.next();
+			rs = stmt.executeQuery( "SELECT * FROM command where gameid = "+ game.getGameID() +";" );
+			int command_count = 0;
+			while ( rs.next() ) {
+				command_count++;
+			}
+
+			if (game_exists && command_count < delta) { //copy map from the other plugin and use it to add commands until delta is reached.
+				BaseCommand command = game.getMostRecentCommand();
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
 				oos.writeObject(command);
 				byte[] commandAsBytes = baos.toByteArray();
 				pstmt = c.prepareStatement("INSERT INTO command (gameid, commandid, command) VALUES (" +
-						gameID + ", " +
+						game.getGameID() + ", " +
 						command.getId() + ", ?)");
 				ByteArrayInputStream bais = new ByteArrayInputStream(commandAsBytes);
 				pstmt.setBinaryStream(1, bais, commandAsBytes.length);
 				pstmt.executeUpdate();
 			} else {
 				//reset game delta to this.delta
-				Game game = GameManager.getInstance().getGameByID(gameID);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
 				oos.writeObject(game);
 				byte[] gameAsBytes = baos.toByteArray();
 				pstmt = c.prepareStatement("REPLACE INTO game (gameid, game) VALUES (" +
-						gameID + ", ?)");
+						game.getGameID() + ", ?)");
 				ByteArrayInputStream bais = new ByteArrayInputStream(gameAsBytes);
 				pstmt.setBinaryStream(1, bais, gameAsBytes.length);
 				pstmt.executeUpdate();
 
-				sql = "DELETE FROM command where gameid = " + gameID;
+				sql = "DELETE FROM command where gameid = " + game.getGameID();
 				stmt.executeUpdate(sql);
 			}
 
@@ -110,13 +116,85 @@ public class SQLGameDAO implements IGameDAO {
 	}
 
 	@Override
-	public List<BaseCommand> getDeltaCommands(int gameId) {
-		return null;
+	public List<Game> getGames() {
+		ArrayList<Game> games = new ArrayList<>();
+		try {
+			Connection c;
+			Statement stmt;
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
+			System.out.println("Opened database successfully");
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+
+			DatabaseMetaData md = c.getMetaData();
+			ResultSet rs = md.getTables(null, null, "game", null);
+			if (!rs.next()) {
+				return games;
+			}
+
+			rs = stmt.executeQuery( "SELECT game FROM game;" );
+			while ( rs.next() ) {
+				InputStream buffer = rs.getBinaryStream("game");
+				ObjectInput input = new ObjectInputStream(buffer);
+				Game game = (Game) input.readObject();
+				games.add(game);
+			}
+
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return games;
 	}
 
 	@Override
+	public List<BaseCommand> getDeltaCommands(int gameId) {
+		ArrayList<BaseCommand> commands = new ArrayList<>();
+		try {
+			Connection c;
+			Statement stmt;
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
+			System.out.println("Opened database successfully");
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+
+			DatabaseMetaData md = c.getMetaData();
+			ResultSet rs = md.getTables(null, null, "command", null);
+			if (!rs.next()) {
+				return commands;
+			}
+
+			rs = stmt.executeQuery( "SELECT command FROM command where gameid="+ gameId +";" );
+			while ( rs.next() ) {
+				InputStream buffer = rs.getBinaryStream("command");
+				ObjectInput input = new ObjectInputStream(buffer);
+				BaseCommand command = (BaseCommand) input.readObject();
+				commands.add(command);
+			}
+
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return commands;
+	}
+
+
+	@Override
 	public void setDelta(int delta) {
-		this.delta = delta;
+		if (delta > 0){
+			this.delta = delta;
+		}
 	}
 
 	@Override
