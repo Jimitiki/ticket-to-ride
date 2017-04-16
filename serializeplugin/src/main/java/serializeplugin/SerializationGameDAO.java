@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import delta.monstarz.Server;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.plugin.IGameDAO;
@@ -37,6 +38,10 @@ public class SerializationGameDAO implements IGameDAO {
 
 	@Override
 	public void addGame(Game game) {
+
+		if (Server.restoreMode){
+			return;
+		}
 
 
 		try {
@@ -146,7 +151,7 @@ public class SerializationGameDAO implements IGameDAO {
 
 	@Override
 	public void setDelta(int delta) {
-		if (delta > 0){
+		if (delta >= 0){
 			this.delta = delta;
 		}
 	}

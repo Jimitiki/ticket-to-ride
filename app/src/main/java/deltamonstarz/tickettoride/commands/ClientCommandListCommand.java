@@ -15,7 +15,7 @@ public class ClientCommandListCommand extends CommandListCommand {
 		if (model.getGame() != null) {
 			int curCommandID = model.getCurCommand();
 			for (BaseCommand command : commands) {
-				if (command.getId() > curCommandID) {
+				if (command.getId() > curCommandID || command.expires()) {
 					command.execute();
 					ClientModel.getInstance().setLastCommandID(command.getId());
 				}

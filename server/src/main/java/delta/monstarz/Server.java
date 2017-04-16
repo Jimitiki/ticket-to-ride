@@ -20,6 +20,7 @@ public class Server {
 
 	private static final int MAX_WAITING_CONNECTIONS = 12;
 	public static IPersistenceFactory plugin;
+	public static boolean restoreMode = true;
 
 	private HttpServer server;
 
@@ -67,6 +68,7 @@ public class Server {
 			String className = plugins.get("className").getAsString();
 
 			plugin = PluginLoader.loadPlugin(pluginLocation, className);
+			plugin.getGameDAO().setDelta(parser.getDeltaCount());
 
 			if(parser.getClear()) {
 				plugin.getGameDAO().clear();
@@ -75,10 +77,13 @@ public class Server {
 				PersonManager.getInstance().addUsers(plugin.getUserDAO().getPersons());
 				GameManager.getInstance().addGames(plugin.getGameDAO().getGames());
 			}
-			plugin.getGameDAO().setDelta(parser.getDeltaCount());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		restoreMode = false;
+
 		new Server().run(portNumber);
 	}
 

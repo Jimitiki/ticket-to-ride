@@ -1,8 +1,9 @@
 package delta.monstarz.shared;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Message {
+public class Message implements Serializable {
 	private String message;
 	private String username;
 

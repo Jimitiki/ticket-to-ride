@@ -176,11 +176,13 @@ public class Game implements Serializable {
 	//Public Methods
 
 	public void addCommand(BaseCommand command) {
-		command.setId(nextID++);
+
 		if (command.expires()){
+			command.setId(-1);
 			oneTimeUseCommands.add(command);
 		}
 		else{
+			command.setId(nextID++);
 			history.add(command);
 			Server.plugin.getGameDAO().addGame(this);
 		}
