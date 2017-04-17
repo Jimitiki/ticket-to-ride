@@ -196,10 +196,12 @@ public class Game implements Serializable {
 	 * Starts the game
 	 * New players can no longer join the game
 	 */
-	public void initGame(){
+	public synchronized void initGame(){
+		if (gameStarted){
+			return;
+		}
+
 		if (playerManager.size() > 1){
-			//trainDeck.initialize();
-			//destDeck.shuffle();
 
 			for (Player p : playerManager.getPlayers()) {
 				for (int i = 0; i < 4; i++) {
