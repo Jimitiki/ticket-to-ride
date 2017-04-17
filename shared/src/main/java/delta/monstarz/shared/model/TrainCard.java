@@ -22,4 +22,9 @@ public class TrainCard implements Serializable {
 	public String toString() {
 		return color.toString() + " Card";
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof TrainCard && ((TrainCard) o).getColor() == color;
+	}
 }

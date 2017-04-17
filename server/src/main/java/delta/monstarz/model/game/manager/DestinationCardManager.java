@@ -70,6 +70,12 @@ public class DestinationCardManager implements Serializable
 		return cards;
 	}
 
+	public void drawCards(ArrayList<DestCard> cardsDrawn) {
+		for (DestCard card : cardsDrawn) {
+			deck.remove(deck.indexOf(card));
+		}
+	}
+
 	/**
 	 * Returns a card to the deck.
 	 */

@@ -3,6 +3,7 @@ apply plugin: 'java'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':server')
+    compile 'org.xerial:sqlite-jdbc:3.16.1'
 }
 
 jar {

@@ -26,9 +26,12 @@ public class ServerDrawTrainCardCommand extends DrawTrainCardCommand
 
 		if (player.canDrawTrainCard()) {
 
-			TrainCard card = game.getTrainDeck().drawCard();
-			player.drawTrainCard(card);
-			this.setCardDrawn(card);
+			if (cardDrawn == null) {
+				cardDrawn = game.getTrainDeck().drawCard();
+			} else {
+				game.getTrainDeck().drawCard(cardDrawn);
+			}
+			player.drawTrainCard(cardDrawn);
 
 			// Make/Add new commands
 			game.addCommand(new UpdatePlayerInfoCommand(username, gameID, player.playerInfo()));

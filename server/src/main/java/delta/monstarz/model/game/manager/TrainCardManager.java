@@ -253,4 +253,9 @@ public class TrainCardManager implements Serializable
 	public boolean isDeckEmpty() {
 		return deck.size() == 0;
 	}
+
+	public void drawCard(TrainCard cardDrawn) {
+		int i = deck.indexOf(cardDrawn);
+		deck.remove(i);
+	}
 }

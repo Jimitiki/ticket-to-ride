@@ -1,5 +1,6 @@
 package delta.monstarz.commands;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +28,18 @@ public class ServerDrawDestCardsCommand extends DrawDestCardsCommand
 
 		Player player = GameManager.getInstance().getGameByID(gameID).getPlayerByUsername(username);
 
-		ArrayList<DestCard> cards = player.getDestCardChoices();
-
-		if (cards == null ){
-			cards = game.getDestDeck().drawCards();
-			player.setDestCardChoices(cards);
+		if (choices == null) {
+			choices = player.getDestCardChoices();
+			if (choices == null ){
+				choices = game.getDestDeck().drawCards();
+			}
+			command.setChoices(choices);
+//			command.setExpires(true);
+		} else {
+			game.getDestDeck().drawCards(choices);
 		}
+		player.setDestCardChoices(choices);
 
-		command.setChoices(cards);
-		command.setExpires(true);
 
 		if (player.getDestCards().size() <= 1){
 			command.setMustKeep(2);
