@@ -18,6 +18,7 @@ import delta.monstarz.Server;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.plugin.IGameDAO;
+import delta.monstarz.shared.commands.StartGameCommand;
 import delta.monstarz.shared.model.Person;
 
 /**
@@ -57,8 +58,15 @@ public class SerializationGameDAO implements IGameDAO {
 				}
 			}
 
+			boolean gameIsStarting = false;
+			BaseCommand command = game.getMostRecentCommand();
+			if (command != null && command instanceof StartGameCommand){
+				gameIsStarting = true;
+			}
+
+
 			// +1 for game
-			if (fileCount >= delta + 1 || fileCount == 0) {
+			if (fileCount >= delta + 1 || fileCount == 0 || gameIsStarting) {
 				// Delete everything
 				for (File subFile: gameFolder.listFiles()){
 					subFile.delete();
@@ -72,7 +80,7 @@ public class SerializationGameDAO implements IGameDAO {
 
 			} else {
 				// Save the most recent command
-				BaseCommand command = game.getMostRecentCommand();
+
 
 				FileOutputStream fout = new FileOutputStream(gameFolder + "/" + command.getId() + "-command");
 				ObjectOutputStream oos = new ObjectOutputStream(fout);
