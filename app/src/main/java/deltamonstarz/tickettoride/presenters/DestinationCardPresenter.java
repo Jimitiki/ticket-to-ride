@@ -52,7 +52,7 @@ public class DestinationCardPresenter extends BasePresenter {
 
 	public void drawCards() {
 		DrawDestCardsCommand command = new DrawDestCardsCommand(model.getUsername(), model.getGameID());
-		command.setExpires(true);
+//		command.setExpires(true);
 		proxy.sendCommand(model.getAuthToken(),command );
 	}
 

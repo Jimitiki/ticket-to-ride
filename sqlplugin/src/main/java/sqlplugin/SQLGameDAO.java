@@ -22,6 +22,8 @@ import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
 import delta.monstarz.plugin.IGameDAO;
+import delta.monstarz.shared.commands.StartGameCommand;
+
 /**
  * Created by oliphaun on 4/12/17.
  */
@@ -76,8 +78,13 @@ public class SQLGameDAO implements IGameDAO {
 				command_count++;
 			}
 
-			if (game_exists && command_count < delta) { //copy map from the other plugin and use it to add commands until delta is reached.
-				BaseCommand command = game.getMostRecentCommand();
+			boolean gameIsStarting = false;
+			BaseCommand command = game.getMostRecentCommand();
+			if (command != null && command instanceof StartGameCommand){
+				gameIsStarting = true;
+			}
+
+			if (game_exists && command_count < delta && !gameIsStarting) { //copy map from the other plugin and use it to add commands until delta is reached.
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
 				oos.writeObject(command);
