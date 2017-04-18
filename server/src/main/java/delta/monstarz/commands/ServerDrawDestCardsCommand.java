@@ -24,8 +24,6 @@ public class ServerDrawDestCardsCommand extends DrawDestCardsCommand
 	public void execute() {
 		Game game = GameManager.getInstance().getGameByID(gameID);
 
-		DrawDestCardsCommand command = new DrawDestCardsCommand(username, gameID);
-
 		Player player = GameManager.getInstance().getGameByID(gameID).getPlayerByUsername(username);
 
 		if (choices == null) {
@@ -33,8 +31,6 @@ public class ServerDrawDestCardsCommand extends DrawDestCardsCommand
 			if (choices == null ){
 				choices = game.getDestDeck().drawCards();
 			}
-			command.setChoices(choices);
-//			command.setExpires(true);
 		} else {
 			game.getDestDeck().drawCards(choices);
 		}
@@ -42,8 +38,8 @@ public class ServerDrawDestCardsCommand extends DrawDestCardsCommand
 
 
 		if (player.getDestCards().size() <= 1){
-			command.setMustKeep(2);
+			this.mustKeep = 2;
 		}
-		game.addCommand(command);
+		game.addCommand(this);
 	}
 }

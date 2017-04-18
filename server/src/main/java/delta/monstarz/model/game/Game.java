@@ -15,6 +15,7 @@ import java.util.TreeSet;
 
 import delta.monstarz.Server;
 import delta.monstarz.commands.ServerDrawTrainCardCommand;
+import delta.monstarz.commands.ServerSelectTrainCardCommand;
 import delta.monstarz.model.CommandManager;
 import delta.monstarz.model.game.manager.DestinationCardManager;
 import delta.monstarz.model.game.manager.PlayerManager;
@@ -212,7 +213,7 @@ public class Game implements Serializable {
 
 			List<TrainCard> faceUpCards = trainDeck.getFaceUpCards();
 			for (int i = 0; i < faceUpCards.size(); i++) {
-				SelectTrainCardCommand command = new SelectTrainCardCommand(null, gameID, i);
+				ServerSelectTrainCardCommand command = new ServerSelectTrainCardCommand(null, gameID, i);
 				command.setReplacementCard(faceUpCards.get(i));
 				addCommand(command);
 			}
