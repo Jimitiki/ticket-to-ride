@@ -232,11 +232,11 @@ public class GameFragment extends Fragment {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (destinationCardSelectionDialog != null) destinationCardSelectionDialog.dismiss();
-		if (destinationCardsDialog != null) destinationCardsDialog.dismiss();
-		if (chatDialog != null) chatDialog.dismiss();
-		if (routeSelectionDialog != null) routeSelectionDialog.dismiss();
-		if (trainCardSelectionDialog != null) trainCardSelectionDialog.dismiss();
+		if (destinationCardSelectionDialog != null && destinationCardSelectionDialog.isAdded() && destinationCardSelectionDialog.isResumed()) destinationCardSelectionDialog.dismiss();
+		if (destinationCardsDialog != null && destinationCardsDialog.isAdded() && destinationCardsDialog.isResumed()) destinationCardsDialog.dismiss();
+		if (chatDialog != null && chatDialog.isAdded() && chatDialog.isResumed()) chatDialog.dismiss();
+		if (routeSelectionDialog != null && routeSelectionDialog.isAdded() && routeSelectionDialog.isResumed()) routeSelectionDialog.dismiss();
+		if (trainCardSelectionDialog != null && trainCardSelectionDialog.isAdded() && trainCardSelectionDialog.isResumed()) trainCardSelectionDialog.dismiss();
 	}
 
 	public void enableButtons(){

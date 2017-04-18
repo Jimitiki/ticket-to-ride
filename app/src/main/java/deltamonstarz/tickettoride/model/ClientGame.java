@@ -135,6 +135,7 @@ public class ClientGame {
 
 	public void selectTrainCard(TrainCard cardDrawn) {
 		me.selectTrainCard(cardDrawn);
+		me.clearDestCardChoices();
 		mostRecentCardColor = cardDrawn.getColor();
 		ClientModel.getInstance().notifyPresenter(UpdateType.REPORT_DRAWN_CARD);
 	}

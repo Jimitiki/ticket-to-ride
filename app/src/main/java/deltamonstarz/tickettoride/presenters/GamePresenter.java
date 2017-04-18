@@ -153,11 +153,6 @@ public class GamePresenter extends BasePresenter {
 		return game.getBoard().getClaimedRoutes();
 	}
 
-	//TODO: delete this when all route data is added to json
-	public void listCheck() {
-		gameFragment.onRouteClaimed(model.getGoodRoutes());
-	}
-
 	/**
 	 * Removes all game and user data from the client model, resetting the session entirely.
 	 */

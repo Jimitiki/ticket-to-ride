@@ -198,20 +198,6 @@ public class ClientModel extends Observable{
 		return game.getBoard().getClaimedRoutes();
 	}
 
-	//this function name is fine
-	//TODO: delete this
-	public List<Route> getGoodRoutes() {
-		Map<Integer, Route> routes = game.getBoard().getRoutes();
-		List<Route> goodRoutes = new ArrayList<>();
-		for (Route route : routes.values()) {
-			if (route.getSegments() != null) {
-				goodRoutes.add(route);
-				route.setTrainColor(PlayerColor.YELLOW);
-			}
-		}
-		return goodRoutes;
-	}
-
 	public List<PlayerInfo> getPlayerInfos() {
 		return game.getPlayerInfos();
 	}
