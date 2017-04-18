@@ -51,7 +51,7 @@ public class DestinationCardPresenter extends BasePresenter {
 	}
 
 	public void drawCards() {
-		if (model.getDestCardChoices() == null) {
+		if (model.getDestCardChoices() == null && model.getDestCardChoices().size() > 0) {
 			DrawDestCardsCommand command = new DrawDestCardsCommand(model.getUsername(), model.getGameID());
 			proxy.sendCommand(model.getAuthToken(), command);
 		} else {
