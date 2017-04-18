@@ -44,6 +44,7 @@ public class SQLUserDAO implements IUserDAO {
 		Connection connection = getConnection();
 		try {
 			Statement statement = connection.createStatement();
+			connection.setAutoCommit(false);
 			String sql = "INSERT INTO person (username, password) VALUES ('" +
 					p.getUsername() + "', '" +
 					p.getPassword() + "');";
@@ -65,12 +66,26 @@ public class SQLUserDAO implements IUserDAO {
 	public List<Person> getPersons() {
 		List<Person> persons = new ArrayList<>();
 		Connection connection = getConnection();
-
+		Statement stmt;
 		try {
-			if (!personTableExists(connection)) {
-				return persons;
+			if (personTableExists(connection)) {
+				stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery( "SELECT * FROM person;" );
+				while ( rs.next() ) {
+					String username = rs.getString("username");
+					String password = rs.getString("password");
+					Person p = new Person(username, password);
+					persons.add(p);
+				}
+				rs.close();
+				stmt.close();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return persons;
@@ -80,6 +95,7 @@ public class SQLUserDAO implements IUserDAO {
 	public void clear() {
 		Connection connection = getConnection();
 		try {
+			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
 			String sql = "DROP TABLE IF EXISTS 'person'";
 			statement.executeUpdate(sql);

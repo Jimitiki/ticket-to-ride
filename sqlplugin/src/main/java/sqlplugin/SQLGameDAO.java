@@ -14,6 +14,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,9 +35,7 @@ import delta.monstarz.shared.commands.StartGameCommand;
 public class SQLGameDAO implements IGameDAO {
 	private int delta;
 
-	public SQLGameDAO () {
-		delta = 10;
-	}
+	public SQLGameDAO () { delta = 10;}
 
 	@Override
 	public void addGame(Game game) {
@@ -72,7 +71,7 @@ public class SQLGameDAO implements IGameDAO {
 				sql = "CREATE TABLE command (" +
 						"gameid INT NOT NULL," +
 						"commandid INT NOT NULL," +
-						"command BLOB NOT NULL )";
+						"command BLOB NOT NULL, UNIQUE(gameid, commandid) ON CONFLICT IGNORE )";
 				stmt.executeUpdate(sql);
 				System.out.println("Table command created successfully");
 			}
@@ -212,9 +211,34 @@ public class SQLGameDAO implements IGameDAO {
 		}
 	}
 
+	private Connection getConnection() {
+		try {
+			return DriverManager.getConnection("jdbc:sqlite:ttr.db");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	@Override
 	public void clear() {
-		File f = new File("ttr.db");
-		f.delete();
+		Connection connection = getConnection();
+		try {
+			connection.setAutoCommit(false);
+			Statement statement = connection.createStatement();
+			String sql = "DROP TABLE IF EXISTS 'game'";
+			statement.executeUpdate(sql);
+			sql = "DROP TABLE IF EXISTS 'command'";
+			statement.executeUpdate(sql);
+			statement.close();
+			connection.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
