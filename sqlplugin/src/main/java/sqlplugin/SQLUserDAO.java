@@ -8,49 +8,109 @@ import delta.monstarz.shared.model.Person;
 import delta.monstarz.plugin.IUserDAO;
 import java.sql.*;
 
-/**
- * Created by oliphaun on 4/12/17.
- */
-
 public class SQLUserDAO implements IUserDAO {
-	@Override
-	public void addPerson(Person p) {
-		Connection c;
-		Statement stmt;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
-			System.out.println("Opened database successfully");
-			c.setAutoCommit(false);
+	SQLUserDAO() {
+		Connection connection = getConnection();
+		if (connection != null) {
+			try {
+				Statement statement = connection.createStatement();
 
-			stmt = c.createStatement();
-			String sql = "";
-
-			DatabaseMetaData md = c.getMetaData();
-			ResultSet rs = md.getTables(null, null, "person", null);
-			if (!rs.next()) {
-				sql = "CREATE  TABLE person (" +
-						"username TEXT NOT NULL PRIMARY KEY," +
-						"password TEXT NOT NULL )";
-				stmt.executeUpdate(sql);
-				System.out.println("Table person created successfully");
+				if (!personTableExists(connection)) {
+					String sql = "CREATE  TABLE person (" +
+							"username TEXT NOT NULL PRIMARY KEY," +
+							"password TEXT NOT NULL )";
+					statement.executeUpdate(sql);
+					statement.close();
+					connection.commit();
+				}
+			} catch (SQLException e) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
 			}
-
-
-			sql = "INSERT INTO person (username, password) VALUES ('" +
-					p.getUsername() + "', '" +
-					p.getPassword() + "');";
-			stmt.executeUpdate(sql);
-
-			stmt.close();
-			c.commit();
-			c.close();
-		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(0);
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
+	@Override
+	public void addPerson(Person p) {
+		Connection connection = getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO person (username, password) VALUES ('" +
+					p.getUsername() + "', '" +
+					p.getPassword() + "');";
+			statement.executeUpdate(sql);
+
+			statement.close();
+			connection.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Person> getPersons() {
+		List<Person> persons = new ArrayList<>();
+		Connection connection = getConnection();
+
+		try {
+			if (!personTableExists(connection)) {
+				return persons;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return persons;
+	}
+
+	@Override
+	public void clear() {
+		Connection connection = getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			String sql = "DROP TABLE IF EXISTS 'person'";
+			statement.executeUpdate(sql);
+			statement.close();
+			connection.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Connection getConnection() {
+		try {
+			return DriverManager.getConnection("jdbc:sqlite:ttr.db");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private boolean personTableExists(Connection connection) throws SQLException {
+		DatabaseMetaData metaData = connection.getMetaData();
+		ResultSet rs = metaData.getTables(null, null, "person", null);
+		return rs.next();
+	}
+
+	/*
 	@Override
 	public List<Person> getPersons() {
 		List<Person> persons = new ArrayList<>();
@@ -87,11 +147,5 @@ public class SQLUserDAO implements IUserDAO {
 			System.exit(0);
 		}
 		return persons;
-	}
-
-	@Override
-	public void clear() {
-		File f = new File("ttr.db");
-		f.delete();
-	}
+	}*/
 }

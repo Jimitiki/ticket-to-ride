@@ -45,7 +45,6 @@ public class SQLGameDAO implements IGameDAO {
 			return;
 		}
 
-
 		try {
 			PreparedStatement pstmt;
 			Statement stmt;
