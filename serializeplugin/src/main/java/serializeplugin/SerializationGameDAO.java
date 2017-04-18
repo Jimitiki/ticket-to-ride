@@ -82,7 +82,7 @@ public class SerializationGameDAO implements IGameDAO {
 				// Save the most recent command
 
 
-				FileOutputStream fout = new FileOutputStream(gameFolder + "/" + command.getId() + "-command");
+				FileOutputStream fout = new FileOutputStream(gameFolder + "/" + command.getId() + "-command" + " -- " + command.toString());
 				ObjectOutputStream oos = new ObjectOutputStream(fout);
 				oos.writeObject(command);
 
