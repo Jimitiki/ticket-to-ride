@@ -16,8 +16,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import delta.monstarz.Server;
 import delta.monstarz.model.GameManager;
 import delta.monstarz.model.game.Game;
 import delta.monstarz.shared.commands.BaseCommand;
@@ -37,6 +40,12 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public void addGame(Game game) {
+
+		if (Server.restoreMode){
+			return;
+		}
+
+
 		try {
 			PreparedStatement pstmt;
 			Statement stmt;
@@ -192,6 +201,7 @@ public class SQLGameDAO implements IGameDAO {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
 		}
+		Collections.sort(commands);
 		return commands;
 	}
 
