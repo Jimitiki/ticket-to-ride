@@ -9,13 +9,21 @@ import delta.monstarz.plugin.IUserDAO;
  */
 
 public class SQLFactory implements IPersistenceFactory {
+	private IGameDAO gameDAO;
+	private IUserDAO userDAO;
+
+	public SQLFactory() {
+		gameDAO = new SQLGameDAO();
+		userDAO = new SQLUserDAO();
+	}
+
 	@Override
 	public IUserDAO getUserDAO() {
-		return new SQLUserDAO();
+		return userDAO;
 	}
 
 	@Override
 	public IGameDAO getGameDAO() {
-		return new SQLGameDAO();
+		return gameDAO;
 	}
 }

@@ -35,7 +35,42 @@ import delta.monstarz.shared.commands.StartGameCommand;
 public class SQLGameDAO implements IGameDAO {
 	private int delta;
 
-	public SQLGameDAO () { delta = 10;}
+	public SQLGameDAO () {
+		delta = 10;
+		Connection connection = getConnection();
+		if (connection != null) {
+			try {
+				Statement statement = connection.createStatement();
+				if (!tableExists(connection, "game")) {
+					String sql = "CREATE TABLE game (" +
+							"gameid INT NOT NULL PRIMARY KEY," +
+							"game BLOB NOT NULL );";
+					statement.executeUpdate(sql);
+					statement.close();
+				}
+				if (!tableExists(connection, "command")) {
+					String sql = "CREATE TABLE command (" +
+							"gameid INT NOT NULL," +
+							"commandid INT NOT NULL," +
+							"command BLOB NOT NULL, UNIQUE(gameid, commandid) ON CONFLICT IGNORE );";
+					statement.executeUpdate(sql);
+					statement.close();
+				}
+			} catch (SQLException e) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void addGame(Game game) {
@@ -56,28 +91,7 @@ public class SQLGameDAO implements IGameDAO {
 			stmt = c.createStatement();
 			String sql = "";
 
-			DatabaseMetaData md = c.getMetaData();
-			ResultSet rs = md.getTables(null, null, "game", null);
-			if (!rs.next()) {
-				sql = "CREATE TABLE game (" +
-						"gameid INT NOT NULL PRIMARY KEY," +
-						"game BLOB NOT NULL )";
-				stmt.executeUpdate(sql);
-				System.out.println("Table game created successfully");
-			}
-			md = c.getMetaData();
-			rs = md.getTables(null, null, "command", null);
-			if (!rs.next()) {
-				sql = "CREATE TABLE command (" +
-						"gameid INT NOT NULL," +
-						"commandid INT NOT NULL," +
-						"command BLOB NOT NULL, UNIQUE(gameid, commandid) ON CONFLICT IGNORE )";
-				stmt.executeUpdate(sql);
-				System.out.println("Table command created successfully");
-			}
-
-			rs = stmt.executeQuery( "SELECT * FROM game where gameid = "+ game.getGameID() +";" );
-//			if (!rs.next()) {
+			ResultSet rs = stmt.executeQuery( "SELECT * FROM game where gameid = "+ game.getGameID() +";" );
 			boolean game_exists = rs.next();
 			rs = stmt.executeQuery( "SELECT * FROM command where gameid = "+ game.getGameID() +";" );
 			int command_count = 0;
@@ -126,6 +140,12 @@ public class SQLGameDAO implements IGameDAO {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
 		}
+	}
+
+	private boolean tableExists(Connection connection, String table) throws SQLException {
+		DatabaseMetaData metaData = connection.getMetaData();
+		ResultSet rs = metaData.getTables(null, null, table, null);
+		return rs.next();
 	}
 
 	@Override
@@ -224,14 +244,14 @@ public class SQLGameDAO implements IGameDAO {
 	public void clear() {
 		Connection connection = getConnection();
 		try {
-			connection.setAutoCommit(false);
+//			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
-			String sql = "DROP TABLE IF EXISTS 'game'";
+			String sql = "DELETE from 'game';";
 			statement.executeUpdate(sql);
-			sql = "DROP TABLE IF EXISTS 'command'";
+			sql = "DELETE from 'command';";
 			statement.executeUpdate(sql);
 			statement.close();
-			connection.commit();
+//			connection.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

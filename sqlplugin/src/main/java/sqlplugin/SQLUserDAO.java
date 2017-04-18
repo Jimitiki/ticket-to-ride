@@ -14,14 +14,14 @@ public class SQLUserDAO implements IUserDAO {
 		if (connection != null) {
 			try {
 				Statement statement = connection.createStatement();
-
+//				connection.setAutoCommit(false);
 				if (!personTableExists(connection)) {
 					String sql = "CREATE  TABLE person (" +
 							"username TEXT NOT NULL PRIMARY KEY," +
-							"password TEXT NOT NULL )";
+							"password TEXT NOT NULL );";
 					statement.executeUpdate(sql);
+//					connection.commit();
 					statement.close();
-					connection.commit();
 				}
 			} catch (SQLException e) {
 				try {
@@ -95,12 +95,14 @@ public class SQLUserDAO implements IUserDAO {
 	public void clear() {
 		Connection connection = getConnection();
 		try {
-			connection.setAutoCommit(false);
-			Statement statement = connection.createStatement();
-			String sql = "DROP TABLE IF EXISTS 'person'";
-			statement.executeUpdate(sql);
-			statement.close();
-			connection.commit();
+			if (personTableExists(connection)) {
+//				connection.setAutoCommit(false);
+				Statement statement = connection.createStatement();
+				String sql = "DELETE from 'person';";
+				statement.executeUpdate(sql);
+				statement.close();
+//				connection.commit();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
