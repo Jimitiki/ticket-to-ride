@@ -73,4 +73,9 @@ public class BaseCommand implements Serializable, Comparable<BaseCommand> {
 	public int compareTo(BaseCommand o) {
 		return this.id - o.getId();
 	}
+
+	@Override
+	public String toString() {
+		return name + " : " + String.valueOf(id);
+	}
 }

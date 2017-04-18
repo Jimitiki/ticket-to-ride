@@ -143,6 +143,7 @@ public abstract class Player implements Serializable {
 
 	protected void internalSelectDestinationCards(ArrayList<DestCard> cards) {
 		destCards.addAll(cards);
+		destCardChoices = null;
 	}
 
 	public void claimRoute(Route route, CardColor cardsUsed, int goldCardCount) {
