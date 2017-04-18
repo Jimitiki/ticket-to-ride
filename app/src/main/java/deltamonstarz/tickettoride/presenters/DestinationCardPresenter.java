@@ -51,9 +51,12 @@ public class DestinationCardPresenter extends BasePresenter {
 	}
 
 	public void drawCards() {
-		DrawDestCardsCommand command = new DrawDestCardsCommand(model.getUsername(), model.getGameID());
-//		command.setExpires(true);
-		proxy.sendCommand(model.getAuthToken(),command );
+		if (model.getDestCardChoices() == null) {
+			DrawDestCardsCommand command = new DrawDestCardsCommand(model.getUsername(), model.getGameID());
+			proxy.sendCommand(model.getAuthToken(), command);
+		} else {
+			onDestinationCardDraw(model.getDestCardChoices(), model.getMinSelection());
+		}
 	}
 
 	public void reportSelection(ArrayList<DestCard> keptCards, ArrayList<DestCard> returnedCards) {
