@@ -36,7 +36,6 @@ import delta.monstarz.shared.commands.StartGameCommand;
 
 public class SQLGameDAO implements IGameDAO {
 	private int delta;
-	static Map<Integer, Integer> gameIDsToCommandCount;
 
 	public SQLGameDAO () {
 		delta = 10;
