@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import delta.monstarz.Server;
 import delta.monstarz.model.GameManager;
@@ -34,6 +36,7 @@ import delta.monstarz.shared.commands.StartGameCommand;
 
 public class SQLGameDAO implements IGameDAO {
 	private int delta;
+	static Map<Integer, Integer> gameIDsToCommandCount;
 
 	public SQLGameDAO () {
 		delta = 10;
@@ -74,30 +77,14 @@ public class SQLGameDAO implements IGameDAO {
 
 	@Override
 	public void addGame(Game game) {
-
 		if (Server.restoreMode){
 			return;
 		}
 
+		Connection connection = getConnection();
 		try {
-			PreparedStatement pstmt;
-			Statement stmt;
-			Connection c;
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
-			System.out.println("Opened database successfully");
-			c.setAutoCommit(false);
-
-			stmt = c.createStatement();
-			String sql = "";
-
-			ResultSet rs = stmt.executeQuery( "SELECT * FROM game where gameid = "+ game.getGameID() +";" );
-			boolean game_exists = rs.next();
-			rs = stmt.executeQuery( "SELECT * FROM command where gameid = "+ game.getGameID() +";" );
-			int command_count = 0;
-			while ( rs.next() ) {
-				command_count++;
-			}
+			connection.setAutoCommit(false);
+			int commandCount = getCommandCountByGameID(game.getGameID(), connection);
 
 			boolean gameIsStarting = false;
 			BaseCommand command = game.getMostRecentCommand();
@@ -105,47 +92,21 @@ public class SQLGameDAO implements IGameDAO {
 				gameIsStarting = true;
 			}
 
-			if (game_exists && command_count < delta && !gameIsStarting) { //copy map from the other plugin and use it to add commands until delta is reached.
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				ObjectOutputStream oos = new ObjectOutputStream(baos);
-				oos.writeObject(command);
-				byte[] commandAsBytes = baos.toByteArray();
-				pstmt = c.prepareStatement("INSERT INTO command (gameid, commandid, command) VALUES (" +
-						game.getGameID() + ", " +
-						command.getId() + ", ?)");
-				ByteArrayInputStream bais = new ByteArrayInputStream(commandAsBytes);
-				pstmt.setBinaryStream(1, bais, commandAsBytes.length);
-				pstmt.executeUpdate();
+			//If the last command to be executed was a startGameCommand,
+			//save the whole game no matter what
+			if (commandCount > delta || gameIsStarting) {
+				saveGame(game, connection);
 			} else {
-				//reset game delta to this.delta
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				ObjectOutputStream oos = new ObjectOutputStream(baos);
-				oos.writeObject(game);
-				byte[] gameAsBytes = baos.toByteArray();
-				pstmt = c.prepareStatement("REPLACE INTO game (gameid, game) VALUES (" +
-						game.getGameID() + ", ?)");
-				ByteArrayInputStream bais = new ByteArrayInputStream(gameAsBytes);
-				pstmt.setBinaryStream(1, bais, gameAsBytes.length);
-				pstmt.executeUpdate();
-
-				sql = "DELETE FROM command where gameid = " + game.getGameID();
-				stmt.executeUpdate(sql);
+				saveCommand(command, connection);
 			}
-
-			pstmt.close();
-			stmt.close();
-			c.commit();
-			c.close();
-		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	}
-
-	private boolean tableExists(Connection connection, String table) throws SQLException {
-		DatabaseMetaData metaData = connection.getMetaData();
-		ResultSet rs = metaData.getTables(null, null, table, null);
-		return rs.next();
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -188,15 +149,11 @@ public class SQLGameDAO implements IGameDAO {
 	@Override
 	public List<BaseCommand> getDeltaCommands(int gameId) {
 		ArrayList<BaseCommand> commands = new ArrayList<>();
+		Connection c = getConnection();
 		try {
-			Connection c;
-			Statement stmt;
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:ttr.db");
-			System.out.println("Opened database successfully");
 			c.setAutoCommit(false);
 
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			DatabaseMetaData md = c.getMetaData();
 			ResultSet rs = md.getTables(null, null, "command", null);
@@ -214,10 +171,14 @@ public class SQLGameDAO implements IGameDAO {
 
 			rs.close();
 			stmt.close();
-			c.close();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
+		}
+		try {
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		Collections.sort(commands);
 		return commands;
@@ -231,27 +192,17 @@ public class SQLGameDAO implements IGameDAO {
 		}
 	}
 
-	private Connection getConnection() {
-		try {
-			return DriverManager.getConnection("jdbc:sqlite:ttr.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 	@Override
 	public void clear() {
 		Connection connection = getConnection();
 		try {
-//			connection.setAutoCommit(false);
+			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
 			String sql = "DELETE from 'game';";
 			statement.executeUpdate(sql);
 			sql = "DELETE from 'command';";
 			statement.executeUpdate(sql);
 			statement.close();
-//			connection.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -259,6 +210,74 @@ public class SQLGameDAO implements IGameDAO {
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void saveGame(Game game, Connection connection) throws SQLException {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(game);
+			byte[] gameAsBytes = baos.toByteArray();
+			PreparedStatement preparedStatement = connection.prepareStatement("REPLACE INTO game " +
+					"(gameid, game) VALUES (" + game.getGameID() + ", ?)");
+			ByteArrayInputStream bais = new ByteArrayInputStream(gameAsBytes);
+			preparedStatement.setBinaryStream(1, bais, gameAsBytes.length);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+
+			Statement statement = connection.createStatement();
+			String sql = "DELETE FROM command where gameid = " + game.getGameID();
+			statement.executeUpdate(sql);
+			statement.close();
+
+			connection.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveCommand(BaseCommand command, Connection connection) throws SQLException {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(command);
+			byte[] commandAsBytes = baos.toByteArray();
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO command (gameid, " +
+					"commandid, command) VALUES (" + command.getGameID() + ", " + command.getId() + ", ?)");
+			ByteArrayInputStream bais = new ByteArrayInputStream(commandAsBytes);
+			statement.setBinaryStream(1, bais, commandAsBytes.length);
+			statement.executeUpdate();
+			statement.close();
+
+			connection.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private int getCommandCountByGameID(int gameID, Connection connection) throws SQLException{
+		Statement statement = connection.createStatement();
+		String sql = "SELECT COUNT(*) FROM 'command' WHERE 'gameID' == '" + gameID + "';";
+		ResultSet resultSet = statement.executeQuery(sql);
+		if (resultSet.next()) {
+			return resultSet.getInt(1);
+		}
+		return -1;
+	}
+
+	private boolean tableExists(Connection connection, String table) throws SQLException {
+		DatabaseMetaData metaData = connection.getMetaData();
+		ResultSet rs = metaData.getTables(null, null, table, null);
+		return rs.next();
+	}
+
+	private Connection getConnection() {
+		try {
+			return DriverManager.getConnection("jdbc:sqlite:ttr.db");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
